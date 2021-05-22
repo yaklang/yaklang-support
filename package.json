@@ -1,0 +1,25 @@
+{
+    "name": "yak",
+    "displayName": "yaklang",
+    "description": "YAK渗透测试语言",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.56.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "yak",
+            "aliases": ["Yak", "yak"],
+            "extensions": ["yak"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "yak",
+            "scopeName": "source.yak",
+            "path": "./syntaxes/yak.tmLanguage.json"
+        }]
+    }
+}
