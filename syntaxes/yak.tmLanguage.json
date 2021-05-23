@@ -10,16 +10,16 @@
 			"begin": "\"",
 			"beginCaptures": {
 				"0": {
-					"name": "punctuation.definition.string.begin.go"
+					"name": "punctuation.definition.string.begin.yak"
 				}
 			},
 			"end": "\"",
 			"endCaptures": {
 				"0": {
-					"name": "punctuation.definition.string.end.go"
+					"name": "punctuation.definition.string.end.yak"
 				}
 			},
-			"name": "string.quoted.double.go",
+			"name": "string.quoted.double.yak",
 			"patterns": [
 				{
 					"include": "#string_escaped_char"
@@ -34,16 +34,16 @@
 			"begin": "`",
 			"beginCaptures": {
 				"0": {
-					"name": "punctuation.definition.string.begin.go"
+					"name": "punctuation.definition.string.begin.yak"
 				}
 			},
 			"end": "`",
 			"endCaptures": {
 				"0": {
-					"name": "punctuation.definition.string.end.go"
+					"name": "punctuation.definition.string.end.yak"
 				}
 			},
-			"name": "string.quoted.raw.go",
+			"name": "string.quoted.raw.yak",
 			"patterns": [
 				{
 					"include": "#string_placeholder"
@@ -55,7 +55,7 @@
 			"match": "<\\-([\\t ]+)chan\\b",
 			"captures": {
 				"1": {
-					"name": "invalid.illegal.receive-channel.go"
+					"name": "invalid.illegal.receive-channel.yak"
 				}
 			}
 		},
@@ -64,7 +64,7 @@
 			"match": "\\bchan([\\t ]+)<-",
 			"captures": {
 				"1": {
-					"name": "invalid.illegal.send-channel.go"
+					"name": "invalid.illegal.send-channel.yak"
 				}
 			}
 		},
@@ -73,26 +73,31 @@
 			"match": "\\[\\](\\s+)",
 			"captures": {
 				"1": {
-					"name": "invalid.illegal.slice.go"
+					"name": "invalid.illegal.slice.yak"
 				}
 			}
 		},
 		{
 			"comment": "Syntax error numeric literals",
 			"match": "\\b0[0-7]*[89]\\d*\\b",
-			"name": "invalid.illegal.numeric.go"
+			"name": "invalid.illegal.numeric.yak"
 		},
 		{
 			"comment": "Built-in functions",
-			"match": "\\b(append|cap|close|complex|copy|delete|imag|len|make|new|panic|print|println|real|recover)\\b(?=\\()",
-			"name": "support.function.builtin.go"
+			"match": "\\b(append|copy|delete|get|len|cap|mkmap|mapFrom|mapOf|panic|panicf|print|printf|println|fprintln|set|mkslice|slice|sliceOf|sub|make|close)\\b(?=\\()",
+			"name": "support.function.builtin.yak"
+		},
+		{
+			"comment": "Built-in Type Convertion Functions",
+			"match": "\\b(float|float64|float32|int8|int16|int32|int64|int|uint|byte|uint8|uint16|uint64|string|bool|var|type|max|min)\\b(?=\\()",
+			"name": "support.function.builtin.yak"
 		},
 		{
 			"comment": "Function declarations",
 			"match": "^(\\bfunc\\b)(?:\\s+(\\([^\\)]+\\)\\s+)?(\\w+)(?=\\())?",
 			"captures": {
 				"1": {
-					"name": "keyword.function.go"
+					"name": "keyword.function.yak"
 				},
 				"2": {
 					"patterns": [
@@ -108,11 +113,11 @@
 					"patterns": [
 						{
 							"match": "\\d\\w*",
-							"name": "invalid.illegal.identifier.go"
+							"name": "invalid.illegal.identifier.yak"
 						},
 						{
 							"match": "\\w+",
-							"name": "entity.name.function.go"
+							"name": "entity.name.function.yak"
 						}
 					]
 				}
@@ -123,17 +128,17 @@
 			"match": "(\\bfunc\\b)|(\\w+)(?=\\()",
 			"captures": {
 				"1": {
-					"name": "keyword.function.go"
+					"name": "keyword.function.yak"
 				},
 				"2": {
 					"patterns": [
 						{
 							"match": "\\d\\w*",
-							"name": "invalid.illegal.identifier.go"
+							"name": "invalid.illegal.identifier.yak"
 						},
 						{
 							"match": "\\w+",
-							"name": "support.function.go"
+							"name": "support.function.yak"
 						}
 					]
 				}
@@ -142,34 +147,34 @@
 		{
 			"comment": "Floating-point literals",
 			"match": "(\\.\\d+([Ee][-+]\\d+)?i?)\\b|\\b\\d+\\.\\d*(([Ee][-+]\\d+)?i?\\b)?",
-			"name": "constant.numeric.floating-point.go"
+			"name": "constant.numeric.floating-point.yak"
 		},
 		{
 			"comment": "Integers",
 			"match": "\\b((0x[0-9a-fA-F]+)|(0[0-7]+i?)|(\\d+([Ee]\\d+)?i?)|(\\d+[Ee][-+]\\d+i?))\\b",
-			"name": "constant.numeric.integer.go"
+			"name": "constant.numeric.integer.yak"
 		},
 		{
 			"comment": "Language constants",
-			"match": "\\b(true|false|nil|iota)\\b",
-			"name": "constant.language.go"
+			"match": "\\b(true|false|nil|undefined)\\b",
+			"name": "constant.language.yak"
 		},
 		{
 			"begin": "\\b(package)\\s+",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.package.go"
+					"name": "keyword.package.yak"
 				}
 			},
 			"end": "(?!\\G)",
 			"patterns": [
 				{
 					"match": "\\d\\w*",
-					"name": "invalid.illegal.identifier.go"
+					"name": "invalid.illegal.identifier.yak"
 				},
 				{
 					"match": "\\w+",
-					"name": "entity.name.package.go"
+					"name": "entity.name.package.yak"
 				}
 			]
 		},
@@ -177,18 +182,18 @@
 			"begin": "\\b(type)\\s+",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.type.go"
+					"name": "keyword.type.yak"
 				}
 			},
 			"end": "(?!\\G)",
 			"patterns": [
 				{
 					"match": "\\d\\w*",
-					"name": "invalid.illegal.identifier.go"
+					"name": "invalid.illegal.identifier.yak"
 				},
 				{
 					"match": "\\w+",
-					"name": "entity.name.type.go"
+					"name": "entity.name.type.yak"
 				}
 			]
 		},
@@ -196,7 +201,7 @@
 			"begin": "\\b(import)\\s+",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.import.go"
+					"name": "keyword.import.yak"
 				}
 			},
 			"end": "(?!\\G)",
@@ -210,7 +215,7 @@
 			"begin": "\\b(var)\\s+",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.var.go"
+					"name": "keyword.var.yak"
 				}
 			},
 			"end": "(?!\\G)",
@@ -227,11 +232,11 @@
 					"patterns": [
 						{
 							"match": "\\d\\w*",
-							"name": "invalid.illegal.identifier.go"
+							"name": "invalid.illegal.identifier.yak"
 						},
 						{
 							"match": "\\w+(?:\\.\\w+)*",
-							"name": "variable.other.assignment.go",
+							"name": "variable.other.assignment.yak",
 							"captures": {
 								"0": {
 									"patterns": [
@@ -256,11 +261,11 @@
 					"patterns": [
 						{
 							"match": "\\d\\w*",
-							"name": "invalid.illegal.identifier.go"
+							"name": "invalid.illegal.identifier.yak"
 						},
 						{
 							"match": "\\w+",
-							"name": "variable.other.assignment.go"
+							"name": "variable.other.assignment.yak"
 						},
 						{
 							"include": "#delimiters"
@@ -272,7 +277,7 @@
 		{
 			"comment": "Terminators",
 			"match": ";",
-			"name": "punctuation.terminator.go"
+			"name": "punctuation.terminator.yak"
 		},
 		{
 			"include": "#brackets"
@@ -300,13 +305,13 @@
 					"begin": "{",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.begin.bracket.curly.go"
+							"name": "punctuation.definition.begin.bracket.curly.yak"
 						}
 					},
 					"end": "}",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.end.bracket.curly.go"
+							"name": "punctuation.definition.end.bracket.curly.yak"
 						}
 					},
 					"patterns": [
@@ -319,13 +324,13 @@
 					"begin": "\\(",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.begin.bracket.round.go"
+							"name": "punctuation.definition.begin.bracket.round.yak"
 						}
 					},
 					"end": "\\)",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.end.bracket.round.go"
+							"name": "punctuation.definition.end.bracket.round.yak"
 						}
 					},
 					"patterns": [
@@ -336,7 +341,7 @@
 				},
 				{
 					"match": "\\[|\\]",
-					"name": "punctuation.definition.bracket.square.go"
+					"name": "punctuation.definition.bracket.square.yak"
 				}
 			]
 		},
@@ -347,20 +352,20 @@
 					"end": "\\*/",
 					"captures": {
 						"0": {
-							"name": "punctuation.definition.comment.go"
+							"name": "punctuation.definition.comment.yak"
 						}
 					},
-					"name": "comment.block.go"
+					"name": "comment.block.yak"
 				},
 				{
 					"begin": "//",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.comment.go"
+							"name": "punctuation.definition.comment.yak"
 						}
 					},
 					"end": "$",
-					"name": "comment.line.double-slash.go"
+					"name": "comment.line.double-slash.yak"
 				}
 			]
 		},
@@ -368,15 +373,15 @@
 			"patterns": [
 				{
 					"match": ",",
-					"name": "punctuation.other.comma.go"
+					"name": "punctuation.other.comma.yak"
 				},
 				{
 					"match": "\\.(?!\\.\\.)",
-					"name": "punctuation.other.period.go"
+					"name": "punctuation.other.period.yak"
 				},
 				{
 					"match": ":(?!=)",
-					"name": "punctuation.other.colon.go"
+					"name": "punctuation.other.colon.yak"
 				}
 			]
 		},
@@ -386,19 +391,19 @@
 					"match": "((?!\\s+\")[^\\s]*)?\\s*((\")([^\"]*)(\"))",
 					"captures": {
 						"1": {
-							"name": "entity.alias.import.go"
+							"name": "entity.alias.import.yak"
 						},
 						"2": {
-							"name": "string.quoted.double.go"
+							"name": "string.quoted.double.yak"
 						},
 						"3": {
-							"name": "punctuation.definition.string.begin.go"
+							"name": "punctuation.definition.string.begin.yak"
 						},
 						"4": {
-							"name": "entity.name.import.go"
+							"name": "entity.name.import.yak"
 						},
 						"5": {
-							"name": "punctuation.definition.string.end.go"
+							"name": "punctuation.definition.string.end.yak"
 						}
 					}
 				},
@@ -406,13 +411,13 @@
 					"begin": "\\(",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.imports.begin.bracket.round.go"
+							"name": "punctuation.definition.imports.begin.bracket.round.yak"
 						}
 					},
 					"end": "\\)",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.imports.end.bracket.round.go"
+							"name": "punctuation.definition.imports.end.bracket.round.yak"
 						}
 					},
 					"patterns": [
@@ -431,31 +436,39 @@
 				{
 					"comment": "Flow control keywords",
 					"match": "\\b(break|case|continue|default|defer|else|fallthrough|for|go|goto|if|range|return|select|switch)\\b",
-					"name": "keyword.control.go"
+					"name": "keyword.control.yak"
 				},
 				{
 					"match": "\\bchan\\b",
-					"name": "keyword.channel.go"
+					"name": "keyword.channel.yak"
 				},
 				{
 					"match": "\\bconst\\b",
-					"name": "keyword.const.go"
+					"name": "keyword.const.yak"
 				},
 				{
 					"match": "\\bfunc\\b",
-					"name": "keyword.function.go"
+					"name": "keyword.function.yak"
+				},
+				{
+					"match": "\\bfn\\b",
+					"name": "keyword.function.yak"
+				},
+				{
+					"match": "\\bdef\\b",
+					"name": "keyword.function.yak"
 				},
 				{
 					"match": "\\binterface\\b",
-					"name": "keyword.interface.go"
+					"name": "keyword.interface.yak"
 				},
 				{
 					"match": "\\bmap\\b",
-					"name": "keyword.map.go"
+					"name": "keyword.map.yak"
 				},
 				{
 					"match": "\\bstruct\\b",
-					"name": "keyword.struct.go"
+					"name": "keyword.struct.yak"
 				}
 			]
 		},
@@ -464,43 +477,43 @@
 			"patterns": [
 				{
 					"match": "(\\*|&)(?=\\w)",
-					"name": "keyword.operator.address.go"
+					"name": "keyword.operator.address.yak"
 				},
 				{
 					"match": "<\\-",
-					"name": "keyword.operator.channel.go"
+					"name": "keyword.operator.channel.yak"
 				},
 				{
 					"match": "\\-\\-",
-					"name": "keyword.operator.decrement.go"
+					"name": "keyword.operator.decrement.yak"
 				},
 				{
 					"match": "\\+\\+",
-					"name": "keyword.operator.increment.go"
+					"name": "keyword.operator.increment.yak"
 				},
 				{
 					"match": "(==|!=|<=|>=|<(?!<)|>(?!>))",
-					"name": "keyword.operator.comparison.go"
+					"name": "keyword.operator.comparison.yak"
 				},
 				{
 					"match": "(&&|\\|\\||!)",
-					"name": "keyword.operator.logical.go"
+					"name": "keyword.operator.logical.yak"
 				},
 				{
 					"match": "(=|\\+=|\\-=|\\|=|\\^=|\\*=|/=|:=|%=|<<=|>>=|&\\^=|&=)",
-					"name": "keyword.operator.assignment.go"
+					"name": "keyword.operator.assignment.yak"
 				},
 				{
 					"match": "(\\+|\\-|\\*|/|%)",
-					"name": "keyword.operator.arithmetic.go"
+					"name": "keyword.operator.arithmetic.yak"
 				},
 				{
 					"match": "(&(?!\\^)|\\||\\^|&\\^|<<|>>)",
-					"name": "keyword.operator.arithmetic.bitwise.go"
+					"name": "keyword.operator.arithmetic.bitwise.yak"
 				},
 				{
 					"match": "\\.\\.\\.",
-					"name": "keyword.operator.ellipsis.go"
+					"name": "keyword.operator.ellipsis.yak"
 				}
 			]
 		},
@@ -510,24 +523,24 @@
 					"begin": "'",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.string.begin.go"
+							"name": "punctuation.definition.string.begin.yak"
 						}
 					},
 					"end": "'",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.string.end.go"
+							"name": "punctuation.definition.string.end.yak"
 						}
 					},
-					"name": "string.quoted.rune.go",
+					"name": "string.quoted.rune.yak",
 					"patterns": [
 						{
 							"match": "\\G(\\\\([0-7]{3}|[abfnrtv\\\\'\"]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})|.)(?=')",
-							"name": "constant.other.rune.go"
+							"name": "constant.other.rune.yak"
 						},
 						{
 							"match": "[^']+",
-							"name": "invalid.illegal.unknown-rune.go"
+							"name": "invalid.illegal.unknown-rune.yak"
 						}
 					]
 				}
@@ -537,31 +550,27 @@
 			"patterns": [
 				{
 					"match": "\\bbool\\b",
-					"name": "storage.type.boolean.go"
+					"name": "storage.type.boolean.yak"
 				},
 				{
 					"match": "\\bbyte\\b",
-					"name": "storage.type.byte.go"
+					"name": "storage.type.byte.yak"
 				},
 				{
 					"match": "\\berror\\b",
-					"name": "storage.type.error.go"
+					"name": "storage.type.error.yak"
 				},
 				{
-					"match": "\\b(complex(64|128)|float(32|64)|u?int(8|16|32|64)?)\\b",
-					"name": "storage.type.numeric.go"
+					"match": "\\b(int|float)\\b",
+					"name": "storage.type.numeric.yak"
 				},
 				{
-					"match": "\\brune\\b",
-					"name": "storage.type.rune.go"
+					"match": "\\bvar\\b",
+					"name": "storage.type"
 				},
 				{
 					"match": "\\bstring\\b",
-					"name": "storage.type.string.go"
-				},
-				{
-					"match": "\\buintptr\\b",
-					"name": "storage.type.uintptr.go"
+					"name": "storage.type.string.yak"
 				}
 			]
 		},
@@ -569,11 +578,11 @@
 			"patterns": [
 				{
 					"match": "\\\\([0-7]{3}|[abfnrtv\\\\'\"]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})",
-					"name": "constant.character.escape.go"
+					"name": "constant.character.escape.yak"
 				},
 				{
 					"match": "\\\\[^0-7xuUabfnrtv\\'\"]",
-					"name": "invalid.illegal.unknown-escape.go"
+					"name": "invalid.illegal.unknown-escape.yak"
 				}
 			]
 		},
@@ -581,7 +590,7 @@
 			"patterns": [
 				{
 					"match": "%(\\[\\d+\\])?([\\+#\\-0\\x20]{,2}((\\d+|\\*)?(\\.?(\\d+|\\*|(\\[\\d+\\])\\*?)?(\\[\\d+\\])?)?))?[vT%tbcdoqxXUbeEfFgGsp]",
-					"name": "constant.other.placeholder.go"
+					"name": "constant.other.placeholder.yak"
 				}
 			]
 		},
@@ -594,11 +603,11 @@
 							"patterns": [
 								{
 									"match": "\\d\\w*",
-									"name": "invalid.illegal.identifier.go"
+									"name": "invalid.illegal.identifier.yak"
 								},
 								{
 									"match": "\\w+",
-									"name": "variable.other.assignment.go"
+									"name": "variable.other.assignment.yak"
 								},
 								{
 									"include": "#delimiters"
@@ -621,11 +630,11 @@
 							"patterns": [
 								{
 									"match": "\\d\\w*",
-									"name": "invalid.illegal.identifier.go"
+									"name": "invalid.illegal.identifier.yak"
 								},
 								{
 									"match": "\\w+",
-									"name": "variable.other.declaration.go"
+									"name": "variable.other.declaration.yak"
 								},
 								{
 									"include": "#delimiters"
@@ -645,13 +654,13 @@
 					"begin": "\\(",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.variables.begin.bracket.round.go"
+							"name": "punctuation.definition.variables.begin.bracket.round.yak"
 						}
 					},
 					"end": "\\)",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.variables.end.bracket.round.go"
+							"name": "punctuation.definition.variables.end.bracket.round.yak"
 						}
 					},
 					"patterns": [
