@@ -7,9 +7,19 @@
         "vscode": "^1.56.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages", "Snippets"
     ],
     "contributes": {
+        "snippets": [
+            {
+                "language": "yak",
+                "path": "./snippets/snippets.json"
+            },
+            {
+                "language": "yak",
+                "path": "./snippets/http_snippets.json"
+            }
+        ],
         "languages": [{
             "id": "yak",
             "aliases": ["Yak", "yak"],

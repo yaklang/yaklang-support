@@ -1,0 +1,43 @@
+{
+	"http.Get(url): (http.Response, error)  发起 GET 请求": {
+		"prefix": "http.Get",
+		"body": [
+            "rsp, err = http.Get(${1:url})",
+            "${2:die(err)}",
+            "$3"
+		],
+		"description": "发起 HTTP GET 请求"
+	},
+    "http.Post(url, http.body(CONTENT)): (http.Response, error)  发起 POST 请求": {
+		"prefix": "http.Post",
+		"body": [
+            "rsp, err = http.Post(${1:url}, http.body(${2:body}))",
+            "${3:die(err)}",
+            "$4"
+		],
+		"description": "发起 HTTP GET 请求"
+	},
+    "http.header(KEY, VALUE)   设置 http 请求的 headers": {
+        "prefix": "http.header",
+        "body": [
+            "http.header(${1:\"X-Header\"}, ${2:\"Header-Value\"}),"
+        ]
+    },
+    "http.body(\"BodyContent\") 设置 http 请求的 Body": {
+        "prefix": "http.body",
+        "body": [
+            "http.body(${1:body}),"
+        ]
+    },
+    "http.NewRequest(`GET`, url, ...httpOptions): (http.Request, error)": {
+        "prefix": "http.NewRequest",
+        "body": [
+            "req, err = http.NewRequest(${1:`GET`}, ${2:url}, $3)",
+            "${4:die(err)}",
+            "",
+            "rsp, err = http.Do(req)",
+            "${5:die(err)}",
+            "$6"
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+{
+	"Go Function": {
+		"prefix": "go",
+		"body": [
+            "go fn() {",
+            "    ${1:/* concurrent body */}",
+            "}()"
+		],
+		"description": "Log output to console"
+	},
+    "loglevel(`info`|`warn`|`error`) 设置日志级别": {
+        "prefix": "loglevel",
+        "body": [
+            "loglevel(${1:`info`})",
+            "$2"
+        ]
+    },
+    "uuid(): string":{
+        "prefix": "uuid",
+        "body": [
+            "uid = uuid()",
+            "$1"
+        ]
+    },
+    "die(err) 如果遇到错误直接结束脚本": {
+        "prefix": "die",
+        "body": [
+            "die(${1:err})",
+            "$2"
+        ]
+    }
+
+}

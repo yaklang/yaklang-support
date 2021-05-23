@@ -94,7 +94,7 @@
 		},
 		{
 			"comment": "Function declarations",
-			"match": "^(\\bfunc\\b)(?:\\s+(\\([^\\)]+\\)\\s+)?(\\w+)(?=\\())?",
+			"match": "^(\\bfunc|fn|def\\b)(?:\\s+(\\([^\\)]+\\)\\s+)?(\\w+)(?=\\())?",
 			"captures": {
 				"1": {
 					"name": "keyword.function.yak"
