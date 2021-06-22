@@ -21,10 +21,6 @@
             {
                 "language": "yak",
                 "path": "./snippets/snippets.json"
-            },
-            {
-                "language": "yak",
-                "path": "./snippets/http_snippets.json"
             }
         ],
         "languages": [

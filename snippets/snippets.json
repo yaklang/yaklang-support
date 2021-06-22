@@ -1,13 +1,23 @@
 {
-	"Go Function": {
-		"prefix": "go",
-		"body": [
+    "Err": {
+        "prefix": "err",
+        "body": [
+            "if err != nil {",
+            "    die(err)",
+            "}",
+            "${1}"
+        ],
+        "description": "Log output to console"
+    },
+    "Go Function": {
+        "prefix": "go",
+        "body": [
             "go fn() {",
             "    ${1:/* concurrent body */}",
             "}()"
-		],
-		"description": "Log output to console"
-	},
+        ],
+        "description": "Log output to console"
+    },
     "loglevel(`info`|`warn`|`error`) 设置日志级别": {
         "prefix": "loglevel",
         "body": [
@@ -15,7 +25,7 @@
             "$2"
         ]
     },
-    "uuid(): string":{
+    "uuid(): string": {
         "prefix": "uuid",
         "body": [
             "uid = uuid()",
@@ -29,5 +39,4 @@
             "$2"
         ]
     }
-
 }
