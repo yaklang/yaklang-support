@@ -7,8 +7,15 @@
         "vscode": "^1.56.0"
     },
     "categories": [
-        "Programming Languages", "Snippets"
+        "Programming Languages",
+        "Extension Packs",
+        "Snippets",
+        "Language Packs"
     ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension.js",
     "contributes": {
         "snippets": [
             {
@@ -20,16 +27,39 @@
                 "path": "./snippets/http_snippets.json"
             }
         ],
-        "languages": [{
-            "id": "yak",
-            "aliases": ["Yak", "yak"],
-            "extensions": ["yak"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "yak",
-            "scopeName": "source.yak",
-            "path": "./syntaxes/yak.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "yak",
+                "aliases": [
+                    "Yak",
+                    "yak"
+                ],
+                "extensions": [
+                    "yak"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yak",
+                "scopeName": "source.yak",
+                "path": "./syntaxes/yak.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint . --ext .ts,.tsx",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.0",
+        "@types/vscode": "^1.32.0",
+        "@typescript-eslint/eslint-plugin": "^4.16.0",
+        "@typescript-eslint/parser": "^4.16.0",
+        "eslint": "^7.21.0",
+        "typescript": "^4.3.2"
     }
 }
