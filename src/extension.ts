@@ -5,31 +5,82 @@
 import * as vscode from 'vscode';
 import { CompletionSchema, getCompletions } from './completionSchema';
 
+const completions = getCompletions();
+
 export function activate(context: vscode.ExtensionContext) {
+    const hoverProvider = vscode.languages.registerSignatureHelpProvider(
+        "yak",
+        {
+            provideSignatureHelp(document: vscode.TextDocument, position: vscode.Position, token, context) {
+                const helper = new vscode.SignatureHelp();
+
+                const lineText = document.lineAt(position.line);
+
+                let funcNames = [];
+                let field = 1;
+                let activeParameter = 0;
+                let inString = false;
+
+                // 向前寻找
+                for (let i = position.character - 1; i >= 0; i--) {
+                    const char = lineText.text.charAt(i);
+                    if (field > 0) {
+                        if (!inString && char == '"') {
+                            // 双引号 字符串展开 
+                            inString = true
+                        } else if (inString && char == '"' && lineText.text.charAt(i - 1) != '\\') {
+                            // 双引号 字符串闭合
+                            inString = false
+                        } else if (!inString && char == '(') {
+                            field--;
+                        } else if (!inString && char == ')') {
+                            field++;
+                        } else if (!inString && char == ',') {
+                            activeParameter++
+                        }
+                    } else if (field == 0) {
+                        if (funcNames.length == 0 && /\s/.test(char)) {
+                            continue;
+                        } else if (/\w/.test(char)) {
+
+                            funcNames.push(char)
+
+                            if (funcNames.length > 0 && (/\W/.test(lineText.text.charAt(i - 1)) || i == 0)) {
+                                const funcName = funcNames.reverse().join("");
+                                // const SignatureInformation = new vscode.SignatureInformation(`${func.id}(${func.takes.length > 0 ? func.takes.map(x => x.origin()).join(", ") : ""}) -> ${func.returns ?? "nothing"}`);
+                                // SignatureInformation.documentation = new vscode.MarkdownString().appendText(program.description(func));
+                                completions.libCompletions.forEach(lib => {
+                                    lib.functions.forEach(func => {
+                                        if (func.functionName.substr(0, func.functionName.indexOf('(')) == funcName) {
+                                            const sigInfo = new vscode.SignatureInformation(`Guess: ${func.definitionStr}`);
+                                            sigInfo.documentation = new vscode.MarkdownString(func.document || "### sorry no doc for now...")
+                                            helper.activeParameter = activeParameter
+                                            helper.signatures.push(sigInfo)
+                                        }
+                                    })
+                                })
+
+                                break
+                            }
+                        }
+                    }
+                }
+
+                return helper;
+            }
+        },
+        "(", ","
+    )
     const provider2 = vscode.languages.registerCompletionItemProvider(
         'yak',
         {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-
-
-                /**
-                 * 
-                 * 生成一个 snippets
-                 */
-                // // a completion item that inserts its text as snippet,
-                // // the `insertText`-property is a `SnippetString` which will be
-                // // honored by the editor.
-                // const snippetCompletion = new vscode.CompletionItem('Good part of the day');
-                // snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
-                // snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
-
                 // get all text until the `position` and check if it reads `console.`
                 // and if so then complete if `log`, `warn`, and `error`
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
-                let comletionTotal = getCompletions();
                 let items: vscode.CompletionItem[] = []
 
-                comletionTotal.libCompletions.forEach(e => {
+                completions.libCompletions.forEach(e => {
                     if (!linePrefix.endsWith(e.prefix)) {
                         return
                     }
@@ -46,7 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
                 })
 
                 if (items.length <= 0) {
-                    return comletionTotal.libNames.map(i => new vscode.CompletionItem(i))
+                    return completions.libNames.map(i => new vscode.CompletionItem(i))
                 }
                 return [
                     ...items,
