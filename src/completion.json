@@ -1,267 +1,265 @@
 {
   "libNames": [
-    "file",
-    "re",
-    "mmdb",
-    "mitm",
-    "exec",
-    "httpserver",
-    "http",
-    "context",
-    "cli",
-    "dictutil",
-    "tls",
-    "time",
-    "os",
-    "json",
-    "crawler",
-    "str",
-    "log",
-    "httpool",
-    "sync",
-    "tools",
-    "geojson",
-    "tcp",
     "spacengine",
+    "httpool",
+    "time",
+    "tcp",
+    "log",
+    "mmdb",
+    "httpserver",
+    "dictutil",
+    "sync",
+    "cli",
+    "str",
+    "os",
+    "file",
+    "tools",
+    "re",
+    "servicescan",
+    "crawler",
+    "mitm",
     "dyn",
+    "tls",
+    "fuzz",
+    "http",
     "synscan",
+    "json",
+    "grok",
     "subdomain",
     "io",
-    "grok",
+    "geojson",
+    "context",
     "codec",
-    "fuzz",
-    "servicescan"
+    "exec"
   ],
   "libCompletions": [
     {
-      "libName": "file",
-      "prefix": "file.",
+      "libName": "spacengine",
+      "prefix": "spacengine.",
       "functions": [
         {
-          "functionName": "Abs(${1:v1} /*type: string*/)",
+          "functionName": "FofaQuery(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type: string*/, ${4:v4} /*type ...[]yaklib._spaceEngineConfigOpt*/)",
           "document": "",
-          "definitionStr": "func file.Abs(v1: string) return (r0: string)"
+          "definitionStr": "func spacengine.FofaQuery(v1: string, v2: string, v3: string, v4 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "Cat(${1:v1} /*type: string*/)",
+          "functionName": "QuakeQuery(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib._spaceEngineConfigOpt*/)",
           "document": "",
-          "definitionStr": "`func file.Cat(v1: string)`"
+          "definitionStr": "func spacengine.QuakeQuery(v1: string, v2: string, v3 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "Cp(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "functionName": "ShodanQuery(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib._spaceEngineConfigOpt*/)",
           "document": "",
-          "definitionStr": "func file.Cp(v1: string, v2: string) return (r0: error)"
+          "definitionStr": "func spacengine.ShodanQuery(v1: string, v2: string, v3 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "Create(${1:v1} /*type: string*/)",
+          "functionName": "maxPage(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func file.Create(v1: string) return (r0: *yaklib._yakFile, r1: error)"
+          "definitionStr": "func spacengine.maxPage(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
         },
         {
-          "functionName": "DeepLs(${1:v1} /*type: string*/)",
+          "functionName": "maxRecord(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func file.DeepLs(v1: string) return (r0: []*utils.FileInfo)"
-        },
-        {
-          "functionName": "Dir(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Dir(v1: string) return (r0: []*utils.FileInfo)"
-        },
-        {
-          "functionName": "IsAbs(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.IsAbs(v1: string) return (r0: bool)"
-        },
-        {
-          "functionName": "IsDir(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.IsDir(v1: string) return (r0: bool)"
-        },
-        {
-          "functionName": "IsExisted(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.IsExisted(v1: string) return (r0: bool)"
-        },
-        {
-          "functionName": "IsFile(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.IsFile(v1: string) return (r0: bool)"
-        },
-        {
-          "functionName": "IsLink(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.IsLink(v1: string) return (r0: bool)"
-        },
-        {
-          "functionName": "Join(${1:v1} /*type ...[]string*/)",
-          "document": "",
-          "definitionStr": "func file.Join(v1 ...[]string) return (r0: string)"
-        },
-        {
-          "functionName": "Ls(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Ls(v1: string) return (r0: []*utils.FileInfo)"
-        },
-        {
-          "functionName": "Lstat(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Lstat(v1: string) return (r0: fs.FileInfo, r1: error)"
-        },
-        {
-          "functionName": "Mkdir(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Mkdir(v1: string) return (r0: error)"
-        },
-        {
-          "functionName": "MkdirAll(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.MkdirAll(v1: string) return (r0: error)"
-        },
-        {
-          "functionName": "Mv(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Mv(v1: string, v2: string) return (r0: error)"
-        },
-        {
-          "functionName": "Open(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Open(v1: string) return (r0: *yaklib._yakFile, r1: error)"
-        },
-        {
-          "functionName": "OpenFile(${1:v1} /*type: string*/, ${2:v2} /*type: int*/, ${3:v3} /*type: fs.FileMode*/)",
-          "document": "",
-          "definitionStr": "func file.OpenFile(v1: string, v2: int, v3: fs.FileMode) return (r0: *yaklib._yakFile, r1: error)"
-        },
-        {
-          "functionName": "ReadAll(${1:v1} /*type: io.Reader*/)",
-          "document": "",
-          "definitionStr": "func file.ReadAll(v1: io.Reader) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "ReadFile(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.ReadFile(v1: string) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "Remove(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Remove(v1: string) return (r0: error)"
-        },
-        {
-          "functionName": "Rename(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Rename(v1: string, v2: string) return (r0: error)"
-        },
-        {
-          "functionName": "Rm(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Rm(v1: string) return (r0: error)"
-        },
-        {
-          "functionName": "Save(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func file.Save(v1: string, v2: interface {}) return (r0: error)"
-        },
-        {
-          "functionName": "SaveJson(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func file.SaveJson(v1: string, v2: interface {}) return (r0: error)"
-        },
-        {
-          "functionName": "Stat(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.Stat(v1: string) return (r0: fs.FileInfo, r1: error)"
-        },
-        {
-          "functionName": "TempFile(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func file.TempFile(v1: string) return (r0: *yaklib._yakFile, r1: error)"
+          "definitionStr": "func spacengine.maxRecord(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
         }
       ]
     },
     {
-      "libName": "re",
-      "prefix": "re.",
+      "libName": "httpool",
+      "prefix": "httpool.",
       "functions": [
         {
-          "functionName": "Compile(${1:v1} /*type: string*/)",
+          "functionName": "Pool(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]mutate.httpPoolConfigOption*/)",
           "document": "",
-          "definitionStr": "func re.Compile(v1: string) return (r0: *regexp.Regexp, r1: error)"
+          "definitionStr": "func httpool.Pool(v1: interface {}, v2 ...[]mutate.httpPoolConfigOption) return (r0: chan *mutate._httpResult, r1: error)"
         },
         {
-          "functionName": "CompilePOSIX(${1:v1} /*type: string*/)",
+          "functionName": "host(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func re.CompilePOSIX(v1: string) return (r0: *regexp.Regexp, r1: error)"
+          "definitionStr": "func httpool.host(v1: string) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
-          "functionName": "ExtractEmail(${1:v1} /*type: interface {}*/)",
+          "functionName": "https(${1:v1} /*type: bool*/)",
           "document": "",
-          "definitionStr": "func re.ExtractEmail(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func httpool.https(v1: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
-          "functionName": "ExtractHostPort(${1:v1} /*type: interface {}*/)",
+          "functionName": "perRequestTimeout(${1:v1} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func re.ExtractHostPort(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func httpool.perRequestTimeout(v1: float64) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
-          "functionName": "ExtractIP(${1:v1} /*type: interface {}*/)",
+          "functionName": "port(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func re.ExtractIP(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func httpool.port(v1: int) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
-          "functionName": "ExtractIPv4(${1:v1} /*type: interface {}*/)",
+          "functionName": "size(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func re.ExtractIPv4(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func httpool.size(v1: int) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+        }
+      ]
+    },
+    {
+      "libName": "time",
+      "prefix": "time.",
+      "functions": [
+        {
+          "functionName": "After(${1:v1} /*type: float64*/)",
+          "document": "",
+          "definitionStr": "func time.After(v1: float64) return (r0: \u003c-chan time.Time)"
         },
         {
-          "functionName": "ExtractIPv6(${1:v1} /*type: interface {}*/)",
+          "functionName": "AfterFunc(${1:v1} /*type: time.Duration*/, ${2:v2} /*type: func () */)",
           "document": "",
-          "definitionStr": "func re.ExtractIPv6(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func time.AfterFunc(v1: time.Duration, v2: func () ) return (r0: *time.Timer)"
         },
         {
-          "functionName": "ExtractMac(${1:v1} /*type: interface {}*/)",
+          "functionName": "GetCurrentDate()",
           "document": "",
-          "definitionStr": "func re.ExtractMac(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func time.GetCurrentDate() return (r0: time.Time, r1: error)"
         },
         {
-          "functionName": "ExtractPath(${1:v1} /*type: interface {}*/)",
+          "functionName": "GetCurrentMonday()",
           "document": "",
-          "definitionStr": "func re.ExtractPath(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func time.GetCurrentMonday() return (r0: time.Time, r1: error)"
         },
         {
-          "functionName": "ExtractTTY(${1:v1} /*type: interface {}*/)",
+          "functionName": "NewTicker(${1:v1} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func re.ExtractTTY(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func time.NewTicker(v1: float64) return (r0: *time.Ticker)"
         },
         {
-          "functionName": "ExtractURL(${1:v1} /*type: interface {}*/)",
+          "functionName": "NewTimer(${1:v1} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func re.ExtractURL(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func time.NewTimer(v1: float64) return (r0: *time.Timer)"
         },
         {
-          "functionName": "Grok(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "functionName": "Now()",
           "document": "",
-          "definitionStr": "func re.Grok(v1: string, v2: string) return (r0: yaklib.GrokResult)"
+          "definitionStr": "func time.Now() return (r0: time.Time)"
         },
         {
-          "functionName": "Match(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/)",
+          "functionName": "Parse(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
           "document": "",
-          "definitionStr": "func re.Match(v1: string, v2: interface {}) return (r0: bool)"
+          "definitionStr": "func time.Parse(v1: string, v2: string) return (r0: time.Time, r1: error)"
         },
         {
-          "functionName": "MustCompile(${1:v1} /*type: string*/)",
+          "functionName": "ParseDuration(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func re.MustCompile(v1: string) return (r0: *regexp.Regexp)"
+          "definitionStr": "func time.ParseDuration(v1: string) return (r0: time.Duration, r1: error)"
         },
         {
-          "functionName": "MustCompilePOSIX(${1:v1} /*type: string*/)",
+          "functionName": "Since(${1:v1} /*type: time.Time*/)",
           "document": "",
-          "definitionStr": "func re.MustCompilePOSIX(v1: string) return (r0: *regexp.Regexp)"
+          "definitionStr": "func time.Since(v1: time.Time) return (r0: time.Duration)"
         },
         {
-          "functionName": "QuoteMeta(${1:v1} /*type: string*/)",
+          "functionName": "Sleep(${1:v1} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func re.QuoteMeta(v1: string) return (r0: string)"
+          "definitionStr": "`func time.Sleep(v1: float64)`"
+        },
+        {
+          "functionName": "Unix(${1:v1} /*type: int64*/, ${2:v2} /*type: int64*/)",
+          "document": "",
+          "definitionStr": "func time.Unix(v1: int64, v2: int64) return (r0: time.Time)"
+        },
+        {
+          "functionName": "Until(${1:v1} /*type: time.Time*/)",
+          "document": "",
+          "definitionStr": "func time.Until(v1: time.Time) return (r0: time.Duration)"
+        },
+        {
+          "functionName": "now()",
+          "document": "",
+          "definitionStr": "func time.now() return (r0: time.Time)"
+        },
+        {
+          "functionName": "sleep(${1:v1} /*type: float64*/)",
+          "document": "",
+          "definitionStr": "`func time.sleep(v1: float64)`"
+        }
+      ]
+    },
+    {
+      "libName": "tcp",
+      "prefix": "tcp.",
+      "functions": [
+        {
+          "functionName": "Connect(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type ...[]yaklib.dialerOpt*/)",
+          "document": "",
+          "definitionStr": "func tcp.Connect(v1: string, v2: interface {}, v3 ...[]yaklib.dialerOpt) return (r0: *yaklib.tcpConnection, r1: error)"
+        },
+        {
+          "functionName": "Forward(${1:v1} /*type: int*/, ${2:v2} /*type: string*/, ${3:v3} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func tcp.Forward(v1: int, v2: string, v3: int) return (r0: error)"
+        },
+        {
+          "functionName": "Serve(${1:v1} /*type: interface {}*/, ${2:v2} /*type: int*/, ${3:v3} /*type ...[]yaklib.tcpServerConfigOpt*/)",
+          "document": "",
+          "definitionStr": "func tcp.Serve(v1: interface {}, v2: int, v3 ...[]yaklib.tcpServerConfigOpt) return (r0: error)"
+        },
+        {
+          "functionName": "clientLocal(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func tcp.clientLocal(v1: interface {}) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+        },
+        {
+          "functionName": "clientTimeout(${1:v1} /*type: float64*/)",
+          "document": "",
+          "definitionStr": "func tcp.clientTimeout(v1: float64) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+        },
+        {
+          "functionName": "clientTls(${1:v1} /*type: interface {}*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "func tcp.clientTls(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+        },
+        {
+          "functionName": "serverCallback(${1:v1} /*type: func (v1: *yaklib.tcpConnection) */)",
+          "document": "",
+          "definitionStr": "func tcp.serverCallback(v1: func (v1: *yaklib.tcpConnection) ) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+        },
+        {
+          "functionName": "serverContext(${1:v1} /*type: context.Context*/)",
+          "document": "",
+          "definitionStr": "func tcp.serverContext(v1: context.Context) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+        },
+        {
+          "functionName": "serverTls(${1:v1} /*type: interface {}*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "func tcp.serverTls(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+        }
+      ]
+    },
+    {
+      "libName": "log",
+      "prefix": "log.",
+      "functions": [
+        {
+          "functionName": "debug(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "`func log.debug(v1: string, v2 ...[]interface {})`"
+        },
+        {
+          "functionName": "error(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "`func log.error(v1: string, v2 ...[]interface {})`"
+        },
+        {
+          "functionName": "info(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "`func log.info(v1: string, v2 ...[]interface {})`"
+        },
+        {
+          "functionName": "setLevel(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "`func log.setLevel(v1: interface {})`"
+        },
+        {
+          "functionName": "warn(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "`func log.warn(v1: string, v2 ...[]interface {})`"
         }
       ]
     },
@@ -278,103 +276,6 @@
           "functionName": "QueryIPCity(${1:v1} /*type: *maxminddb.Reader*/, ${2:v2} /*type: string*/)",
           "document": "",
           "definitionStr": "func mmdb.QueryIPCity(v1: *maxminddb.Reader, v2: string) return (r0: *geo.City, r1: error)"
-        }
-      ]
-    },
-    {
-      "libName": "mitm",
-      "prefix": "mitm.",
-      "functions": [
-        {
-          "functionName": "Bridge(${1:v1} /*type: interface {}*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib.mitmConfigOpt*/)",
-          "document": "",
-          "definitionStr": "func mitm.Bridge(v1: interface {}, v2: string, v3 ...[]yaklib.mitmConfigOpt) return (r0: error)"
-        },
-        {
-          "functionName": "Start(${1:v1} /*type: int*/, ${2:v2} /*type ...[]yaklib.mitmConfigOpt*/)",
-          "document": "",
-          "definitionStr": "func mitm.Start(v1: int, v2 ...[]yaklib.mitmConfigOpt) return (r0: error)"
-        },
-        {
-          "functionName": "callback(${1:v1} /*type: func (v1: bool, v2: *http.Request, v3: *http.Response) */)",
-          "document": "",
-          "definitionStr": "func mitm.callback(v1: func (v1: bool, v2: *http.Request, v3: *http.Response) ) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
-        },
-        {
-          "functionName": "context(${1:v1} /*type: context.Context*/)",
-          "document": "",
-          "definitionStr": "func mitm.context(v1: context.Context) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
-        },
-        {
-          "functionName": "host(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func mitm.host(v1: string) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
-        },
-        {
-          "functionName": "rootCA(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
-          "document": "",
-          "definitionStr": "func mitm.rootCA(v1: bytes, v2: bytes) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
-        }
-      ]
-    },
-    {
-      "libName": "exec",
-      "prefix": "exec.",
-      "functions": [
-        {
-          "functionName": "Command(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func exec.Command(v1: string) return (r0: *exec.Cmd, r1: error)"
-        },
-        {
-          "functionName": "CommandContext(${1:v1} /*type: context.Context*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func exec.CommandContext(v1: context.Context, v2: string) return (r0: *exec.Cmd, r1: error)"
-        },
-        {
-          "functionName": "System(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func exec.System(v1: string) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "SystemBatch(${1:v1} /*type: string*/, ${2:v2} /*type ...[]yaklib.poolOpt*/)",
-          "document": "",
-          "definitionStr": "`func exec.SystemBatch(v1: string, v2 ...[]yaklib.poolOpt)`"
-        },
-        {
-          "functionName": "SystemContext(${1:v1} /*type: context.Context*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func exec.SystemContext(v1: context.Context, v2: string) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "WatchOutput(${1:v1} /*type: string*/, ${2:v2} /*type: float64*/, ${3:v3} /*type: func (v1: bytes) return(bool) */)",
-          "document": "",
-          "definitionStr": "func exec.WatchOutput(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
-        },
-        {
-          "functionName": "WatchStderr(${1:v1} /*type: string*/, ${2:v2} /*type: float64*/, ${3:v3} /*type: func (v1: bytes) return(bool) */)",
-          "document": "",
-          "definitionStr": "func exec.WatchStderr(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
-        },
-        {
-          "functionName": "WatchStdout(${1:v1} /*type: string*/, ${2:v2} /*type: float64*/, ${3:v3} /*type: func (v1: bytes) return(bool) */)",
-          "document": "",
-          "definitionStr": "func exec.WatchStdout(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
-        },
-        {
-          "functionName": "callback(${1:v1} /*type: func (v1: string, v2: bytes) */)",
-          "document": "",
-          "definitionStr": "func exec.callback(v1: func (v1: string, v2: bytes) ) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
-        },
-        {
-          "functionName": "concurrent(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func exec.concurrent(v1: int) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
-        },
-        {
-          "functionName": "timeout(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "func exec.timeout(v1: float64) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         }
       ]
     },
@@ -405,154 +306,64 @@
       ]
     },
     {
-      "libName": "http",
-      "prefix": "http.",
+      "libName": "dictutil",
+      "prefix": "dictutil.",
       "functions": [
         {
-          "functionName": "Do(${1:v1} /*type: *yaklib.yakHttpRequest*/)",
+          "functionName": "Mix(${1:v1} /*type ...[]interface {}*/)",
           "document": "",
-          "definitionStr": "func http.Do(v1: *yaklib.yakHttpRequest) return (r0: *http.Response, r1: error)"
-        },
-        {
-          "functionName": "Get(${1:v1} /*type: string*/, ${2:v2} /*type ...[]yaklib.httpOption*/)",
-          "document": "",
-          "definitionStr": "func http.Get(v1: string, v2 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
-        },
-        {
-          "functionName": "GetAllBody(${1:v1} /*type: *http.Response*/)",
-          "document": "",
-          "definitionStr": "func http.GetAllBody(v1: *http.Response) return (r0: bytes)"
-        },
-        {
-          "functionName": "NewRequest(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib.httpOption*/)",
-          "document": "",
-          "definitionStr": "func http.NewRequest(v1: string, v2: string, v3 ...[]yaklib.httpOption) return (r0: *yaklib.yakHttpRequest, r1: error)"
-        },
-        {
-          "functionName": "Post(${1:v1} /*type: string*/, ${2:v2} /*type ...[]yaklib.httpOption*/)",
-          "document": "",
-          "definitionStr": "func http.Post(v1: string, v2 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
-        },
-        {
-          "functionName": "Raw(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.Raw(v1: interface {}) return (r0: *http.Request, r1: error)"
-        },
-        {
-          "functionName": "Request(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib.httpOption*/)",
-          "document": "",
-          "definitionStr": "func http.Request(v1: string, v2: string, v3 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
-        },
-        {
-          "functionName": "body(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.body(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
-        },
-        {
-          "functionName": "cookie(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.cookie(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
-        },
-        {
-          "functionName": "dump(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.dump(v1: interface {}) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "dumphead(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.dumphead(v1: interface {}) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "header(${1:v1} /*type: interface {}*/, ${2:v2} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.header(v1: interface {}, v2: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
-        },
-        {
-          "functionName": "proxy(${1:v1} /*type ...[]string*/)",
-          "document": "",
-          "definitionStr": "func http.proxy(v1 ...[]string) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
-        },
-        {
-          "functionName": "show(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "`func http.show(v1: interface {})`"
-        },
-        {
-          "functionName": "showhead(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "`func http.showhead(v1: interface {})`"
-        },
-        {
-          "functionName": "timeout(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "func http.timeout(v1: float64) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
-        },
-        {
-          "functionName": "ua(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.ua(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
-        },
-        {
-          "functionName": "uarand()",
-          "document": "",
-          "definitionStr": "func http.uarand() return (r0: string)"
-        },
-        {
-          "functionName": "useragent(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func http.useragent(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func dictutil.Mix(v1 ...[]interface {}) return (r0: chan []string, r1: error)"
         }
       ]
     },
     {
-      "libName": "context",
-      "prefix": "context.",
+      "libName": "sync",
+      "prefix": "sync.",
       "functions": [
         {
-          "functionName": "Background()",
+          "functionName": "NewCond()",
           "document": "",
-          "definitionStr": "func context.Background() return (r0: context.Context)"
+          "definitionStr": "func sync.NewCond() return (r0: *sync.Cond)"
         },
         {
-          "functionName": "New()",
+          "functionName": "NewLock()",
           "document": "",
-          "definitionStr": "func context.New() return (r0: context.Context)"
+          "definitionStr": "func sync.NewLock() return (r0: *sync.Mutex)"
         },
         {
-          "functionName": "Seconds(${1:v1} /*type: int*/)",
+          "functionName": "NewMap()",
           "document": "",
-          "definitionStr": "func context.Seconds(v1: int) return (r0: context.Context)"
+          "definitionStr": "func sync.NewMap() return (r0: *sync.Map)"
         },
         {
-          "functionName": "TODO()",
+          "functionName": "NewMutex()",
           "document": "",
-          "definitionStr": "func context.TODO() return (r0: context.Context)"
+          "definitionStr": "func sync.NewMutex() return (r0: *sync.Mutex)"
         },
         {
-          "functionName": "TimeoutContextSecond(${1:v1} /*type: int*/)",
+          "functionName": "NewOnce()",
           "document": "",
-          "definitionStr": "func context.TimeoutContextSecond(v1: int) return (r0: context.Context)"
+          "definitionStr": "func sync.NewOnce() return (r0: *sync.Once)"
         },
         {
-          "functionName": "WithCancel(${1:v1} /*type: context.Context*/)",
+          "functionName": "NewPool()",
           "document": "",
-          "definitionStr": "func context.WithCancel(v1: context.Context) return (r0: context.Context, r1: func CancelFunc() )"
+          "definitionStr": "func sync.NewPool() return (r0: *sync.Pool)"
         },
         {
-          "functionName": "WithDeadline(${1:v1} /*type: context.Context*/, ${2:v2} /*type: time.Time*/)",
+          "functionName": "NewRWMutex()",
           "document": "",
-          "definitionStr": "func context.WithDeadline(v1: context.Context, v2: time.Time) return (r0: context.Context, r1: func CancelFunc() )"
+          "definitionStr": "func sync.NewRWMutex() return (r0: *sync.RWMutex)"
         },
         {
-          "functionName": "WithTimeout(${1:v1} /*type: context.Context*/, ${2:v2} /*type: time.Duration*/)",
+          "functionName": "NewSizedWaitGroup(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func context.WithTimeout(v1: context.Context, v2: time.Duration) return (r0: context.Context, r1: func CancelFunc() )"
+          "definitionStr": "func sync.NewSizedWaitGroup(v1: int) return (r0: *utils.SizedWaitGroup)"
         },
         {
-          "functionName": "WithValue(${1:v1} /*type: context.Context*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type: interface {}*/)",
+          "functionName": "NewWaitGroup()",
           "document": "",
-          "definitionStr": "func context.WithValue(v1: context.Context, v2: interface {}, v3: interface {}) return (r0: context.Context)"
+          "definitionStr": "func sync.NewWaitGroup() return (r0: *sync.WaitGroup)"
         }
       ]
     },
@@ -654,367 +465,6 @@
           "functionName": "Urls(${1:v1} /*type: string*/)",
           "document": "同 `cli.Url`",
           "definitionStr": "func cli.Urls(v1: string) return (r0: []string)"
-        }
-      ]
-    },
-    {
-      "libName": "dictutil",
-      "prefix": "dictutil.",
-      "functions": [
-        {
-          "functionName": "Mix(${1:v1} /*type ...[]interface {}*/)",
-          "document": "",
-          "definitionStr": "func dictutil.Mix(v1 ...[]interface {}) return (r0: chan []string, r1: error)"
-        }
-      ]
-    },
-    {
-      "libName": "tls",
-      "prefix": "tls.",
-      "functions": [
-        {
-          "functionName": "GenerateRootCA(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func tls.GenerateRootCA(v1: string) return (r0: bytes, r1: bytes, r2: error)"
-        },
-        {
-          "functionName": "SignClientCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
-          "document": "",
-          "definitionStr": "func tls.SignClientCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
-        },
-        {
-          "functionName": "SignServerCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
-          "document": "",
-          "definitionStr": "func tls.SignServerCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
-        },
-        {
-          "functionName": "SignX509ClientCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
-          "document": "",
-          "definitionStr": "func tls.SignX509ClientCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
-        },
-        {
-          "functionName": "SignX509ServerCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
-          "document": "",
-          "definitionStr": "func tls.SignX509ServerCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
-        }
-      ]
-    },
-    {
-      "libName": "time",
-      "prefix": "time.",
-      "functions": [
-        {
-          "functionName": "After(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "func time.After(v1: float64) return (r0: \u003c-chan time.Time)"
-        },
-        {
-          "functionName": "AfterFunc(${1:v1} /*type: time.Duration*/, ${2:v2} /*type: func () */)",
-          "document": "",
-          "definitionStr": "func time.AfterFunc(v1: time.Duration, v2: func () ) return (r0: *time.Timer)"
-        },
-        {
-          "functionName": "GetCurrentDate()",
-          "document": "",
-          "definitionStr": "func time.GetCurrentDate() return (r0: time.Time, r1: error)"
-        },
-        {
-          "functionName": "GetCurrentMonday()",
-          "document": "",
-          "definitionStr": "func time.GetCurrentMonday() return (r0: time.Time, r1: error)"
-        },
-        {
-          "functionName": "NewTicker(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "func time.NewTicker(v1: float64) return (r0: *time.Ticker)"
-        },
-        {
-          "functionName": "NewTimer(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "func time.NewTimer(v1: float64) return (r0: *time.Timer)"
-        },
-        {
-          "functionName": "Now()",
-          "document": "",
-          "definitionStr": "func time.Now() return (r0: time.Time)"
-        },
-        {
-          "functionName": "Parse(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func time.Parse(v1: string, v2: string) return (r0: time.Time, r1: error)"
-        },
-        {
-          "functionName": "ParseDuration(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func time.ParseDuration(v1: string) return (r0: time.Duration, r1: error)"
-        },
-        {
-          "functionName": "Since(${1:v1} /*type: time.Time*/)",
-          "document": "",
-          "definitionStr": "func time.Since(v1: time.Time) return (r0: time.Duration)"
-        },
-        {
-          "functionName": "Sleep(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "`func time.Sleep(v1: float64)`"
-        },
-        {
-          "functionName": "Unix(${1:v1} /*type: int64*/, ${2:v2} /*type: int64*/)",
-          "document": "",
-          "definitionStr": "func time.Unix(v1: int64, v2: int64) return (r0: time.Time)"
-        },
-        {
-          "functionName": "Until(${1:v1} /*type: time.Time*/)",
-          "document": "",
-          "definitionStr": "func time.Until(v1: time.Time) return (r0: time.Duration)"
-        },
-        {
-          "functionName": "now()",
-          "document": "",
-          "definitionStr": "func time.now() return (r0: time.Time)"
-        },
-        {
-          "functionName": "sleep(${1:v1} /*type: float64*/)",
-          "document": "",
-          "definitionStr": "`func time.sleep(v1: float64)`"
-        }
-      ]
-    },
-    {
-      "libName": "os",
-      "prefix": "os.",
-      "functions": [
-        {
-          "functionName": "Clearenv()",
-          "document": "",
-          "definitionStr": "`func os.Clearenv()`"
-        },
-        {
-          "functionName": "Environ()",
-          "document": "",
-          "definitionStr": "func os.Environ() return (r0: []string)"
-        },
-        {
-          "functionName": "Executable()",
-          "document": "",
-          "definitionStr": "func os.Executable() return (r0: string, r1: error)"
-        },
-        {
-          "functionName": "Exit(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "`func os.Exit(v1: int)`"
-        },
-        {
-          "functionName": "ExpandEnv(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.ExpandEnv(v1: string) return (r0: string)"
-        },
-        {
-          "functionName": "GetRandomAvailableTCPPort()",
-          "document": "",
-          "definitionStr": "func os.GetRandomAvailableTCPPort() return (r0: int)"
-        },
-        {
-          "functionName": "GetRandomAvailableUDPPort()",
-          "document": "",
-          "definitionStr": "func os.GetRandomAvailableUDPPort() return (r0: int)"
-        },
-        {
-          "functionName": "Getenv(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.Getenv(v1: string) return (r0: string)"
-        },
-        {
-          "functionName": "IsRemoteTCPPortOpen(${1:v1} /*type: string*/, ${2:v2} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func os.IsRemoteTCPPortOpen(v1: string, v2: int) return (r0: bool)"
-        },
-        {
-          "functionName": "IsTCPPortAvailable(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func os.IsTCPPortAvailable(v1: int) return (r0: bool)"
-        },
-        {
-          "functionName": "IsTCPPortOpen(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func os.IsTCPPortOpen(v1: int) return (r0: bool)"
-        },
-        {
-          "functionName": "IsUDPPortAvailable(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func os.IsUDPPortAvailable(v1: int) return (r0: bool)"
-        },
-        {
-          "functionName": "IsUDPPortOpen(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func os.IsUDPPortOpen(v1: int) return (r0: bool)"
-        },
-        {
-          "functionName": "LookupEnv(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.LookupEnv(v1: string) return (r0: string, r1: bool)"
-        },
-        {
-          "functionName": "Pipe()",
-          "document": "",
-          "definitionStr": "func os.Pipe() return (r0: *os.File, r1: *os.File, r2: error)"
-        },
-        {
-          "functionName": "Remove(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.Remove(v1: string) return (r0: error)"
-        },
-        {
-          "functionName": "RemoveAll(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.RemoveAll(v1: string) return (r0: error)"
-        },
-        {
-          "functionName": "Rename(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.Rename(v1: string, v2: string) return (r0: error)"
-        },
-        {
-          "functionName": "Setenv(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.Setenv(v1: string, v2: string) return (r0: error)"
-        },
-        {
-          "functionName": "Unsetenv(${1:v1} /*type: string*/)",
-          "document": "",
-          "definitionStr": "func os.Unsetenv(v1: string) return (r0: error)"
-        }
-      ]
-    },
-    {
-      "libName": "json",
-      "prefix": "json.",
-      "functions": [
-        {
-          "functionName": "Marshal(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func json.Marshal(v1: interface {}) return (r0: bytes, r1: error)"
-        },
-        {
-          "functionName": "New(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func json.New(v1: interface {}) return (r0: *yaklib.yakJson, r1: error)"
-        }
-      ]
-    },
-    {
-      "libName": "crawler",
-      "prefix": "crawler.",
-      "functions": [
-        {
-          "functionName": "Start(${1:urls} /*type: string*/, ${2:v2} /*type ...[]crawler.configOpt*/)",
-          "document": "核心函数，进行爬虫的入口，输入想要爬的网站，然后设置参数，在一个 chan 中接受爬虫的结果",
-          "definitionStr": "func crawler.Start(urls: string, v2 ...[]crawler.configOpt) return (r0: chan crawler.RequestIf, r1: error)"
-        },
-        {
-          "functionName": "basicAuth(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "设置爬虫的基础认证",
-          "definitionStr": "func crawler.basicAuth(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "bodySize(${1:v1} /*type: int*/)",
-          "document": "想要设置每一个 body 最大获取多少页面大小，bytes 的大小，默认为 1024 * 1024 * 10",
-          "definitionStr": "func crawler.bodySize(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "concurrent(${1:v1} /*type: int*/)",
-          "document": "设置爬虫并发请求数",
-          "definitionStr": "func crawler.concurrent(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "connectTimeout(${1:v1} /*type: float64*/)",
-          "document": "每一次进行 HTTP 连接的超时时间",
-          "definitionStr": "func crawler.connectTimeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "cookie(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "设置 Cookie",
-          "definitionStr": "func crawler.cookie(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "domainExclude(${1:v1} /*type: string*/)",
-          "document": "不扫描的域名，使用 glob 语法",
-          "definitionStr": "func crawler.domainExclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "domainInclude(${1:v1} /*type: string*/)",
-          "document": "想要扫描的域名，域名白名单，支持 glob 语法",
-          "definitionStr": "func crawler.domainInclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "forbiddenFromParent(${1:v1} /*type: bool*/)",
-          "document": "禁止扫描 url 的父路径",
-          "definitionStr": "func crawler.forbiddenFromParent(v1: bool) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "header(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
-          "document": "设置爬虫的自定义 Header",
-          "definitionStr": "func crawler.header(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "maxDepth(${1:v1} /*type: int*/)",
-          "document": "设置爬虫的最大深度，默认为5",
-          "definitionStr": "func crawler.maxDepth(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "maxRedirect(${1:v1} /*type: int*/)",
-          "document": "设置最大重定向次数，默认为5",
-          "definitionStr": "func crawler.maxRedirect(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "maxRequest(${1:v1} /*type: int*/)",
-          "document": "设置爬虫最大发出的请求数量，默认为 1000",
-          "definitionStr": "func crawler.maxRequest(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "maxRetry(${1:v1} /*type: int*/)",
-          "document": "最大重试次数（如果失败了就会重试）",
-          "definitionStr": "func crawler.maxRetry(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "maxUrls(${1:v1} /*type: int*/)",
-          "document": "最多获取到多少个 URL 就停止爬虫",
-          "definitionStr": "func crawler.maxUrls(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "proxy(${1:v1} /*type ...[]string*/)",
-          "document": "为爬虫设置代理，如果代理失效，爬虫则请求失败",
-          "definitionStr": "func crawler.proxy(v1 ...[]string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "responseTimeout(${1:v1} /*type: float64*/)",
-          "document": "响应超时时间",
-          "definitionStr": "func crawler.responseTimeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "timeout(${1:v1} /*type: float64*/)",
-          "document": "等效于 `crawler.connectTimeout`",
-          "definitionStr": "func crawler.timeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "ua(${1:v1} /*type: string*/)",
-          "document": "设置 useragent",
-          "definitionStr": "func crawler.ua(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "urlRegexpExclude(${1:v1} /*type: string*/)",
-          "document": "禁止爬取的 url 正则，用于排除一些 login delete 等状况",
-          "definitionStr": "func crawler.urlRegexpExclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "urlRegexpInclude(${1:v1} /*type: string*/)",
-          "document": "想要爬 url 的白名单，用于定向爬虫",
-          "definitionStr": "func crawler.urlRegexpInclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
-        },
-        {
-          "functionName": "userAgent(${1:v1} /*type: string*/)",
-          "document": "设置 useragent",
-          "definitionStr": "func crawler.userAgent(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
         }
       ]
     },
@@ -1365,120 +815,254 @@
       ]
     },
     {
-      "libName": "log",
-      "prefix": "log.",
+      "libName": "os",
+      "prefix": "os.",
       "functions": [
         {
-          "functionName": "debug(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "functionName": "Clearenv()",
           "document": "",
-          "definitionStr": "`func log.debug(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "`func os.Clearenv()`"
         },
         {
-          "functionName": "error(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "functionName": "Environ()",
           "document": "",
-          "definitionStr": "`func log.error(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "func os.Environ() return (r0: []string)"
         },
         {
-          "functionName": "info(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "functionName": "Executable()",
           "document": "",
-          "definitionStr": "`func log.info(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "func os.Executable() return (r0: string, r1: error)"
         },
         {
-          "functionName": "setLevel(${1:v1} /*type: interface {}*/)",
+          "functionName": "Exit(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "`func log.setLevel(v1: interface {})`"
+          "definitionStr": "`func os.Exit(v1: int)`"
         },
         {
-          "functionName": "warn(${1:v1} /*type: string*/, ${2:v2} /*type ...[]interface {}*/)",
+          "functionName": "ExpandEnv(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "`func log.warn(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "func os.ExpandEnv(v1: string) return (r0: string)"
+        },
+        {
+          "functionName": "GetRandomAvailableTCPPort()",
+          "document": "",
+          "definitionStr": "func os.GetRandomAvailableTCPPort() return (r0: int)"
+        },
+        {
+          "functionName": "GetRandomAvailableUDPPort()",
+          "document": "",
+          "definitionStr": "func os.GetRandomAvailableUDPPort() return (r0: int)"
+        },
+        {
+          "functionName": "Getenv(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.Getenv(v1: string) return (r0: string)"
+        },
+        {
+          "functionName": "IsRemoteTCPPortOpen(${1:v1} /*type: string*/, ${2:v2} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func os.IsRemoteTCPPortOpen(v1: string, v2: int) return (r0: bool)"
+        },
+        {
+          "functionName": "IsTCPPortAvailable(${1:v1} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func os.IsTCPPortAvailable(v1: int) return (r0: bool)"
+        },
+        {
+          "functionName": "IsTCPPortOpen(${1:v1} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func os.IsTCPPortOpen(v1: int) return (r0: bool)"
+        },
+        {
+          "functionName": "IsUDPPortAvailable(${1:v1} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func os.IsUDPPortAvailable(v1: int) return (r0: bool)"
+        },
+        {
+          "functionName": "IsUDPPortOpen(${1:v1} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func os.IsUDPPortOpen(v1: int) return (r0: bool)"
+        },
+        {
+          "functionName": "LookupEnv(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.LookupEnv(v1: string) return (r0: string, r1: bool)"
+        },
+        {
+          "functionName": "Pipe()",
+          "document": "",
+          "definitionStr": "func os.Pipe() return (r0: *os.File, r1: *os.File, r2: error)"
+        },
+        {
+          "functionName": "Remove(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.Remove(v1: string) return (r0: error)"
+        },
+        {
+          "functionName": "RemoveAll(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.RemoveAll(v1: string) return (r0: error)"
+        },
+        {
+          "functionName": "Rename(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.Rename(v1: string, v2: string) return (r0: error)"
+        },
+        {
+          "functionName": "Setenv(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.Setenv(v1: string, v2: string) return (r0: error)"
+        },
+        {
+          "functionName": "Unsetenv(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func os.Unsetenv(v1: string) return (r0: error)"
         }
       ]
     },
     {
-      "libName": "httpool",
-      "prefix": "httpool.",
+      "libName": "file",
+      "prefix": "file.",
       "functions": [
         {
-          "functionName": "Pool(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]mutate.httpPoolConfigOption*/)",
+          "functionName": "Abs(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func httpool.Pool(v1: interface {}, v2 ...[]mutate.httpPoolConfigOption) return (r0: chan *mutate._httpResult, r1: error)"
+          "definitionStr": "func file.Abs(v1: string) return (r0: string)"
         },
         {
-          "functionName": "host(${1:v1} /*type: string*/)",
+          "functionName": "Cat(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func httpool.host(v1: string) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "definitionStr": "`func file.Cat(v1: string)`"
         },
         {
-          "functionName": "https(${1:v1} /*type: bool*/)",
+          "functionName": "Cp(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
           "document": "",
-          "definitionStr": "func httpool.https(v1: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "definitionStr": "func file.Cp(v1: string, v2: string) return (r0: error)"
         },
         {
-          "functionName": "perRequestTimeout(${1:v1} /*type: float64*/)",
+          "functionName": "Create(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func httpool.perRequestTimeout(v1: float64) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "definitionStr": "func file.Create(v1: string) return (r0: *yaklib._yakFile, r1: error)"
         },
         {
-          "functionName": "port(${1:v1} /*type: int*/)",
+          "functionName": "DeepLs(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func httpool.port(v1: int) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "definitionStr": "func file.DeepLs(v1: string) return (r0: []*utils.FileInfo)"
         },
         {
-          "functionName": "size(${1:v1} /*type: int*/)",
+          "functionName": "Dir(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func httpool.size(v1: int) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
-        }
-      ]
-    },
-    {
-      "libName": "sync",
-      "prefix": "sync.",
-      "functions": [
-        {
-          "functionName": "NewCond()",
-          "document": "",
-          "definitionStr": "func sync.NewCond() return (r0: *sync.Cond)"
+          "definitionStr": "func file.Dir(v1: string) return (r0: []*utils.FileInfo)"
         },
         {
-          "functionName": "NewLock()",
+          "functionName": "IsAbs(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewLock() return (r0: *sync.Mutex)"
+          "definitionStr": "func file.IsAbs(v1: string) return (r0: bool)"
         },
         {
-          "functionName": "NewMap()",
+          "functionName": "IsDir(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewMap() return (r0: *sync.Map)"
+          "definitionStr": "func file.IsDir(v1: string) return (r0: bool)"
         },
         {
-          "functionName": "NewMutex()",
+          "functionName": "IsExisted(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewMutex() return (r0: *sync.Mutex)"
+          "definitionStr": "func file.IsExisted(v1: string) return (r0: bool)"
         },
         {
-          "functionName": "NewOnce()",
+          "functionName": "IsFile(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewOnce() return (r0: *sync.Once)"
+          "definitionStr": "func file.IsFile(v1: string) return (r0: bool)"
         },
         {
-          "functionName": "NewPool()",
+          "functionName": "IsLink(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewPool() return (r0: *sync.Pool)"
+          "definitionStr": "func file.IsLink(v1: string) return (r0: bool)"
         },
         {
-          "functionName": "NewRWMutex()",
+          "functionName": "Join(${1:v1} /*type ...[]string*/)",
           "document": "",
-          "definitionStr": "func sync.NewRWMutex() return (r0: *sync.RWMutex)"
+          "definitionStr": "func file.Join(v1 ...[]string) return (r0: string)"
         },
         {
-          "functionName": "NewSizedWaitGroup(${1:v1} /*type: int*/)",
+          "functionName": "Ls(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewSizedWaitGroup(v1: int) return (r0: *utils.SizedWaitGroup)"
+          "definitionStr": "func file.Ls(v1: string) return (r0: []*utils.FileInfo)"
         },
         {
-          "functionName": "NewWaitGroup()",
+          "functionName": "Lstat(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func sync.NewWaitGroup() return (r0: *sync.WaitGroup)"
+          "definitionStr": "func file.Lstat(v1: string) return (r0: fs.FileInfo, r1: error)"
+        },
+        {
+          "functionName": "Mkdir(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Mkdir(v1: string) return (r0: error)"
+        },
+        {
+          "functionName": "MkdirAll(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.MkdirAll(v1: string) return (r0: error)"
+        },
+        {
+          "functionName": "Mv(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Mv(v1: string, v2: string) return (r0: error)"
+        },
+        {
+          "functionName": "Open(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Open(v1: string) return (r0: *yaklib._yakFile, r1: error)"
+        },
+        {
+          "functionName": "OpenFile(${1:v1} /*type: string*/, ${2:v2} /*type: int*/, ${3:v3} /*type: fs.FileMode*/)",
+          "document": "",
+          "definitionStr": "func file.OpenFile(v1: string, v2: int, v3: fs.FileMode) return (r0: *yaklib._yakFile, r1: error)"
+        },
+        {
+          "functionName": "ReadAll(${1:v1} /*type: io.Reader*/)",
+          "document": "",
+          "definitionStr": "func file.ReadAll(v1: io.Reader) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "ReadFile(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.ReadFile(v1: string) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "Remove(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Remove(v1: string) return (r0: error)"
+        },
+        {
+          "functionName": "Rename(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Rename(v1: string, v2: string) return (r0: error)"
+        },
+        {
+          "functionName": "Rm(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Rm(v1: string) return (r0: error)"
+        },
+        {
+          "functionName": "Save(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func file.Save(v1: string, v2: interface {}) return (r0: error)"
+        },
+        {
+          "functionName": "SaveJson(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func file.SaveJson(v1: string, v2: interface {}) return (r0: error)"
+        },
+        {
+          "functionName": "Stat(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.Stat(v1: string) return (r0: fs.FileInfo, r1: error)"
+        },
+        {
+          "functionName": "TempFile(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func file.TempFile(v1: string) return (r0: *yaklib._yakFile, r1: error)"
         }
       ]
     },
@@ -1509,120 +1093,321 @@
       ]
     },
     {
-      "libName": "geojson",
-      "prefix": "geojson.",
+      "libName": "re",
+      "prefix": "re.",
       "functions": [
         {
-          "functionName": "FeaturesToCollection(${1:v1} /*type ...[]*geojson.Feature*/)",
+          "functionName": "Compile(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func geojson.FeaturesToCollection(v1 ...[]*geojson.Feature) return (r0: *geojson.FeatureCollection)"
+          "definitionStr": "func re.Compile(v1: string) return (r0: *regexp.Regexp, r1: error)"
         },
         {
-          "functionName": "NewFeatureCollection()",
+          "functionName": "CompilePOSIX(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func geojson.NewFeatureCollection() return (r0: *geojson.FeatureCollection)"
+          "definitionStr": "func re.CompilePOSIX(v1: string) return (r0: *regexp.Regexp, r1: error)"
         },
         {
-          "functionName": "WithName(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: string*/)",
+          "functionName": "ExtractEmail(${1:v1} /*type: interface {}*/)",
           "document": "",
-          "definitionStr": "func geojson.WithName(v1: *geojson.Feature, v2: string) return (r0: *geojson.Feature)"
+          "definitionStr": "func re.ExtractEmail(v1: interface {}) return (r0: []string)"
         },
         {
-          "functionName": "WithNameValue(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: string*/, ${3:v3} /*type: float64*/)",
+          "functionName": "ExtractHostPort(${1:v1} /*type: interface {}*/)",
           "document": "",
-          "definitionStr": "func geojson.WithNameValue(v1: *geojson.Feature, v2: string, v3: float64) return (r0: *geojson.Feature)"
+          "definitionStr": "func re.ExtractHostPort(v1: interface {}) return (r0: []string)"
         },
         {
-          "functionName": "WithProperty(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: string*/, ${3:v3} /*type: float64*/)",
+          "functionName": "ExtractIP(${1:v1} /*type: interface {}*/)",
           "document": "",
-          "definitionStr": "func geojson.WithProperty(v1: *geojson.Feature, v2: string, v3: float64) return (r0: *geojson.Feature)"
+          "definitionStr": "func re.ExtractIP(v1: interface {}) return (r0: []string)"
         },
         {
-          "functionName": "WithValue(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: float64*/)",
+          "functionName": "ExtractIPv4(${1:v1} /*type: interface {}*/)",
           "document": "",
-          "definitionStr": "func geojson.WithValue(v1: *geojson.Feature, v2: float64) return (r0: *geojson.Feature)"
+          "definitionStr": "func re.ExtractIPv4(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractIPv6(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func re.ExtractIPv6(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractMac(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func re.ExtractMac(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractPath(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func re.ExtractPath(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractTTY(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func re.ExtractTTY(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractURL(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func re.ExtractURL(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "Grok(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func re.Grok(v1: string, v2: string) return (r0: yaklib.GrokResult)"
+        },
+        {
+          "functionName": "Match(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func re.Match(v1: string, v2: interface {}) return (r0: bool)"
+        },
+        {
+          "functionName": "MustCompile(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func re.MustCompile(v1: string) return (r0: *regexp.Regexp)"
+        },
+        {
+          "functionName": "MustCompilePOSIX(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func re.MustCompilePOSIX(v1: string) return (r0: *regexp.Regexp)"
+        },
+        {
+          "functionName": "QuoteMeta(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func re.QuoteMeta(v1: string) return (r0: string)"
         }
       ]
     },
     {
-      "libName": "tcp",
-      "prefix": "tcp.",
+      "libName": "servicescan",
+      "prefix": "servicescan.",
       "functions": [
         {
-          "functionName": "Connect(${1:v1} /*type: string*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type ...[]yaklib.dialerOpt*/)",
+          "functionName": "Scan(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]fp.ConfigOption*/)",
           "document": "",
-          "definitionStr": "func tcp.Connect(v1: string, v2: interface {}, v3 ...[]yaklib.dialerOpt) return (r0: *yaklib.tcpConnection, r1: error)"
+          "definitionStr": "func servicescan.Scan(v1: string, v2: string, v3 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "Forward(${1:v1} /*type: int*/, ${2:v2} /*type: string*/, ${3:v3} /*type: int*/)",
+          "functionName": "ScanFromSpaceEngine(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]fp.ConfigOption*/)",
           "document": "",
-          "definitionStr": "func tcp.Forward(v1: int, v2: string, v3: int) return (r0: error)"
+          "definitionStr": "func servicescan.ScanFromSpaceEngine(v1: interface {}, v2 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "Serve(${1:v1} /*type: interface {}*/, ${2:v2} /*type: int*/, ${3:v3} /*type ...[]yaklib.tcpServerConfigOpt*/)",
+          "functionName": "ScanFromSynResult(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]fp.ConfigOption*/)",
           "document": "",
-          "definitionStr": "func tcp.Serve(v1: interface {}, v2: int, v3 ...[]yaklib.tcpServerConfigOpt) return (r0: error)"
+          "definitionStr": "func servicescan.ScanFromSynResult(v1: interface {}, v2 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "clientLocal(${1:v1} /*type: interface {}*/)",
+          "functionName": "ScanOne(${1:v1} /*type: string*/, ${2:v2} /*type: int*/, ${3:v3} /*type ...[]fp.ConfigOption*/)",
           "document": "",
-          "definitionStr": "func tcp.clientLocal(v1: interface {}) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "definitionStr": "func servicescan.ScanOne(v1: string, v2: int, v3 ...[]fp.ConfigOption) return (r0: *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "clientTimeout(${1:v1} /*type: float64*/)",
+          "functionName": "active(${1:v1} /*type: bool*/)",
           "document": "",
-          "definitionStr": "func tcp.clientTimeout(v1: float64) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "definitionStr": "func servicescan.active(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "clientTls(${1:v1} /*type: interface {}*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type ...[]interface {}*/)",
+          "functionName": "all()",
           "document": "",
-          "definitionStr": "func tcp.clientTls(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "definitionStr": "func servicescan.all() return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "serverCallback(${1:v1} /*type: func (v1: *yaklib.tcpConnection) */)",
+          "functionName": "concurrent(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func tcp.serverCallback(v1: func (v1: *yaklib.tcpConnection) ) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+          "definitionStr": "func servicescan.concurrent(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "serverContext(${1:v1} /*type: context.Context*/)",
+          "functionName": "maxProbes(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func tcp.serverContext(v1: context.Context) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+          "definitionStr": "func servicescan.maxProbes(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "serverTls(${1:v1} /*type: interface {}*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type ...[]interface {}*/)",
+          "functionName": "maxProbesConcurrent(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func tcp.serverTls(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+          "definitionStr": "func servicescan.maxProbesConcurrent(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "nmapRarityMax(${1:v1} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func servicescan.nmapRarityMax(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "nmapRule(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func servicescan.nmapRule(v1: interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "proto(${1:v1} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "func servicescan.proto(v1 ...[]interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "service()",
+          "document": "",
+          "definitionStr": "func servicescan.service() return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "web()",
+          "document": "",
+          "definitionStr": "func servicescan.web() return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "webRule(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func servicescan.webRule(v1: interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
         }
       ]
     },
     {
-      "libName": "spacengine",
-      "prefix": "spacengine.",
+      "libName": "crawler",
+      "prefix": "crawler.",
       "functions": [
         {
-          "functionName": "FofaQuery(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type: string*/, ${4:v4} /*type ...[]yaklib._spaceEngineConfigOpt*/)",
-          "document": "",
-          "definitionStr": "func spacengine.FofaQuery(v1: string, v2: string, v3: string, v4 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "functionName": "Start(${1:urls} /*type: string*/, ${2:v2} /*type ...[]crawler.configOpt*/)",
+          "document": "核心函数，进行爬虫的入口，输入想要爬的网站，然后设置参数，在一个 chan 中接受爬虫的结果",
+          "definitionStr": "func crawler.Start(urls: string, v2 ...[]crawler.configOpt) return (r0: chan crawler.RequestIf, r1: error)"
         },
         {
-          "functionName": "QuakeQuery(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib._spaceEngineConfigOpt*/)",
-          "document": "",
-          "definitionStr": "func spacengine.QuakeQuery(v1: string, v2: string, v3 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "functionName": "basicAuth(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "设置爬虫的基础认证",
+          "definitionStr": "func crawler.basicAuth(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "ShodanQuery(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib._spaceEngineConfigOpt*/)",
-          "document": "",
-          "definitionStr": "func spacengine.ShodanQuery(v1: string, v2: string, v3 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "functionName": "bodySize(${1:v1} /*type: int*/)",
+          "document": "想要设置每一个 body 最大获取多少页面大小，bytes 的大小，默认为 1024 * 1024 * 10",
+          "definitionStr": "func crawler.bodySize(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxPage(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func spacengine.maxPage(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
+          "functionName": "concurrent(${1:v1} /*type: int*/)",
+          "document": "设置爬虫并发请求数",
+          "definitionStr": "func crawler.concurrent(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxRecord(${1:v1} /*type: int*/)",
+          "functionName": "connectTimeout(${1:v1} /*type: float64*/)",
+          "document": "每一次进行 HTTP 连接的超时时间",
+          "definitionStr": "func crawler.connectTimeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "cookie(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "设置 Cookie",
+          "definitionStr": "func crawler.cookie(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "domainExclude(${1:v1} /*type: string*/)",
+          "document": "不扫描的域名，使用 glob 语法",
+          "definitionStr": "func crawler.domainExclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "domainInclude(${1:v1} /*type: string*/)",
+          "document": "想要扫描的域名，域名白名单，支持 glob 语法",
+          "definitionStr": "func crawler.domainInclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "forbiddenFromParent(${1:v1} /*type: bool*/)",
+          "document": "禁止扫描 url 的父路径",
+          "definitionStr": "func crawler.forbiddenFromParent(v1: bool) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "header(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "设置爬虫的自定义 Header",
+          "definitionStr": "func crawler.header(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "maxDepth(${1:v1} /*type: int*/)",
+          "document": "设置爬虫的最大深度，默认为5",
+          "definitionStr": "func crawler.maxDepth(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "maxRedirect(${1:v1} /*type: int*/)",
+          "document": "设置最大重定向次数，默认为5",
+          "definitionStr": "func crawler.maxRedirect(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "maxRequest(${1:v1} /*type: int*/)",
+          "document": "设置爬虫最大发出的请求数量，默认为 1000",
+          "definitionStr": "func crawler.maxRequest(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "maxRetry(${1:v1} /*type: int*/)",
+          "document": "最大重试次数（如果失败了就会重试）",
+          "definitionStr": "func crawler.maxRetry(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "maxUrls(${1:v1} /*type: int*/)",
+          "document": "最多获取到多少个 URL 就停止爬虫",
+          "definitionStr": "func crawler.maxUrls(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "proxy(${1:v1} /*type ...[]string*/)",
+          "document": "为爬虫设置代理，如果代理失效，爬虫则请求失败",
+          "definitionStr": "func crawler.proxy(v1 ...[]string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "responseTimeout(${1:v1} /*type: float64*/)",
+          "document": "响应超时时间",
+          "definitionStr": "func crawler.responseTimeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "timeout(${1:v1} /*type: float64*/)",
+          "document": "等效于 `crawler.connectTimeout`",
+          "definitionStr": "func crawler.timeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "ua(${1:v1} /*type: string*/)",
+          "document": "设置 useragent",
+          "definitionStr": "func crawler.ua(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "urlRegexpExclude(${1:v1} /*type: string*/)",
+          "document": "禁止爬取的 url 正则，用于排除一些 login delete 等状况",
+          "definitionStr": "func crawler.urlRegexpExclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "urlRegexpInclude(${1:v1} /*type: string*/)",
+          "document": "想要爬 url 的白名单，用于定向爬虫",
+          "definitionStr": "func crawler.urlRegexpInclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
+          "functionName": "userAgent(${1:v1} /*type: string*/)",
+          "document": "设置 useragent",
+          "definitionStr": "func crawler.userAgent(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+        }
+      ]
+    },
+    {
+      "libName": "mitm",
+      "prefix": "mitm.",
+      "functions": [
+        {
+          "functionName": "Bridge(${1:v1} /*type: interface {}*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib.mitmConfigOpt*/)",
           "document": "",
-          "definitionStr": "func spacengine.maxRecord(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
+          "definitionStr": "func mitm.Bridge(v1: interface {}, v2: string, v3 ...[]yaklib.mitmConfigOpt) return (r0: error)"
+        },
+        {
+          "functionName": "Start(${1:v1} /*type: int*/, ${2:v2} /*type ...[]yaklib.mitmConfigOpt*/)",
+          "document": "",
+          "definitionStr": "func mitm.Start(v1: int, v2 ...[]yaklib.mitmConfigOpt) return (r0: error)"
+        },
+        {
+          "functionName": "callback(${1:v1} /*type: func (v1: bool, v2: *http.Request, v3: *http.Response) */)",
+          "document": "",
+          "definitionStr": "func mitm.callback(v1: func (v1: bool, v2: *http.Request, v3: *http.Response) ) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
+        },
+        {
+          "functionName": "context(${1:v1} /*type: context.Context*/)",
+          "document": "",
+          "definitionStr": "func mitm.context(v1: context.Context) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
+        },
+        {
+          "functionName": "host(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func mitm.host(v1: string) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
+        },
+        {
+          "functionName": "rootCA(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
+          "document": "",
+          "definitionStr": "func mitm.rootCA(v1: bytes, v2: bytes) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         }
       ]
     },
@@ -1634,6 +1419,11 @@
           "functionName": "Eval(${1:v1} /*type: interface {}*/)",
           "document": "",
           "definitionStr": "func dyn.Eval(v1: interface {}) return (r0: error)"
+        },
+        {
+          "functionName": "Import(${1:v1} /*type: string*/, ${2:v2} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func dyn.Import(v1: string, v2: string) return (r0: *yak.yakVariable, r1: error)"
         },
         {
           "functionName": "IsYakFunc(${1:v1} /*type: interface {}*/)",
@@ -1649,6 +1439,164 @@
           "functionName": "params(${1:v1} /*type: map[string]interface {}*/)",
           "document": "",
           "definitionStr": "func dyn.params(v1: map[string]interface {}) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
+        }
+      ]
+    },
+    {
+      "libName": "tls",
+      "prefix": "tls.",
+      "functions": [
+        {
+          "functionName": "GenerateRootCA(${1:v1} /*type: string*/)",
+          "document": "",
+          "definitionStr": "func tls.GenerateRootCA(v1: string) return (r0: bytes, r1: bytes, r2: error)"
+        },
+        {
+          "functionName": "SignClientCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
+          "document": "",
+          "definitionStr": "func tls.SignClientCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+        },
+        {
+          "functionName": "SignServerCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
+          "document": "",
+          "definitionStr": "func tls.SignServerCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+        },
+        {
+          "functionName": "SignX509ClientCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
+          "document": "",
+          "definitionStr": "func tls.SignX509ClientCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+        },
+        {
+          "functionName": "SignX509ServerCertAndKey(${1:v1} /*type: bytes*/, ${2:v2} /*type: bytes*/)",
+          "document": "",
+          "definitionStr": "func tls.SignX509ServerCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+        }
+      ]
+    },
+    {
+      "libName": "fuzz",
+      "prefix": "fuzz.",
+      "functions": [
+        {
+          "functionName": "HTTPRequest(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]mutate.BuildFuzzHTTPRequestOption*/)",
+          "document": "",
+          "definitionStr": "func fuzz.HTTPRequest(v1: interface {}, v2 ...[]mutate.BuildFuzzHTTPRequestOption) return (r0: *mutate.FuzzHTTPRequest, r1: error)"
+        },
+        {
+          "functionName": "Strings(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func fuzz.Strings(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "UrlsToHTTPRequests(${1:v1} /*type ...[]interface {}*/)",
+          "document": "",
+          "definitionStr": "func fuzz.UrlsToHTTPRequests(v1 ...[]interface {}) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
+        },
+        {
+          "functionName": "https(${1:v1} /*type: bool*/)",
+          "document": "",
+          "definitionStr": "func fuzz.https(v1: bool) return (r0: func BuildFuzzHTTPRequestOption(v1: *mutate.buildFuzzHTTPRequestConfig) )"
+        }
+      ]
+    },
+    {
+      "libName": "http",
+      "prefix": "http.",
+      "functions": [
+        {
+          "functionName": "Do(${1:v1} /*type: *yaklib.yakHttpRequest*/)",
+          "document": "",
+          "definitionStr": "func http.Do(v1: *yaklib.yakHttpRequest) return (r0: *http.Response, r1: error)"
+        },
+        {
+          "functionName": "Get(${1:v1} /*type: string*/, ${2:v2} /*type ...[]yaklib.httpOption*/)",
+          "document": "",
+          "definitionStr": "func http.Get(v1: string, v2 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
+        },
+        {
+          "functionName": "GetAllBody(${1:v1} /*type: *http.Response*/)",
+          "document": "",
+          "definitionStr": "func http.GetAllBody(v1: *http.Response) return (r0: bytes)"
+        },
+        {
+          "functionName": "NewRequest(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib.httpOption*/)",
+          "document": "",
+          "definitionStr": "func http.NewRequest(v1: string, v2: string, v3 ...[]yaklib.httpOption) return (r0: *yaklib.yakHttpRequest, r1: error)"
+        },
+        {
+          "functionName": "Post(${1:v1} /*type: string*/, ${2:v2} /*type ...[]yaklib.httpOption*/)",
+          "document": "",
+          "definitionStr": "func http.Post(v1: string, v2 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
+        },
+        {
+          "functionName": "Raw(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.Raw(v1: interface {}) return (r0: *http.Request, r1: error)"
+        },
+        {
+          "functionName": "Request(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]yaklib.httpOption*/)",
+          "document": "",
+          "definitionStr": "func http.Request(v1: string, v2: string, v3 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
+        },
+        {
+          "functionName": "body(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.body(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+        },
+        {
+          "functionName": "cookie(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.cookie(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+        },
+        {
+          "functionName": "dump(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.dump(v1: interface {}) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "dumphead(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.dumphead(v1: interface {}) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "header(${1:v1} /*type: interface {}*/, ${2:v2} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.header(v1: interface {}, v2: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+        },
+        {
+          "functionName": "proxy(${1:v1} /*type ...[]string*/)",
+          "document": "",
+          "definitionStr": "func http.proxy(v1 ...[]string) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+        },
+        {
+          "functionName": "show(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "`func http.show(v1: interface {})`"
+        },
+        {
+          "functionName": "showhead(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "`func http.showhead(v1: interface {})`"
+        },
+        {
+          "functionName": "timeout(${1:v1} /*type: float64*/)",
+          "document": "",
+          "definitionStr": "func http.timeout(v1: float64) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+        },
+        {
+          "functionName": "ua(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.ua(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+        },
+        {
+          "functionName": "uarand()",
+          "document": "",
+          "definitionStr": "func http.uarand() return (r0: string)"
+        },
+        {
+          "functionName": "useragent(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func http.useragent(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         }
       ]
     },
@@ -1675,6 +1623,73 @@
           "functionName": "wait(${1:v1} /*type: float64*/)",
           "document": "",
           "definitionStr": "func synscan.wait(v1: float64) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+        }
+      ]
+    },
+    {
+      "libName": "json",
+      "prefix": "json.",
+      "functions": [
+        {
+          "functionName": "Marshal(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func json.Marshal(v1: interface {}) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "New(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func json.New(v1: interface {}) return (r0: *yaklib.yakJson, r1: error)"
+        }
+      ]
+    },
+    {
+      "libName": "grok",
+      "prefix": "grok.",
+      "functions": [
+        {
+          "functionName": "ExtractEmail(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractEmail(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractHostPort(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractHostPort(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractIP(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractIP(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractIPv4(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractIPv4(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractIPv6(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractIPv6(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractMac(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractMac(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractPath(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractPath(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractTTY(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractTTY(v1: interface {}) return (r0: []string)"
+        },
+        {
+          "functionName": "ExtractURL(${1:v1} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func grok.ExtractURL(v1: interface {}) return (r0: []string)"
         }
       ]
     },
@@ -1826,53 +1841,89 @@
       ]
     },
     {
-      "libName": "grok",
-      "prefix": "grok.",
+      "libName": "geojson",
+      "prefix": "geojson.",
       "functions": [
         {
-          "functionName": "ExtractEmail(${1:v1} /*type: interface {}*/)",
+          "functionName": "FeaturesToCollection(${1:v1} /*type ...[]*geojson.Feature*/)",
           "document": "",
-          "definitionStr": "func grok.ExtractEmail(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func geojson.FeaturesToCollection(v1 ...[]*geojson.Feature) return (r0: *geojson.FeatureCollection)"
         },
         {
-          "functionName": "ExtractHostPort(${1:v1} /*type: interface {}*/)",
+          "functionName": "NewFeatureCollection()",
           "document": "",
-          "definitionStr": "func grok.ExtractHostPort(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func geojson.NewFeatureCollection() return (r0: *geojson.FeatureCollection)"
         },
         {
-          "functionName": "ExtractIP(${1:v1} /*type: interface {}*/)",
+          "functionName": "WithName(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: string*/)",
           "document": "",
-          "definitionStr": "func grok.ExtractIP(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func geojson.WithName(v1: *geojson.Feature, v2: string) return (r0: *geojson.Feature)"
         },
         {
-          "functionName": "ExtractIPv4(${1:v1} /*type: interface {}*/)",
+          "functionName": "WithNameValue(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: string*/, ${3:v3} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func grok.ExtractIPv4(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func geojson.WithNameValue(v1: *geojson.Feature, v2: string, v3: float64) return (r0: *geojson.Feature)"
         },
         {
-          "functionName": "ExtractIPv6(${1:v1} /*type: interface {}*/)",
+          "functionName": "WithProperty(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: string*/, ${3:v3} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func grok.ExtractIPv6(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func geojson.WithProperty(v1: *geojson.Feature, v2: string, v3: float64) return (r0: *geojson.Feature)"
         },
         {
-          "functionName": "ExtractMac(${1:v1} /*type: interface {}*/)",
+          "functionName": "WithValue(${1:v1} /*type: *geojson.Feature*/, ${2:v2} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func grok.ExtractMac(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func geojson.WithValue(v1: *geojson.Feature, v2: float64) return (r0: *geojson.Feature)"
+        }
+      ]
+    },
+    {
+      "libName": "context",
+      "prefix": "context.",
+      "functions": [
+        {
+          "functionName": "Background()",
+          "document": "",
+          "definitionStr": "func context.Background() return (r0: context.Context)"
         },
         {
-          "functionName": "ExtractPath(${1:v1} /*type: interface {}*/)",
+          "functionName": "New()",
           "document": "",
-          "definitionStr": "func grok.ExtractPath(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func context.New() return (r0: context.Context)"
         },
         {
-          "functionName": "ExtractTTY(${1:v1} /*type: interface {}*/)",
+          "functionName": "Seconds(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func grok.ExtractTTY(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func context.Seconds(v1: int) return (r0: context.Context)"
         },
         {
-          "functionName": "ExtractURL(${1:v1} /*type: interface {}*/)",
+          "functionName": "TODO()",
           "document": "",
-          "definitionStr": "func grok.ExtractURL(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func context.TODO() return (r0: context.Context)"
+        },
+        {
+          "functionName": "TimeoutContextSecond(${1:v1} /*type: int*/)",
+          "document": "",
+          "definitionStr": "func context.TimeoutContextSecond(v1: int) return (r0: context.Context)"
+        },
+        {
+          "functionName": "WithCancel(${1:v1} /*type: context.Context*/)",
+          "document": "",
+          "definitionStr": "func context.WithCancel(v1: context.Context) return (r0: context.Context, r1: func CancelFunc() )"
+        },
+        {
+          "functionName": "WithDeadline(${1:v1} /*type: context.Context*/, ${2:v2} /*type: time.Time*/)",
+          "document": "",
+          "definitionStr": "func context.WithDeadline(v1: context.Context, v2: time.Time) return (r0: context.Context, r1: func CancelFunc() )"
+        },
+        {
+          "functionName": "WithTimeout(${1:v1} /*type: context.Context*/, ${2:v2} /*type: time.Duration*/)",
+          "document": "",
+          "definitionStr": "func context.WithTimeout(v1: context.Context, v2: time.Duration) return (r0: context.Context, r1: func CancelFunc() )"
+        },
+        {
+          "functionName": "WithValue(${1:v1} /*type: context.Context*/, ${2:v2} /*type: interface {}*/, ${3:v3} /*type: interface {}*/)",
+          "document": "",
+          "definitionStr": "func context.WithValue(v1: context.Context, v2: interface {}, v3: interface {}) return (r0: context.Context)"
         }
       ]
     },
@@ -2018,109 +2069,63 @@
       ]
     },
     {
-      "libName": "fuzz",
-      "prefix": "fuzz.",
+      "libName": "exec",
+      "prefix": "exec.",
       "functions": [
         {
-          "functionName": "HTTPRequest(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]mutate.BuildFuzzHTTPRequestOption*/)",
+          "functionName": "Command(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func fuzz.HTTPRequest(v1: interface {}, v2 ...[]mutate.BuildFuzzHTTPRequestOption) return (r0: *mutate.FuzzHTTPRequest, r1: error)"
+          "definitionStr": "func exec.Command(v1: string) return (r0: *exec.Cmd, r1: error)"
         },
         {
-          "functionName": "Strings(${1:v1} /*type: interface {}*/)",
+          "functionName": "CommandContext(${1:v1} /*type: context.Context*/, ${2:v2} /*type: string*/)",
           "document": "",
-          "definitionStr": "func fuzz.Strings(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func exec.CommandContext(v1: context.Context, v2: string) return (r0: *exec.Cmd, r1: error)"
         },
         {
-          "functionName": "UrlsToHTTPRequests(${1:v1} /*type ...[]interface {}*/)",
+          "functionName": "System(${1:v1} /*type: string*/)",
           "document": "",
-          "definitionStr": "func fuzz.UrlsToHTTPRequests(v1 ...[]interface {}) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
+          "definitionStr": "func exec.System(v1: string) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "https(${1:v1} /*type: bool*/)",
+          "functionName": "SystemBatch(${1:v1} /*type: string*/, ${2:v2} /*type ...[]yaklib.poolOpt*/)",
           "document": "",
-          "definitionStr": "func fuzz.https(v1: bool) return (r0: func BuildFuzzHTTPRequestOption(v1: *mutate.buildFuzzHTTPRequestConfig) )"
-        }
-      ]
-    },
-    {
-      "libName": "servicescan",
-      "prefix": "servicescan.",
-      "functions": [
-        {
-          "functionName": "Scan(${1:v1} /*type: string*/, ${2:v2} /*type: string*/, ${3:v3} /*type ...[]fp.ConfigOption*/)",
-          "document": "",
-          "definitionStr": "func servicescan.Scan(v1: string, v2: string, v3 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "definitionStr": "`func exec.SystemBatch(v1: string, v2 ...[]yaklib.poolOpt)`"
         },
         {
-          "functionName": "ScanFromSpaceEngine(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]fp.ConfigOption*/)",
+          "functionName": "SystemContext(${1:v1} /*type: context.Context*/, ${2:v2} /*type: string*/)",
           "document": "",
-          "definitionStr": "func servicescan.ScanFromSpaceEngine(v1: interface {}, v2 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "definitionStr": "func exec.SystemContext(v1: context.Context, v2: string) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "ScanFromSynResult(${1:v1} /*type: interface {}*/, ${2:v2} /*type ...[]fp.ConfigOption*/)",
+          "functionName": "WatchOutput(${1:v1} /*type: string*/, ${2:v2} /*type: float64*/, ${3:v3} /*type: func (v1: bytes) return(bool) */)",
           "document": "",
-          "definitionStr": "func servicescan.ScanFromSynResult(v1: interface {}, v2 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "definitionStr": "func exec.WatchOutput(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
         },
         {
-          "functionName": "ScanOne(${1:v1} /*type: string*/, ${2:v2} /*type: int*/, ${3:v3} /*type ...[]fp.ConfigOption*/)",
+          "functionName": "WatchStderr(${1:v1} /*type: string*/, ${2:v2} /*type: float64*/, ${3:v3} /*type: func (v1: bytes) return(bool) */)",
           "document": "",
-          "definitionStr": "func servicescan.ScanOne(v1: string, v2: int, v3 ...[]fp.ConfigOption) return (r0: *fp.MatchResult, r1: error)"
+          "definitionStr": "func exec.WatchStderr(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
         },
         {
-          "functionName": "active(${1:v1} /*type: bool*/)",
+          "functionName": "WatchStdout(${1:v1} /*type: string*/, ${2:v2} /*type: float64*/, ${3:v3} /*type: func (v1: bytes) return(bool) */)",
           "document": "",
-          "definitionStr": "func servicescan.active(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func exec.WatchStdout(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
         },
         {
-          "functionName": "all()",
+          "functionName": "callback(${1:v1} /*type: func (v1: string, v2: bytes) */)",
           "document": "",
-          "definitionStr": "func servicescan.all() return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func exec.callback(v1: func (v1: string, v2: bytes) ) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         },
         {
           "functionName": "concurrent(${1:v1} /*type: int*/)",
           "document": "",
-          "definitionStr": "func servicescan.concurrent(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func exec.concurrent(v1: int) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         },
         {
-          "functionName": "maxProbes(${1:v1} /*type: int*/)",
+          "functionName": "timeout(${1:v1} /*type: float64*/)",
           "document": "",
-          "definitionStr": "func servicescan.maxProbes(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "maxProbesConcurrent(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func servicescan.maxProbesConcurrent(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "nmapRarityMax(${1:v1} /*type: int*/)",
-          "document": "",
-          "definitionStr": "func servicescan.nmapRarityMax(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "nmapRule(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func servicescan.nmapRule(v1: interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "proto(${1:v1} /*type ...[]interface {}*/)",
-          "document": "",
-          "definitionStr": "func servicescan.proto(v1 ...[]interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "service()",
-          "document": "",
-          "definitionStr": "func servicescan.service() return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "web()",
-          "document": "",
-          "definitionStr": "func servicescan.web() return (r0: func ConfigOption(v1: *fp.Config) )"
-        },
-        {
-          "functionName": "webRule(${1:v1} /*type: interface {}*/)",
-          "document": "",
-          "definitionStr": "func servicescan.webRule(v1: interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func exec.timeout(v1: float64) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         }
       ]
     }
