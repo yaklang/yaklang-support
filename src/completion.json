@@ -1,36 +1,36 @@
 {
   "libNames": [
-    "crawler",
-    "time",
-    "str",
-    "codec",
-    "dictutil",
-    "exec",
-    "geojson",
-    "json",
-    "tls",
-    "dyn",
-    "mmdb",
-    "tcp",
-    "servicescan",
-    "log",
-    "fuzz",
     "cli",
-    "os",
-    "tools",
-    "mitm",
-    "spacengine",
-    "subdomain",
-    "io",
-    "grok",
-    "sync",
-    "file",
-    "httpserver",
+    "codec",
     "context",
+    "crawler",
+    "dictutil",
+    "dyn",
+    "exec",
+    "file",
+    "fuzz",
+    "geojson",
+    "grok",
     "http",
     "httpool",
+    "httpserver",
+    "io",
+    "json",
+    "log",
+    "mitm",
+    "mmdb",
+    "os",
+    "re",
+    "servicescan",
+    "spacengine",
+    "str",
+    "subdomain",
+    "sync",
     "synscan",
-    "re"
+    "tcp",
+    "time",
+    "tls",
+    "tools"
   ],
   "libCompletions": [
     {
@@ -1683,29 +1683,34 @@
       "prefix": "dyn.",
       "functions": [
         {
-          "functionName": "params(${1:v1/*type: map[string]interface {}*/} )",
+          "functionName": "recursive(${1:v1/*type: map[string]interface {}*/} )",
           "document": "",
+          "definitionStr": "func dyn.recursive(v1: map[string]interface {}) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
+        },
+        {
+          "functionName": "params(${1:v1/*type: map[string]interface {}*/} )",
+          "document": "给导入的脚本额外增加一些变量",
           "definitionStr": "func dyn.params(v1: map[string]interface {}) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
         },
         {
-          "functionName": "LoadVarFromFile(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]yak.yakEvalConfigOpt*/} )",
-          "document": "",
-          "definitionStr": "func dyn.LoadVarFromFile(v1: string, v2: string, v3 ...[]yak.yakEvalConfigOpt) return (r0: []*yak.yakVariable, r1: error)"
+          "functionName": "LoadVarFromFile(${1:fromModules/*type: string*/} , ${2:varName/*type: string*/} , ${3:params/*type ...[]yak.yakEvalConfigOpt*/} )",
+          "document": "从一个文件/文件夹/模块中，批量导入一个对象，通常用于 exp/poc 编写的时候，需要批量导入一些模块的函数",
+          "definitionStr": "func dyn.LoadVarFromFile(fromModules: string, varName: string, params ...[]yak.yakEvalConfigOpt) return (r0: []*yak.yakVariable, r1: error)"
         },
         {
-          "functionName": "IsYakFunc(${1:v1/*type: interface {}*/} )",
-          "document": "",
-          "definitionStr": "func dyn.IsYakFunc(v1: interface {}) return (r0: bool)"
+          "functionName": "IsYakFunc(${1:obj/*type: interface {}*/} )",
+          "document": "判断一个对象是不是可供 yak 调用的函数，类似 python 的 `callable`",
+          "definitionStr": "func dyn.IsYakFunc(obj: interface {}) return (result: bool)"
         },
         {
-          "functionName": "Import(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
-          "document": "",
-          "definitionStr": "func dyn.Import(v1: string, v2: string) return (r0: *yak.yakVariable, r1: error)"
+          "functionName": "Import(${1:fileOrModel/*type: string*/} , ${2:varName/*type: string*/} )",
+          "document": "加载一个 yak 文件，并把代码中的某些变量提取出来",
+          "definitionStr": "func dyn.Import(fileOrModel: string, varName: string) return (yakVariable: *yak.yakVariable, err: error)"
         },
         {
-          "functionName": "Eval(${1:v1/*type: interface {}*/} )",
-          "document": "",
-          "definitionStr": "func dyn.Eval(v1: interface {}) return (r0: error)"
+          "functionName": "Eval(${1:code/*type: interface {}*/} )",
+          "document": "独立上下文执行一段新的 yak 代码",
+          "definitionStr": "func dyn.Eval(code: interface {}) return (err: error)"
         }
       ]
     },
@@ -1714,9 +1719,9 @@
       "prefix": "dictutil.",
       "functions": [
         {
-          "functionName": "Mix(${1:v1/*type ...[]interface {}*/} )",
-          "document": "",
-          "definitionStr": "func dictutil.Mix(v1 ...[]interface {}) return (r0: chan []string, r1: error)"
+          "functionName": "Mix(${1:lists/*type ...[]interface {}*/} )",
+          "document": "混合多个 list，进行笛卡尔乘（直积）一般用于字典的混合",
+          "definitionStr": "func dictutil.Mix(lists ...[]interface {}) return (r0: chan []string, r1: error)"
         }
       ]
     },
@@ -1725,114 +1730,114 @@
       "prefix": "crawler.",
       "functions": [
         {
-          "functionName": "userAgent(${1:v1/*type: string*/} )",
+          "functionName": "userAgent(${1:userAgent/*type: string*/} )",
           "document": "设置 useragent",
-          "definitionStr": "func crawler.userAgent(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.userAgent(userAgent: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "urlRegexpInclude(${1:v1/*type: string*/} )",
+          "functionName": "urlRegexpInclude(${1:urlRegexp/*type: string*/} )",
           "document": "想要爬 url 的白名单，用于定向爬虫",
-          "definitionStr": "func crawler.urlRegexpInclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.urlRegexpInclude(urlRegexp: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "urlRegexpExclude(${1:v1/*type: string*/} )",
+          "functionName": "urlRegexpExclude(${1:urlRegexp/*type: string*/} )",
           "document": "禁止爬取的 url 正则，用于排除一些 login delete 等状况",
-          "definitionStr": "func crawler.urlRegexpExclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.urlRegexpExclude(urlRegexp: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "ua(${1:v1/*type: string*/} )",
+          "functionName": "ua(${1:userAgent/*type: string*/} )",
           "document": "设置 useragent",
-          "definitionStr": "func crawler.ua(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.ua(userAgent: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "timeout(${1:v1/*type: float64*/} )",
+          "functionName": "timeout(${1:timeout/*type: float64*/} )",
           "document": "等效于 `crawler.connectTimeout`",
-          "definitionStr": "func crawler.timeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.timeout(timeout: float64) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "responseTimeout(${1:v1/*type: float64*/} )",
+          "functionName": "responseTimeout(${1:seconds/*type: float64*/} )",
           "document": "响应超时时间",
-          "definitionStr": "func crawler.responseTimeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.responseTimeout(seconds: float64) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "proxy(${1:v1/*type ...[]string*/} )",
+          "functionName": "proxy(${1:proxyUrl/*type ...[]string*/} )",
           "document": "为爬虫设置代理，如果代理失效，爬虫则请求失败",
-          "definitionStr": "func crawler.proxy(v1 ...[]string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.proxy(proxyUrl ...[]string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxUrls(${1:v1/*type: int*/} )",
+          "functionName": "maxUrls(${1:limit/*type: int*/} )",
           "document": "最多获取到多少个 URL 就停止爬虫",
-          "definitionStr": "func crawler.maxUrls(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxUrls(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxRetry(${1:v1/*type: int*/} )",
+          "functionName": "maxRetry(${1:limit/*type: int*/} )",
           "document": "最大重试次数（如果失败了就会重试）",
-          "definitionStr": "func crawler.maxRetry(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxRetry(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxRequest(${1:v1/*type: int*/} )",
+          "functionName": "maxRequest(${1:limit/*type: int*/} )",
           "document": "设置爬虫最大发出的请求数量，默认为 1000",
-          "definitionStr": "func crawler.maxRequest(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxRequest(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxRedirect(${1:v1/*type: int*/} )",
+          "functionName": "maxRedirect(${1:limit/*type: int*/} )",
           "document": "设置最大重定向次数，默认为5",
-          "definitionStr": "func crawler.maxRedirect(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxRedirect(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "maxDepth(${1:v1/*type: int*/} )",
+          "functionName": "maxDepth(${1:depth/*type: int*/} )",
           "document": "设置爬虫的最大深度，默认为5",
-          "definitionStr": "func crawler.maxDepth(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxDepth(depth: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "header(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
+          "functionName": "header(${1:key/*type: string*/} , ${2:value/*type: string*/} )",
           "document": "设置爬虫的自定义 Header",
-          "definitionStr": "func crawler.header(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.header(key: string, value: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "forbiddenFromParent(${1:v1/*type: bool*/} )",
+          "functionName": "forbiddenFromParent(${1:allow/*type: bool*/} )",
           "document": "禁止扫描 url 的父路径",
-          "definitionStr": "func crawler.forbiddenFromParent(v1: bool) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.forbiddenFromParent(allow: bool) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "domainInclude(${1:v1/*type: string*/} )",
+          "functionName": "domainInclude(${1:includedDomain/*type: string*/} )",
           "document": "想要扫描的域名，域名白名单，支持 glob 语法",
-          "definitionStr": "func crawler.domainInclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.domainInclude(includedDomain: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "domainExclude(${1:v1/*type: string*/} )",
+          "functionName": "domainExclude(${1:excludedDomain/*type: string*/} )",
           "document": "不扫描的域名，使用 glob 语法",
-          "definitionStr": "func crawler.domainExclude(v1: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.domainExclude(excludedDomain: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "cookie(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
+          "functionName": "cookie(${1:key/*type: string*/} , ${2:value/*type: string*/} )",
           "document": "设置 Cookie",
-          "definitionStr": "func crawler.cookie(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.cookie(key: string, value: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "connectTimeout(${1:v1/*type: float64*/} )",
+          "functionName": "connectTimeout(${1:seconds/*type: float64*/} )",
           "document": "每一次进行 HTTP 连接的超时时间",
-          "definitionStr": "func crawler.connectTimeout(v1: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.connectTimeout(seconds: float64) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "concurrent(${1:v1/*type: int*/} )",
+          "functionName": "concurrent(${1:maxConcurrent/*type: int*/} )",
           "document": "设置爬虫并发请求数",
-          "definitionStr": "func crawler.concurrent(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.concurrent(maxConcurrent: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "bodySize(${1:v1/*type: int*/} )",
+          "functionName": "bodySize(${1:size/*type: int*/} )",
           "document": "想要设置每一个 body 最大获取多少页面大小，bytes 的大小，默认为 1024 * 1024 * 10",
-          "definitionStr": "func crawler.bodySize(v1: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.bodySize(size: int) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "basicAuth(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
+          "functionName": "basicAuth(${1:username/*type: string*/} , ${2:password/*type: string*/} )",
           "document": "设置爬虫的基础认证",
-          "definitionStr": "func crawler.basicAuth(v1: string, v2: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.basicAuth(username: string, password: string) return (r0: func configOpt(v1: *crawler.Config) )"
         },
         {
-          "functionName": "Start(${1:urls/*type: string*/} , ${2:v2/*type ...[]crawler.configOpt*/} )",
+          "functionName": "Start(${1:urls/*type: string*/} , ${2:params/*type ...[]crawler.configOpt*/} )",
           "document": "核心函数，进行爬虫的入口，输入想要爬的网站，然后设置参数，在一个 chan 中接受爬虫的结果",
-          "definitionStr": "func crawler.Start(urls: string, v2 ...[]crawler.configOpt) return (r0: chan crawler.RequestIf, r1: error)"
+          "definitionStr": "func crawler.Start(urls: string, params ...[]crawler.configOpt) return (r0: chan crawler.RequestIf, r1: error)"
         }
       ]
     },
