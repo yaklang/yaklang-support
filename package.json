@@ -1,6 +1,7 @@
 {
     "name": "yak",
     "displayName": "yaklang",
+    "publisher": "v1ll4n",
     "description": "YAK渗透测试语言",
     "version": "0.0.1",
     "engines": {
