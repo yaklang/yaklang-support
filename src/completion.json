@@ -38,9 +38,9 @@
       "prefix": "tools.",
       "functions": [
         {
-          "functionName": "ScanSubDomain(${1:v1/*type: context.Context*/} , ${2:v2/*type ...[]string*/} )",
+          "functionName": "ScanSubDomain(${1:v1/*type: context.Context*/} , ${2:v2/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func tools.ScanSubDomain(v1: context.Context, v2 ...[]string) return (r0: chan *subdomain.SubdomainResult, r1: error)"
+          "definitionStr": "func tools.ScanSubDomain(v1: context.Context, v2 ...string) return (r0: chan *subdomain.SubdomainResult, r1: error)"
         },
         {
           "functionName": "NewSubFinder()",
@@ -176,9 +176,9 @@
       "prefix": "tcp.",
       "functions": [
         {
-          "functionName": "serverTls(${1:v1/*type: interface {}*/} , ${2:v2/*type: interface {}*/} , ${3:v3/*type ...[]interface {}*/} )",
+          "functionName": "serverTls(${1:v1/*type: any*/} , ${2:v2/*type: any*/} , ${3:v3/*type ...any*/} )",
           "document": "",
-          "definitionStr": "func tcp.serverTls(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+          "definitionStr": "func tcp.serverTls(v1: any, v2: any, v3 ...any) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
         },
         {
           "functionName": "serverContext(${1:v1/*type: context.Context*/} )",
@@ -191,9 +191,9 @@
           "definitionStr": "func tcp.serverCallback(v1: func (v1: *yaklib.tcpConnection) ) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
         },
         {
-          "functionName": "clientTls(${1:v1/*type: interface {}*/} , ${2:v2/*type: interface {}*/} , ${3:v3/*type ...[]interface {}*/} )",
+          "functionName": "clientTls(${1:v1/*type: any*/} , ${2:v2/*type: any*/} , ${3:v3/*type ...any*/} )",
           "document": "",
-          "definitionStr": "func tcp.clientTls(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "definitionStr": "func tcp.clientTls(v1: any, v2: any, v3 ...any) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
         },
         {
           "functionName": "clientTimeout(${1:v1/*type: float64*/} )",
@@ -201,14 +201,14 @@
           "definitionStr": "func tcp.clientTimeout(v1: float64) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
         },
         {
-          "functionName": "clientLocal(${1:v1/*type: interface {}*/} )",
+          "functionName": "clientLocal(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func tcp.clientLocal(v1: interface {}) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "definitionStr": "func tcp.clientLocal(v1: any) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
         },
         {
-          "functionName": "Serve(${1:v1/*type: interface {}*/} , ${2:v2/*type: int*/} , ${3:v3/*type ...[]yaklib.tcpServerConfigOpt*/} )",
+          "functionName": "Serve(${1:v1/*type: any*/} , ${2:v2/*type: int*/} , ${3:v3/*type ...yaklib.tcpServerConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func tcp.Serve(v1: interface {}, v2: int, v3 ...[]yaklib.tcpServerConfigOpt) return (r0: error)"
+          "definitionStr": "func tcp.Serve(v1: any, v2: int, v3 ...yaklib.tcpServerConfigOpt) return (r0: error)"
         },
         {
           "functionName": "Forward(${1:v1/*type: int*/} , ${2:v2/*type: string*/} , ${3:v3/*type: int*/} )",
@@ -216,9 +216,9 @@
           "definitionStr": "func tcp.Forward(v1: int, v2: string, v3: int) return (r0: error)"
         },
         {
-          "functionName": "Connect(${1:v1/*type: string*/} , ${2:v2/*type: interface {}*/} , ${3:v3/*type ...[]yaklib.dialerOpt*/} )",
+          "functionName": "Connect(${1:v1/*type: string*/} , ${2:v2/*type: any*/} , ${3:v3/*type ...yaklib.dialerOpt*/} )",
           "document": "",
-          "definitionStr": "func tcp.Connect(v1: string, v2: interface {}, v3 ...[]yaklib.dialerOpt) return (r0: *yaklib.tcpConnection, r1: error)"
+          "definitionStr": "func tcp.Connect(v1: string, v2: any, v3 ...yaklib.dialerOpt) return (r0: *yaklib.tcpConnection, r1: error)"
         }
       ]
     },
@@ -242,9 +242,9 @@
           "definitionStr": "func synscan.outputFile(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
         },
         {
-          "functionName": "Scan(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]tools.scanOpt*/} )",
+          "functionName": "Scan(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...tools.scanOpt*/} )",
           "document": "",
-          "definitionStr": "func synscan.Scan(v1: string, v2: string, v3 ...[]tools.scanOpt) return (r0: chan *tools.SynScanResult, r1: error)"
+          "definitionStr": "func synscan.Scan(v1: string, v2: string, v3 ...tools.scanOpt) return (r0: chan *tools.SynScanResult, r1: error)"
         }
       ]
     },
@@ -324,9 +324,9 @@
           "definitionStr": "func subdomain.targetConcurrent(v1: int) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
         },
         {
-          "functionName": "recursiveDict(${1:v1/*type: interface {}*/} )",
+          "functionName": "recursiveDict(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func subdomain.recursiveDict(v1: interface {}) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "definitionStr": "func subdomain.recursiveDict(v1: any) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
         },
         {
           "functionName": "recursive(${1:v1/*type: bool*/} )",
@@ -339,9 +339,9 @@
           "definitionStr": "func subdomain.maxDepth(v1: int) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
         },
         {
-          "functionName": "mainDict(${1:v1/*type: interface {}*/} )",
+          "functionName": "mainDict(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func subdomain.mainDict(v1: interface {}) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "definitionStr": "func subdomain.mainDict(v1: any) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
         },
         {
           "functionName": "eachSearchTimeout(${1:v1/*type: float64*/} )",
@@ -359,9 +359,9 @@
           "definitionStr": "func subdomain.dnsServer(v1: []string) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
         },
         {
-          "functionName": "Scan(${1:v1/*type: interface {}*/} , ${2:v2/*type ...[]subdomain.ConfigOption*/} )",
+          "functionName": "Scan(${1:v1/*type: any*/} , ${2:v2/*type ...subdomain.ConfigOption*/} )",
           "document": "",
-          "definitionStr": "func subdomain.Scan(v1: interface {}, v2 ...[]subdomain.ConfigOption) return (r0: chan *subdomain.SubdomainResult, r1: error)"
+          "definitionStr": "func subdomain.Scan(v1: any, v2 ...subdomain.ConfigOption) return (r0: chan *subdomain.SubdomainResult, r1: error)"
         }
       ]
     },
@@ -370,9 +370,9 @@
       "prefix": "str.",
       "functions": [
         {
-          "functionName": "f(${1:v1/*type: string*/} , ${2:v2/*type ...[]interface {}*/} )",
+          "functionName": "f(${1:v1/*type: string*/} , ${2:v2/*type ...any*/} )",
           "document": "",
-          "definitionStr": "func str.f(v1: string, v2 ...[]interface {}) return (r0: string)"
+          "definitionStr": "func str.f(v1: string, v2 ...any) return (r0: string)"
         },
         {
           "functionName": "TrimSuffix(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
@@ -440,9 +440,9 @@
           "definitionStr": "func str.ToLower(v1: string) return (r0: string)"
         },
         {
-          "functionName": "ToJsonIndentStr(${1:v1/*type: interface {}*/} )",
+          "functionName": "ToJsonIndentStr(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func str.ToJsonIndentStr(v1: interface {}) return (r0: string)"
+          "definitionStr": "func str.ToJsonIndentStr(v1: any) return (r0: string)"
         },
         {
           "functionName": "Title(${1:v1/*type: string*/} )",
@@ -450,9 +450,9 @@
           "definitionStr": "func str.Title(v1: string) return (r0: string)"
         },
         {
-          "functionName": "StringSliceContainsAll(${1:v1/*type: []string*/} , ${2:v2/*type ...[]string*/} )",
+          "functionName": "StringSliceContainsAll(${1:v1/*type: []string*/} , ${2:v2/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func str.StringSliceContainsAll(v1: []string, v2 ...[]string) return (r0: bool)"
+          "definitionStr": "func str.StringSliceContainsAll(v1: []string, v2 ...string) return (r0: bool)"
         },
         {
           "functionName": "StringSliceContains(${1:v1/*type: []string*/} , ${2:v2/*type: string*/} )",
@@ -515,9 +515,9 @@
           "definitionStr": "func str.RemoveRepeat(v1: []string) return (r0: []string)"
         },
         {
-          "functionName": "RegexpMatch(${1:v1/*type: string*/} , ${2:v2/*type: interface {}*/} )",
+          "functionName": "RegexpMatch(${1:v1/*type: string*/} , ${2:v2/*type: any*/} )",
           "document": "",
-          "definitionStr": "func str.RegexpMatch(v1: string, v2: interface {}) return (r0: bool)"
+          "definitionStr": "func str.RegexpMatch(v1: string, v2: any) return (r0: bool)"
         },
         {
           "functionName": "RandStr(${1:v1/*type: int*/} )",
@@ -530,19 +530,19 @@
           "definitionStr": "func str.RandSecret(v1: int) return (r0: string)"
         },
         {
-          "functionName": "PathJoin(${1:v1/*type ...[]string*/} )",
+          "functionName": "PathJoin(${1:v1/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func str.PathJoin(v1 ...[]string) return (r0: string)"
+          "definitionStr": "func str.PathJoin(v1 ...string) return (r0: string)"
         },
         {
-          "functionName": "ParseStringToUrlsWith3W(${1:v1/*type ...[]string*/} )",
+          "functionName": "ParseStringToUrlsWith3W(${1:v1/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func str.ParseStringToUrlsWith3W(v1 ...[]string) return (r0: []string)"
+          "definitionStr": "func str.ParseStringToUrlsWith3W(v1 ...string) return (r0: []string)"
         },
         {
-          "functionName": "ParseStringToUrls(${1:v1/*type ...[]string*/} )",
+          "functionName": "ParseStringToUrls(${1:v1/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func str.ParseStringToUrls(v1 ...[]string) return (r0: []string)"
+          "definitionStr": "func str.ParseStringToUrls(v1 ...string) return (r0: []string)"
         },
         {
           "functionName": "ParseStringToPorts(${1:v1/*type: string*/} )",
@@ -612,7 +612,7 @@
         {
           "functionName": "JsonStreamToMapList(${1:v1/*type: io.Reader*/} )",
           "document": "",
-          "definitionStr": "func str.JsonStreamToMapList(v1: io.Reader) return (r0: []map[string]interface {})"
+          "definitionStr": "func str.JsonStreamToMapList(v1: io.Reader) return (r0: []map[string]any)"
         },
         {
           "functionName": "Join(${1:v1/*type: []string*/} , ${2:v2/*type: string*/} )",
@@ -655,9 +655,9 @@
           "definitionStr": "func str.IPv4ToCClassNetwork(v1: string) return (r0: string, r1: error)"
         },
         {
-          "functionName": "HostPort(${1:v1/*type: string*/} , ${2:v2/*type: interface {}*/} )",
+          "functionName": "HostPort(${1:v1/*type: string*/} , ${2:v2/*type: any*/} )",
           "document": "",
-          "definitionStr": "func str.HostPort(v1: string, v2: interface {}) return (r0: string)"
+          "definitionStr": "func str.HostPort(v1: string, v2: any) return (r0: string)"
         },
         {
           "functionName": "HasSuffix(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
@@ -726,19 +726,19 @@
           "definitionStr": "func spacengine.maxPage(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
         },
         {
-          "functionName": "ShodanQuery(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]yaklib._spaceEngineConfigOpt*/} )",
+          "functionName": "ShodanQuery(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...yaklib._spaceEngineConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func spacengine.ShodanQuery(v1: string, v2: string, v3 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "definitionStr": "func spacengine.ShodanQuery(v1: string, v2: string, v3 ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "QuakeQuery(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]yaklib._spaceEngineConfigOpt*/} )",
+          "functionName": "QuakeQuery(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...yaklib._spaceEngineConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func spacengine.QuakeQuery(v1: string, v2: string, v3 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "definitionStr": "func spacengine.QuakeQuery(v1: string, v2: string, v3 ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "FofaQuery(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type: string*/} , ${4:v4/*type ...[]yaklib._spaceEngineConfigOpt*/} )",
+          "functionName": "FofaQuery(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type: string*/} , ${4:v4/*type ...yaklib._spaceEngineConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func spacengine.FofaQuery(v1: string, v2: string, v3: string, v4 ...[]yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "definitionStr": "func spacengine.FofaQuery(v1: string, v2: string, v3: string, v4 ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
         }
       ]
     },
@@ -747,9 +747,9 @@
       "prefix": "servicescan.",
       "functions": [
         {
-          "functionName": "webRule(${1:v1/*type: interface {}*/} )",
+          "functionName": "webRule(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func servicescan.webRule(v1: interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func servicescan.webRule(v1: any) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "web()",
@@ -762,14 +762,14 @@
           "definitionStr": "func servicescan.service() return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "proto(${1:v1/*type ...[]interface {}*/} )",
+          "functionName": "proto(${1:v1/*type ...any*/} )",
           "document": "",
-          "definitionStr": "func servicescan.proto(v1 ...[]interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func servicescan.proto(v1 ...any) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "nmapRule(${1:v1/*type: interface {}*/} )",
+          "functionName": "nmapRule(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func servicescan.nmapRule(v1: interface {}) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func servicescan.nmapRule(v1: any) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "nmapRarityMax(${1:v1/*type: int*/} )",
@@ -802,24 +802,24 @@
           "definitionStr": "func servicescan.active(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "ScanOne(${1:v1/*type: string*/} , ${2:v2/*type: int*/} , ${3:v3/*type ...[]fp.ConfigOption*/} )",
+          "functionName": "ScanOne(${1:v1/*type: string*/} , ${2:v2/*type: int*/} , ${3:v3/*type ...fp.ConfigOption*/} )",
           "document": "",
-          "definitionStr": "func servicescan.ScanOne(v1: string, v2: int, v3 ...[]fp.ConfigOption) return (r0: *fp.MatchResult, r1: error)"
+          "definitionStr": "func servicescan.ScanOne(v1: string, v2: int, v3 ...fp.ConfigOption) return (r0: *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "ScanFromSynResult(${1:v1/*type: interface {}*/} , ${2:v2/*type ...[]fp.ConfigOption*/} )",
+          "functionName": "ScanFromSynResult(${1:v1/*type: any*/} , ${2:v2/*type ...fp.ConfigOption*/} )",
           "document": "",
-          "definitionStr": "func servicescan.ScanFromSynResult(v1: interface {}, v2 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "definitionStr": "func servicescan.ScanFromSynResult(v1: any, v2 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "ScanFromSpaceEngine(${1:v1/*type: interface {}*/} , ${2:v2/*type ...[]fp.ConfigOption*/} )",
+          "functionName": "ScanFromSpaceEngine(${1:v1/*type: any*/} , ${2:v2/*type ...fp.ConfigOption*/} )",
           "document": "",
-          "definitionStr": "func servicescan.ScanFromSpaceEngine(v1: interface {}, v2 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "definitionStr": "func servicescan.ScanFromSpaceEngine(v1: any, v2 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "Scan(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]fp.ConfigOption*/} )",
+          "functionName": "Scan(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...fp.ConfigOption*/} )",
           "document": "",
-          "definitionStr": "func servicescan.Scan(v1: string, v2: string, v3 ...[]fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "definitionStr": "func servicescan.Scan(v1: string, v2: string, v3 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
         }
       ]
     },
@@ -843,9 +843,9 @@
           "definitionStr": "func re.MustCompile(v1: string) return (r0: *regexp.Regexp)"
         },
         {
-          "functionName": "Match(${1:v1/*type: string*/} , ${2:v2/*type: interface {}*/} )",
+          "functionName": "Match(${1:v1/*type: string*/} , ${2:v2/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.Match(v1: string, v2: interface {}) return (r0: bool)"
+          "definitionStr": "func re.Match(v1: string, v2: any) return (r0: bool)"
         },
         {
           "functionName": "Grok(${1:v1/*type: string*/} , ${2:v2/*type: string*/} )",
@@ -853,49 +853,49 @@
           "definitionStr": "func re.Grok(v1: string, v2: string) return (r0: yaklib.GrokResult)"
         },
         {
-          "functionName": "ExtractURL(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractURL(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractURL(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractURL(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractTTY(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractTTY(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractTTY(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractTTY(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractPath(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractPath(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractPath(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractPath(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractMac(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractMac(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractMac(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractMac(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractIPv6(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractIPv6(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractIPv6(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractIPv6(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractIPv4(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractIPv4(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractIPv4(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractIPv4(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractIP(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractIP(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractIP(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractIP(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractHostPort(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractHostPort(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractHostPort(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractHostPort(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractEmail(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractEmail(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func re.ExtractEmail(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func re.ExtractEmail(v1: any) return (r0: []string)"
         },
         {
           "functionName": "CompilePOSIX(${1:v1/*type: string*/} )",
@@ -1056,14 +1056,14 @@
           "definitionStr": "func mitm.callback(v1: func (v1: bool, v2: *http.Request, v3: *http.Response) ) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
-          "functionName": "Start(${1:v1/*type: int*/} , ${2:v2/*type ...[]yaklib.mitmConfigOpt*/} )",
+          "functionName": "Start(${1:v1/*type: int*/} , ${2:v2/*type ...yaklib.mitmConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func mitm.Start(v1: int, v2 ...[]yaklib.mitmConfigOpt) return (r0: error)"
+          "definitionStr": "func mitm.Start(v1: int, v2 ...yaklib.mitmConfigOpt) return (r0: error)"
         },
         {
-          "functionName": "Bridge(${1:v1/*type: interface {}*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]yaklib.mitmConfigOpt*/} )",
+          "functionName": "Bridge(${1:v1/*type: any*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...yaklib.mitmConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func mitm.Bridge(v1: interface {}, v2: string, v3 ...[]yaklib.mitmConfigOpt) return (r0: error)"
+          "definitionStr": "func mitm.Bridge(v1: any, v2: string, v3 ...yaklib.mitmConfigOpt) return (r0: error)"
         }
       ]
     },
@@ -1072,29 +1072,29 @@
       "prefix": "log.",
       "functions": [
         {
-          "functionName": "warn(${1:v1/*type: string*/} , ${2:v2/*type ...[]interface {}*/} )",
+          "functionName": "warn(${1:v1/*type: string*/} , ${2:v2/*type ...any*/} )",
           "document": "",
-          "definitionStr": "`func log.warn(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "`func log.warn(v1: string, v2 ...any)`"
         },
         {
-          "functionName": "setLevel(${1:v1/*type: interface {}*/} )",
+          "functionName": "setLevel(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "`func log.setLevel(v1: interface {})`"
+          "definitionStr": "`func log.setLevel(v1: any)`"
         },
         {
-          "functionName": "info(${1:v1/*type: string*/} , ${2:v2/*type ...[]interface {}*/} )",
+          "functionName": "info(${1:v1/*type: string*/} , ${2:v2/*type ...any*/} )",
           "document": "",
-          "definitionStr": "`func log.info(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "`func log.info(v1: string, v2 ...any)`"
         },
         {
-          "functionName": "error(${1:v1/*type: string*/} , ${2:v2/*type ...[]interface {}*/} )",
+          "functionName": "error(${1:v1/*type: string*/} , ${2:v2/*type ...any*/} )",
           "document": "",
-          "definitionStr": "`func log.error(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "`func log.error(v1: string, v2 ...any)`"
         },
         {
-          "functionName": "debug(${1:v1/*type: string*/} , ${2:v2/*type ...[]interface {}*/} )",
+          "functionName": "debug(${1:v1/*type: string*/} , ${2:v2/*type ...any*/} )",
           "document": "",
-          "definitionStr": "`func log.debug(v1: string, v2 ...[]interface {})`"
+          "definitionStr": "`func log.debug(v1: string, v2 ...any)`"
         }
       ]
     },
@@ -1103,14 +1103,14 @@
       "prefix": "json.",
       "functions": [
         {
-          "functionName": "New(${1:v1/*type: interface {}*/} )",
+          "functionName": "New(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func json.New(v1: interface {}) return (r0: *yaklib.yakJson, r1: error)"
+          "definitionStr": "func json.New(v1: any) return (r0: *yaklib.yakJson, r1: error)"
         },
         {
-          "functionName": "Marshal(${1:v1/*type: interface {}*/} )",
+          "functionName": "Marshal(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func json.Marshal(v1: interface {}) return (r0: bytes, r1: error)"
+          "definitionStr": "func json.Marshal(v1: any) return (r0: bytes, r1: error)"
         }
       ]
     },
@@ -1169,9 +1169,9 @@
           "definitionStr": "func io.NewSectionReader(v1: io.ReaderAt, v2: int64, v3: int64) return (r0: *io.SectionReader)"
         },
         {
-          "functionName": "MultiReader(${1:v1/*type ...[]io.Reader*/} )",
+          "functionName": "MultiReader(${1:v1/*type ...io.Reader*/} )",
           "document": "",
-          "definitionStr": "func io.MultiReader(v1 ...[]io.Reader) return (r0: io.Reader)"
+          "definitionStr": "func io.MultiReader(v1 ...io.Reader) return (r0: io.Reader)"
         },
         {
           "functionName": "LimitReader(${1:v1/*type: io.Reader*/} , ${2:v2/*type: int64*/} )",
@@ -1200,9 +1200,9 @@
       "prefix": "httpserver.",
       "functions": [
         {
-          "functionName": "tlsCertAndKey(${1:v1/*type: interface {}*/} , ${2:v2/*type: interface {}*/} , ${3:v3/*type ...[]interface {}*/} )",
+          "functionName": "tlsCertAndKey(${1:v1/*type: any*/} , ${2:v2/*type: any*/} , ${3:v3/*type ...any*/} )",
           "document": "",
-          "definitionStr": "func httpserver.tlsCertAndKey(v1: interface {}, v2: interface {}, v3 ...[]interface {}) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
+          "definitionStr": "func httpserver.tlsCertAndKey(v1: any, v2: any, v3 ...any) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
         },
         {
           "functionName": "handler(${1:v1/*type: func (v1: http.ResponseWriter, v2: *http.Request) */} )",
@@ -1215,9 +1215,9 @@
           "definitionStr": "func httpserver.context(v1: context.Context) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
         },
         {
-          "functionName": "Serve(${1:v1/*type: string*/} , ${2:v2/*type: int*/} , ${3:v3/*type ...[]yaklib._httpServerConfigOpt*/} )",
+          "functionName": "Serve(${1:v1/*type: string*/} , ${2:v2/*type: int*/} , ${3:v3/*type ...yaklib._httpServerConfigOpt*/} )",
           "document": "",
-          "definitionStr": "func httpserver.Serve(v1: string, v2: int, v3 ...[]yaklib._httpServerConfigOpt) return (r0: error)"
+          "definitionStr": "func httpserver.Serve(v1: string, v2: int, v3 ...yaklib._httpServerConfigOpt) return (r0: error)"
         }
       ]
     },
@@ -1251,9 +1251,9 @@
           "definitionStr": "func httpool.host(v1: string) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
-          "functionName": "Pool(${1:v1/*type: interface {}*/} , ${2:v2/*type ...[]mutate.httpPoolConfigOption*/} )",
+          "functionName": "Pool(${1:v1/*type: any*/} , ${2:v2/*type ...mutate.httpPoolConfigOption*/} )",
           "document": "",
-          "definitionStr": "func httpool.Pool(v1: interface {}, v2 ...[]mutate.httpPoolConfigOption) return (r0: chan *mutate._httpResult, r1: error)"
+          "definitionStr": "func httpool.Pool(v1: any, v2 ...mutate.httpPoolConfigOption) return (r0: chan *mutate._httpResult, r1: error)"
         }
       ]
     },
@@ -1262,9 +1262,9 @@
       "prefix": "http.",
       "functions": [
         {
-          "functionName": "useragent(${1:v1/*type: interface {}*/} )",
+          "functionName": "useragent(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.useragent(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func http.useragent(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
           "functionName": "uarand()",
@@ -1272,9 +1272,9 @@
           "definitionStr": "func http.uarand() return (r0: string)"
         },
         {
-          "functionName": "ua(${1:v1/*type: interface {}*/} )",
+          "functionName": "ua(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.ua(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func http.ua(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
           "functionName": "timeout(${1:v1/*type: float64*/} )",
@@ -1282,64 +1282,64 @@
           "definitionStr": "func http.timeout(v1: float64) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
-          "functionName": "showhead(${1:v1/*type: interface {}*/} )",
+          "functionName": "showhead(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "`func http.showhead(v1: interface {})`"
+          "definitionStr": "`func http.showhead(v1: any)`"
         },
         {
-          "functionName": "show(${1:v1/*type: interface {}*/} )",
+          "functionName": "show(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "`func http.show(v1: interface {})`"
+          "definitionStr": "`func http.show(v1: any)`"
         },
         {
-          "functionName": "proxy(${1:v1/*type ...[]string*/} )",
+          "functionName": "proxy(${1:v1/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func http.proxy(v1 ...[]string) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func http.proxy(v1 ...string) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
-          "functionName": "header(${1:v1/*type: interface {}*/} , ${2:v2/*type: interface {}*/} )",
+          "functionName": "header(${1:v1/*type: any*/} , ${2:v2/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.header(v1: interface {}, v2: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func http.header(v1: any, v2: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
-          "functionName": "dumphead(${1:v1/*type: interface {}*/} )",
+          "functionName": "dumphead(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.dumphead(v1: interface {}) return (r0: bytes, r1: error)"
+          "definitionStr": "func http.dumphead(v1: any) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "dump(${1:v1/*type: interface {}*/} )",
+          "functionName": "dump(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.dump(v1: interface {}) return (r0: bytes, r1: error)"
+          "definitionStr": "func http.dump(v1: any) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "cookie(${1:v1/*type: interface {}*/} )",
+          "functionName": "cookie(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.cookie(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func http.cookie(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
-          "functionName": "body(${1:v1/*type: interface {}*/} )",
+          "functionName": "body(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.body(v1: interface {}) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "definitionStr": "func http.body(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
-          "functionName": "Request(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]yaklib.httpOption*/} )",
+          "functionName": "Request(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...yaklib.httpOption*/} )",
           "document": "",
-          "definitionStr": "func http.Request(v1: string, v2: string, v3 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
+          "definitionStr": "func http.Request(v1: string, v2: string, v3 ...yaklib.httpOption) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "Raw(${1:v1/*type: interface {}*/} )",
+          "functionName": "Raw(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func http.Raw(v1: interface {}) return (r0: *http.Request, r1: error)"
+          "definitionStr": "func http.Raw(v1: any) return (r0: *http.Request, r1: error)"
         },
         {
-          "functionName": "Post(${1:v1/*type: string*/} , ${2:v2/*type ...[]yaklib.httpOption*/} )",
+          "functionName": "Post(${1:v1/*type: string*/} , ${2:v2/*type ...yaklib.httpOption*/} )",
           "document": "",
-          "definitionStr": "func http.Post(v1: string, v2 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
+          "definitionStr": "func http.Post(v1: string, v2 ...yaklib.httpOption) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "NewRequest(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...[]yaklib.httpOption*/} )",
+          "functionName": "NewRequest(${1:v1/*type: string*/} , ${2:v2/*type: string*/} , ${3:v3/*type ...yaklib.httpOption*/} )",
           "document": "",
-          "definitionStr": "func http.NewRequest(v1: string, v2: string, v3 ...[]yaklib.httpOption) return (r0: *yaklib.yakHttpRequest, r1: error)"
+          "definitionStr": "func http.NewRequest(v1: string, v2: string, v3 ...yaklib.httpOption) return (r0: *yaklib.yakHttpRequest, r1: error)"
         },
         {
           "functionName": "GetAllBody(${1:v1/*type: *http.Response*/} )",
@@ -1347,9 +1347,9 @@
           "definitionStr": "func http.GetAllBody(v1: *http.Response) return (r0: bytes)"
         },
         {
-          "functionName": "Get(${1:v1/*type: string*/} , ${2:v2/*type ...[]yaklib.httpOption*/} )",
+          "functionName": "Get(${1:v1/*type: string*/} , ${2:v2/*type ...yaklib.httpOption*/} )",
           "document": "",
-          "definitionStr": "func http.Get(v1: string, v2 ...[]yaklib.httpOption) return (r0: *http.Response, r1: error)"
+          "definitionStr": "func http.Get(v1: string, v2 ...yaklib.httpOption) return (r0: *http.Response, r1: error)"
         },
         {
           "functionName": "Do(${1:v1/*type: *yaklib.yakHttpRequest*/} )",
@@ -1363,49 +1363,49 @@
       "prefix": "grok.",
       "functions": [
         {
-          "functionName": "ExtractURL(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractURL(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractURL(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractURL(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractTTY(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractTTY(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractTTY(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractTTY(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractPath(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractPath(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractPath(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractPath(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractMac(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractMac(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractMac(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractMac(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractIPv6(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractIPv6(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractIPv6(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractIPv6(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractIPv4(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractIPv4(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractIPv4(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractIPv4(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractIP(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractIP(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractIP(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractIP(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractHostPort(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractHostPort(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractHostPort(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractHostPort(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "ExtractEmail(${1:v1/*type: interface {}*/} )",
+          "functionName": "ExtractEmail(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func grok.ExtractEmail(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func grok.ExtractEmail(v1: any) return (r0: []string)"
         }
       ]
     },
@@ -1439,9 +1439,9 @@
           "definitionStr": "func geojson.NewFeatureCollection() return (r0: *geojson.FeatureCollection)"
         },
         {
-          "functionName": "FeaturesToCollection(${1:v1/*type ...[]*geojson.Feature*/} )",
+          "functionName": "FeaturesToCollection(${1:v1/*type ...*geojson.Feature*/} )",
           "document": "",
-          "definitionStr": "func geojson.FeaturesToCollection(v1 ...[]*geojson.Feature) return (r0: *geojson.FeatureCollection)"
+          "definitionStr": "func geojson.FeaturesToCollection(v1 ...*geojson.Feature) return (r0: *geojson.FeatureCollection)"
         }
       ]
     },
@@ -1455,19 +1455,19 @@
           "definitionStr": "func fuzz.https(v1: bool) return (r0: func BuildFuzzHTTPRequestOption(v1: *mutate.buildFuzzHTTPRequestConfig) )"
         },
         {
-          "functionName": "UrlsToHTTPRequests(${1:v1/*type ...[]interface {}*/} )",
+          "functionName": "UrlsToHTTPRequests(${1:v1/*type ...any*/} )",
           "document": "",
-          "definitionStr": "func fuzz.UrlsToHTTPRequests(v1 ...[]interface {}) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
+          "definitionStr": "func fuzz.UrlsToHTTPRequests(v1 ...any) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
         },
         {
-          "functionName": "Strings(${1:v1/*type: interface {}*/} )",
+          "functionName": "Strings(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func fuzz.Strings(v1: interface {}) return (r0: []string)"
+          "definitionStr": "func fuzz.Strings(v1: any) return (r0: []string)"
         },
         {
-          "functionName": "HTTPRequest(${1:v1/*type: interface {}*/} , ${2:v2/*type ...[]mutate.BuildFuzzHTTPRequestOption*/} )",
+          "functionName": "HTTPRequest(${1:v1/*type: any*/} , ${2:v2/*type ...mutate.BuildFuzzHTTPRequestOption*/} )",
           "document": "",
-          "definitionStr": "func fuzz.HTTPRequest(v1: interface {}, v2 ...[]mutate.BuildFuzzHTTPRequestOption) return (r0: *mutate.FuzzHTTPRequest, r1: error)"
+          "definitionStr": "func fuzz.HTTPRequest(v1: any, v2 ...mutate.BuildFuzzHTTPRequestOption) return (r0: *mutate.FuzzHTTPRequest, r1: error)"
         }
       ]
     },
@@ -1486,14 +1486,14 @@
           "definitionStr": "func file.Stat(v1: string) return (r0: fs.FileInfo, r1: error)"
         },
         {
-          "functionName": "SaveJson(${1:v1/*type: string*/} , ${2:v2/*type: interface {}*/} )",
+          "functionName": "SaveJson(${1:v1/*type: string*/} , ${2:v2/*type: any*/} )",
           "document": "",
-          "definitionStr": "func file.SaveJson(v1: string, v2: interface {}) return (r0: error)"
+          "definitionStr": "func file.SaveJson(v1: string, v2: any) return (r0: error)"
         },
         {
-          "functionName": "Save(${1:v1/*type: string*/} , ${2:v2/*type: interface {}*/} )",
+          "functionName": "Save(${1:v1/*type: string*/} , ${2:v2/*type: any*/} )",
           "document": "",
-          "definitionStr": "func file.Save(v1: string, v2: interface {}) return (r0: error)"
+          "definitionStr": "func file.Save(v1: string, v2: any) return (r0: error)"
         },
         {
           "functionName": "Rm(${1:v1/*type: string*/} )",
@@ -1556,9 +1556,9 @@
           "definitionStr": "func file.Ls(v1: string) return (r0: []*utils.FileInfo)"
         },
         {
-          "functionName": "Join(${1:v1/*type ...[]string*/} )",
+          "functionName": "Join(${1:v1/*type ...string*/} )",
           "document": "",
-          "definitionStr": "func file.Join(v1 ...[]string) return (r0: string)"
+          "definitionStr": "func file.Join(v1 ...string) return (r0: string)"
         },
         {
           "functionName": "IsLink(${1:v1/*type: string*/} )",
@@ -1642,39 +1642,39 @@
           "definitionStr": "func exec.WatchStdout(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
         },
         {
-          "functionName": "WatchStderr(${1:v1/*type: string*/} , ${2:v2/*type: float64*/} , ${3:v3/*type: func (v1: bytes) return(bool) */} )",
-          "document": "",
-          "definitionStr": "func exec.WatchStderr(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
+          "functionName": "WatchStderr(${1:cmd/*type: string*/} , ${2:timeout/*type: float64*/} , ${3:callback/*type: func (v1: bytes) return(bool) */} )",
+          "document": "使用方法同 `exec.WatchOutput` 只是监控的输出是标准错误流",
+          "definitionStr": "func exec.WatchStderr(cmd: string, timeout: float64, callback: func (v1: bytes) return(bool) ) return (err: error)"
         },
         {
-          "functionName": "WatchOutput(${1:v1/*type: string*/} , ${2:v2/*type: float64*/} , ${3:v3/*type: func (v1: bytes) return(bool) */} )",
-          "document": "",
-          "definitionStr": "func exec.WatchOutput(v1: string, v2: float64, v3: func (v1: bytes) return(bool) ) return (r0: error)"
+          "functionName": "WatchOutput(${1:cmd/*type: string*/} , ${2:timeout/*type: float64*/} , ${3:callback/*type: func (v1: bytes) return(bool) */} )",
+          "document": "监控一个命令执行的中间结果，一般用于检测这个命令是否得到了想要的结果，或者获取一个命令的中间结果。该函数监控命令执行的标准输出流+标准错误流结果",
+          "definitionStr": "func exec.WatchOutput(cmd: string, timeout: float64, callback: func (v1: bytes) return(bool) ) return (Err: error)"
         },
         {
-          "functionName": "SystemContext(${1:v1/*type: context.Context*/} , ${2:v2/*type: string*/} )",
-          "document": "",
-          "definitionStr": "func exec.SystemContext(v1: context.Context, v2: string) return (r0: bytes, r1: error)"
+          "functionName": "SystemContext(${1:ctx/*type: context.Context*/} , ${2:cmd/*type: string*/} )",
+          "document": "带 context 控制生命周期的 `exec.System`",
+          "definitionStr": "func exec.SystemContext(ctx: context.Context, cmd: string) return (results: bytes, err: error)"
         },
         {
-          "functionName": "SystemBatch(${1:v1/*type: string*/} , ${2:v2/*type ...[]yaklib.poolOpt*/} )",
-          "document": "",
-          "definitionStr": "`func exec.SystemBatch(v1: string, v2 ...[]yaklib.poolOpt)`"
+          "functionName": "SystemBatch(${1:cmd/*type: string*/} , ${2:params/*type ...yaklib.poolOpt*/} )",
+          "document": "批量执行系统命令，cmd 会经过 `fuzz.Strings` 进行变异",
+          "definitionStr": "`func exec.SystemBatch(cmd: string, params ...yaklib.poolOpt)`"
         },
         {
-          "functionName": "System(${1:v1/*type: string*/} )",
-          "document": "",
-          "definitionStr": "func exec.System(v1: string) return (r0: bytes, r1: error)"
+          "functionName": "System(${1:cmd/*type: string*/} )",
+          "document": "直接执行一条系统命令，把结果标准输出和标准错误流一起输出出来，bytes 数据流作为结果",
+          "definitionStr": "func exec.System(cmd: string) return (results: bytes, r1: error)"
         },
         {
-          "functionName": "CommandContext(${1:v1/*type: context.Context*/} , ${2:v2/*type: string*/} )",
-          "document": "",
-          "definitionStr": "func exec.CommandContext(v1: context.Context, v2: string) return (r0: *exec.Cmd, r1: error)"
+          "functionName": "CommandContext(${1:ctx/*type: context.Context*/} , ${2:cmd/*type: string*/} )",
+          "document": "同 `exec.Command` 函数，但是增加了 context 的配置，可以使用 context.Context 来解决生命周期管理的问题",
+          "definitionStr": "func exec.CommandContext(ctx: context.Context, cmd: string) return (cmdInstance: *exec.Cmd, r1: error)"
         },
         {
-          "functionName": "Command(${1:v1/*type: string*/} )",
-          "document": "",
-          "definitionStr": "func exec.Command(v1: string) return (r0: *exec.Cmd, r1: error)"
+          "functionName": "Command(${1:cmd/*type: string*/} )",
+          "document": "最基础的，创建一个 `*exec.Cmd` 对象，可以执行，这个功能就是 Golang 原生的 `exec.Command`",
+          "definitionStr": "func exec.Command(cmd: string) return (cmdInstance: *exec.Cmd, r1: error)"
         }
       ]
     },
@@ -1683,24 +1683,24 @@
       "prefix": "dyn.",
       "functions": [
         {
-          "functionName": "recursive(${1:v1/*type: map[string]interface {}*/} )",
-          "document": "",
-          "definitionStr": "func dyn.recursive(v1: map[string]interface {}) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
+          "functionName": "recursive(${1:v1/*type: map[string]any*/} )",
+          "document": "用于 `dyn.LoadVarFromFile` 函数的额外参数，递归加载文件夹内容，会解析文件夹以及自文件下面所有的内容。",
+          "definitionStr": "func dyn.recursive(v1: map[string]any) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
         },
         {
-          "functionName": "params(${1:v1/*type: map[string]interface {}*/} )",
+          "functionName": "params(${1:v1/*type: map[string]any*/} )",
           "document": "给导入的脚本额外增加一些变量",
-          "definitionStr": "func dyn.params(v1: map[string]interface {}) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
+          "definitionStr": "func dyn.params(v1: map[string]any) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
         },
         {
-          "functionName": "LoadVarFromFile(${1:fromModules/*type: string*/} , ${2:varName/*type: string*/} , ${3:params/*type ...[]yak.yakEvalConfigOpt*/} )",
+          "functionName": "LoadVarFromFile(${1:fromModules/*type: string*/} , ${2:varName/*type: string*/} , ${3:params/*type ...yak.yakEvalConfigOpt*/} )",
           "document": "从一个文件/文件夹/模块中，批量导入一个对象，通常用于 exp/poc 编写的时候，需要批量导入一些模块的函数",
-          "definitionStr": "func dyn.LoadVarFromFile(fromModules: string, varName: string, params ...[]yak.yakEvalConfigOpt) return (r0: []*yak.yakVariable, r1: error)"
+          "definitionStr": "func dyn.LoadVarFromFile(fromModules: string, varName: string, params ...yak.yakEvalConfigOpt) return (r0: []*yak.yakVariable, r1: error)"
         },
         {
-          "functionName": "IsYakFunc(${1:obj/*type: interface {}*/} )",
+          "functionName": "IsYakFunc(${1:obj/*type: any*/} )",
           "document": "判断一个对象是不是可供 yak 调用的函数，类似 python 的 `callable`",
-          "definitionStr": "func dyn.IsYakFunc(obj: interface {}) return (result: bool)"
+          "definitionStr": "func dyn.IsYakFunc(obj: any) return (result: bool)"
         },
         {
           "functionName": "Import(${1:fileOrModel/*type: string*/} , ${2:varName/*type: string*/} )",
@@ -1708,9 +1708,9 @@
           "definitionStr": "func dyn.Import(fileOrModel: string, varName: string) return (yakVariable: *yak.yakVariable, err: error)"
         },
         {
-          "functionName": "Eval(${1:code/*type: interface {}*/} )",
+          "functionName": "Eval(${1:code/*type: any*/} )",
           "document": "独立上下文执行一段新的 yak 代码",
-          "definitionStr": "func dyn.Eval(code: interface {}) return (err: error)"
+          "definitionStr": "func dyn.Eval(code: any) return (err: error)"
         }
       ]
     },
@@ -1719,9 +1719,9 @@
       "prefix": "dictutil.",
       "functions": [
         {
-          "functionName": "Mix(${1:lists/*type ...[]interface {}*/} )",
+          "functionName": "Mix(${1:lists/*type ...[]string*/} )",
           "document": "混合多个 list，进行笛卡尔乘（直积）一般用于字典的混合",
-          "definitionStr": "func dictutil.Mix(lists ...[]interface {}) return (r0: chan []string, r1: error)"
+          "definitionStr": "func dictutil.Mix(lists ...[]string) return (r0: chan []string, r1: error)"
         }
       ]
     },
@@ -1732,112 +1732,112 @@
         {
           "functionName": "userAgent(${1:userAgent/*type: string*/} )",
           "document": "设置 useragent",
-          "definitionStr": "func crawler.userAgent(userAgent: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.userAgent(userAgent: string) return (r0: crawler.param)"
         },
         {
           "functionName": "urlRegexpInclude(${1:urlRegexp/*type: string*/} )",
           "document": "想要爬 url 的白名单，用于定向爬虫",
-          "definitionStr": "func crawler.urlRegexpInclude(urlRegexp: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.urlRegexpInclude(urlRegexp: string) return (r0: crawler.param)"
         },
         {
           "functionName": "urlRegexpExclude(${1:urlRegexp/*type: string*/} )",
           "document": "禁止爬取的 url 正则，用于排除一些 login delete 等状况",
-          "definitionStr": "func crawler.urlRegexpExclude(urlRegexp: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.urlRegexpExclude(urlRegexp: string) return (r0: crawler.param)"
         },
         {
           "functionName": "ua(${1:userAgent/*type: string*/} )",
           "document": "设置 useragent",
-          "definitionStr": "func crawler.ua(userAgent: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.ua(userAgent: string) return (r0: crawler.param)"
         },
         {
           "functionName": "timeout(${1:timeout/*type: float64*/} )",
           "document": "等效于 `crawler.connectTimeout`",
-          "definitionStr": "func crawler.timeout(timeout: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.timeout(timeout: float64) return (r0: crawler.param)"
         },
         {
           "functionName": "responseTimeout(${1:seconds/*type: float64*/} )",
           "document": "响应超时时间",
-          "definitionStr": "func crawler.responseTimeout(seconds: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.responseTimeout(seconds: float64) return (r0: crawler.param)"
         },
         {
-          "functionName": "proxy(${1:proxyUrl/*type ...[]string*/} )",
+          "functionName": "proxy(${1:proxyUrl/*type ...string*/} )",
           "document": "为爬虫设置代理，如果代理失效，爬虫则请求失败",
-          "definitionStr": "func crawler.proxy(proxyUrl ...[]string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.proxy(proxyUrl ...string) return (r0: crawler.param)"
         },
         {
           "functionName": "maxUrls(${1:limit/*type: int*/} )",
           "document": "最多获取到多少个 URL 就停止爬虫",
-          "definitionStr": "func crawler.maxUrls(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxUrls(limit: int) return (r0: crawler.param)"
         },
         {
           "functionName": "maxRetry(${1:limit/*type: int*/} )",
           "document": "最大重试次数（如果失败了就会重试）",
-          "definitionStr": "func crawler.maxRetry(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxRetry(limit: int) return (r0: crawler.param)"
         },
         {
           "functionName": "maxRequest(${1:limit/*type: int*/} )",
           "document": "设置爬虫最大发出的请求数量，默认为 1000",
-          "definitionStr": "func crawler.maxRequest(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxRequest(limit: int) return (r0: crawler.param)"
         },
         {
           "functionName": "maxRedirect(${1:limit/*type: int*/} )",
           "document": "设置最大重定向次数，默认为5",
-          "definitionStr": "func crawler.maxRedirect(limit: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxRedirect(limit: int) return (r0: crawler.param)"
         },
         {
           "functionName": "maxDepth(${1:depth/*type: int*/} )",
           "document": "设置爬虫的最大深度，默认为5",
-          "definitionStr": "func crawler.maxDepth(depth: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.maxDepth(depth: int) return (r0: crawler.param)"
         },
         {
           "functionName": "header(${1:key/*type: string*/} , ${2:value/*type: string*/} )",
           "document": "设置爬虫的自定义 Header",
-          "definitionStr": "func crawler.header(key: string, value: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.header(key: string, value: string) return (r0: crawler.param)"
         },
         {
           "functionName": "forbiddenFromParent(${1:allow/*type: bool*/} )",
           "document": "禁止扫描 url 的父路径",
-          "definitionStr": "func crawler.forbiddenFromParent(allow: bool) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.forbiddenFromParent(allow: bool) return (r0: crawler.param)"
         },
         {
           "functionName": "domainInclude(${1:includedDomain/*type: string*/} )",
           "document": "想要扫描的域名，域名白名单，支持 glob 语法",
-          "definitionStr": "func crawler.domainInclude(includedDomain: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.domainInclude(includedDomain: string) return (r0: crawler.param)"
         },
         {
           "functionName": "domainExclude(${1:excludedDomain/*type: string*/} )",
           "document": "不扫描的域名，使用 glob 语法",
-          "definitionStr": "func crawler.domainExclude(excludedDomain: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.domainExclude(excludedDomain: string) return (r0: crawler.param)"
         },
         {
           "functionName": "cookie(${1:key/*type: string*/} , ${2:value/*type: string*/} )",
           "document": "设置 Cookie",
-          "definitionStr": "func crawler.cookie(key: string, value: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.cookie(key: string, value: string) return (r0: crawler.param)"
         },
         {
           "functionName": "connectTimeout(${1:seconds/*type: float64*/} )",
           "document": "每一次进行 HTTP 连接的超时时间",
-          "definitionStr": "func crawler.connectTimeout(seconds: float64) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.connectTimeout(seconds: float64) return (r0: crawler.param)"
         },
         {
           "functionName": "concurrent(${1:maxConcurrent/*type: int*/} )",
           "document": "设置爬虫并发请求数",
-          "definitionStr": "func crawler.concurrent(maxConcurrent: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.concurrent(maxConcurrent: int) return (r0: crawler.param)"
         },
         {
           "functionName": "bodySize(${1:size/*type: int*/} )",
           "document": "想要设置每一个 body 最大获取多少页面大小，bytes 的大小，默认为 1024 * 1024 * 10",
-          "definitionStr": "func crawler.bodySize(size: int) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.bodySize(size: int) return (r0: crawler.param)"
         },
         {
           "functionName": "basicAuth(${1:username/*type: string*/} , ${2:password/*type: string*/} )",
           "document": "设置爬虫的基础认证",
-          "definitionStr": "func crawler.basicAuth(username: string, password: string) return (r0: func configOpt(v1: *crawler.Config) )"
+          "definitionStr": "func crawler.basicAuth(username: string, password: string) return (r0: crawler.param)"
         },
         {
-          "functionName": "Start(${1:urls/*type: string*/} , ${2:params/*type ...[]crawler.configOpt*/} )",
+          "functionName": "Start(${1:urls/*type: string*/} , ${2:params/*type ...crawler.param*/} )",
           "document": "核心函数，进行爬虫的入口，输入想要爬的网站，然后设置参数，在一个 chan 中接受爬虫的结果",
-          "definitionStr": "func crawler.Start(urls: string, params ...[]crawler.configOpt) return (r0: chan crawler.RequestIf, r1: error)"
+          "definitionStr": "func crawler.Start(urls: string, params ...crawler.param) return (r0: chan crawler.RequestIf, r1: error)"
         }
       ]
     },
@@ -1846,49 +1846,39 @@
       "prefix": "context.",
       "functions": [
         {
-          "functionName": "WithValue(${1:v1/*type: context.Context*/} , ${2:v2/*type: interface {}*/} , ${3:v3/*type: interface {}*/} )",
-          "document": "",
-          "definitionStr": "func context.WithValue(v1: context.Context, v2: interface {}, v3: interface {}) return (r0: context.Context)"
+          "functionName": "WithValue(${1:ctx/*type: context.Context*/} , ${2:key/*type: any*/} , ${3:value/*type: any*/} )",
+          "document": "为上下文绑定一个 kv 对",
+          "definitionStr": "func context.WithValue(ctx: context.Context, key: any, value: any) return (ctx: context.Context)"
         },
         {
-          "functionName": "WithTimeout(${1:v1/*type: context.Context*/} , ${2:v2/*type: time.Duration*/} )",
-          "document": "",
-          "definitionStr": "func context.WithTimeout(v1: context.Context, v2: time.Duration) return (r0: context.Context, r1: func CancelFunc() )"
+          "functionName": "WithTimeout(${1:ctx/*type: context.Context*/} , ${2:timeout/*type: time.Duration*/} )",
+          "document": "给 context 带一个超时间隔，如果超时就自动取消",
+          "definitionStr": "func context.WithTimeout(ctx: context.Context, timeout: time.Duration) return (ctx: context.Context, cancel: func CancelFunc() )"
         },
         {
-          "functionName": "WithDeadline(${1:v1/*type: context.Context*/} , ${2:v2/*type: time.Time*/} )",
-          "document": "",
-          "definitionStr": "func context.WithDeadline(v1: context.Context, v2: time.Time) return (r0: context.Context, r1: func CancelFunc() )"
+          "functionName": "WithDeadline(${1:ctx/*type: context.Context*/} , ${2:ddl/*type: time.Time*/} )",
+          "document": "给上下文增加一个 ddl",
+          "definitionStr": "func context.WithDeadline(ctx: context.Context, ddl: time.Time) return (r0: context.Context, r1: func CancelFunc() )"
         },
         {
-          "functionName": "WithCancel(${1:v1/*type: context.Context*/} )",
-          "document": "",
-          "definitionStr": "func context.WithCancel(v1: context.Context) return (r0: context.Context, r1: func CancelFunc() )"
+          "functionName": "WithCancel(${1:originCtx/*type: context.Context*/} )",
+          "document": "给 context 增加一个 cancel 手动按钮",
+          "definitionStr": "func context.WithCancel(originCtx: context.Context) return (r0: context.Context, r1: func CancelFunc() )"
         },
         {
-          "functionName": "TimeoutContextSecond(${1:v1/*type: int*/} )",
-          "document": "",
-          "definitionStr": "func context.TimeoutContextSecond(v1: int) return (r0: context.Context)"
-        },
-        {
-          "functionName": "TODO()",
-          "document": "",
-          "definitionStr": "func context.TODO() return (r0: context.Context)"
-        },
-        {
-          "functionName": "Seconds(${1:v1/*type: int*/} )",
-          "document": "",
-          "definitionStr": "func context.Seconds(v1: int) return (r0: context.Context)"
+          "functionName": "Seconds(${1:seconds/*type: float*/} )",
+          "document": "生成一个几秒结束的 context",
+          "definitionStr": "func context.Seconds(seconds: float) return (ctx: context.Context)"
         },
         {
           "functionName": "New()",
-          "document": "",
-          "definitionStr": "func context.New() return (r0: context.Context)"
+          "document": "同 `context.Background()`",
+          "definitionStr": "func context.New() return (ctx: context.Context)"
         },
         {
           "functionName": "Background()",
-          "document": "",
-          "definitionStr": "func context.Background() return (r0: context.Context)"
+          "document": "创建一个基础的 `context.Context`",
+          "definitionStr": "func context.Background() return (ctx: context.Context)"
         }
       ]
     },
@@ -1907,34 +1897,34 @@
           "definitionStr": "func codec.UnescapePathUrl(v1: string) return (r0: string, r1: error)"
         },
         {
-          "functionName": "Sha512(${1:v1/*type: interface {}*/} )",
+          "functionName": "Sha512(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func codec.Sha512(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.Sha512(v1: any) return (r0: string)"
         },
         {
-          "functionName": "Sha384(${1:v1/*type: interface {}*/} )",
+          "functionName": "Sha384(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func codec.Sha384(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.Sha384(v1: any) return (r0: string)"
         },
         {
-          "functionName": "Sha256(${1:v1/*type: interface {}*/} )",
+          "functionName": "Sha256(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func codec.Sha256(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.Sha256(v1: any) return (r0: string)"
         },
         {
-          "functionName": "Sha224(${1:v1/*type: interface {}*/} )",
+          "functionName": "Sha224(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func codec.Sha224(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.Sha224(v1: any) return (r0: string)"
         },
         {
-          "functionName": "Sha1(${1:v1/*type: interface {}*/} )",
+          "functionName": "Sha1(${1:v1/*type: any*/} )",
           "document": "计算 sha1 hash",
-          "definitionStr": "func codec.Sha1(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.Sha1(v1: any) return (r0: string)"
         },
         {
-          "functionName": "Md5(${1:v1/*type: interface {}*/} )",
+          "functionName": "Md5(${1:v1/*type: any*/} )",
           "document": "计算 md5 hash",
-          "definitionStr": "func codec.Md5(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.Md5(v1: any) return (r0: string)"
         },
         {
           "functionName": "EscapeQueryUrl(${1:v1/*type: string*/} )",
@@ -1952,9 +1942,9 @@
           "definitionStr": "func codec.EscapeHtml(v1: string) return (r0: string)"
         },
         {
-          "functionName": "EncodeUrl(${1:v1/*type: interface {}*/} )",
+          "functionName": "EncodeUrl(${1:v1/*type: any*/} )",
           "document": "把一个对象进行 URL 编码",
-          "definitionStr": "func codec.EncodeUrl(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.EncodeUrl(v1: any) return (r0: string)"
         },
         {
           "functionName": "EncodeToPrintable(${1:v1/*type: string*/} )",
@@ -1962,24 +1952,24 @@
           "definitionStr": "func codec.EncodeToPrintable(v1: string) return (r0: string)"
         },
         {
-          "functionName": "EncodeToHex(${1:v1/*type: interface {}*/} )",
+          "functionName": "EncodeToHex(${1:v1/*type: any*/} )",
           "document": "把一个对象编码成 hex 字符串，注意：不以 `0x` 开头",
-          "definitionStr": "func codec.EncodeToHex(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.EncodeToHex(v1: any) return (r0: string)"
         },
         {
-          "functionName": "EncodeHtmlHex(${1:v1/*type: interface {}*/} )",
+          "functionName": "EncodeHtmlHex(${1:v1/*type: any*/} )",
           "document": "把一个字符串编码成 HTML 实体编码，如果输入了一个对象，会序列化后再对 bytes 进行编码，注意这个函数会把参数所有内容都进行编码，编码成 `\u0026#xNN;` 这种形式",
-          "definitionStr": "func codec.EncodeHtmlHex(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.EncodeHtmlHex(v1: any) return (r0: string)"
         },
         {
-          "functionName": "EncodeHtml(${1:v1/*type: interface {}*/} )",
+          "functionName": "EncodeHtml(${1:v1/*type: any*/} )",
           "document": "把一个字符串编码成 HTML 实体编码，如果输入了一个对象，会 json 序列化后再编码，注意这个函数会把所有内容都进行编码",
-          "definitionStr": "func codec.EncodeHtml(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.EncodeHtml(v1: any) return (r0: string)"
         },
         {
-          "functionName": "EncodeBase64(${1:v1/*type: interface {}*/} )",
+          "functionName": "EncodeBase64(${1:v1/*type: any*/} )",
           "document": "把一个对象编码成 base64 字符串",
-          "definitionStr": "func codec.EncodeBase64(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.EncodeBase64(v1: any) return (r0: string)"
         },
         {
           "functionName": "EncodeASCII(${1:v1/*type: string*/} )",
@@ -1987,9 +1977,9 @@
           "definitionStr": "func codec.EncodeASCII(v1: string) return (r0: string)"
         },
         {
-          "functionName": "DoubleEncodeUrl(${1:v1/*type: interface {}*/} )",
+          "functionName": "DoubleEncodeUrl(${1:v1/*type: any*/} )",
           "document": "",
-          "definitionStr": "func codec.DoubleEncodeUrl(v1: interface {}) return (r0: string)"
+          "definitionStr": "func codec.DoubleEncodeUrl(v1: any) return (r0: string)"
         },
         {
           "functionName": "DoubleDecodeUrl(${1:v1/*type: string*/} )",
@@ -2012,9 +2002,9 @@
           "definitionStr": "func codec.DecodeHex(v1: string) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "DecodeBase64(${1:v1/*type: string*/} )",
+          "functionName": "DecodeBase64(${1:base64Str/*type: str*/} )",
           "document": "把 base64 解析成 bytes",
-          "definitionStr": "func codec.DecodeBase64(v1: string) return (r0: bytes, r1: error)"
+          "definitionStr": "func codec.DecodeBase64(base64Str: str) return (result: bytes, err: error)"
         },
         {
           "functionName": "DecodeASCII(${1:v1/*type: string*/} )",
@@ -2038,99 +2028,109 @@
       "prefix": "cli.",
       "functions": [
         {
-          "functionName": "Urls(${1:v1/*type: string*/} )",
-          "document": "同 `cli.Url`",
-          "definitionStr": "func cli.Urls(v1: string) return (r0: []string)"
+          "functionName": "setHelp(${1:helpText/*type: str*/} )",
+          "document": "使用方法同 `cli.setDefault` 使用，如果某个参数的值为空的话，并且没有默认值，将会展示缺少的参数。",
+          "definitionStr": "func cli.setHelp(helpText: str) return (r0: cli.setHelp)"
         },
         {
-          "functionName": "Url(${1:v1/*type: string*/} )",
+          "functionName": "setDefault(${1:default/*type: any*/} )",
+          "document": "为命令行设置默认值，默认值会被强行类型断言为目标类型，不要传错类型就可以！",
+          "definitionStr": "func cli.setDefault(default: any) return (r0: cli.setDefault)"
+        },
+        {
+          "functionName": "Urls(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
+          "document": "",
+          "definitionStr": "func cli.Urls(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
+        },
+        {
+          "functionName": "Url(${1:param/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把参数对应的值解析成 url，如果无法精确对应一个 url，将会自动补充 `https://`, `http://`, `www` 等，如果本身参数就是个 url，则会保留原样",
-          "definitionStr": "func cli.Url(v1: string) return (r0: []string)"
+          "definitionStr": "func cli.Url(param: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
-          "functionName": "String(${1:v1/*type: string*/} )",
+          "functionName": "String(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "最基础的命令行获取接口，把参数的值解析成字符串",
-          "definitionStr": "func cli.String(v1: string) return (r0: string)"
+          "definitionStr": "func cli.String(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: string)"
         },
         {
-          "functionName": "Ports(${1:v1/*type: string*/} )",
+          "functionName": "Ports(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Port`",
-          "definitionStr": "func cli.Ports(v1: string) return (r0: []int)"
+          "definitionStr": "func cli.Ports(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []int)"
         },
         {
-          "functionName": "Port(${1:v1/*type: string*/} )",
-          "document": "把 v1 对应的命令行参数值解析成端口组，或者整数范围",
-          "definitionStr": "func cli.Port(v1: string) return (r0: []int)"
+          "functionName": "Port(${1:ports/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
+          "document": "把 ports 对应的命令行参数值解析成端口组，或者整数范围",
+          "definitionStr": "func cli.Port(ports: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []int)"
         },
         {
-          "functionName": "Network(${1:v1/*type: string*/} )",
+          "functionName": "Network(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Host`",
-          "definitionStr": "func cli.Network(v1: string) return (r0: []string)"
+          "definitionStr": "func cli.Network(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
-          "functionName": "Net(${1:v1/*type: string*/} )",
+          "functionName": "Net(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Host`",
-          "definitionStr": "func cli.Net(v1: string) return (r0: []string)"
+          "definitionStr": "func cli.Net(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
-          "functionName": "LineDict(${1:v1/*type: string*/} )",
+          "functionName": "LineDict(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把一个字典按行解析",
-          "definitionStr": "func cli.LineDict(v1: string) return (r0: []string)"
+          "definitionStr": "func cli.LineDict(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
-          "functionName": "Integer(${1:v1/*type: string*/} )",
+          "functionName": "Integer(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Int`",
-          "definitionStr": "func cli.Integer(v1: string) return (r0: int)"
+          "definitionStr": "func cli.Integer(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: int)"
         },
         {
-          "functionName": "Int(${1:v1/*type: string*/} )",
+          "functionName": "Int(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把命令行参数值解析成整数",
-          "definitionStr": "func cli.Int(v1: string) return (r0: int)"
+          "definitionStr": "func cli.Int(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: int)"
         },
         {
-          "functionName": "Hosts(${1:v1/*type: string*/} )",
+          "functionName": "Hosts(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Host`",
-          "definitionStr": "func cli.Hosts(v1: string) return (r0: []string)"
+          "definitionStr": "func cli.Hosts(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
-          "functionName": "Host(${1:v1/*type: string*/} )",
+          "functionName": "Host(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把 v1 对应的命令行参数解析成扫描目标，支持 `192.168.1.1/24,8.8.8.8,baidu.com` 等 IP，IP 段，域名等多种格式",
-          "definitionStr": "func cli.Host(v1: string) return (r0: []string)"
+          "definitionStr": "func cli.Host(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
-          "functionName": "Have(${1:v1/*type: string*/} )",
+          "functionName": "Have(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Bool`，检测参数是否存在在命令行中",
-          "definitionStr": "func cli.Have(v1: string) return (r0: bool)"
+          "definitionStr": "func cli.Have(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: bool)"
         },
         {
-          "functionName": "Float(${1:v1/*type: string*/} )",
+          "functionName": "Float(${1:param/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "同 `cli.Double`，把参数内容解析成 float64",
-          "definitionStr": "func cli.Float(v1: string) return (r0: float64)"
+          "definitionStr": "func cli.Float(param: string, v2 ...cli.setHelp|cli.setDefault) return (r0: float64)"
         },
         {
-          "functionName": "FileOrContent(${1:v1/*type: string*/} )",
+          "functionName": "FileOrContent(${1:param/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把 v1 作为文件名来解析，如果解析失败，则把输入的内容直接变成内容返回",
-          "definitionStr": "func cli.FileOrContent(v1: string) return (r0: bytes)"
+          "definitionStr": "func cli.FileOrContent(param: string, v2 ...cli.setHelp|cli.setDefault) return (resultRaw: bytes)"
         },
         {
-          "functionName": "File(${1:v1/*type: string*/} )",
+          "functionName": "File(${1:v1/*type: string*/} , ${2:v2/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把输入的参数当成文件名来解析",
-          "definitionStr": "func cli.File(v1: string) return (r0: bytes)"
+          "definitionStr": "func cli.File(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: bytes)"
         },
         {
-          "functionName": "Double(${1:v1/*type: string*/} )",
+          "functionName": "Double(${1:param/*type: string*/} , ${2:extraParams/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "把函数解析成 `float64` 等价于 `cli.Float64`",
-          "definitionStr": "func cli.Double(v1: string) return (r0: float64)"
+          "definitionStr": "func cli.Double(param: string, extraParams ...cli.setHelp|cli.setDefault) return (r0: float64)"
         },
         {
-          "functionName": "Bool(${1:v1/*type: string*/} )",
+          "functionName": "Bool(${1:paramName/*type: string*/} , ${2:extraParams/*type ...cli.setHelp|cli.setDefault*/} )",
           "document": "判断命令行参数是否存在 v1 参数对应的选项？如果 v1 是 `option`，则会检测 `--option` 或者 `-option` 是否存在。要注意，不同于 `cli.String` 等接口，`cli.Bool` 不会判断参数的值，只会检测参数标记是不是存在。",
-          "definitionStr": "func cli.Bool(v1: string) return (r0: bool)"
+          "definitionStr": "func cli.Bool(paramName: string, extraParams ...cli.setHelp|cli.setDefault) return (r0: bool)"
         },
         {
           "functionName": "Args()",
-          "document": "获取全部的命令行参数，返回结果等同于 `os.Args`",
-          "definitionStr": "func cli.Args() return (r0: []string)"
+          "document": "获取全部的命令行参数，返回结果等同于 `os.Args`\"",
+          "definitionStr": "func cli.Args() return (args: []string)"
         }
       ]
     }
