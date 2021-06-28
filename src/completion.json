@@ -304,64 +304,64 @@
       "prefix": "subdomain.",
       "functions": [
         {
-          "functionName": "workerConcurrent(${1:v1/*type: int*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.workerConcurrent(v1: int) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "workerConcurrent(${1:concurrent/*type: int*/} )",
+          "document": "发送 DNS 请求的最大并发（同时允许多少个 DNS 请求同时发出？）主要用于控制速率",
+          "definitionStr": "func subdomain.workerConcurrent(concurrent: int) return (r0: subdomain.param)"
         },
         {
           "functionName": "wildcardToStop(${1:v1/*type: bool*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.wildcardToStop(v1: bool) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "document": "遇到泛解析就停止",
+          "definitionStr": "func subdomain.wildcardToStop(v1: bool) return (r0: subdomain.param)"
         },
         {
-          "functionName": "targetTimeout(${1:v1/*type: float64*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.targetTimeout(v1: float64) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "targetTimeout(${1:seconds/*type: float64*/} )",
+          "document": "每一个目标应该最多爆破多久？单个目标的超时时间",
+          "definitionStr": "func subdomain.targetTimeout(seconds: float64) return (r0: subdomain.param)"
         },
         {
-          "functionName": "targetConcurrent(${1:v1/*type: int*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.targetConcurrent(v1: int) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "targetConcurrent(${1:concurrent/*type: int*/} )",
+          "document": "针对多个目标进行并发爆破的时候，通过这个选项设置并发",
+          "definitionStr": "func subdomain.targetConcurrent(concurrent: int) return (r0: subdomain.param)"
         },
         {
-          "functionName": "recursiveDict(${1:v1/*type: any*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.recursiveDict(v1: any) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "recursiveDict(${1:dict/*type: string|fileName|[]string|bytes|reader*/} )",
+          "document": "如果开启了递归，则可以设置递归字典（默认自带一个小字典）",
+          "definitionStr": "func subdomain.recursiveDict(dict: string|fileName|[]string|bytes|reader) return (r0: subdomain.param)"
         },
         {
           "functionName": "recursive(${1:v1/*type: bool*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.recursive(v1: bool) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "document": "是否开启递归爆破",
+          "definitionStr": "func subdomain.recursive(v1: bool) return (r0: subdomain.param)"
         },
         {
-          "functionName": "maxDepth(${1:v1/*type: int*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.maxDepth(v1: int) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "maxDepth(${1:depth/*type: int*/} )",
+          "document": "设置递归爆破的最大深度",
+          "definitionStr": "func subdomain.maxDepth(depth: int) return (r0: subdomain.param)"
         },
         {
-          "functionName": "mainDict(${1:v1/*type: any*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.mainDict(v1: any) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "mainDict(${1:dict/*type: string|[]string|fileName|bytes|reader*/} )",
+          "document": "子域名爆破使用的主字典（字典名/字典内容[]string/bytes/reader）均支持",
+          "definitionStr": "func subdomain.mainDict(dict: string|[]string|fileName|bytes|reader) return (r0: subdomain.param)"
         },
         {
-          "functionName": "eachSearchTimeout(${1:v1/*type: float64*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.eachSearchTimeout(v1: float64) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "eachSearchTimeout(${1:seconds/*type: float64*/} )",
+          "document": "每次调用第三方接口进行子域名搜索的时候，HTTP 请求的超时时间",
+          "definitionStr": "func subdomain.eachSearchTimeout(seconds: float64) return (r0: subdomain.param)"
         },
         {
-          "functionName": "eachQueryTimeout(${1:v1/*type: float64*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.eachQueryTimeout(v1: float64) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "eachQueryTimeout(${1:seconds/*type: float64*/} )",
+          "document": "每一次 DNS 请求发送的超时时间",
+          "definitionStr": "func subdomain.eachQueryTimeout(seconds: float64) return (r0: subdomain.param)"
         },
         {
-          "functionName": "dnsServer(${1:v1/*type: []string*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.dnsServer(v1: []string) return (r0: func ConfigOption(v1: *subdomain.SubdomainScannerConfig) )"
+          "functionName": "dnsServer(${1:servers/*type: []string*/} )",
+          "document": "为扫描过程设置自定义 dnsServer",
+          "definitionStr": "func subdomain.dnsServer(servers: []string) return (r0: subdomain.param)"
         },
         {
-          "functionName": "Scan(${1:v1/*type: any*/} , ${2:v2/*type ...subdomain.ConfigOption*/} )",
-          "document": "",
-          "definitionStr": "func subdomain.Scan(v1: any, v2 ...subdomain.ConfigOption) return (r0: chan *subdomain.SubdomainResult, r1: error)"
+          "functionName": "Scan(${1:domains/*type: []string|string|bytes*/} , ${2:params/*type ...subdomain.param*/} )",
+          "document": "扫描子域名的核心函数，通过和这个函数，输入想要扫描的子域名和相关参数",
+          "definitionStr": "func subdomain.Scan(domains: []string|string|bytes, params subdomain.param) return (resultsChannel: chan *subdomain.SubdomainResult, err: error)"
         }
       ]
     },
@@ -1622,19 +1622,19 @@
       "prefix": "exec.",
       "functions": [
         {
-          "functionName": "timeout(${1:v1/*type: float64*/} )",
-          "document": "",
-          "definitionStr": "func exec.timeout(v1: float64) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
+          "functionName": "timeout(${1:timeout/*type: float64*/} )",
+          "document": "设置 SystemBatch 批量执行的 timeout",
+          "definitionStr": "func exec.timeout(timeout: float64) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         },
         {
-          "functionName": "concurrent(${1:v1/*type: int*/} )",
-          "document": "",
-          "definitionStr": "func exec.concurrent(v1: int) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
+          "functionName": "concurrent(${1:poolSize/*type: int*/} )",
+          "document": "设置 SystemBatch 批量执行的并发量",
+          "definitionStr": "func exec.concurrent(poolSize: int) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         },
         {
-          "functionName": "callback(${1:v1/*type: func (v1: string, v2: bytes) */} )",
-          "document": "",
-          "definitionStr": "func exec.callback(v1: func (v1: string, v2: bytes) ) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
+          "functionName": "callback(${1:callbackFunc/*type: func (v1: string, v2: bytes) */} )",
+          "document": "设置 SystemBatch 批量执行的回调函数，命令执行结束后会执行的函数",
+          "definitionStr": "func exec.callback(callbackFunc: func (v1: string, v2: bytes) ) return (r0: func poolOpt(v1: *yaklib._execPoolConfig) )"
         },
         {
           "functionName": "WatchStdout(${1:v1/*type: string*/} , ${2:v2/*type: float64*/} , ${3:v3/*type: func (v1: bytes) return(bool) */} )",
@@ -1683,9 +1683,9 @@
       "prefix": "dyn.",
       "functions": [
         {
-          "functionName": "recursive(${1:v1/*type: map[string]any*/} )",
+          "functionName": "recursive(${1:v1/*type: bool*/} )",
           "document": "用于 `dyn.LoadVarFromFile` 函数的额外参数，递归加载文件夹内容，会解析文件夹以及自文件下面所有的内容。",
-          "definitionStr": "func dyn.recursive(v1: map[string]any) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
+          "definitionStr": "func dyn.recursive(v1: bool) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
         },
         {
           "functionName": "params(${1:v1/*type: map[string]any*/} )",
@@ -1693,9 +1693,9 @@
           "definitionStr": "func dyn.params(v1: map[string]any) return (r0: func yakEvalConfigOpt(v1: *yak.yakEvalConfig) )"
         },
         {
-          "functionName": "LoadVarFromFile(${1:fromModules/*type: string*/} , ${2:varName/*type: string*/} , ${3:params/*type ...yak.yakEvalConfigOpt*/} )",
+          "functionName": "LoadVarFromFile(${1:fromModules/*type: string*/} , ${2:varName/*type: string*/} , ${3:params/*type ...dyn.param*/} )",
           "document": "从一个文件/文件夹/模块中，批量导入一个对象，通常用于 exp/poc 编写的时候，需要批量导入一些模块的函数",
-          "definitionStr": "func dyn.LoadVarFromFile(fromModules: string, varName: string, params ...yak.yakEvalConfigOpt) return (r0: []*yak.yakVariable, r1: error)"
+          "definitionStr": "func dyn.LoadVarFromFile(fromModules: string, varName: string, params dyn.param) return (r0: []*yak.yakVariable, r1: error)"
         },
         {
           "functionName": "IsYakFunc(${1:obj/*type: any*/} )",

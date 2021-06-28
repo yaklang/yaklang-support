@@ -14,10 +14,17 @@
         "Language Packs"
     ],
     "activationEvents": [
-        "*"
+        "*",
+        "onCommand:yak.exec"
     ],
     "main": "./out/extension.js",
     "contributes": {
+        "commands": [
+            {
+                "command": "yak.exec",
+                "title": "Exec Yak Script"
+            }
+        ],
         "snippets": [
             {
                 "language": "yak",
@@ -42,6 +49,12 @@
                 "language": "yak",
                 "scopeName": "source.yak",
                 "path": "./syntaxes/yak.tmLanguage.json"
+            }
+        ],
+        "keybindings": [
+            {
+                "key": "F5",
+                "command": "yak.exec"
             }
         ]
     },

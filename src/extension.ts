@@ -107,5 +107,42 @@ export function activate(context: vscode.ExtensionContext) {
         '.' // triggered whenever a '.' is being typed
     );
 
-    context.subscriptions.push(provider2);
+    let terminal = vscode.window.createTerminal({ name: "YAK Runner" });
+    let execYakCommandProvider = vscode.commands.registerCommand(
+        "yak.exec", (args: string) => {
+            if (terminal.exitStatus) {
+                terminal = vscode.window.createTerminal({ name: "YAK Runner" });
+            }
+            terminal.show(true);
+            if (args) {
+                terminal.sendText(`yak ${args}`, true);
+            } else {
+                if (vscode.window.activeTextEditor?.document) {
+                    terminal.sendText(`yak ${vscode.window.activeTextEditor?.document.fileName}`)
+                }
+            }
+        }
+    )
+
+    let execYakShortcut = vscode.languages.registerCodeActionsProvider(
+        "yak",
+        {
+            provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken) {
+
+                let action = new vscode.CodeAction("Exec Yak Script", vscode.CodeActionKind.Empty)
+                action.isPreferred = true
+                action.command = {
+                    command: "yak.exec",
+                    arguments: [document.fileName],
+                    title: "Quick Exec Current Yak Script",
+                }
+                return [action]
+            }
+        },
+    )
+
+    context.subscriptions.push(
+        provider2, hoverProvider, execYakCommandProvider,
+        execYakShortcut,
+    );
 }
