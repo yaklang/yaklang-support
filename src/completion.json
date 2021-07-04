@@ -9,8 +9,6 @@
     "exec",
     "file",
     "fuzz",
-    "geojson",
-    "grok",
     "http",
     "httpool",
     "httpserver",
@@ -38,16 +36,6 @@
       "prefix": "tools.",
       "functions": [
         {
-          "functionName": "ScanSubDomain(${1:v1/*type: context.Context*/}, ${2:v2/*type ...string*/})",
-          "document": "",
-          "definitionStr": "func tools.ScanSubDomain(v1: context.Context, v2 ...string) return (r0: chan *subdomain.SubdomainResult, r1: error)"
-        },
-        {
-          "functionName": "NewSubFinder()",
-          "document": "",
-          "definitionStr": "func tools.NewSubFinder() return (r0: *tools.SubFinderInstance, r1: error)"
-        },
-        {
           "functionName": "NewPocInvoker()",
           "document": "",
           "definitionStr": "func tools.NewPocInvoker() return (r0: *tools.PocInvoker, r1: error)"
@@ -64,29 +52,29 @@
       "prefix": "tls.",
       "functions": [
         {
-          "functionName": "SignX509ServerCertAndKey(${1:v1/*type: bytes*/}, ${2:v2/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func tls.SignX509ServerCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+          "functionName": "SignX509ServerCertAndKey(${1:caCert/*type: bytes*/}, ${2:caKey/*type: bytes*/})",
+          "document": "签发一个服务端证书，带x509认证",
+          "definitionStr": "func tls.SignX509ServerCertAndKey(caCert: bytes, caKey: bytes) return (cert: bytes, key: bytes, r2: error)"
         },
         {
-          "functionName": "SignX509ClientCertAndKey(${1:v1/*type: bytes*/}, ${2:v2/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func tls.SignX509ClientCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+          "functionName": "SignX509ClientCertAndKey(${1:caCert/*type: bytes*/}, ${2:caKey/*type: bytes*/})",
+          "document": "签发一个带 x509 认证的客户端证书",
+          "definitionStr": "func tls.SignX509ClientCertAndKey(caCert: bytes, caKey: bytes) return (clientCert: bytes, clientKey: bytes, r2: error)"
         },
         {
-          "functionName": "SignServerCertAndKey(${1:v1/*type: bytes*/}, ${2:v2/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func tls.SignServerCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+          "functionName": "SignServerCertAndKey(${1:caCert/*type: bytes*/}, ${2:caKey/*type: bytes*/})",
+          "document": "签发一个服务端证书，不带 x509 认证",
+          "definitionStr": "func tls.SignServerCertAndKey(caCert: bytes, caKey: bytes) return (serverCert: bytes, serverKey: bytes, r2: error)"
         },
         {
-          "functionName": "SignClientCertAndKey(${1:v1/*type: bytes*/}, ${2:v2/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func tls.SignClientCertAndKey(v1: bytes, v2: bytes) return (r0: bytes, r1: bytes, r2: error)"
+          "functionName": "SignClientCertAndKey(${1:caCert/*type: bytes*/}, ${2:pKey/*type: bytes*/})",
+          "document": "签发一个客户端证书，不带x509认证",
+          "definitionStr": "func tls.SignClientCertAndKey(caCert: bytes, pKey: bytes) return (clientCert: bytes, clientKey: bytes, r2: error)"
         },
         {
-          "functionName": "GenerateRootCA(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func tls.GenerateRootCA(v1: string) return (r0: bytes, r1: bytes, r2: error)"
+          "functionName": "GenerateRootCA(${1:commonName/*type: string*/})",
+          "document": "签发一个 CA 证书",
+          "definitionStr": "func tls.GenerateRootCA(commonName: string) return (cert: bytes, privateKey: bytes, r2: error)"
         }
       ]
     },
@@ -95,73 +83,73 @@
       "prefix": "time.",
       "functions": [
         {
-          "functionName": "sleep(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "`func time.sleep(v1: float64)`"
+          "functionName": "sleep(${1:seconds/*type: float64*/})",
+          "document": "sleep 一段时间",
+          "definitionStr": "`func time.sleep(seconds: float64)`"
         },
         {
           "functionName": "now()",
-          "document": "",
+          "document": "当前时间",
           "definitionStr": "func time.now() return (r0: time.Time)"
         },
         {
-          "functionName": "Until(${1:v1/*type: time.Time*/})",
-          "document": "",
-          "definitionStr": "func time.Until(v1: time.Time) return (r0: time.Duration)"
+          "functionName": "Until(${1:end/*type: time.Time*/})",
+          "document": "计算当前时间到目标时间的时间间隔",
+          "definitionStr": "func time.Until(end: time.Time) return (r0: time.Duration)"
         },
         {
-          "functionName": "Unix(${1:v1/*type: int64*/}, ${2:v2/*type: int64*/})",
-          "document": "",
-          "definitionStr": "func time.Unix(v1: int64, v2: int64) return (r0: time.Time)"
+          "functionName": "Unix(${1:timestampSeconds/*type: int64*/}, ${2:nano/*type: int64*/})",
+          "document": "使用 Unix 时间戳构建一个时间",
+          "definitionStr": "func time.Unix(timestampSeconds: int64, nano: int64) return (r0: time.Time)"
         },
         {
-          "functionName": "Sleep(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "`func time.Sleep(v1: float64)`"
+          "functionName": "Sleep(${1:seconds/*type: float64*/})",
+          "document": "sleep 一段时间",
+          "definitionStr": "`func time.Sleep(seconds: float64)`"
         },
         {
-          "functionName": "Since(${1:v1/*type: time.Time*/})",
-          "document": "",
-          "definitionStr": "func time.Since(v1: time.Time) return (r0: time.Duration)"
+          "functionName": "Since(${1:start/*type: time.Time*/})",
+          "document": "计算一个时间到现在的时间差",
+          "definitionStr": "func time.Since(start: time.Time) return (r0: time.Duration)"
         },
         {
           "functionName": "ParseDuration(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把一个字符串时间解析成 `time.Duration`",
           "definitionStr": "func time.ParseDuration(v1: string) return (r0: time.Duration, r1: error)"
         },
         {
-          "functionName": "Parse(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func time.Parse(v1: string, v2: string) return (r0: time.Time, r1: error)"
+          "functionName": "Parse(${1:timeStr/*type: string*/}, ${2:format/*type: string*/})",
+          "document": "把时间按照一定规则进行解析（遵循 Golang 的规则）",
+          "definitionStr": "func time.Parse(timeStr: string, format: string) return (r0: time.Time, r1: error)"
         },
         {
           "functionName": "Now()",
-          "document": "",
+          "document": "获取当前时间",
           "definitionStr": "func time.Now() return (r0: time.Time)"
         },
         {
-          "functionName": "NewTimer(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func time.NewTimer(v1: float64) return (r0: *time.Timer)"
+          "functionName": "NewTimer(${1:seconds/*type: float64*/})",
+          "document": "设置一个新的定时器，seconds 秒之后触发",
+          "definitionStr": "func time.NewTimer(seconds: float64) return (r0: *time.Timer)"
         },
         {
-          "functionName": "NewTicker(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func time.NewTicker(v1: float64) return (r0: *time.Ticker)"
+          "functionName": "NewTicker(${1:seconds/*type: float64*/})",
+          "document": "获取一个 seconds 的 ticker，每隔 seconds 秒触发一次",
+          "definitionStr": "func time.NewTicker(seconds: float64) return (r0: *time.Ticker)"
         },
         {
           "functionName": "GetCurrentMonday()",
-          "document": "",
+          "document": "或者当前周的周一日期",
           "definitionStr": "func time.GetCurrentMonday() return (r0: time.Time, r1: error)"
         },
         {
           "functionName": "GetCurrentDate()",
-          "document": "",
+          "document": "获得当前今天的日期",
           "definitionStr": "func time.GetCurrentDate() return (r0: time.Time, r1: error)"
         },
         {
           "functionName": "AfterFunc(${1:v1/*type: time.Duration*/}, ${2:v2/*type: func () */})",
-          "document": "",
+          "document": "一段时间之后执行一个函数",
           "definitionStr": "func time.AfterFunc(v1: time.Duration, v2: func () ) return (r0: *time.Timer)"
         },
         {
@@ -176,49 +164,49 @@
       "prefix": "tcp.",
       "functions": [
         {
-          "functionName": "serverTls(${1:v1/*type: any*/}, ${2:v2/*type: any*/}, ${3:v3/*type ...any*/})",
-          "document": "",
-          "definitionStr": "func tcp.serverTls(v1: any, v2: any, v3 ...any) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+          "functionName": "serverTls(${1:cert/*type: any*/}, ${2:key/*type: any*/}, ${3:caCerts/*type ...any*/})",
+          "document": "【服务端参数】设置 SSL/TLS 服务器",
+          "definitionStr": "func tcp.serverTls(cert: any, key: any, caCerts ...any) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
         },
         {
-          "functionName": "serverContext(${1:v1/*type: context.Context*/})",
-          "document": "",
-          "definitionStr": "func tcp.serverContext(v1: context.Context) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
+          "functionName": "serverContext(${1:ctx/*type: context.Context*/})",
+          "document": "【服务端参数】设置服务端上下文，用于控制服务器生命周期",
+          "definitionStr": "func tcp.serverContext(ctx: context.Context) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
         },
         {
           "functionName": "serverCallback(${1:v1/*type: func (v1: *yaklib.tcpConnection) */})",
-          "document": "",
+          "document": "【服务端参数】设置服务端连接处理回调函数",
           "definitionStr": "func tcp.serverCallback(v1: func (v1: *yaklib.tcpConnection) ) return (r0: func tcpServerConfigOpt(v1: *yaklib.tcpServerConfig) )"
         },
         {
-          "functionName": "clientTls(${1:v1/*type: any*/}, ${2:v2/*type: any*/}, ${3:v3/*type ...any*/})",
-          "document": "",
-          "definitionStr": "func tcp.clientTls(v1: any, v2: any, v3 ...any) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "functionName": "clientTls(${1:cert/*type: any*/}, ${2:key/*type: any*/}, ${3:caCerts/*type ...any*/})",
+          "document": "【客户端参数】设置 TLS/SSL",
+          "definitionStr": "func tcp.clientTls(cert: any, key: any, caCerts ...any) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
         },
         {
-          "functionName": "clientTimeout(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func tcp.clientTimeout(v1: float64) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "functionName": "clientTimeout(${1:seconds/*type: float64*/})",
+          "document": "【客户端参数】设置超时时间",
+          "definitionStr": "func tcp.clientTimeout(seconds: float64) return (r0: clientOpt)"
         },
         {
-          "functionName": "clientLocal(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func tcp.clientLocal(v1: any) return (r0: func dialerOpt(v1: *yaklib._tcpDialer) )"
+          "functionName": "clientLocal(${1:host/*type: any*/})",
+          "document": "【客户端参数】设置客户端本地地址",
+          "definitionStr": "func tcp.clientLocal(host: any) return (r0: clientOpt)"
         },
         {
-          "functionName": "Serve(${1:v1/*type: any*/}, ${2:v2/*type: int*/}, ${3:v3/*type ...yaklib.tcpServerConfigOpt*/})",
-          "document": "",
-          "definitionStr": "func tcp.Serve(v1: any, v2: int, v3 ...yaklib.tcpServerConfigOpt) return (r0: error)"
+          "functionName": "Serve(${1:host/*type: any*/}, ${2:port/*type: int*/}, ${3:params/*type ...serverOpt*/})",
+          "document": "启动一个 tcp 服务器",
+          "definitionStr": "func tcp.Serve(host: any, port: int, params ...serverOpt) return (r0: error)"
         },
         {
-          "functionName": "Forward(${1:v1/*type: int*/}, ${2:v2/*type: string*/}, ${3:v3/*type: int*/})",
-          "document": "",
-          "definitionStr": "func tcp.Forward(v1: int, v2: string, v3: int) return (r0: error)"
+          "functionName": "Forward(${1:localPort/*type: int*/}, ${2:remoteHost/*type: string*/}, ${3:remotePort/*type: int*/})",
+          "document": "转发 TCP 链接，在本地开一个 TCP 服务器，把到这个服务器的链接转发到远程端口上",
+          "definitionStr": "func tcp.Forward(localPort: int, remoteHost: string, remotePort: int) return (r0: error)"
         },
         {
-          "functionName": "Connect(${1:v1/*type: string*/}, ${2:v2/*type: any*/}, ${3:v3/*type ...yaklib.dialerOpt*/})",
+          "functionName": "Connect(${1:host/*type: string*/}, ${2:port/*type: any*/}, ${3:params/*type ...clientOpt*/})",
           "document": "",
-          "definitionStr": "func tcp.Connect(v1: string, v2: any, v3 ...yaklib.dialerOpt) return (r0: *yaklib.tcpConnection, r1: error)"
+          "definitionStr": "func tcp.Connect(host: string, port: any, params ...clientOpt) return (conn: *yaklib.tcpConnection, r1: error)"
         }
       ]
     },
@@ -228,23 +216,23 @@
       "functions": [
         {
           "functionName": "wait(${1:v1/*type: float64*/})",
-          "document": "",
+          "document": "【参数】当所有数据包发出之后，等待多少秒？",
           "definitionStr": "func synscan.wait(v1: float64) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
         },
         {
-          "functionName": "outputPrefix(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func synscan.outputPrefix(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+          "functionName": "outputPrefix(${1:prefix/*type: string*/})",
+          "document": "【参数】输出的文件每一行的前缀（用于增加 `https://` 这样的协议名等）",
+          "definitionStr": "func synscan.outputPrefix(prefix: string) return (r0: opt)"
         },
         {
           "functionName": "outputFile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func synscan.outputFile(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+          "document": "【参数】synscan 对外输出的文件",
+          "definitionStr": "func synscan.outputFile(v1: string) return (r0: opt)"
         },
         {
-          "functionName": "Scan(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...tools.scanOpt*/})",
-          "document": "",
-          "definitionStr": "func synscan.Scan(v1: string, v2: string, v3 ...tools.scanOpt) return (r0: chan *tools.SynScanResult, r1: error)"
+          "functionName": "Scan(${1:hosts/*type: string*/}, ${2:ports/*type: string*/}, ${3:params/*type ...opt*/})",
+          "document": "SYN 扫描的核心功能函数",
+          "definitionStr": "func synscan.Scan(hosts: string, ports: string, params ...opt) return (resultChan: chan *tools.SynScanResult, r1: error)"
         }
       ]
     },
@@ -370,234 +358,234 @@
       "prefix": "str.",
       "functions": [
         {
-          "functionName": "f(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
-          "document": "",
-          "definitionStr": "func str.f(v1: string, v2 ...any) return (r0: string)"
+          "functionName": "f(${1:strFmt/*type: string*/}, ${2:items/*type ...any*/})",
+          "document": "相当于 `fmt.Sprintf`",
+          "definitionStr": "func str.f(strFmt: string, items ...any) return (r0: string)"
         },
         {
-          "functionName": "TrimSuffix(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.TrimSuffix(v1: string, v2: string) return (r0: string)"
+          "functionName": "TrimSuffix(${1:origin/*type: string*/}, ${2:suffix/*type: string*/})",
+          "document": "移除后缀",
+          "definitionStr": "func str.TrimSuffix(origin: string, suffix: string) return (r0: string)"
         },
         {
           "functionName": "TrimSpace(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "移除前后空白字符",
           "definitionStr": "func str.TrimSpace(v1: string) return (r0: string)"
         },
         {
-          "functionName": "TrimRight(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.TrimRight(v1: string, v2: string) return (r0: string)"
+          "functionName": "TrimRight(${1:origin/*type: string*/}, ${2:subs/*type: string*/})",
+          "document": "移除右边的某些字符",
+          "definitionStr": "func str.TrimRight(origin: string, subs: string) return (r0: string)"
         },
         {
-          "functionName": "TrimPrefix(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.TrimPrefix(v1: string, v2: string) return (r0: string)"
+          "functionName": "TrimPrefix(${1:origin/*type: string*/}, ${2:prefix/*type: string*/})",
+          "document": "移除某个前缀",
+          "definitionStr": "func str.TrimPrefix(origin: string, prefix: string) return (r0: string)"
         },
         {
-          "functionName": "TrimLeft(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.TrimLeft(v1: string, v2: string) return (r0: string)"
+          "functionName": "TrimLeft(${1:origin/*type: string*/}, ${2:subs/*type: string*/})",
+          "document": "移除左边的某些字符",
+          "definitionStr": "func str.TrimLeft(origin: string, subs: string) return (r0: string)"
         },
         {
-          "functionName": "Trim(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Trim(v1: string, v2: string) return (r0: string)"
+          "functionName": "Trim(${1:origin/*type: string*/}, ${2:subs/*type: string*/})",
+          "document": "把字符串前后任何包含子字符串中字符移除",
+          "definitionStr": "func str.Trim(origin: string, subs: string) return (r0: string)"
         },
         {
-          "functionName": "ToValidUTF8(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.ToValidUTF8(v1: string, v2: string) return (r0: string)"
+          "functionName": "ToValidUTF8(${1:originStr/*type: string*/}, ${2:replaced/*type: string*/})",
+          "document": "把字符串中不安全的UTF8字符替换掉，避免 panic",
+          "definitionStr": "func str.ToValidUTF8(originStr: string, replaced: string) return (r0: string)"
         },
         {
           "functionName": "ToUpperSpecial(${1:v1/*type: unicode.SpecialCase*/}, ${2:v2/*type: string*/})",
-          "document": "",
+          "document": "同 Golang `strings.ToUpperSpecial`",
           "definitionStr": "func str.ToUpperSpecial(v1: unicode.SpecialCase, v2: string) return (r0: string)"
         },
         {
           "functionName": "ToUpper(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把字符串变成全大写",
           "definitionStr": "func str.ToUpper(v1: string) return (r0: string)"
         },
         {
           "functionName": "ToTitleSpecial(${1:v1/*type: unicode.SpecialCase*/}, ${2:v2/*type: string*/})",
-          "document": "",
+          "document": "同 Golang `strings.ToTitleSpecial`",
           "definitionStr": "func str.ToTitleSpecial(v1: unicode.SpecialCase, v2: string) return (r0: string)"
         },
         {
           "functionName": "ToTitle(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "同 Golang `strings.ToTitle`",
           "definitionStr": "func str.ToTitle(v1: string) return (r0: string)"
         },
         {
           "functionName": "ToLowerSpecial(${1:v1/*type: unicode.SpecialCase*/}, ${2:v2/*type: string*/})",
-          "document": "",
+          "document": "同 Golang `strings.ToLowerSpecial`",
           "definitionStr": "func str.ToLowerSpecial(v1: unicode.SpecialCase, v2: string) return (r0: string)"
         },
         {
           "functionName": "ToLower(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把字符串变成小写",
           "definitionStr": "func str.ToLower(v1: string) return (r0: string)"
         },
         {
           "functionName": "ToJsonIndentStr(${1:v1/*type: any*/})",
-          "document": "",
+          "document": "把一个对象解析成 Json，并保证 indent 合理",
           "definitionStr": "func str.ToJsonIndentStr(v1: any) return (r0: string)"
         },
         {
           "functionName": "Title(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把字符串每个单词首字母大写，变成 Title",
           "definitionStr": "func str.Title(v1: string) return (r0: string)"
         },
         {
-          "functionName": "StringSliceContainsAll(${1:v1/*type: []string*/}, ${2:v2/*type ...string*/})",
-          "document": "",
-          "definitionStr": "func str.StringSliceContainsAll(v1: []string, v2 ...string) return (r0: bool)"
+          "functionName": "StringSliceContainsAll(${1:slice/*type: []string*/}, ${2:subStrs/*type ...string*/})",
+          "document": "判断一个 Slice 中是否包含后续所有子串？",
+          "definitionStr": "func str.StringSliceContainsAll(slice: []string, subStrs ...string) return (r0: bool)"
         },
         {
-          "functionName": "StringSliceContains(${1:v1/*type: []string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.StringSliceContains(v1: []string, v2: string) return (r0: bool)"
+          "functionName": "StringSliceContains(${1:slice/*type: []string*/}, ${2:sub/*type: string*/})",
+          "document": "判断一个 Slice 中是否包含一个子字符串？",
+          "definitionStr": "func str.StringSliceContains(slice: []string, sub: string) return (r0: bool)"
         },
         {
-          "functionName": "StringContainsAnyOfSubString(${1:v1/*type: string*/}, ${2:v2/*type: []string*/})",
-          "document": "",
-          "definitionStr": "func str.StringContainsAnyOfSubString(v1: string, v2: []string) return (r0: bool)"
+          "functionName": "StringContainsAnyOfSubString(${1:all/*type: string*/}, ${2:subStrs/*type: []string*/})",
+          "document": "判断字符串是否包含任意一个后续 Slice 中的元素？",
+          "definitionStr": "func str.StringContainsAnyOfSubString(all: string, subStrs: []string) return (r0: bool)"
         },
         {
-          "functionName": "StartsWith(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.StartsWith(v1: string, v2: string) return (r0: bool)"
+          "functionName": "StartsWith(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "判断主字符串是否是子串开头？",
+          "definitionStr": "func str.StartsWith(all: string, sub: string) return (r0: bool)"
         },
         {
-          "functionName": "SplitN(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: int*/})",
-          "document": "",
-          "definitionStr": "func str.SplitN(v1: string, v2: string, v3: int) return (r0: []string)"
+          "functionName": "SplitN(${1:all/*type: string*/}, ${2:sep/*type: string*/}, ${3:n/*type: int*/})",
+          "document": "分割字符串，分割成N块",
+          "definitionStr": "func str.SplitN(all: string, sep: string, n: int) return (r0: []string)"
         },
         {
-          "functionName": "SplitAndTrim(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.SplitAndTrim(v1: string, v2: string) return (r0: []string)"
+          "functionName": "SplitAndTrim(${1:all/*type: string*/}, ${2:sep/*type: string*/})",
+          "document": "分割，并清除每一个部分的前后空白",
+          "definitionStr": "func str.SplitAndTrim(all: string, sep: string) return (r0: []string)"
         },
         {
-          "functionName": "SplitAfterN(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: int*/})",
-          "document": "",
-          "definitionStr": "func str.SplitAfterN(v1: string, v2: string, v3: int) return (r0: []string)"
+          "functionName": "SplitAfterN(${1:all/*type: string*/}, ${2:sep/*type: string*/}, ${3:n/*type: int*/})",
+          "document": "分割字符串，不移除分隔符，最多分割成N个块",
+          "definitionStr": "func str.SplitAfterN(all: string, sep: string, n: int) return (r0: []string)"
         },
         {
-          "functionName": "SplitAfter(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.SplitAfter(v1: string, v2: string) return (r0: []string)"
+          "functionName": "SplitAfter(${1:all/*type: string*/}, ${2:sep/*type: string*/})",
+          "document": "分割字符串，不移除分隔符",
+          "definitionStr": "func str.SplitAfter(all: string, sep: string) return (r0: []string)"
         },
         {
-          "functionName": "Split(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Split(v1: string, v2: string) return (r0: []string)"
+          "functionName": "Split(${1:all/*type: string*/}, ${2:sep/*type: string*/})",
+          "document": "分割字符串",
+          "definitionStr": "func str.Split(all: string, sep: string) return (r0: []string)"
         },
         {
-          "functionName": "ReplaceAll(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.ReplaceAll(v1: string, v2: string, v3: string) return (r0: string)"
+          "functionName": "ReplaceAll(${1:raw/*type: string*/}, ${2:old/*type: string*/}, ${3:new/*type: string*/})",
+          "document": "字符串替换，全部",
+          "definitionStr": "func str.ReplaceAll(raw: string, old: string, new: string) return (r0: string)"
         },
         {
-          "functionName": "Replace(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: string*/}, ${4:v4/*type: int*/})",
-          "document": "",
-          "definitionStr": "func str.Replace(v1: string, v2: string, v3: string, v4: int) return (r0: string)"
+          "functionName": "Replace(${1:raw/*type: string*/}, ${2:old/*type: string*/}, ${3:new/*type: string*/}, ${4:matchTimes/*type: int*/})",
+          "document": "字符串替换（次数）",
+          "definitionStr": "func str.Replace(raw: string, old: string, new: string, matchTimes: int) return (r0: string)"
         },
         {
-          "functionName": "Repeat(${1:v1/*type: string*/}, ${2:v2/*type: int*/})",
-          "document": "",
-          "definitionStr": "func str.Repeat(v1: string, v2: int) return (r0: string)"
+          "functionName": "Repeat(${1:strContent/*type: string*/}, ${2:count/*type: int*/})",
+          "document": "重复字符串",
+          "definitionStr": "func str.Repeat(strContent: string, count: int) return (r0: string)"
         },
         {
           "functionName": "RemoveRepeat(${1:v1/*type: []string*/})",
-          "document": "",
+          "document": "移除 slice 中重复元素",
           "definitionStr": "func str.RemoveRepeat(v1: []string) return (r0: []string)"
         },
         {
-          "functionName": "RegexpMatch(${1:v1/*type: string*/}, ${2:v2/*type: any*/})",
-          "document": "",
-          "definitionStr": "func str.RegexpMatch(v1: string, v2: any) return (r0: bool)"
+          "functionName": "RegexpMatch(${1:regexpPattern/*type: string*/}, ${2:content/*type: any*/})",
+          "document": "使用正则匹配",
+          "definitionStr": "func str.RegexpMatch(regexpPattern: string, content: any) return (r0: bool)"
         },
         {
-          "functionName": "RandStr(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func str.RandStr(v1: int) return (r0: string)"
+          "functionName": "RandStr(${1:length/*type: int*/})",
+          "document": "生成一个随机字符串",
+          "definitionStr": "func str.RandStr(length: int) return (r0: string)"
         },
         {
-          "functionName": "RandSecret(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func str.RandSecret(v1: int) return (r0: string)"
+          "functionName": "RandSecret(${1:length/*type: int*/})",
+          "document": "生成一个随机密码",
+          "definitionStr": "func str.RandSecret(length: int) return (r0: string)"
         },
         {
           "functionName": "PathJoin(${1:v1/*type ...string*/})",
-          "document": "",
+          "document": "把 path 进行拼接",
           "definitionStr": "func str.PathJoin(v1 ...string) return (r0: string)"
         },
         {
           "functionName": "ParseStringToUrlsWith3W(${1:v1/*type ...string*/})",
-          "document": "",
+          "document": "把字符串（域名/IP/URL）解析成可能的 URL（如果是域名，自动补充 WWW 前缀）",
           "definitionStr": "func str.ParseStringToUrlsWith3W(v1 ...string) return (r0: []string)"
         },
         {
           "functionName": "ParseStringToUrls(${1:v1/*type ...string*/})",
-          "document": "",
+          "document": "把字符串（域名/IP/URL）解析成可能的 URL（如果是域名，不自动补充 WWW 前缀）",
           "definitionStr": "func str.ParseStringToUrls(v1 ...string) return (r0: []string)"
         },
         {
           "functionName": "ParseStringToPorts(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把字符串解析成多个端口，逗号分隔",
           "definitionStr": "func str.ParseStringToPorts(v1: string) return (r0: []int)"
         },
         {
           "functionName": "ParseStringToLines(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把一个字符串按行解析",
           "definitionStr": "func str.ParseStringToLines(v1: string) return (r0: []string)"
         },
         {
           "functionName": "ParseStringToHosts(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把字符串解析成 hosts，字符串可以是逗号分割的网段/域名/ip地址",
           "definitionStr": "func str.ParseStringToHosts(v1: string) return (r0: []string)"
         },
         {
           "functionName": "ParseStringToHostPort(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.ParseStringToHostPort(v1: string) return (r0: string, r1: int, r2: error)"
+          "document": "把字符串解析成 host 和 port",
+          "definitionStr": "func str.ParseStringToHostPort(v1: string) return (host: string, port: int, r2: error)"
         },
         {
-          "functionName": "ParamsGetOr(${1:v1/*type: map[string]string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.ParamsGetOr(v1: map[string]string, v2: string, v3: string) return (r0: string)"
+          "functionName": "ParamsGetOr(${1:params/*type: map[string]string*/}, ${2:key/*type: string*/}, ${3:defaulValue/*type: string*/})",
+          "document": "从 `map[string]string` 中获取参数",
+          "definitionStr": "func str.ParamsGetOr(params: map[string]string, key: string, defaulValue: string) return (r0: string)"
         },
         {
           "functionName": "NewReader(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "创建一个 Reader",
           "definitionStr": "func str.NewReader(v1: string) return (r0: *strings.Reader)"
         },
         {
           "functionName": "NewFilter()",
-          "document": "",
+          "document": "创建一个字符串过滤器",
           "definitionStr": "func str.NewFilter() return (r0: *filter.StringFilter)"
         },
         {
           "functionName": "LowerAndTrimSpace(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把字符串前后空白移除，并变成小写",
           "definitionStr": "func str.LowerAndTrimSpace(v1: string) return (r0: string)"
         },
         {
-          "functionName": "LastIndexByte(${1:v1/*type: string*/}, ${2:v2/*type: byte*/})",
-          "document": "",
-          "definitionStr": "func str.LastIndexByte(v1: string, v2: byte) return (r0: int)"
+          "functionName": "LastIndexByte(${1:all/*type: string*/}, ${2:byte/*type: byte*/})",
+          "document": "最后一个目标 byte 的位置",
+          "definitionStr": "func str.LastIndexByte(all: string, byte: byte) return (r0: int)"
         },
         {
-          "functionName": "LastIndexAny(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.LastIndexAny(v1: string, v2: string) return (r0: int)"
+          "functionName": "LastIndexAny(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "子字符串中任何一个字符在主字符串中最后出现的位置",
+          "definitionStr": "func str.LastIndexAny(all: string, sub: string) return (r0: int)"
         },
         {
-          "functionName": "LastIndex(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.LastIndex(v1: string, v2: string) return (r0: int)"
+          "functionName": "LastIndex(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "从后往前匹配最后一个子字符串位置",
+          "definitionStr": "func str.LastIndex(all: string, sub: string) return (r0: int)"
         },
         {
           "functionName": "JsonToMapList(${1:v1/*type: string*/})",
@@ -606,107 +594,107 @@
         },
         {
           "functionName": "JsonToMap(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把 Json 解析成 `map[string]string`",
           "definitionStr": "func str.JsonToMap(v1: string) return (r0: map[string]string)"
         },
         {
           "functionName": "JsonStreamToMapList(${1:v1/*type: io.Reader*/})",
-          "document": "",
+          "document": "把 json 流解析成多个 `map[string]interface{}`",
           "definitionStr": "func str.JsonStreamToMapList(v1: io.Reader) return (r0: []map[string]any)"
         },
         {
-          "functionName": "Join(${1:v1/*type: []string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Join(v1: []string, v2: string) return (r0: string)"
+          "functionName": "Join(${1:strSlice/*type: []string*/}, ${2:seperator/*type: string*/})",
+          "document": "Join 一个字符串，把 slice 中拼成字符串，使用 seperator 作为分隔符",
+          "definitionStr": "func str.Join(strSlice: []string, seperator: string) return (r0: string)"
         },
         {
           "functionName": "IsStrongPassword(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "判断一个密码是不是强密码",
           "definitionStr": "func str.IsStrongPassword(v1: string) return (r0: bool)"
         },
         {
           "functionName": "IsIPv6(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "判断一个字符串是不是 IPv6",
           "definitionStr": "func str.IsIPv6(v1: string) return (r0: bool)"
         },
         {
           "functionName": "IsIPv4(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "判断一个字符串是不是 IPv4",
           "definitionStr": "func str.IsIPv4(v1: string) return (r0: bool)"
         },
         {
-          "functionName": "IndexByte(${1:v1/*type: string*/}, ${2:v2/*type: byte*/})",
-          "document": "",
-          "definitionStr": "func str.IndexByte(v1: string, v2: byte) return (r0: int)"
+          "functionName": "IndexByte(${1:all/*type: string*/}, ${2:byte/*type: byte*/})",
+          "document": "判断一个 byte 的位置",
+          "definitionStr": "func str.IndexByte(all: string, byte: byte) return (r0: int)"
         },
         {
-          "functionName": "IndexAny(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.IndexAny(v1: string, v2: string) return (r0: int)"
+          "functionName": "IndexAny(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "判断子字符串中任意一个字符在主串中的位置",
+          "definitionStr": "func str.IndexAny(all: string, sub: string) return (r0: int)"
         },
         {
-          "functionName": "Index(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Index(v1: string, v2: string) return (r0: int)"
+          "functionName": "Index(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "判断子字符串在字符串中的位置",
+          "definitionStr": "func str.Index(all: string, sub: string) return (r0: int)"
         },
         {
-          "functionName": "IPv4ToCClassNetwork(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.IPv4ToCClassNetwork(v1: string) return (r0: string, r1: error)"
+          "functionName": "IPv4ToCClassNetwork(${1:ip/*type: string*/})",
+          "document": "把一个 IPv4 变成对应的 C段网络",
+          "definitionStr": "func str.IPv4ToCClassNetwork(ip: string) return (network: string, r1: error)"
         },
         {
-          "functionName": "HostPort(${1:v1/*type: string*/}, ${2:v2/*type: any*/})",
-          "document": "",
-          "definitionStr": "func str.HostPort(v1: string, v2: any) return (r0: string)"
+          "functionName": "HostPort(${1:host/*type: string*/}, ${2:port/*type: any*/})",
+          "document": "把字符串Host和Port拼接起来",
+          "definitionStr": "func str.HostPort(host: string, port: any) return (r0: string)"
         },
         {
-          "functionName": "HasSuffix(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.HasSuffix(v1: string, v2: string) return (r0: bool)"
+          "functionName": "HasSuffix(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "判断字符串是否以子字符串为后缀",
+          "definitionStr": "func str.HasSuffix(all: string, sub: string) return (r0: bool)"
         },
         {
-          "functionName": "HasPrefix(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.HasPrefix(v1: string, v2: string) return (r0: bool)"
+          "functionName": "HasPrefix(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "判断字符串是不是以子串为前缀",
+          "definitionStr": "func str.HasPrefix(all: string, sub: string) return (r0: bool)"
         },
         {
-          "functionName": "Grok(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Grok(v1: string, v2: string) return (r0: yaklib.GrokResult)"
+          "functionName": "Grok(${1:content/*type: string*/}, ${2:grokRule/*type: string*/})",
+          "document": "同 `re.Grok`",
+          "definitionStr": "func str.Grok(content: string, grokRule: string) return (r0: yaklib.GrokResult)"
         },
         {
           "functionName": "Fields(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "按空格把字符串分割开",
           "definitionStr": "func str.Fields(v1: string) return (r0: []string)"
         },
         {
           "functionName": "EqualFold(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
+          "document": "判断忽略大小写字符串是否相等？",
           "definitionStr": "func str.EqualFold(v1: string, v2: string) return (r0: bool)"
         },
         {
-          "functionName": "EndsWith(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.EndsWith(v1: string, v2: string) return (r0: bool)"
+          "functionName": "EndsWith(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "判断字符串是否以子串为结尾",
+          "definitionStr": "func str.EndsWith(all: string, sub: string) return (r0: bool)"
         },
         {
-          "functionName": "Count(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Count(v1: string, v2: string) return (r0: int)"
+          "functionName": "Count(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "字符串中包含多少个字串？",
+          "definitionStr": "func str.Count(all: string, sub: string) return (r0: int)"
         },
         {
-          "functionName": "ContainsAny(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.ContainsAny(v1: string, v2: string) return (r0: bool)"
+          "functionName": "ContainsAny(${1:all/*type: string*/}, ${2:chars/*type: string*/})",
+          "document": "字符串中包含字串的任何一个字符",
+          "definitionStr": "func str.ContainsAny(all: string, chars: string) return (r0: bool)"
         },
         {
-          "functionName": "Contains(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func str.Contains(v1: string, v2: string) return (r0: bool)"
+          "functionName": "Contains(${1:all/*type: string*/}, ${2:sub/*type: string*/})",
+          "document": "字符串中是否包含一个子串",
+          "definitionStr": "func str.Contains(all: string, sub: string) return (r0: bool)"
         },
         {
           "functionName": "Compare(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
+          "document": "比较字符串",
           "definitionStr": "func str.Compare(v1: string, v2: string) return (r0: int)"
         }
       ]
@@ -716,29 +704,29 @@
       "prefix": "spacengine.",
       "functions": [
         {
-          "functionName": "maxRecord(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func spacengine.maxRecord(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
+          "functionName": "maxRecord(${1:maxRecord/*type: int*/})",
+          "document": "【参数】最多获取多少条数据？但是由于 limit 的限制，这个数据往往比 maxRecord 多，直到补满当前页",
+          "definitionStr": "func spacengine.maxRecord(maxRecord: int) return (r0: opt)"
         },
         {
-          "functionName": "maxPage(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func spacengine.maxPage(v1: int) return (r0: func _spaceEngineConfigOpt(v1: *yaklib._spaceEngineConfig) )"
+          "functionName": "maxPage(${1:maxPage/*type: int*/})",
+          "document": "【参数】最多筛选多少页？",
+          "definitionStr": "func spacengine.maxPage(maxPage: int) return (r0: opt)"
         },
         {
-          "functionName": "ShodanQuery(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yaklib._spaceEngineConfigOpt*/})",
+          "functionName": "ShodanQuery(${1:apiKey/*type: string*/}, ${2:filter/*type: string*/}, ${3:params/*type ...yaklib._spaceEngineConfigOpt*/})",
           "document": "",
-          "definitionStr": "func spacengine.ShodanQuery(v1: string, v2: string, v3 ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "definitionStr": "func spacengine.ShodanQuery(apiKey: string, filter: string, params ...yaklib._spaceEngineConfigOpt) return (resultChan: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "QuakeQuery(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yaklib._spaceEngineConfigOpt*/})",
+          "functionName": "QuakeQuery(${1:apiKey/*type: string*/}, ${2:filter/*type: string*/}, ${3:params/*type ...opt*/})",
           "document": "",
-          "definitionStr": "func spacengine.QuakeQuery(v1: string, v2: string, v3 ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "definitionStr": "func spacengine.QuakeQuery(apiKey: string, filter: string, params ...opt) return (resultChan: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
-          "functionName": "FofaQuery(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: string*/}, ${4:v4/*type ...yaklib._spaceEngineConfigOpt*/})",
-          "document": "",
-          "definitionStr": "func spacengine.FofaQuery(v1: string, v2: string, v3: string, v4 ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+          "functionName": "FofaQuery(${1:email/*type: string*/}, ${2:key/*type: string*/}, ${3:filter/*type: string*/}, ${4:params/*type ...opt*/})",
+          "document": "查询 Fofa 中的数据",
+          "definitionStr": "func spacengine.FofaQuery(email: string, key: string, filter: string, params ...opt) return (resultChan: chan *spacengine.NetSpaceEngineResult, r1: error)"
         }
       ]
     },
@@ -748,78 +736,78 @@
       "functions": [
         {
           "functionName": "webRule(${1:v1/*type: any*/})",
-          "document": "",
+          "document": "启用用户自定义 web 规则",
           "definitionStr": "func servicescan.webRule(v1: any) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "web()",
-          "document": "",
+          "document": "强制启用 web 扫描",
           "definitionStr": "func servicescan.web() return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "service()",
-          "document": "",
+          "document": "启动服务扫描（nmap 规则库）",
           "definitionStr": "func servicescan.service() return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "proto(${1:v1/*type ...any*/})",
-          "document": "",
-          "definitionStr": "func servicescan.proto(v1 ...any) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "functionName": "proto(${1:protos/*type ...any*/})",
+          "document": "设置扫描的协议",
+          "definitionStr": "func servicescan.proto(protos ...any) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "nmapRule(${1:v1/*type: any*/})",
-          "document": "",
+          "document": "【参数】设置 nmap 规则文件（可以自己写）",
           "definitionStr": "func servicescan.nmapRule(v1: any) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "nmapRarityMax(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func servicescan.nmapRarityMax(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "functionName": "nmapRarityMax(${1:max/*type: int*/})",
+          "document": "【参数】设置nmap规则的最大稀有度",
+          "definitionStr": "func servicescan.nmapRarityMax(max: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "maxProbesConcurrent(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func servicescan.maxProbesConcurrent(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "functionName": "maxProbesConcurrent(${1:size/*type: int*/})",
+          "document": "【参数】每个指纹扫描目标允许的并发量",
+          "definitionStr": "func servicescan.maxProbesConcurrent(size: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "maxProbes(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func servicescan.maxProbes(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "functionName": "maxProbes(${1:count/*type: int*/})",
+          "document": "【参数】设置每个指纹扫描过程最多主动发送多少个数据包",
+          "definitionStr": "func servicescan.maxProbes(count: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "concurrent(${1:v1/*type: int*/})",
+          "functionName": "concurrent(${1:concurrentSize/*type: int*/})",
           "document": "",
-          "definitionStr": "func servicescan.concurrent(v1: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "definitionStr": "func servicescan.concurrent(concurrentSize: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "all()",
-          "document": "",
-          "definitionStr": "func servicescan.all() return (r0: func ConfigOption(v1: *fp.Config) )"
+          "document": "【参数】扫描全部指纹",
+          "definitionStr": "func servicescan.all() return (scanAll: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "active(${1:v1/*type: bool*/})",
-          "document": "",
-          "definitionStr": "func servicescan.active(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
+          "functionName": "active(${1:isActive/*type: bool*/})",
+          "document": "【参数】主动扫描模式",
+          "definitionStr": "func servicescan.active(isActive: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
-          "functionName": "ScanOne(${1:v1/*type: string*/}, ${2:v2/*type: int*/}, ${3:v3/*type ...fp.ConfigOption*/})",
-          "document": "",
-          "definitionStr": "func servicescan.ScanOne(v1: string, v2: int, v3 ...fp.ConfigOption) return (r0: *fp.MatchResult, r1: error)"
+          "functionName": "ScanOne(${1:host/*type: string*/}, ${2:port/*type: int*/}, ${3:params/*type ...opt*/})",
+          "document": "同步扫描单个目标",
+          "definitionStr": "func servicescan.ScanOne(host: string, port: int, params ...opt) return (resultChan: *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "ScanFromSynResult(${1:v1/*type: any*/}, ${2:v2/*type ...fp.ConfigOption*/})",
-          "document": "",
-          "definitionStr": "func servicescan.ScanFromSynResult(v1: any, v2 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "functionName": "ScanFromSynResult(${1:chanForSynScan/*type: any*/}, ${2:params/*type ...opt*/})",
+          "document": "从 synscan 中返回的结果直接进入 servicescan 扫描的通道",
+          "definitionStr": "func servicescan.ScanFromSynResult(chanForSynScan: any, params ...opt) return (resultChan: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "ScanFromSpaceEngine(${1:v1/*type: any*/}, ${2:v2/*type ...fp.ConfigOption*/})",
-          "document": "",
-          "definitionStr": "func servicescan.ScanFromSpaceEngine(v1: any, v2 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "functionName": "ScanFromSpaceEngine(${1:chanFromSpacengine/*type: any*/}, ${2:params/*type ...opt*/})",
+          "document": "从网络空间搜索引擎的结果中扫描指纹信息",
+          "definitionStr": "func servicescan.ScanFromSpaceEngine(chanFromSpacengine: any, params ...opt) return (resultChan: chan *fp.MatchResult, r1: error)"
         },
         {
-          "functionName": "Scan(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...fp.ConfigOption*/})",
-          "document": "",
-          "definitionStr": "func servicescan.Scan(v1: string, v2: string, v3 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+          "functionName": "Scan(${1:hosts/*type: string*/}, ${2:ports/*type: string*/}, ${3:params/*type ...opt*/})",
+          "document": "扫描服务指纹的核心函数",
+          "definitionStr": "func servicescan.Scan(hosts: string, ports: string, params ...opt) return (resultChannel: chan *fp.MatchResult, r1: error)"
         }
       ]
     },
@@ -829,83 +817,83 @@
       "functions": [
         {
           "functionName": "QuoteMeta(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "把正则保留字符进行转义",
           "definitionStr": "func re.QuoteMeta(v1: string) return (r0: string)"
         },
         {
-          "functionName": "MustCompilePOSIX(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func re.MustCompilePOSIX(v1: string) return (r0: *regexp.Regexp)"
+          "functionName": "MustCompilePOSIX(${1:regexpStr/*type: string*/})",
+          "document": "编译正则 POSIX 模式，编译失败则 Panic",
+          "definitionStr": "func re.MustCompilePOSIX(regexpStr: string) return (r0: *regexp.Regexp)"
         },
         {
-          "functionName": "MustCompile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func re.MustCompile(v1: string) return (r0: *regexp.Regexp)"
+          "functionName": "MustCompile(${1:regexpStr/*type: string*/})",
+          "document": "编译正则，如果编译失败则 Panic",
+          "definitionStr": "func re.MustCompile(regexpStr: string) return (r0: *regexp.Regexp)"
         },
         {
-          "functionName": "Match(${1:v1/*type: string*/}, ${2:v2/*type: any*/})",
+          "functionName": "Match(${1:regexpPattern/*type: string*/}, ${2:content/*type: any*/})",
           "document": "",
-          "definitionStr": "func re.Match(v1: string, v2: any) return (r0: bool)"
+          "definitionStr": "func re.Match(regexpPattern: string, content: any) return (r0: bool)"
         },
         {
-          "functionName": "Grok(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func re.Grok(v1: string, v2: string) return (r0: yaklib.GrokResult)"
+          "functionName": "Grok(${1:content/*type: string*/}, ${2:grokRule/*type: string*/})",
+          "document": "从内容中按照 Grok 规则提取数据",
+          "definitionStr": "func re.Grok(content: string, grokRule: string) return (data: yaklib.GrokResult)"
         },
         {
-          "functionName": "ExtractURL(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractURL(v1: any) return (r0: []string)"
+          "functionName": "ExtractURL(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从内容中提取 URL",
+          "definitionStr": "func re.ExtractURL(content: []byte|string|io.Reader|any) return (urls: []string)"
         },
         {
-          "functionName": "ExtractTTY(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractTTY(v1: any) return (r0: []string)"
+          "functionName": "ExtractTTY(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从内容中提取 TTY 内容",
+          "definitionStr": "func re.ExtractTTY(content: []byte|string|io.Reader|any) return (ttys: []string)"
         },
         {
-          "functionName": "ExtractPath(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractPath(v1: any) return (r0: []string)"
+          "functionName": "ExtractPath(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从内容中提取路径",
+          "definitionStr": "func re.ExtractPath(content: []byte|string|io.Reader|any) return (paths: []string)"
         },
         {
-          "functionName": "ExtractMac(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractMac(v1: any) return (r0: []string)"
+          "functionName": "ExtractMac(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从字符串中提取可用的 Mac 地址",
+          "definitionStr": "func re.ExtractMac(content: []byte|string|io.Reader|any) return (macAddrs: []string)"
         },
         {
-          "functionName": "ExtractIPv6(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractIPv6(v1: any) return (r0: []string)"
+          "functionName": "ExtractIPv6(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从内容中提取 IPv6 地址",
+          "definitionStr": "func re.ExtractIPv6(content: []byte|string|io.Reader|any) return (ipAddrs: []string)"
         },
         {
-          "functionName": "ExtractIPv4(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractIPv4(v1: any) return (r0: []string)"
+          "functionName": "ExtractIPv4(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从内容中提取 IPv4 地址",
+          "definitionStr": "func re.ExtractIPv4(content: []byte|string|io.Reader|any) return (ipAddrs: []string)"
         },
         {
-          "functionName": "ExtractIP(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractIP(v1: any) return (r0: []string)"
+          "functionName": "ExtractIP(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从内容中提取 IP 地址",
+          "definitionStr": "func re.ExtractIP(content: []byte|string|io.Reader|any) return (ipAddrs: []string)"
         },
         {
-          "functionName": "ExtractHostPort(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractHostPort(v1: any) return (r0: []string)"
+          "functionName": "ExtractHostPort(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从结果中提取 `host:port`",
+          "definitionStr": "func re.ExtractHostPort(content: []byte|string|io.Reader|any) return (hostPorts: []string)"
         },
         {
-          "functionName": "ExtractEmail(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func re.ExtractEmail(v1: any) return (r0: []string)"
+          "functionName": "ExtractEmail(${1:content/*type: []byte|string|io.Reader|any*/})",
+          "document": "从字符串中提取 email",
+          "definitionStr": "func re.ExtractEmail(content: []byte|string|io.Reader|any) return (emails: []string)"
         },
         {
-          "functionName": "CompilePOSIX(${1:v1/*type: string*/})",
+          "functionName": "CompilePOSIX(${1:regexpStr/*type: string*/})",
           "document": "",
-          "definitionStr": "func re.CompilePOSIX(v1: string) return (r0: *regexp.Regexp, r1: error)"
+          "definitionStr": "func re.CompilePOSIX(regexpStr: string) return (r0: *regexp.Regexp, r1: error)"
         },
         {
-          "functionName": "Compile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func re.Compile(v1: string) return (r0: *regexp.Regexp, r1: error)"
+          "functionName": "Compile(${1:regexpStr/*type: string*/})",
+          "document": "编译正则",
+          "definitionStr": "func re.Compile(regexpStr: string) return (r0: *regexp.Regexp, r1: error)"
         }
       ]
     },
@@ -914,103 +902,103 @@
       "prefix": "os.",
       "functions": [
         {
-          "functionName": "Unsetenv(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.Unsetenv(v1: string) return (r0: error)"
+          "functionName": "Unsetenv(${1:key/*type: string*/})",
+          "document": "清除环境变量",
+          "definitionStr": "func os.Unsetenv(key: string) return (r0: error)"
         },
         {
-          "functionName": "Setenv(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.Setenv(v1: string, v2: string) return (r0: error)"
+          "functionName": "Setenv(${1:key/*type: string*/}, ${2:value/*type: string*/})",
+          "document": "设置环境变量",
+          "definitionStr": "func os.Setenv(key: string, value: string) return (r0: error)"
         },
         {
-          "functionName": "Rename(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.Rename(v1: string, v2: string) return (r0: error)"
+          "functionName": "Rename(${1:oldFile/*type: string*/}, ${2:newFile/*type: string*/})",
+          "document": "重命名一个文件：同 Golang `os.Rename`",
+          "definitionStr": "func os.Rename(oldFile: string, newFile: string) return (r0: error)"
         },
         {
-          "functionName": "RemoveAll(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.RemoveAll(v1: string) return (r0: error)"
+          "functionName": "RemoveAll(${1:fileName/*type: string*/})",
+          "document": "移除一个文件（强制）",
+          "definitionStr": "func os.RemoveAll(fileName: string) return (r0: error)"
         },
         {
-          "functionName": "Remove(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.Remove(v1: string) return (r0: error)"
+          "functionName": "Remove(${1:fileName/*type: string*/})",
+          "document": "移除一个文件",
+          "definitionStr": "func os.Remove(fileName: string) return (r0: error)"
         },
         {
           "functionName": "Pipe()",
-          "document": "",
-          "definitionStr": "func os.Pipe() return (r0: *os.File, r1: *os.File, r2: error)"
+          "document": "返回文件管道，两个结果互通，均可互相读写",
+          "definitionStr": "func os.Pipe() return (file1: *os.File, file2: *os.File, r2: error)"
         },
         {
-          "functionName": "LookupEnv(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.LookupEnv(v1: string) return (r0: string, r1: bool)"
+          "functionName": "LookupEnv(${1:envName/*type: string*/})",
+          "document": "判断这个环境变量是否存在，如果存在，返回环境变量的值，不存在设置 ok 为 false",
+          "definitionStr": "func os.LookupEnv(envName: string) return (value: string, ok: bool)"
         },
         {
-          "functionName": "IsUDPPortOpen(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func os.IsUDPPortOpen(v1: int) return (r0: bool)"
+          "functionName": "IsUDPPortOpen(${1:port/*type: int*/})",
+          "document": "判断一个本地 UDP 端口是否开放",
+          "definitionStr": "func os.IsUDPPortOpen(port: int) return (r0: bool)"
         },
         {
-          "functionName": "IsUDPPortAvailable(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func os.IsUDPPortAvailable(v1: int) return (r0: bool)"
+          "functionName": "IsUDPPortAvailable(${1:port/*type: int*/})",
+          "document": "判断一个本地 UDP 端口是否可用",
+          "definitionStr": "func os.IsUDPPortAvailable(port: int) return (r0: bool)"
         },
         {
-          "functionName": "IsTCPPortOpen(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func os.IsTCPPortOpen(v1: int) return (r0: bool)"
+          "functionName": "IsTCPPortOpen(${1:port/*type: int*/})",
+          "document": "判断一个本地端口是否开放",
+          "definitionStr": "func os.IsTCPPortOpen(port: int) return (r0: bool)"
         },
         {
-          "functionName": "IsTCPPortAvailable(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func os.IsTCPPortAvailable(v1: int) return (r0: bool)"
+          "functionName": "IsTCPPortAvailable(${1:port/*type: int*/})",
+          "document": "判断一个本地 TCP 端口是否可用（监听可用）",
+          "definitionStr": "func os.IsTCPPortAvailable(port: int) return (r0: bool)"
         },
         {
-          "functionName": "IsRemoteTCPPortOpen(${1:v1/*type: string*/}, ${2:v2/*type: int*/})",
-          "document": "",
-          "definitionStr": "func os.IsRemoteTCPPortOpen(v1: string, v2: int) return (r0: bool)"
+          "functionName": "IsRemoteTCPPortOpen(${1:host/*type: string*/}, ${2:port/*type: int*/})",
+          "document": "判断一个远程 TCP 端口是否开放",
+          "definitionStr": "func os.IsRemoteTCPPortOpen(host: string, port: int) return (r0: bool)"
         },
         {
-          "functionName": "Getenv(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.Getenv(v1: string) return (r0: string)"
+          "functionName": "Getenv(${1:envName/*type: string*/})",
+          "document": "获得一个环境变量的值",
+          "definitionStr": "func os.Getenv(envName: string) return (value: string)"
         },
         {
           "functionName": "GetRandomAvailableUDPPort()",
-          "document": "",
-          "definitionStr": "func os.GetRandomAvailableUDPPort() return (r0: int)"
+          "document": "随机获得一个可用的 UDP 端口",
+          "definitionStr": "func os.GetRandomAvailableUDPPort() return (port: int)"
         },
         {
           "functionName": "GetRandomAvailableTCPPort()",
-          "document": "",
-          "definitionStr": "func os.GetRandomAvailableTCPPort() return (r0: int)"
+          "document": "随机获得一个可用的 TCP 端口",
+          "definitionStr": "func os.GetRandomAvailableTCPPort() return (port: int)"
         },
         {
-          "functionName": "ExpandEnv(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func os.ExpandEnv(v1: string) return (r0: string)"
+          "functionName": "ExpandEnv(${1:targetWithEnv/*type: string*/})",
+          "document": "同 Golang 的 `os.ExpandEnv`：根据当前环境变量的值来替换字符串中的${var}或者$var",
+          "definitionStr": "func os.ExpandEnv(targetWithEnv: string) return (r0: string)"
         },
         {
-          "functionName": "Exit(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "`func os.Exit(v1: int)`"
+          "functionName": "Exit(${1:exitCode/*type: int*/})",
+          "document": "退出主程序，手动结束当前进程",
+          "definitionStr": "`func os.Exit(exitCode: int)`"
         },
         {
           "functionName": "Executable()",
-          "document": "",
-          "definitionStr": "func os.Executable() return (r0: string, r1: error)"
+          "document": "获取当前正在执行的二进制程序的路径",
+          "definitionStr": "func os.Executable() return (path: string, r1: error)"
         },
         {
           "functionName": "Environ()",
-          "document": "",
+          "document": "获取当前所有的环境变量内容",
           "definitionStr": "func os.Environ() return (r0: []string)"
         },
         {
           "functionName": "Clearenv()",
-          "document": "",
+          "document": "清除环境变量，与原生 Golang `go.Clearenv` 相同",
           "definitionStr": "`func os.Clearenv()`"
         }
       ]
@@ -1036,34 +1024,34 @@
       "prefix": "mitm.",
       "functions": [
         {
-          "functionName": "rootCA(${1:v1/*type: bytes*/}, ${2:v2/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func mitm.rootCA(v1: bytes, v2: bytes) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
+          "functionName": "rootCA(${1:caCert/*type: bytes*/}, ${2:key/*type: bytes*/})",
+          "document": "设置中间人根 CA 证书（可以用 `tls` 工具包生成）",
+          "definitionStr": "func mitm.rootCA(caCert: bytes, key: bytes) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
           "functionName": "host(${1:v1/*type: string*/})",
-          "document": "",
+          "document": "【参数】设置中间人代理/服务器的监听主机端口",
           "definitionStr": "func mitm.host(v1: string) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
           "functionName": "context(${1:v1/*type: context.Context*/})",
-          "document": "",
+          "document": "【参数】设置中间人的 context，用来控制生命周期",
           "definitionStr": "func mitm.context(v1: context.Context) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
           "functionName": "callback(${1:v1/*type: func (v1: bool, v2: *http.Request, v3: *http.Response) */})",
-          "document": "",
+          "document": "【参数】设置中间人代理的处理函数",
           "definitionStr": "func mitm.callback(v1: func (v1: bool, v2: *http.Request, v3: *http.Response) ) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
-          "functionName": "Start(${1:v1/*type: int*/}, ${2:v2/*type ...yaklib.mitmConfigOpt*/})",
-          "document": "",
-          "definitionStr": "func mitm.Start(v1: int, v2 ...yaklib.mitmConfigOpt) return (r0: error)"
+          "functionName": "Start(${1:port/*type: int*/}, ${2:params/*type ...opt*/})",
+          "document": "启动一个中间人代理",
+          "definitionStr": "func mitm.Start(port: int, params ...opt) return (r0: error)"
         },
         {
-          "functionName": "Bridge(${1:v1/*type: any*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yaklib.mitmConfigOpt*/})",
-          "document": "",
-          "definitionStr": "func mitm.Bridge(v1: any, v2: string, v3 ...yaklib.mitmConfigOpt) return (r0: error)"
+          "functionName": "Bridge(${1:listenedPort/*type: any*/}, ${2:nextProxy/*type: string*/}, ${3:params/*type ...opt*/})",
+          "document": "桥接模式中间人",
+          "definitionStr": "func mitm.Bridge(listenedPort: any, nextProxy: string, params ...opt) return (r0: error)"
         }
       ]
     },
@@ -1072,29 +1060,29 @@
       "prefix": "log.",
       "functions": [
         {
-          "functionName": "warn(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
-          "document": "",
-          "definitionStr": "`func log.warn(v1: string, v2 ...any)`"
+          "functionName": "warn(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
+          "document": "打印日志信息【警告级别】",
+          "definitionStr": "`func log.warn(fmt: string, items ...any)`"
         },
         {
-          "functionName": "setLevel(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "`func log.setLevel(v1: any)`"
+          "functionName": "setLevel(${1:level/*type: any*/})",
+          "document": "设置当前脚本的日志级别",
+          "definitionStr": "`func log.setLevel(level: any)`"
         },
         {
-          "functionName": "info(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
-          "document": "",
-          "definitionStr": "`func log.info(v1: string, v2 ...any)`"
+          "functionName": "info(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
+          "document": "打印日志【信息】",
+          "definitionStr": "`func log.info(fmt: string, items ...any)`"
         },
         {
-          "functionName": "error(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
-          "document": "",
-          "definitionStr": "`func log.error(v1: string, v2 ...any)`"
+          "functionName": "error(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
+          "document": "打印日志错误信息",
+          "definitionStr": "`func log.error(fmt: string, items ...any)`"
         },
         {
-          "functionName": "debug(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
-          "document": "",
-          "definitionStr": "`func log.debug(v1: string, v2 ...any)`"
+          "functionName": "debug(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
+          "document": "打印日志调试信息",
+          "definitionStr": "`func log.debug(fmt: string, items ...any)`"
         }
       ]
     },
@@ -1119,79 +1107,59 @@
       "prefix": "io.",
       "functions": [
         {
-          "functionName": "WriteString(${1:v1/*type: io.Writer*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func io.WriteString(v1: io.Writer, v2: string) return (r0: int, r1: error)"
+          "functionName": "WriteString(${1:writer/*type: io.Writer*/}, ${2:content/*type: string*/})",
+          "document": "把一个 string 写到 writer 中",
+          "definitionStr": "func io.WriteString(writer: io.Writer, content: string) return (r0: int, r1: error)"
         },
         {
-          "functionName": "TeeReader(${1:v1/*type: io.Reader*/}, ${2:v2/*type: io.Writer*/})",
-          "document": "",
-          "definitionStr": "func io.TeeReader(v1: io.Reader, v2: io.Writer) return (r0: io.Reader)"
+          "functionName": "TeeReader(${1:srcReader/*type: io.Reader*/}, ${2:teeWriter/*type: io.Writer*/})",
+          "document": "reader 分流，把 srcReader 读出来的内容会同步写到 teeWriter，通过返回值的 reader 来驱动",
+          "definitionStr": "func io.TeeReader(srcReader: io.Reader, teeWriter: io.Writer) return (r0: io.Reader)"
         },
         {
-          "functionName": "ReadFull(${1:v1/*type: io.Reader*/}, ${2:v2/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func io.ReadFull(v1: io.Reader, v2: bytes) return (r0: int, r1: error)"
+          "functionName": "ReadFile(${1:fileName/*type: string*/})",
+          "document": "把一个文件中的内容全部读出来",
+          "definitionStr": "func io.ReadFile(fileName: string) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "ReadFile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func io.ReadFile(v1: string) return (r0: bytes, r1: error)"
+          "functionName": "ReadEvery1s(${1:ctx/*type: context.Context*/}, ${2:reader/*type: io.Reader*/}, ${3:callback/*type: func (v1: bytes) return(bool) */})",
+          "document": "使用一个 ctx 控制生命周期，每隔一秒钟读一次 Reader，每隔一秒钟执行一次回调函数，回调函数如果返回 false，则立即停止读取",
+          "definitionStr": "`func io.ReadEvery1s(ctx: context.Context, reader: io.Reader, callback: func (v1: bytes) return(bool) )`"
         },
         {
-          "functionName": "ReadEvery1s(${1:v1/*type: context.Context*/}, ${2:v2/*type: io.Reader*/}, ${3:v3/*type: func (v1: bytes) return(bool) */})",
-          "document": "",
-          "definitionStr": "`func io.ReadEvery1s(v1: context.Context, v2: io.Reader, v3: func (v1: bytes) return(bool) )`"
-        },
-        {
-          "functionName": "ReadAtLeast(${1:v1/*type: io.Reader*/}, ${2:v2/*type: bytes*/}, ${3:v3/*type: int*/})",
-          "document": "",
-          "definitionStr": "func io.ReadAtLeast(v1: io.Reader, v2: bytes, v3: int) return (r0: int, r1: error)"
-        },
-        {
-          "functionName": "ReadAll(${1:v1/*type: io.Reader*/})",
-          "document": "",
-          "definitionStr": "func io.ReadAll(v1: io.Reader) return (r0: bytes, r1: error)"
+          "functionName": "ReadAll(${1:reader/*type: io.Reader*/})",
+          "document": "把一个 reader 中的内容全部读出来",
+          "definitionStr": "func io.ReadAll(reader: io.Reader) return (r0: bytes, r1: error)"
         },
         {
           "functionName": "Pipe()",
-          "document": "",
-          "definitionStr": "func io.Pipe() return (r0: *io.PipeReader, r1: *io.PipeWriter)"
+          "document": "创建一个 io 管道",
+          "definitionStr": "func io.Pipe() return (reader: *io.PipeReader, writer: *io.PipeWriter)"
         },
         {
-          "functionName": "NopCloser(${1:v1/*type: io.Reader*/})",
-          "document": "",
-          "definitionStr": "func io.NopCloser(v1: io.Reader) return (r0: io.ReadCloser)"
+          "functionName": "NopCloser(${1:reader/*type: io.Reader*/})",
+          "document": "把一个 io.Reader 包装成 io.ReadCloser，遇到 Nop/EOF 即关闭",
+          "definitionStr": "func io.NopCloser(reader: io.Reader) return (r0: io.ReadCloser)"
         },
         {
-          "functionName": "NewSectionReader(${1:v1/*type: io.ReaderAt*/}, ${2:v2/*type: int64*/}, ${3:v3/*type: int64*/})",
-          "document": "",
-          "definitionStr": "func io.NewSectionReader(v1: io.ReaderAt, v2: int64, v3: int64) return (r0: *io.SectionReader)"
+          "functionName": "MultiReader(${1:readers/*type ...io.Reader*/})",
+          "document": "把多个 Reader 合并成一个",
+          "definitionStr": "func io.MultiReader(readers ...io.Reader) return (r0: io.Reader)"
         },
         {
-          "functionName": "MultiReader(${1:v1/*type ...io.Reader*/})",
-          "document": "",
-          "definitionStr": "func io.MultiReader(v1 ...io.Reader) return (r0: io.Reader)"
+          "functionName": "LimitReader(${1:srcReader/*type: io.Reader*/}, ${2:length/*type: int64*/})",
+          "document": "创建一个新的 `io.Reader` 这个 Reader 只读固定长度",
+          "definitionStr": "func io.LimitReader(srcReader: io.Reader, length: int64) return (r0: io.Reader)"
         },
         {
-          "functionName": "LimitReader(${1:v1/*type: io.Reader*/}, ${2:v2/*type: int64*/})",
-          "document": "",
-          "definitionStr": "func io.LimitReader(v1: io.Reader, v2: int64) return (r0: io.Reader)"
+          "functionName": "CopyN(${1:dstWriter/*type: io.Writer*/}, ${2:srcReader/*type: io.Reader*/}, ${3:copyLen/*type: int64*/})",
+          "document": "从 srcReader 中复制固定长度的字节到 dstWriter",
+          "definitionStr": "func io.CopyN(dstWriter: io.Writer, srcReader: io.Reader, copyLen: int64) return (r0: int64, r1: error)"
         },
         {
-          "functionName": "CopyN(${1:v1/*type: io.Writer*/}, ${2:v2/*type: io.Reader*/}, ${3:v3/*type: int64*/})",
-          "document": "",
-          "definitionStr": "func io.CopyN(v1: io.Writer, v2: io.Reader, v3: int64) return (r0: int64, r1: error)"
-        },
-        {
-          "functionName": "CopyBuffer(${1:v1/*type: io.Writer*/}, ${2:v2/*type: io.Reader*/}, ${3:v3/*type: bytes*/})",
-          "document": "",
-          "definitionStr": "func io.CopyBuffer(v1: io.Writer, v2: io.Reader, v3: bytes) return (r0: int64, r1: error)"
-        },
-        {
-          "functionName": "Copy(${1:v1/*type: io.Writer*/}, ${2:v2/*type: io.Reader*/})",
-          "document": "",
-          "definitionStr": "func io.Copy(v1: io.Writer, v2: io.Reader) return (r0: int64, r1: error)"
+          "functionName": "Copy(${1:dstWriter/*type: io.Writer*/}, ${2:srcReader/*type: io.Reader*/})",
+          "document": "把一个 `io.Reader` 中的内容对接到 `io.Writer` 中",
+          "definitionStr": "func io.Copy(dstWriter: io.Writer, srcReader: io.Reader) return (r0: int64, r1: error)"
         }
       ]
     },
@@ -1200,24 +1168,24 @@
       "prefix": "httpserver.",
       "functions": [
         {
-          "functionName": "tlsCertAndKey(${1:v1/*type: any*/}, ${2:v2/*type: any*/}, ${3:v3/*type ...any*/})",
-          "document": "",
-          "definitionStr": "func httpserver.tlsCertAndKey(v1: any, v2: any, v3 ...any) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
+          "functionName": "tlsCertAndKey(${1:cert/*type: any*/}, ${2:key/*type: any*/}, ${3:caCerts/*type ...any*/})",
+          "document": "【参数】设置 TLS/SSL，启动一个 HTTPS 服务器",
+          "definitionStr": "func httpserver.tlsCertAndKey(cert: any, key: any, caCerts ...any) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
         },
         {
-          "functionName": "handler(${1:v1/*type: func (v1: http.ResponseWriter, v2: *http.Request) */})",
+          "functionName": "handler(${1:handler/*type: func (v1: http.ResponseWriter, v2: *http.Request) */})",
           "document": "",
-          "definitionStr": "func httpserver.handler(v1: func (v1: http.ResponseWriter, v2: *http.Request) ) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
+          "definitionStr": "func httpserver.handler(handler: func (v1: http.ResponseWriter, v2: *http.Request) ) return (r0: opt)"
         },
         {
-          "functionName": "context(${1:v1/*type: context.Context*/})",
-          "document": "",
-          "definitionStr": "func httpserver.context(v1: context.Context) return (r0: func _httpServerConfigOpt(v1: *yaklib._httpServerConfig) )"
+          "functionName": "context(${1:ctx/*type: context.Context*/})",
+          "document": "【参数】为 HTTP Server 增加上下文控制生命周期",
+          "definitionStr": "func httpserver.context(ctx: context.Context) return (r0: opt)"
         },
         {
-          "functionName": "Serve(${1:v1/*type: string*/}, ${2:v2/*type: int*/}, ${3:v3/*type ...yaklib._httpServerConfigOpt*/})",
-          "document": "",
-          "definitionStr": "func httpserver.Serve(v1: string, v2: int, v3 ...yaklib._httpServerConfigOpt) return (r0: error)"
+          "functionName": "Serve(${1:host/*type: string*/}, ${2:port/*type: int*/}, ${3:params/*type ...opt*/})",
+          "document": "启动一个 HTTP 服务器",
+          "definitionStr": "func httpserver.Serve(host: string, port: int, params ...opt) return (r0: error)"
         }
       ]
     },
@@ -1226,34 +1194,39 @@
       "prefix": "httpool.",
       "functions": [
         {
-          "functionName": "size(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func httpool.size(v1: int) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "functionName": "size(${1:bodySize/*type: int*/})",
+          "document": "【参数】设置每个请求的 body 的最大大小",
+          "definitionStr": "func httpool.size(bodySize: int) return (r0: opt)"
         },
         {
-          "functionName": "port(${1:v1/*type: int*/})",
-          "document": "",
-          "definitionStr": "func httpool.port(v1: int) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "functionName": "proxy(${1:proxyUrls/*type ...string*/})",
+          "document": "【参数】设置整个请求池的代理",
+          "definitionStr": "func httpool.proxy(proxyUrls ...string) return (r0: opt)"
         },
         {
-          "functionName": "perRequestTimeout(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func httpool.perRequestTimeout(v1: float64) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "functionName": "port(${1:port/*type: int*/})",
+          "document": "【参数】设置请求发送到的真正 Port",
+          "definitionStr": "func httpool.port(port: int) return (r0: opt)"
         },
         {
-          "functionName": "https(${1:v1/*type: bool*/})",
-          "document": "",
-          "definitionStr": "func httpool.https(v1: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "functionName": "perRequestTimeout(${1:seconds/*type: float64*/})",
+          "document": "【参数】为每个请求设置超时时间",
+          "definitionStr": "func httpool.perRequestTimeout(seconds: float64) return (r0: opt)"
         },
         {
-          "functionName": "host(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func httpool.host(v1: string) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+          "functionName": "https(${1:isHttps/*type: bool*/})",
+          "document": "为请求设置 HTTPS",
+          "definitionStr": "func httpool.https(isHttps: bool) return (r0: opt)"
         },
         {
-          "functionName": "Pool(${1:v1/*type: any*/}, ${2:v2/*type ...mutate.httpPoolConfigOption*/})",
-          "document": "",
-          "definitionStr": "func httpool.Pool(v1: any, v2 ...mutate.httpPoolConfigOption) return (r0: chan *mutate._httpResult, r1: error)"
+          "functionName": "host(${1:host/*type: string*/})",
+          "document": "【参数】设置批量请求发送的真正 host（兼容 Host 头与设计发送请求不一致的情况）",
+          "definitionStr": "func httpool.host(host: string) return (r0: opt)"
+        },
+        {
+          "functionName": "Pool(${1:requests/*type: []*http.Request|FuzzHTTPRequest|FuzzHTTPRequestBatch|FuzzHTTPRequestIf|*http.Request*/}, ${2:params/*type ...opt*/})",
+          "document": "批量执行 http 请求",
+          "definitionStr": "func httpool.Pool(requests: []*http.Request|FuzzHTTPRequest|FuzzHTTPRequestBatch|FuzzHTTPRequestIf|*http.Request, params ...opt) return (r0: chan *mutate._httpResult, r1: error)"
         }
       ]
     },
@@ -1262,186 +1235,99 @@
       "prefix": "http.",
       "functions": [
         {
-          "functionName": "useragent(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.useragent(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "useragent(${1:userAgent/*type: any*/})",
+          "document": "【参数】设置 UserAgent",
+          "definitionStr": "func http.useragent(userAgent: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
         },
         {
           "functionName": "uarand()",
-          "document": "",
+          "document": "【参数】设置随机 UserAgent",
           "definitionStr": "func http.uarand() return (r0: string)"
         },
         {
-          "functionName": "ua(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.ua(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "ua(${1:userAgent/*type: any*/})",
+          "document": "【参数】设置 UserAgent",
+          "definitionStr": "func http.ua(userAgent: any) return (r0: httpOpt)"
         },
         {
-          "functionName": "timeout(${1:v1/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func http.timeout(v1: float64) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "timeout(${1:seconds/*type: float64*/})",
+          "document": "【参数】设置超时时间",
+          "definitionStr": "func http.timeout(seconds: float64) return (r0: httpOpt)"
         },
         {
-          "functionName": "showhead(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "`func http.showhead(v1: any)`"
+          "functionName": "showhead(${1:reqOrRsp/*type: http.Request/Response*/})",
+          "document": "调试函数，展示原始数据包内容，不包含 body",
+          "definitionStr": "`func http.showhead(reqOrRsp: http.Request/Response)`"
         },
         {
-          "functionName": "show(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "`func http.show(v1: any)`"
+          "functionName": "show(${1:reqOrRsp/*type: http.Request/Response*/})",
+          "document": "调试函数，展示原始数据包内容",
+          "definitionStr": "`func http.show(reqOrRsp: http.Request/Response)`"
         },
         {
-          "functionName": "proxy(${1:v1/*type ...string*/})",
-          "document": "",
-          "definitionStr": "func http.proxy(v1 ...string) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "proxy(${1:proxyUrls/*type ...string*/})",
+          "document": "【参数】为请求设置 http 代理",
+          "definitionStr": "func http.proxy(proxyUrls ...string) return (r0: httpOpt)"
         },
         {
-          "functionName": "header(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.header(v1: any, v2: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "header(${1:headerName/*type: string*/}, ${2:headerValue/*type: string*/})",
+          "document": "【参数】为请求设置 http header",
+          "definitionStr": "func http.header(headerName: string, headerValue: string) return (r0: httpOpt)"
         },
         {
-          "functionName": "dumphead(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.dumphead(v1: any) return (r0: bytes, r1: error)"
+          "functionName": "dumphead(${1:reqOrRsp/*type: http.Response/Request*/})",
+          "document": "工具函数，把 `http.Request/http.Response` 的数据包的头序列化程 `[]byte`",
+          "definitionStr": "func http.dumphead(reqOrRsp: http.Response/Request) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "dump(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.dump(v1: any) return (r0: bytes, r1: error)"
+          "functionName": "dump(${1:reqOrRsp/*type: http.Response/Request*/})",
+          "document": "工具函数，把 `http.Request/http.Response` 变成完整的数据包 `[]byte`",
+          "definitionStr": "func http.dump(reqOrRsp: http.Response/Request) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "cookie(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.cookie(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "cookie(${1:cookieRaw/*type: string*/})",
+          "document": "【参数】设置请求的 Cookie",
+          "definitionStr": "func http.cookie(cookieRaw: string) return (r0: httpOpt)"
         },
         {
-          "functionName": "body(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.body(v1: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "body(${1:body/*type: string|[]byte|io.Reader|any(fmt.Sprint)*/})",
+          "document": "【参数】设置请求的 body",
+          "definitionStr": "func http.body(body: string|[]byte|io.Reader|any(fmt.Sprint)) return (r0: httpOpt)"
         },
         {
-          "functionName": "Request(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yaklib.httpOption*/})",
-          "document": "",
-          "definitionStr": "func http.Request(v1: string, v2: string, v3 ...yaklib.httpOption) return (r0: *http.Response, r1: error)"
+          "functionName": "Request(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:params/*type ...httpOpt*/})",
+          "document": "立即发起一个 http 请求，不需要 `http.Do` 来执行",
+          "definitionStr": "func http.Request(method: string, url: string, params ...httpOpt) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "Raw(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func http.Raw(v1: any) return (r0: *http.Request, r1: error)"
+          "functionName": "Raw(${1:req/*type: []byte|string|*http.Request|http.Request*/})",
+          "document": "创建一个 Golang 原生的 `*http.Request`",
+          "definitionStr": "func http.Raw(req: []byte|string|*http.Request|http.Request) return (r0: *http.Request, r1: error)"
         },
         {
-          "functionName": "Post(${1:v1/*type: string*/}, ${2:v2/*type ...yaklib.httpOption*/})",
+          "functionName": "Post(${1:url/*type: string*/}, ${2:params/*type ...httpOpt*/})",
           "document": "",
-          "definitionStr": "func http.Post(v1: string, v2 ...yaklib.httpOption) return (r0: *http.Response, r1: error)"
+          "definitionStr": "func http.Post(url: string, params ...httpOpt) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "NewRequest(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yaklib.httpOption*/})",
-          "document": "",
-          "definitionStr": "func http.NewRequest(v1: string, v2: string, v3 ...yaklib.httpOption) return (r0: *yaklib.yakHttpRequest, r1: error)"
+          "functionName": "NewRequest(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:params/*type ...httpOpt*/})",
+          "document": "创建一个新的 Request，创建之后，需要通过 `http.Do` 来发送",
+          "definitionStr": "func http.NewRequest(method: string, url: string, params ...httpOpt) return (r0: *yaklib.yakHttpRequest, r1: error)"
         },
         {
-          "functionName": "GetAllBody(${1:v1/*type: *http.Response*/})",
+          "functionName": "GetAllBody(${1:response/*type: *http.Response*/})",
           "document": "",
-          "definitionStr": "func http.GetAllBody(v1: *http.Response) return (r0: bytes)"
+          "definitionStr": "func http.GetAllBody(response: *http.Response) return (r0: []byte)"
         },
         {
-          "functionName": "Get(${1:v1/*type: string*/}, ${2:v2/*type ...yaklib.httpOption*/})",
-          "document": "",
-          "definitionStr": "func http.Get(v1: string, v2 ...yaklib.httpOption) return (r0: *http.Response, r1: error)"
+          "functionName": "Get(${1:url/*type: opt*/}, ${2:params/*type ...httpOpt*/})",
+          "document": "发送一个 http 请求",
+          "definitionStr": "func http.Get(url: opt, params ...httpOpt) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "Do(${1:v1/*type: *yaklib.yakHttpRequest*/})",
-          "document": "",
-          "definitionStr": "func http.Do(v1: *yaklib.yakHttpRequest) return (r0: *http.Response, r1: error)"
-        }
-      ]
-    },
-    {
-      "libName": "grok",
-      "prefix": "grok.",
-      "functions": [
-        {
-          "functionName": "ExtractURL(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractURL(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractTTY(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractTTY(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractPath(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractPath(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractMac(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractMac(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractIPv6(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractIPv6(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractIPv4(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractIPv4(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractIP(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractIP(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractHostPort(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractHostPort(v1: any) return (r0: []string)"
-        },
-        {
-          "functionName": "ExtractEmail(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func grok.ExtractEmail(v1: any) return (r0: []string)"
-        }
-      ]
-    },
-    {
-      "libName": "geojson",
-      "prefix": "geojson.",
-      "functions": [
-        {
-          "functionName": "WithValue(${1:v1/*type: *geojson.Feature*/}, ${2:v2/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func geojson.WithValue(v1: *geojson.Feature, v2: float64) return (r0: *geojson.Feature)"
-        },
-        {
-          "functionName": "WithProperty(${1:v1/*type: *geojson.Feature*/}, ${2:v2/*type: string*/}, ${3:v3/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func geojson.WithProperty(v1: *geojson.Feature, v2: string, v3: float64) return (r0: *geojson.Feature)"
-        },
-        {
-          "functionName": "WithNameValue(${1:v1/*type: *geojson.Feature*/}, ${2:v2/*type: string*/}, ${3:v3/*type: float64*/})",
-          "document": "",
-          "definitionStr": "func geojson.WithNameValue(v1: *geojson.Feature, v2: string, v3: float64) return (r0: *geojson.Feature)"
-        },
-        {
-          "functionName": "WithName(${1:v1/*type: *geojson.Feature*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func geojson.WithName(v1: *geojson.Feature, v2: string) return (r0: *geojson.Feature)"
-        },
-        {
-          "functionName": "NewFeatureCollection()",
-          "document": "",
-          "definitionStr": "func geojson.NewFeatureCollection() return (r0: *geojson.FeatureCollection)"
-        },
-        {
-          "functionName": "FeaturesToCollection(${1:v1/*type ...*geojson.Feature*/})",
-          "document": "",
-          "definitionStr": "func geojson.FeaturesToCollection(v1 ...*geojson.Feature) return (r0: *geojson.FeatureCollection)"
+          "functionName": "Do(${1:request/*type: *yaklib.yakHttpRequest*/})",
+          "document": "执行一个 http 请求，这个请求是 `http.NewRequest` 创建的",
+          "definitionStr": "func http.Do(request: *yaklib.yakHttpRequest) return (r0: *http.Response, r1: error)"
         }
       ]
     },
@@ -1450,24 +1336,24 @@
       "prefix": "fuzz.",
       "functions": [
         {
-          "functionName": "https(${1:v1/*type: bool*/})",
-          "document": "",
-          "definitionStr": "func fuzz.https(v1: bool) return (r0: func BuildFuzzHTTPRequestOption(v1: *mutate.buildFuzzHTTPRequestConfig) )"
+          "functionName": "https(${1:isHttps/*type: bool*/})",
+          "document": "`http.HTTPRequest` 的 extraParams 中的额外选项之一",
+          "definitionStr": "func fuzz.https(isHttps: bool) return (r0: fuzzHTTPRequestOpt)"
         },
         {
-          "functionName": "UrlsToHTTPRequests(${1:v1/*type ...any*/})",
-          "document": "",
-          "definitionStr": "func fuzz.UrlsToHTTPRequests(v1 ...any) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
+          "functionName": "UrlsToHTTPRequests(${1:urlTemplate/*type ...[]byte|string|[]string*/})",
+          "document": "把多个 URL 变成可以批量 Fuzz 的请求组(Batch)",
+          "definitionStr": "func fuzz.UrlsToHTTPRequests(urlTemplate []byte|string|[]string) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
         },
         {
-          "functionName": "Strings(${1:v1/*type: any*/})",
-          "document": "",
-          "definitionStr": "func fuzz.Strings(v1: any) return (r0: []string)"
+          "functionName": "Strings(${1:fuzzTemplate/*type: []byte|string|[]string*/})",
+          "document": "执行 Fuzz 模版，可以支持把一个模版字符串渲染多个字符串，参考 [web/http fuzz教程](/docs/buildinlibs/lib_fuzz)",
+          "definitionStr": "func fuzz.Strings(fuzzTemplate: []byte|string|[]string) return (r0: []string)"
         },
         {
-          "functionName": "HTTPRequest(${1:v1/*type: any*/}, ${2:v2/*type ...mutate.BuildFuzzHTTPRequestOption*/})",
-          "document": "",
-          "definitionStr": "func fuzz.HTTPRequest(v1: any, v2 ...mutate.BuildFuzzHTTPRequestOption) return (r0: *mutate.FuzzHTTPRequest, r1: error)"
+          "functionName": "HTTPRequest(${1:originRequest/*type: []byte|string|http.Request|*http.Request*/}, ${2:extraParams/*type ...fuzzHTTPRequestOpt*/})",
+          "document": "HTTP模糊测试核心函数，构建一个模糊测试 HTTP 请求",
+          "definitionStr": "func fuzz.HTTPRequest(originRequest: []byte|string|http.Request|*http.Request, extraParams ...fuzzHTTPRequestOpt) return (r0: *mutate.FuzzHTTPRequest, r1: error)"
         }
       ]
     },
@@ -1476,144 +1362,139 @@
       "prefix": "file.",
       "functions": [
         {
-          "functionName": "TempFile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.TempFile(v1: string) return (r0: *yaklib._yakFile, r1: error)"
+          "functionName": "TempFile(${1:dirName/*type: string*/})",
+          "document": "打开一个临时文件",
+          "definitionStr": "func file.TempFile(dirName: string) return (r0: *yaklib._yakFile, r1: error)"
         },
         {
-          "functionName": "Stat(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Stat(v1: string) return (r0: fs.FileInfo, r1: error)"
+          "functionName": "Stat(${1:pathName/*type: string*/})",
+          "document": "查看一个路径的基础信息，不读取文件。包含是否是目录，文件名，文件权限以及时间等",
+          "definitionStr": "func file.Stat(pathName: string) return (r0: fs.FileInfo, r1: error)"
         },
         {
-          "functionName": "SaveJson(${1:v1/*type: string*/}, ${2:v2/*type: any*/})",
+          "functionName": "SaveJson(${1:filePath/*type: string*/}, ${2:v2/*type: any*/})",
           "document": "",
-          "definitionStr": "func file.SaveJson(v1: string, v2: any) return (r0: error)"
+          "definitionStr": "func file.SaveJson(filePath: string, v2: any) return (r0: error)"
         },
         {
-          "functionName": "Save(${1:v1/*type: string*/}, ${2:v2/*type: any*/})",
-          "document": "",
-          "definitionStr": "func file.Save(v1: string, v2: any) return (r0: error)"
+          "functionName": "Save(${1:fileName/*type: string*/}, ${2:content/*type: []byte|string|[]string*/})",
+          "document": "把 content 中的内容写入文件名为 fileName 中的文件，支持 bytes/string/[]string",
+          "definitionStr": "func file.Save(fileName: string, content: []byte|string|[]string) return (r0: error)"
         },
         {
-          "functionName": "Rm(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Rm(v1: string) return (r0: error)"
+          "functionName": "Rm(${1:fileName/*type: string*/})",
+          "document": "同 `file.Remove` / Golang `os.RemoveAll`",
+          "definitionStr": "func file.Rm(fileName: string) return (r0: error)"
         },
         {
-          "functionName": "Rename(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Rename(v1: string, v2: string) return (r0: error)"
+          "functionName": "Rename(${1:oldPath/*type: string*/}, ${2:newPath/*type: string*/})",
+          "document": "把一个路径重命名",
+          "definitionStr": "func file.Rename(oldPath: string, newPath: string) return (r0: error)"
         },
         {
-          "functionName": "Remove(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Remove(v1: string) return (r0: error)"
+          "functionName": "Remove(${1:fileName/*type: string*/})",
+          "document": "把一个文件移除，相当于 `os.RemoveAll`",
+          "definitionStr": "func file.Remove(fileName: string) return (r0: error)"
         },
         {
-          "functionName": "ReadFile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.ReadFile(v1: string) return (r0: bytes, r1: error)"
+          "functionName": "ReadFile(${1:fileName/*type: string*/})",
+          "document": "把一个文件内容读出来",
+          "definitionStr": "func file.ReadFile(fileName: string) return (fileContent: bytes, r1: error)"
         },
         {
-          "functionName": "ReadAll(${1:v1/*type: io.Reader*/})",
-          "document": "",
-          "definitionStr": "func file.ReadAll(v1: io.Reader) return (r0: bytes, r1: error)"
+          "functionName": "ReadAll(${1:ioReader/*type: io.Reader*/})",
+          "document": "把一个 reader 的内容全部读出来",
+          "definitionStr": "func file.ReadAll(ioReader: io.Reader) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "OpenFile(${1:v1/*type: string*/}, ${2:v2/*type: int*/}, ${3:v3/*type: fs.FileMode*/})",
-          "document": "",
-          "definitionStr": "func file.OpenFile(v1: string, v2: int, v3: fs.FileMode) return (r0: *yaklib._yakFile, r1: error)"
+          "functionName": "OpenFile(${1:fileName/*type: string*/}, ${2:modeFlag/*type: int*/}, ${3:permission/*type: fs.FileMode*/})",
+          "document": "使用 Golang 原生的 `os.OpenFile`",
+          "definitionStr": "func file.OpenFile(fileName: string, modeFlag: int, permission: fs.FileMode) return (r0: *yaklib._yakFile, r1: error)"
         },
         {
-          "functionName": "Open(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Open(v1: string) return (r0: *yaklib._yakFile, r1: error)"
+          "functionName": "Open(${1:fileName/*type: string*/})",
+          "document": "打开一个文件，如果没有就创建，使用最多权限",
+          "definitionStr": "func file.Open(fileName: string) return (r0: *yaklib._yakFile, r1: error)"
         },
         {
-          "functionName": "Mv(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Mv(v1: string, v2: string) return (r0: error)"
+          "functionName": "Mv(${1:oldPath/*type: string*/}, ${2:newPath/*type: string*/})",
+          "document": "把一个文件 move 到另一个地方，本质上执行 `os.Rename`",
+          "definitionStr": "func file.Mv(oldPath: string, newPath: string) return (r0: error)"
         },
         {
-          "functionName": "MkdirAll(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.MkdirAll(v1: string) return (r0: error)"
+          "functionName": "MkdirAll(${1:path/*type: string*/})",
+          "document": "强制创建个文件夹，如果没有父路径，则会强制创建，相当于执行 `mkdir -p [path]`",
+          "definitionStr": "func file.MkdirAll(path: string) return (r0: error)"
         },
         {
-          "functionName": "Mkdir(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Mkdir(v1: string) return (r0: error)"
+          "functionName": "Mkdir(${1:path/*type: string*/})",
+          "document": "创建一个文件夹，如果无法创建，基本等同于 `mkdir [path]`，则会失败",
+          "definitionStr": "func file.Mkdir(path: string) return (r0: error)"
         },
         {
-          "functionName": "Lstat(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Lstat(v1: string) return (r0: fs.FileInfo, r1: error)"
+          "functionName": "Lstat(${1:filePath/*type: string*/})",
+          "document": "同 Golang `os.Lstat`，查看一个文件信息（如果是链接，则会返回这个链接的描述）",
+          "definitionStr": "func file.Lstat(filePath: string) return (r0: fs.FileInfo, r1: error)"
         },
         {
-          "functionName": "Ls(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Ls(v1: string) return (r0: []*utils.FileInfo)"
+          "functionName": "Ls(${1:dirPath/*type: string*/})",
+          "document": "查看当前路径下是否有其他文件",
+          "definitionStr": "func file.Ls(dirPath: string) return (r0: []*utils.FileInfo)"
         },
         {
-          "functionName": "Join(${1:v1/*type ...string*/})",
-          "document": "",
-          "definitionStr": "func file.Join(v1 ...string) return (r0: string)"
+          "functionName": "Join(${1:paths/*type ...string*/})",
+          "document": "拼接路径",
+          "definitionStr": "func file.Join(paths ...string) return (r0: string)"
         },
         {
-          "functionName": "IsLink(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.IsLink(v1: string) return (r0: bool)"
+          "functionName": "IsLink(${1:path/*type: string*/})",
+          "document": "判断一个路径是否是一个文件链接/快捷方式",
+          "definitionStr": "func file.IsLink(path: string) return (r0: bool)"
         },
         {
-          "functionName": "IsFile(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.IsFile(v1: string) return (r0: bool)"
+          "functionName": "IsFile(${1:path/*type: string*/})",
+          "document": "判断文件是否存在",
+          "definitionStr": "func file.IsFile(path: string) return (r0: bool)"
         },
         {
-          "functionName": "IsExisted(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.IsExisted(v1: string) return (r0: bool)"
+          "functionName": "IsExisted(${1:path/*type: string*/})",
+          "document": "判断路径文件是否存在",
+          "definitionStr": "func file.IsExisted(path: string) return (r0: bool)"
         },
         {
-          "functionName": "IsDir(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.IsDir(v1: string) return (r0: bool)"
+          "functionName": "IsDir(${1:path/*type: string*/})",
+          "document": "判断路径是否是一个文件夹",
+          "definitionStr": "func file.IsDir(path: string) return (r0: bool)"
         },
         {
-          "functionName": "IsAbs(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.IsAbs(v1: string) return (r0: bool)"
+          "functionName": "IsAbs(${1:absPath/*type: string*/})",
+          "document": "判断路径是否是绝对路径名",
+          "definitionStr": "func file.IsAbs(absPath: string) return (r0: bool)"
         },
         {
-          "functionName": "Dir(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Dir(v1: string) return (r0: []*utils.FileInfo)"
+          "functionName": "Dir(${1:dirName/*type: string*/})",
+          "document": "同 `file.Ls`",
+          "definitionStr": "func file.Dir(dirName: string) return (fileInfos: []*utils.FileInfo)"
         },
         {
-          "functionName": "DeepLs(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.DeepLs(v1: string) return (r0: []*utils.FileInfo)"
+          "functionName": "Create(${1:fileName/*type: string*/})",
+          "document": "创建一个文件，当前用户下读写执行权限均打开",
+          "definitionStr": "func file.Create(fileName: string) return (r0: *yaklib._yakFile, r1: error)"
         },
         {
-          "functionName": "Create(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Create(v1: string) return (r0: *yaklib._yakFile, r1: error)"
+          "functionName": "Cp(${1:originFile/*type: string*/}, ${2:targetFile/*type: string*/})",
+          "document": "复制文件",
+          "definitionStr": "func file.Cp(originFile: string, targetFile: string) return (r0: error)"
         },
         {
-          "functionName": "Cp(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Cp(v1: string, v2: string) return (r0: error)"
+          "functionName": "Cat(${1:fileName/*type: string*/})",
+          "document": "把文件内容 `cat`到显示屏",
+          "definitionStr": "`func file.Cat(fileName: string)`"
         },
         {
-          "functionName": "Cat(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "`func file.Cat(v1: string)`"
-        },
-        {
-          "functionName": "Abs(${1:v1/*type: string*/})",
-          "document": "",
-          "definitionStr": "func file.Abs(v1: string) return (r0: string)"
+          "functionName": "Abs(${1:path/*type: string*/})",
+          "document": "把相对路径变为绝对路径，如果出错，原样返回",
+          "definitionStr": "func file.Abs(path: string) return (absPath: string)"
         }
       ]
     },

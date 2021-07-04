@@ -3,16 +3,16 @@
         "prefix": "err",
         "body": [
             "if err != nil {",
-            "    die(err)",
+            "    ${1:die(err)}",
             "}",
-            "${1}"
+            "${2}"
         ],
         "description": "Log output to console"
     },
     "SynScan": {
         "prefix": "synscan",
         "body": [
-            "synResults, err := synscan.Start(${1:host}, ${2:ports})",
+            "synResults, err := synscan.Scan(${1:host}, ${2:ports})",
             "die(err)",
             "for result := range synResults {",
             "    ${3}",

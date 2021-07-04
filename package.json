@@ -3,10 +3,11 @@
     "displayName": "yaklang",
     "publisher": "v1ll4n",
     "description": "YAK渗透测试语言",
-    "version": "0.0.1",
+    "version": "0.9.1",
     "engines": {
         "vscode": "^1.56.0"
     },
+    "repository": "https://github.com/yaklang/yaklang-support",
     "categories": [
         "Programming Languages",
         "Extension Packs",
