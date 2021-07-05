@@ -6,6 +6,10 @@ import * as vscode from 'vscode';
 import { CompletionSchema, getCompletions } from './completionSchema';
 
 const completions = getCompletions();
+let maxLengthWithPadding: number = 26;
+completions.fieldsCompletions.forEach(i => {
+    maxLengthWithPadding = i.fieldName.length + 4 > maxLengthWithPadding ? i.fieldName.length + 4 : maxLengthWithPadding
+})
 
 export function activate(context: vscode.ExtensionContext) {
     const hoverProvider = vscode.languages.registerSignatureHelpProvider(
@@ -80,11 +84,13 @@ export function activate(context: vscode.ExtensionContext) {
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
                 let items: vscode.CompletionItem[] = []
 
+                // 补充内置扩展库的补全提示
+                let isLibName: boolean = false;
                 completions.libCompletions.forEach(e => {
                     if (!linePrefix.endsWith(e.prefix)) {
                         return
                     }
-
+                    isLibName = true
                     items.push(...e.functions.map(i => {
                         let item = new vscode.CompletionItem(i.functionName);
                         item.detail = i.definitionStr
@@ -95,6 +101,27 @@ export function activate(context: vscode.ExtensionContext) {
                         return item
                     }))
                 })
+
+                // 没有内置库，提供一些方法，字段调用的补全（虽然不一定正确，但是能省得用户老查手册）
+                if (!isLibName) {
+                    completions.fieldsCompletions.forEach(e => {
+                        let blocks = linePrefix.split(".").map(i => i.trim());
+                        if (blocks.length > 0) {
+                            let fieldName = e.fieldName.toLowerCase();
+                            let targetPrompt = blocks[blocks.length - 1].toLowerCase();
+                            if (fieldName.startsWith(targetPrompt)) {
+                                let completionItem = new vscode.CompletionItem(`${e.fieldName.padEnd(maxLengthWithPadding)} struct:${e.structNameShort}`);
+                                completionItem.documentation = `desc for ${e.fieldName}`
+                                if (e.isMethod) {
+                                    completionItem.insertText = new vscode.SnippetString(e.methodsCompletion)
+                                } else {
+                                    completionItem.insertText = new vscode.SnippetString(e.fieldName)
+                                }
+                                items.push(completionItem)
+                            }
+                        }
+                    })
+                }
 
                 if (items.length <= 0) {
                     return completions.libNames.map(i => new vscode.CompletionItem(i))

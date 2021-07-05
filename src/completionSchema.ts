@@ -10,11 +10,21 @@ export interface CompletionSchema {
     }[]
 }
 
+export interface FieldsCompletion {
+    isMethod: boolean
+    fieldName: string
+    structName: string
+    structNameShort: string
+    methodsCompletion: string
+    isGolangBuildOrigin: string
+}
+
 export interface CompletionTotal {
     libNames: string[]
     libCompletions: CompletionSchema[]
+    fieldsCompletions: FieldsCompletion[]
 }
 
 export const getCompletions = () => {
-    return data as CompletionTotal;
+    return data as unknown as CompletionTotal;
 }
