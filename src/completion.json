@@ -1246,9 +1246,9 @@
           "definitionStr": "func mitm.context(v1: context.Context) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
-          "functionName": "callback(${1:v1/*type: func (v1: bool, v2: *http.Request, v3: *http.Response) */})",
-          "document": "【参数】设置中间人代理的处理函数",
-          "definitionStr": "func mitm.callback(v1: func (v1: bool, v2: *http.Request, v3: *http.Response) ) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
+          "functionName": "callback(${1:v1/*type: func (v1: bool, v2: string, v3: *http.Request, v4: *http.Response) */})",
+          "document": "",
+          "definitionStr": "func mitm.callback(v1: func (v1: bool, v2: string, v3: *http.Request, v4: *http.Response) ) return (r0: func mitmConfigOpt(v1: *yaklib.mitmConfig) )"
         },
         {
           "functionName": "Start(${1:port/*type: int*/}, ${2:params/*type ...opt*/})",
@@ -2258,14 +2258,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Xor",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Xor(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "WriteTo",
       "structName": "strings.Reader",
       "structNameShort": "Reader",
@@ -2459,14 +2451,6 @@
     {
       "isMethod": true,
       "fieldName": "Wait",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Wait()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Wait",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "Wait()",
@@ -2509,14 +2493,6 @@
       "fieldName": "Version",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Version",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -2579,22 +2555,6 @@
     {
       "isMethod": false,
       "fieldName": "Value",
-      "structName": "crypto/x509/pkix.AttributeTypeAndValue",
-      "structNameShort": "AttributeTypeAndValue",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Value",
-      "structName": "crypto/x509/pkix.Extension",
-      "structNameShort": "Extension",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Value",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
       "methodsCompletion": "",
@@ -2639,14 +2599,6 @@
       "structNameShort": "BruteItemResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "UserTime",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "UserTime()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -2730,22 +2682,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "UnmarshalText",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "UnmarshalText(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "UnmarshalJSON",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "UnmarshalJSON(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "UnmarshalBinary",
       "structName": "net/url.URL",
       "structNameShort": "URL",
@@ -2810,38 +2746,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Uint64",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Uint64()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Uint64",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Uint64()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Uint32",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Uint32()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Uid",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "UTC",
       "structName": "time.Time",
       "structNameShort": "Time",
@@ -2861,14 +2765,6 @@
       "fieldName": "URIs",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Type",
-      "structName": "crypto/x509/pkix.AttributeTypeAndValue",
-      "structNameShort": "AttributeTypeAndValue",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -2921,14 +2817,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "TrailingZeroBits",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "TrailingZeroBits()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "Trailer",
       "structName": "net/http.Request",
@@ -2967,22 +2855,6 @@
       "structNameShort": "PocVul",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "ThisUpdate",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Text",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Text(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -3042,14 +2914,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Tag",
-      "structName": "encoding/asn1.RawValue",
-      "structNameShort": "RawValue",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "TLSUnique",
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
@@ -3073,22 +2937,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "TBSCertList",
-      "structName": "crypto/x509/pkix.CertificateList",
-      "structNameShort": "CertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "SystemTime",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "SystemTime()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "SyscallConn",
       "structName": "os.File",
@@ -3097,27 +2945,11 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "SysUsage",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "SysUsage()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "SysProcAttr",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Sys",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Sys()",
       "isGolangBuildOrigin": true
     },
     {
@@ -3135,22 +2967,6 @@
       "structNameShort": "targetProcessing",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Success",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Success()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Subjects",
-      "structName": "crypto/x509.CertPool",
-      "structNameShort": "CertPool",
-      "methodsCompletion": "Subjects()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -3182,14 +2998,6 @@
       "structName": "regexp.Regexp",
       "structNameShort": "Regexp",
       "methodsCompletion": "SubexpIndex(${1:v2 /*type: string*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Sub",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Sub(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -3227,14 +3035,6 @@
     {
       "isMethod": true,
       "fieldName": "String",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "String()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "String",
       "structName": "net.IPNet",
       "structNameShort": "IPNet",
       "methodsCompletion": "String()",
@@ -3261,14 +3061,6 @@
       "fieldName": "String",
       "structName": "net/url.Userinfo",
       "structNameShort": "Userinfo",
-      "methodsCompletion": "String()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "String",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
       "methodsCompletion": "String()",
       "isGolangBuildOrigin": true
     },
@@ -3458,14 +3250,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Sqrt",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Sqrt(${1:v2 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Split",
       "structName": "regexp.Regexp",
       "structNameShort": "Regexp",
@@ -3506,25 +3290,9 @@
     },
     {
       "isMethod": false,
-      "fieldName": "SignatureValue",
-      "structName": "crypto/x509/pkix.CertificateList",
-      "structNameShort": "CertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "SignatureAlgorithm",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "SignatureAlgorithm",
-      "structName": "crypto/x509/pkix.CertificateList",
-      "structNameShort": "CertificateList",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -3534,22 +3302,6 @@
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Signature",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Signal",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Signal(${1:v2 /*type: os.Signal*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -3558,22 +3310,6 @@
       "structName": "sync.Cond",
       "structNameShort": "Cond",
       "methodsCompletion": "Signal()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Sign",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Sign()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Shuffle",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Shuffle(${1:v2 /*type: int*/}, ${2:v3 /*type: func (v1: int, v2: int) */})",
       "isGolangBuildOrigin": true
     },
     {
@@ -3617,30 +3353,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": false,
-      "fieldName": "Setsid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setpgid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "SetWriteDeadline",
       "structName": "os.File",
@@ -3666,27 +3378,11 @@
     },
     {
       "isMethod": true,
-      "fieldName": "SetUint64",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "SetUint64(${1:v2 /*type: uint64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "SetTimeout",
       "structName": "palm/common/yak/yaklib.tcpConnection",
       "structNameShort": "tcpConnection",
       "methodsCompletion": "SetTimeout(${1:v2 /*type: float64*/})",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "SetString",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "SetString(${1:v2 /*type: string*/}, ${2:v3 /*type: int*/})",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -3722,14 +3418,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "SetInt64",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "SetInt64(${1:v2 /*type: int64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "SetDeadline",
       "structName": "os.File",
       "structNameShort": "File",
@@ -3754,30 +3442,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "SetBytes",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "SetBytes(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "SetBits",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "SetBits(${1:v2 /*type: []big.Word*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "SetBit",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "SetBit(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: int*/}, ${3:v4 /*type: uint*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "SetBasicAuth",
       "structName": "net/http.Request",
       "structNameShort": "Request",
@@ -3799,14 +3463,6 @@
       "structNameShort": "yakHttpRequest",
       "methodsCompletion": "SetBasicAuth(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Set",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Set(${1:v2 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -3849,14 +3505,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "SerialNumber",
-      "structName": "crypto/x509/pkix.RevokedCertificate",
-      "structNameShort": "RevokedCertificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "Send",
       "structName": "palm/common/yak/yaklib.tcpConnection",
@@ -3881,14 +3529,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Seed",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Seed(${1:v2 /*type: int64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "Secure",
       "structName": "net/http.Cookie",
@@ -3910,14 +3550,6 @@
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Scan",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Scan(${1:v2 /*type: fmt.ScanState*/}, ${2:v3 /*type: int32*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -3970,50 +3602,10 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Rsh",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Rsh(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: uint*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Round",
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "Round(${1:v2 /*type: time.Duration*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Roots",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "RightAlign",
-      "structName": "encoding/asn1.BitString",
-      "structNameShort": "BitString",
-      "methodsCompletion": "RightAlign()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "RevokedCertificates",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "RevocationTime",
-      "structName": "crypto/x509/pkix.RevokedCertificate",
-      "structNameShort": "RevokedCertificate",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -4250,22 +3842,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Rem",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Rem(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Release",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Release()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Referer",
       "structName": "net/http.Request",
       "structNameShort": "Request",
@@ -4459,14 +4035,6 @@
     {
       "isMethod": true,
       "fieldName": "Read",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Read",
       "structName": "os.File",
       "structNameShort": "File",
       "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
@@ -4579,14 +4147,6 @@
     {
       "isMethod": false,
       "fieldName": "Raw",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Raw",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
       "methodsCompletion": "",
@@ -4606,14 +4166,6 @@
       "structName": "sync.Map",
       "structNameShort": "Map",
       "methodsCompletion": "Range(${1:v2 /*type: func (v1: any, v2: any) return(bool) */})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Rand",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Rand(${1:v2 /*type: *rand.Rand*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -4638,22 +4190,6 @@
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "RLock()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "QuoRem",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "QuoRem(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/}, ${3:v4 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Quo",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Quo(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -4685,14 +4221,6 @@
       "fieldName": "PublicKey",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Ptrace",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -4833,14 +4361,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "ProbablyPrime",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "ProbablyPrime(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "PostalCode",
       "structName": "crypto/x509/pkix.Name",
@@ -4938,30 +4458,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Pid",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Pid",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Pid()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Pgid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "PermittedURIDomains",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
@@ -4998,14 +4494,6 @@
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Perm",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Perm(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5145,14 +4633,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": false,
-      "fieldName": "Parameters",
-      "structName": "crypto/x509/pkix.AlgorithmIdentifier",
-      "structNameShort": "AlgorithmIdentifier",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "Output",
       "structName": "os/exec.Cmd",
@@ -5174,14 +4654,6 @@
       "structName": "crypto/x509/pkix.Name",
       "structNameShort": "Name",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Or",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Or(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5281,22 +4753,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Not",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Not(${1:v2 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "NormFloat64",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "NormFloat64()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "NodeCount",
       "structName": "github.com/oschwald/maxminddb-golang.Metadata",
@@ -5305,27 +4761,11 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "Noctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "NoSetGroups",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "NextUpdate",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
+      "isMethod": true,
+      "fieldName": "Next",
+      "structName": "github.com/oschwald/maxminddb-golang.Networks",
+      "structNameShort": "com/oschwald/maxminddb-golang.Networks",
+      "methodsCompletion": "Next()",
       "isGolangBuildOrigin": true
     },
     {
@@ -5355,6 +4795,14 @@
     {
       "isMethod": true,
       "fieldName": "Network",
+      "structName": "github.com/oschwald/maxminddb-golang.Networks",
+      "structNameShort": "com/oschwald/maxminddb-golang.Networks",
+      "methodsCompletion": "Network(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Network",
       "structName": "net.IPNet",
       "structNameShort": "IPNet",
       "methodsCompletion": "Network()",
@@ -5374,14 +4822,6 @@
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Neg",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Neg(${1:v2 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5482,50 +4922,10 @@
     },
     {
       "isMethod": true,
-      "fieldName": "MulRange",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "MulRange(${1:v2 /*type: int64*/}, ${2:v3 /*type: int64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Mul",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Mul(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Month",
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "Month()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "ModSqrt",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "ModSqrt(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "ModInverse",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "ModInverse(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Mod",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Mod(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5565,14 +4965,6 @@
       "fieldName": "MaxPathLen",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "MaxConstraintComparisions",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -5619,25 +5011,9 @@
     {
       "isMethod": true,
       "fieldName": "MarshalText",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "MarshalText()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "MarshalText",
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "MarshalText()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "MarshalJSON",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "MarshalJSON()",
       "isGolangBuildOrigin": true
     },
     {
@@ -5662,14 +5038,6 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "MarshalBinary()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Lsh",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Lsh(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: uint*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5881,22 +5249,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Kill",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Kill()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "KeyUsages",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "KeyUsage",
       "structName": "crypto/x509.Certificate",
@@ -5929,27 +5281,11 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "Issuer",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "IsZero",
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "IsZero()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "IsUint64",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "IsUint64()",
       "isGolangBuildOrigin": true
     },
     {
@@ -6017,14 +5353,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "IsInt64",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "IsInt64()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "IsHTTPS",
       "structName": "palm/common/fp.HTTPFlow",
@@ -6047,14 +5375,6 @@
       "structNameShort": "FileInfo",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "IsCompound",
-      "structName": "encoding/asn1.RawValue",
-      "structNameShort": "RawValue",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -6106,70 +5426,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Intn",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Intn(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Intermediates",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Int64",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Int64()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Int63n",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Int63n(${1:v2 /*type: int64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Int63",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Int63()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Int31n",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Int31n(${1:v2 /*type: int32*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Int31",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Int31()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Int",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Int()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Insert",
       "structName": "palm/common/filter.StringFilter",
       "structNameShort": "StringFilter",
@@ -6198,14 +5454,6 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "In(${1:v2 /*type: *time.Location*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Id",
-      "structName": "crypto/x509/pkix.Extension",
-      "structNameShort": "Extension",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -6369,14 +5617,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "HasExpired",
-      "structName": "crypto/x509/pkix.CertificateList",
-      "structNameShort": "CertificateList",
-      "methodsCompletion": "HasExpired(${1:v2 /*type: time.Time*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "HandshakeComplete",
       "structName": "crypto/tls.ConnectionState",
@@ -6390,14 +5630,6 @@
       "structName": "github.com/dlclark/regexp2.Match",
       "structNameShort": "com/dlclark/regexp2.Match",
       "methodsCompletion": "Groups()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Groups",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -6435,33 +5667,9 @@
     {
       "isMethod": true,
       "fieldName": "GobEncode",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "GobEncode()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "GobEncode",
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "GobEncode()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "GobDecode",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "GobDecode(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Gid",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -6610,14 +5818,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "GCD",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "GCD(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/}, ${3:v4 /*type: *big.Int*/}, ${4:v5 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "FuzzUploadFileName",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
@@ -6823,14 +6023,6 @@
       "structNameShort": "FuzzHTTPRequestBatch",
       "methodsCompletion": "FuzzCookie(${1:v2 /*type: any*/}, ${2:v3 /*type: any*/})",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "FullBytes",
-      "structName": "encoding/asn1.RawValue",
-      "structNameShort": "RawValue",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -6886,14 +6078,6 @@
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Format",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Format(${1:v2 /*type: fmt.State*/}, ${2:v3 /*type: int32*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -6962,34 +6146,10 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Foreground",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "ForceQuery",
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Float64",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Float64()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Float32",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "Float32()",
       "isGolangBuildOrigin": true
     },
     {
@@ -7177,14 +6337,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "FillBytes",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "FillBytes(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "FilePath",
       "structName": "palm/common/yak.yakVariable",
@@ -7242,22 +6394,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Extensions",
-      "structName": "crypto/x509/pkix.RevokedCertificate",
-      "structNameShort": "RevokedCertificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Extensions",
-      "structName": "crypto/x509/pkix.TBSCertificateList",
-      "structNameShort": "TBSCertificateList",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "ExtKeyUsage",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
@@ -7294,38 +6430,6 @@
       "structName": "regexp.Regexp",
       "structNameShort": "Regexp",
       "methodsCompletion": "Expand(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/}, ${3:v4 /*type: bytes*/}, ${4:v5 /*type: []int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "ExpFloat64",
-      "structName": "math/rand.Rand",
-      "structNameShort": "Rand",
-      "methodsCompletion": "ExpFloat64()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Exp",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Exp(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/}, ${3:v4 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Exited",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Exited()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "ExitCode",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "ExitCode()",
       "isGolangBuildOrigin": true
     },
     {
@@ -7426,6 +6530,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Err",
+      "structName": "github.com/oschwald/maxminddb-golang.Networks",
+      "structNameShort": "com/oschwald/maxminddb-golang.Networks",
+      "methodsCompletion": "Err()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Equal",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
@@ -7513,22 +6625,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "DivMod",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "DivMod(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/}, ${3:v4 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Div",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Div(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "Dir",
       "structName": "os/exec.Cmd",
@@ -7613,46 +6709,6 @@
       "fieldName": "DNSNames",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "DNSName",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "CurrentTime",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Ctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Critical",
-      "structName": "crypto/x509/pkix.Extension",
-      "structNameShort": "Extension",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Credential",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -7810,22 +6866,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "CmpAbs",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "CmpAbs(${1:v2 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Cmp",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Cmp(${1:v2 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "CloseWithError",
       "structName": "io.PipeReader",
       "structNameShort": "PipeReader",
@@ -7946,14 +6986,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Class",
-      "structName": "encoding/asn1.RawValue",
-      "structNameShort": "RawValue",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "City",
       "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
       "structNameShort": "NetSpaceEngineResult",
@@ -7965,14 +6997,6 @@
       "fieldName": "CipherSuite",
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Chroot",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -8106,30 +7130,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Bytes",
-      "structName": "encoding/asn1.BitString",
-      "structNameShort": "BitString",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Bytes",
-      "structName": "encoding/asn1.RawValue",
-      "structNameShort": "RawValue",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Bytes",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Bytes()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "BuildIn",
       "structName": "palm/common/utils.FileInfo",
       "structNameShort": "FileInfo",
@@ -8166,46 +7166,6 @@
       "structName": "net/http.Response",
       "structNameShort": "Response",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Bits",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Bits()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "BitLength",
-      "structName": "encoding/asn1.BitString",
-      "structNameShort": "BitString",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "BitLen",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "BitLen()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Bit",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Bit(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Binomial",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Binomial(${1:v2 /*type: int64*/}, ${2:v3 /*type: int64*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -8281,14 +7241,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "At",
-      "structName": "encoding/asn1.BitString",
-      "structNameShort": "BitString",
-      "methodsCompletion": "At(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "Asn",
       "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
@@ -8310,46 +7262,6 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "AppendFormat(${1:v2 /*type: bytes*/}, ${2:v3 /*type: string*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "AppendCertsFromPEM",
-      "structName": "crypto/x509.CertPool",
-      "structNameShort": "CertPool",
-      "methodsCompletion": "AppendCertsFromPEM(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Append",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Append(${1:v2 /*type: bytes*/}, ${2:v3 /*type: int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "AndNot",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "AndNot(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "And",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "And(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Algorithm",
-      "structName": "crypto/x509/pkix.AlgorithmIdentifier",
-      "structNameShort": "AlgorithmIdentifier",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -8410,22 +7322,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "AddCert",
-      "structName": "crypto/x509.CertPool",
-      "structNameShort": "CertPool",
-      "methodsCompletion": "AddCert(${1:v2 /*type: *x509.Certificate*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Add",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Add(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Add",
       "structName": "palm/common/utils.SizedWaitGroup",
       "structNameShort": "SizedWaitGroup",
@@ -8446,14 +7342,6 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "Add(${1:v2 /*type: time.Duration*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Abs",
-      "structName": "math/big.Int",
-      "structNameShort": "Int",
-      "methodsCompletion": "Abs(${1:v2 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
     }
   ]
