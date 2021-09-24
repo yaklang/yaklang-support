@@ -3,7 +3,7 @@
     "displayName": "yaklang",
     "publisher": "v1ll4n",
     "description": "YAK渗透测试语言",
-    "version": "0.9.4",
+    "version": "1.0.7-beta4",
     "engines": {
         "vscode": "^1.56.0"
     },
