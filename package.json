@@ -2,8 +2,8 @@
     "name": "yak",
     "displayName": "yaklang",
     "publisher": "v1ll4n",
-    "description": "YAK渗透测试语言",
-    "version": "1.0.13-beta14",
+    "description": "Yaklang Utils for VSCode",
+    "version": "1.0.13",
     "engines": {
         "vscode": "^1.56.0"
     },
