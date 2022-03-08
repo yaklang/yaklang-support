@@ -342,9 +342,19 @@
           "definitionStr": "`func yakit.Info(fmt: string, items ...any)`"
         },
         {
+          "functionName": "GetHomeDir()",
+          "document": "",
+          "definitionStr": "func yakit.GetHomeDir() return (r0: string)"
+        },
+        {
           "functionName": "GenerateYakitMITMHooksParams(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:httpOpts/*type ...http.Opts*/})",
           "document": "用于生成 MITM 插件的参数",
           "definitionStr": "func yakit.GenerateYakitMITMHooksParams(method: string, url: string, httpOpts http.Opts) return (paramLists: []any, err: error)"
+        },
+        {
+          "functionName": "File(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func yakit.File(v1: string, v2 ...any)`"
         },
         {
           "functionName": "Error(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
@@ -2053,6 +2063,11 @@
           "definitionStr": "func poc.ParseBytesToHTTPRequest(requestRaw: bytes) return (req: *http.Request, err: error)"
         },
         {
+          "functionName": "HTTPPacketForceChunked(${1:v1/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func poc.HTTPPacketForceChunked(v1: bytes) return (r0: bytes)"
+        },
+        {
           "functionName": "HTTP(${1:packet/*type: any*/}, ${2:extraParams/*type ...yaklib.pocConfig*/})",
           "document": "直接使用一个数据包，发送 HTTP 请求",
           "definitionStr": "func poc.HTTP(packet: any, extraParams ...yaklib.pocConfig) return (responsePacket: bytes, requestPacket: bytes, err: error)"
@@ -2066,6 +2081,11 @@
           "functionName": "FixHTTPRequest(${1:v1/*type: bytes*/})",
           "document": "修复可能有问题的 http request 数据包",
           "definitionStr": "func poc.FixHTTPRequest(v1: bytes) return (r0: bytes)"
+        },
+        {
+          "functionName": "FixHTTPPacketCRLF(${1:v1/*type: bytes*/}, ${2:v2/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func poc.FixHTTPPacketCRLF(v1: bytes, v2: bool) return (r0: bytes)"
         }
       ]
     },
@@ -2890,6 +2910,11 @@
           "definitionStr": "func httpool.host(v1: string, v2: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
+          "functionName": "fuzzParams(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func httpool.fuzzParams(v1: any) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+        },
+        {
           "functionName": "fuzz(${1:v1/*type: bool*/})",
           "document": "",
           "definitionStr": "func httpool.fuzz(v1: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
@@ -3096,6 +3121,11 @@
           "functionName": "UrlsToHTTPRequests(${1:urlTemplate/*type ...[]byte|string|[]string*/})",
           "document": "把多个 URL 变成可以批量 Fuzz 的请求组(Batch)",
           "definitionStr": "func fuzz.UrlsToHTTPRequests(urlTemplate []byte|string|[]string) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
+        },
+        {
+          "functionName": "StringsFunc(${1:v1/*type: any*/}, ${2:v2/*type: func (v1: *mutate.MutateResult) */}, ${3:v3/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func fuzz.StringsFunc(v1: any, v2: func (v1: *mutate.MutateResult) , v3 ...any) return (r0: error)"
         },
         {
           "functionName": "Strings(${1:fuzzTemplate/*type: []byte|string|[]string*/})",
@@ -4506,14 +4536,6 @@
     {
       "isMethod": true,
       "fieldName": "Wait",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Wait()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Wait",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "Wait()",
@@ -4714,10 +4736,26 @@
     {
       "isMethod": false,
       "fieldName": "Value",
+      "structName": "mime/multipart.Form",
+      "structNameShort": "Form",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Value",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Value",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Value()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -4822,14 +4860,6 @@
       "structNameShort": "BruteItemResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "UserTime",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "UserTime()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -5010,14 +5040,6 @@
     {
       "isMethod": true,
       "fieldName": "Unlock",
-      "structName": "sync.Mutex",
-      "structNameShort": "Mutex",
-      "methodsCompletion": "Unlock()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Unlock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Unlock()",
@@ -5109,14 +5131,6 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "Uint()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Uid",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -5705,14 +5719,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "SystemTime",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "SystemTime()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "SyscallConn",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
@@ -5744,27 +5750,11 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "SysUsage",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "SysUsage()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "SysProcAttr",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Sys",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Sys()",
       "isGolangBuildOrigin": true
     },
     {
@@ -5782,14 +5772,6 @@
       "structNameShort": "JavaClassDetails",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Success",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Success()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -5908,14 +5890,6 @@
       "fieldName": "String",
       "structName": "net/url.Userinfo",
       "structNameShort": "Userinfo",
-      "methodsCompletion": "String()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "String",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
       "methodsCompletion": "String()",
       "isGolangBuildOrigin": true
     },
@@ -6258,6 +6232,14 @@
     {
       "isMethod": false,
       "fieldName": "Size",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Size",
       "structName": "palm/common/utils.SizedWaitGroup",
       "structNameShort": "SizedWaitGroup",
       "methodsCompletion": "",
@@ -6370,14 +6352,6 @@
     {
       "isMethod": true,
       "fieldName": "Signal",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Signal(${1:v2 /*type: os.Signal*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Signal",
       "structName": "sync.Cond",
       "structNameShort": "Cond",
       "methodsCompletion": "Signal()",
@@ -6454,30 +6428,6 @@
       "structNameShort": "Risk",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setsid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setpgid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -7648,6 +7598,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Repeat",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Repeat(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "RemoveHookID",
       "structName": "palm/common/yakgrpc/ypb.RemoveHookParams",
@@ -7661,6 +7619,14 @@
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "RemoveChild(${1:v2 /*type: *html.Node*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "RemoveAll",
+      "structName": "mime/multipart.Form",
+      "structNameShort": "Form",
+      "methodsCompletion": "RemoveAll()",
       "isGolangBuildOrigin": true
     },
     {
@@ -7789,14 +7755,6 @@
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "Rem(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Release",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Release()",
       "isGolangBuildOrigin": true
     },
     {
@@ -8105,6 +8063,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ReadForm",
+      "structName": "mime/multipart.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadForm(${1:v2 /*type: int64*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "ReadDir",
       "structName": "os.File",
       "structNameShort": "File",
@@ -8156,6 +8122,14 @@
       "fieldName": "Read",
       "structName": "math/rand.Rand",
       "structNameShort": "Rand",
+      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Read",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
       "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": true
     },
@@ -8460,14 +8434,6 @@
       "fieldName": "PublicKey",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Ptrace",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -8785,6 +8751,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "PositionVerbose",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "PositionVerbose()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Position",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Position()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Port",
       "structName": "net/url.URL",
       "structNameShort": "URL",
@@ -8894,30 +8876,6 @@
       "structNameShort": "PocVul",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Pid",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Pid",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Pid()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Pgid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -9248,6 +9206,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Open",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "Open()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Opaque",
       "structName": "net/url.URL",
@@ -9393,22 +9359,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Noctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "NoSetGroups",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "NextUpdate",
       "structName": "crypto/x509/pkix.TBSCertificateList",
       "structNameShort": "TBSCertificateList",
@@ -9421,6 +9371,22 @@
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NextRawPart",
+      "structName": "mime/multipart.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "NextRawPart()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NextPart",
+      "structName": "mime/multipart.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "NextPart()",
       "isGolangBuildOrigin": true
     },
     {
@@ -9550,6 +9516,14 @@
       "structNameShort": "File",
       "methodsCompletion": "Name()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Name",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Name()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -10130,14 +10104,6 @@
     {
       "isMethod": true,
       "fieldName": "Lock",
-      "structName": "sync.Mutex",
-      "structNameShort": "Mutex",
-      "methodsCompletion": "Lock()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Lock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Lock()",
@@ -10424,14 +10390,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Kill",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Kill()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "KeyUsages",
       "structName": "crypto/x509.VerifyOptions",
@@ -10585,6 +10543,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "IsPostParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "IsPostParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "IsOpen",
       "structName": "palm/common/fp.MatchResult",
       "structNameShort": "MatchResult",
@@ -10713,6 +10679,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "IsGetParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "IsGetParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "IsEmptyBody",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
@@ -10750,6 +10724,14 @@
       "structNameShort": "Time",
       "methodsCompletion": "IsDST()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsCookieParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "IsCookieParams()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -11306,6 +11288,22 @@
     {
       "isMethod": false,
       "fieldName": "Header",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
       "structName": "net/http.Request",
       "structNameShort": "Request",
       "methodsCompletion": "",
@@ -11440,14 +11438,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "Groups",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "GroupCount",
       "structName": "github.com/dlclark/regexp2.Match",
@@ -11509,14 +11499,6 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "GoString()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Gid",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -12208,6 +12190,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Fuzz",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Fuzz(${1:v2 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "FullBytes",
       "structName": "encoding/asn1.RawValue",
@@ -12337,6 +12327,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "FormName",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
+      "methodsCompletion": "FormName()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "FormFile",
       "structName": "net/http.Request",
       "structNameShort": "Request",
@@ -12364,14 +12362,6 @@
       "fieldName": "Form",
       "structName": "net/http.Request",
       "structNameShort": "Request",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Foreground",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -12609,11 +12599,35 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Filename",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "FilePath",
       "structName": "palm/common/yak.yakVariable",
       "structNameShort": "yakVariable",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "FileName",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
+      "methodsCompletion": "FileName()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "File",
+      "structName": "mime/multipart.Form",
+      "structNameShort": "Form",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -12949,22 +12963,6 @@
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "Exp(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/}, ${3:v4 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Exited",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Exited()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "ExitCode",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "ExitCode()",
       "isGolangBuildOrigin": true
     },
     {
@@ -13617,25 +13615,9 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Ctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "Critical",
       "structName": "crypto/x509/pkix.Extension",
       "structNameShort": "Extension",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Credential",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -13962,6 +13944,14 @@
     {
       "isMethod": true,
       "fieldName": "Close",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
+      "methodsCompletion": "Close()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Close",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
       "methodsCompletion": "Close()",
@@ -14140,14 +14130,6 @@
       "fieldName": "CipherSuite",
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Chroot",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
