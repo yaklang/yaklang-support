@@ -5,6 +5,7 @@
     "codec",
     "context",
     "crawler",
+    "db",
     "dictutil",
     "dns",
     "dyn",
@@ -18,7 +19,9 @@
     "httpserver",
     "io",
     "java",
+    "js",
     "json",
+    "judge",
     "jwt",
     "log",
     "mitm",
@@ -28,13 +31,16 @@
     "ping",
     "poc",
     "re",
+    "report",
     "risk",
     "servicescan",
+    "smb",
     "spacengine",
     "str",
     "subdomain",
     "sync",
     "synscan",
+    "t3",
     "tcp",
     "time",
     "tls",
@@ -50,6 +56,26 @@
       "libName": "yso",
       "prefix": "yso.",
       "functions": [
+        {
+          "functionName": "NewLdapServerWithPort(${1:v1/*type: int*/}, ${2:v2/*type: int*/})",
+          "document": "新增 LDAP 服务器，并设置端口",
+          "definitionStr": "func yso.NewLdapServerWithPort(v1: int, v2: int) return (r0: ldapserver.LdapServer)"
+        },
+        {
+          "functionName": "NewLdapServer()",
+          "document": "新增 LDAP 服务器",
+          "definitionStr": "func yso.NewLdapServer() return (r0: *ldapserver.LdapServer)"
+        },
+        {
+          "functionName": "NewFacadeServer(${1:v1/*type: string*/}, ${2:v2/*type: int*/})",
+          "document": "新增 Facade 反连服务器",
+          "definitionStr": "func yso.NewFacadeServer(v1: string, v2: int) return (r0: *facades.FacadeServer)"
+        },
+        {
+          "functionName": "GetTomcatEcho(${1:v1/*type: string*/})",
+          "document": "新增 TomcatEcho Java 对象",
+          "definitionStr": "func yso.GetTomcatEcho(v1: string) return (r0: func (v1: string) return(bytes) )"
+        },
         {
           "functionName": "GetSpring2(${1:v1/*type: string*/})",
           "document": "",
@@ -212,9 +238,9 @@
           "definitionStr": "func yakit.SaveHTTPFlow(isHttps: string, request: *http.Request, response: *http.Response) return (r0: error)"
         },
         {
-          "functionName": "SaveDomain(${1:domain/*type: string*/}, ${2:ip/*type: string*/})",
-          "document": "保存域名资产",
-          "definitionStr": "func yakit.SaveDomain(domain: string, ip: string) return (r0: error)"
+          "functionName": "SaveDomain(${1:v1/*type: string*/}, ${2:v2/*type ...string*/})",
+          "document": "",
+          "definitionStr": "func yakit.SaveDomain(v1: string, v2 ...string) return (r0: error)"
         },
         {
           "functionName": "QueryUrlsByKeyword(${1:keyword/*type: string*/})",
@@ -342,9 +368,19 @@
           "definitionStr": "`func yakit.Info(fmt: string, items ...any)`"
         },
         {
+          "functionName": "GetHomeDir()",
+          "document": "",
+          "definitionStr": "func yakit.GetHomeDir() return (r0: string)"
+        },
+        {
           "functionName": "GenerateYakitMITMHooksParams(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:httpOpts/*type ...http.Opts*/})",
           "document": "用于生成 MITM 插件的参数",
           "definitionStr": "func yakit.GenerateYakitMITMHooksParams(method: string, url: string, httpOpts http.Opts) return (paramLists: []any, err: error)"
+        },
+        {
+          "functionName": "File(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func yakit.File(v1: string, v2 ...any)`"
         },
         {
           "functionName": "Error(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
@@ -442,6 +478,11 @@
           "functionName": "Zip(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
           "document": "",
           "definitionStr": "func x.Zip(v1: any, v2: any) return (r0: []funk.Tuple)"
+        },
+        {
+          "functionName": "WaitConnect(${1:addr/*type: string*/}, ${2:timeoutSeconds/*type: float64*/})",
+          "document": "等待一个链接具体多少秒钟",
+          "definitionStr": "func x.WaitConnect(addr: string, timeoutSeconds: float64) return (r0: error)"
         },
         {
           "functionName": "Values(${1:v1/*type: any*/})",
@@ -597,6 +638,11 @@
           "functionName": "Difference(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
           "document": "计算两个元素的差分",
           "definitionStr": "func x.Difference(v1: any, v2: any) return (r0: any, r1: any)"
+        },
+        {
+          "functionName": "ConvertToMap(${1:v1/*type: any*/})",
+          "document": "把一个对象尽可能转换为 map[string][]string",
+          "definitionStr": "func x.ConvertToMap(v1: any) return (r0: map[string][]string)"
         },
         {
           "functionName": "Contains(${1:slice/*type: any*/}, ${2:element/*type: any*/})",
@@ -866,6 +912,37 @@
       ]
     },
     {
+      "libName": "t3",
+      "prefix": "t3.",
+      "functions": [
+        {
+          "functionName": "timeout(${1:v1/*type: float64*/})",
+          "document": "",
+          "definitionStr": "func t3.timeout(v1: float64) return (r0: func OptionFun(v1: *t3.T3Paylaod) )"
+        },
+        {
+          "functionName": "clearBackdoor(${1:v1/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func t3.clearBackdoor(v1: bool) return (r0: func OptionFun(v1: *t3.T3Paylaod) )"
+        },
+        {
+          "functionName": "SendJavaObjectStreamBytes(${1:v1/*type: string*/}, ${2:v2/*type: any*/}, ${3:v3/*type ...t3.OptionFun*/})",
+          "document": "",
+          "definitionStr": "func t3.SendJavaObjectStreamBytes(v1: string, v2: any, v3 ...t3.OptionFun) return (r0: error)"
+        },
+        {
+          "functionName": "GenerateJavaObjectStreamBytes(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func t3.GenerateJavaObjectStreamBytes(v1: string) return (r0: bytes)"
+        },
+        {
+          "functionName": "ExecCommand(${1:addr/*type: string*/}, ${2:command/*type: string*/}, ${3:v3/*type ...t3.OptionFun*/})",
+          "document": "T3 命令执行",
+          "definitionStr": "func t3.ExecCommand(addr: string, command: string, v3 ...t3.OptionFun) return (r0: string, r1: error)"
+        }
+      ]
+    },
+    {
       "libName": "synscan",
       "prefix": "synscan.",
       "functions": [
@@ -883,6 +960,21 @@
           "functionName": "outputFile(${1:v1/*type: string*/})",
           "document": "【参数】synscan 对外输出的文件",
           "definitionStr": "func synscan.outputFile(v1: string) return (r0: opt)"
+        },
+        {
+          "functionName": "initPortFilter(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func synscan.initPortFilter(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+        },
+        {
+          "functionName": "initHostFilter(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func synscan.initHostFilter(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+        },
+        {
+          "functionName": "ScanFromPing(${1:v1/*type: chan *pingutil.PingResult*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...tools.scanOpt*/})",
+          "document": "新增从 Ping 中的扫描",
+          "definitionStr": "func synscan.ScanFromPing(v1: chan *pingutil.PingResult, v2: string, v3 ...tools.scanOpt) return (r0: chan *synscan.SynScanResult, r1: error)"
         },
         {
           "functionName": "Scan(${1:hosts/*type: string*/}, ${2:ports/*type: string*/}, ${3:v3/*type ...tools.scanOpt*/})",
@@ -1548,6 +1640,11 @@
           "definitionStr": "func str.ExtractURLFromHTTPRequest(req: *http.Request, isHttps: bool) return (r0: *url.URL, r1: error)"
         },
         {
+          "functionName": "ExtractTitle(${1:v1/*type: any*/})",
+          "document": "从 HTML 中提取标题",
+          "definitionStr": "func str.ExtractTitle(v1: any) return (r0: string)"
+        },
+        {
           "functionName": "ExtractStrContext(${1:v1/*type: bytes*/}, ${2:keywords/*type: []string*/})",
           "document": "提取 str 的上下文，（前后字符串）",
           "definitionStr": "func str.ExtractStrContext(v1: bytes, keywords: []string) return (r0: []string)"
@@ -1649,9 +1746,55 @@
           "definitionStr": "func spacengine.QuakeQuery(apiKey: string, filter: string, params ...opt) return (resultChan: chan *spacengine.NetSpaceEngineResult, r1: error)"
         },
         {
+          "functionName": "HunterQuery(${1:username/*type: string*/}, ${2:apikey/*type: string*/}, ${3:query/*type: string*/}, ${4:opts/*type ...yaklib._spaceEngineConfigOpt*/})",
+          "document": "新增 Hunter 空间引擎接口",
+          "definitionStr": "func spacengine.HunterQuery(username: string, apikey: string, query: string, opts ...yaklib._spaceEngineConfigOpt) return (r0: chan *spacengine.NetSpaceEngineResult, r1: error)"
+        },
+        {
           "functionName": "FofaQuery(${1:email/*type: string*/}, ${2:key/*type: string*/}, ${3:filter/*type: string*/}, ${4:params/*type ...opt*/})",
           "document": "查询 Fofa 中的数据",
           "definitionStr": "func spacengine.FofaQuery(email: string, key: string, filter: string, params ...opt) return (resultChan: chan *spacengine.NetSpaceEngineResult, r1: error)"
+        }
+      ]
+    },
+    {
+      "libName": "smb",
+      "prefix": "smb.",
+      "functions": [
+        {
+          "functionName": "workstation(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func smb.workstation(v1: string) return (r0: func _smbConfigHandler(v1: *yaklib._smbConfig) )"
+        },
+        {
+          "functionName": "username(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func smb.username(v1: string) return (r0: func _smbConfigHandler(v1: *yaklib._smbConfig) )"
+        },
+        {
+          "functionName": "password(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func smb.password(v1: string) return (r0: func _smbConfigHandler(v1: *yaklib._smbConfig) )"
+        },
+        {
+          "functionName": "hash(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func smb.hash(v1: string) return (r0: func _smbConfigHandler(v1: *yaklib._smbConfig) )"
+        },
+        {
+          "functionName": "domain(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func smb.domain(v1: string) return (r0: func _smbConfigHandler(v1: *yaklib._smbConfig) )"
+        },
+        {
+          "functionName": "debug(${1:v1/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func smb.debug(v1: bool) return (r0: func _smbConfigHandler(v1: *yaklib._smbConfig) )"
+        },
+        {
+          "functionName": "Connect(${1:v1/*type: string*/}, ${2:v2/*type ...yaklib._smbConfigHandler*/})",
+          "document": "",
+          "definitionStr": "func smb.Connect(v1: string, v2 ...yaklib._smbConfigHandler) return (r0: *smb.Session, r1: error)"
         }
       ]
     },
@@ -1675,9 +1818,19 @@
           "definitionStr": "func servicescan.service() return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
+          "functionName": "proxy(${1:v1/*type ...string*/})",
+          "document": "设置代理！",
+          "definitionStr": "func servicescan.proxy(v1 ...string) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
           "functionName": "proto(${1:protos/*type ...any*/})",
           "document": "设置扫描的协议",
           "definitionStr": "func servicescan.proto(protos ...any) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "probeTimeout(${1:请求超时时间/*type: float64*/})",
+          "document": "",
+          "definitionStr": "func servicescan.probeTimeout(请求超时时间: float64) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "nmapRule(${1:v1/*type: any*/})",
@@ -1730,6 +1883,11 @@
           "definitionStr": "func servicescan.ScanFromSpaceEngine(chanFromSpacengine: any, params ...opt) return (resultChan: chan *fp.MatchResult, r1: error)"
         },
         {
+          "functionName": "ScanFromPing(${1:v1/*type: chan *pingutil.PingResult*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...fp.ConfigOption*/})",
+          "document": "从 Ping 中扫描",
+          "definitionStr": "func servicescan.ScanFromPing(v1: chan *pingutil.PingResult, v2: string, v3 ...fp.ConfigOption) return (r0: chan *fp.MatchResult, r1: error)"
+        },
+        {
           "functionName": "Scan(${1:hosts/*type: string*/}, ${2:ports/*type: string*/}, ${3:params/*type ...opt*/})",
           "document": "扫描服务指纹的核心函数",
           "definitionStr": "func servicescan.Scan(hosts: string, ports: string, params ...opt) return (resultChannel: chan *fp.MatchResult, r1: error)"
@@ -1766,6 +1924,11 @@
           "definitionStr": "func risk.title(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
         },
         {
+          "functionName": "severity(${1:v1/*type: string*/})",
+          "document": "设置漏洞级别",
+          "definitionStr": "func risk.severity(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
           "functionName": "payload(${1:v1/*type: string*/})",
           "document": "【参数】：设置 Payload",
           "definitionStr": "func risk.payload(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
@@ -1776,14 +1939,24 @@
           "definitionStr": "func risk.parameter(name: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
         },
         {
+          "functionName": "level(${1:v1/*type: string*/})",
+          "document": "设置漏洞级别",
+          "definitionStr": "func risk.level(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
+          "functionName": "fromYakScript(${1:v1/*type: string*/})",
+          "document": "为漏洞设置来源脚本",
+          "definitionStr": "func risk.fromYakScript(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
           "functionName": "details(${1:v1/*type: any*/})",
           "document": "【参数】：为漏洞设置参数内容，一般传入一个 map[string]interface{} 即可",
           "definitionStr": "func risk.details(v1: any) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "Save(${1:v1/*type: *yakit.Risk*/})",
-          "document": "保存一个 Risk 记录（可理解为漏洞）",
-          "definitionStr": "`func risk.Save(v1: *yakit.Risk)`"
+          "document": "",
+          "definitionStr": "func risk.Save(v1: *yakit.Risk) return (r0: error)"
         },
         {
           "functionName": "NewUnverifiedRisk(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yakit.riskParamsOpt*/})",
@@ -1851,9 +2024,25 @@
           "definitionStr": "func risk.CheckRandomTriggerByToken(token: string) return (event: *tpb.RandomPortTriggerEvent, err: error)"
         },
         {
+          "functionName": "CheckICMPTriggerByLength(${1:v1/*type: int*/})",
+          "document": "检查 ICMP 触发器",
+          "definitionStr": "func risk.CheckICMPTriggerByLength(v1: int) return (r0: *tpb.ICMPTriggerNotification, r1: error)"
+        },
+        {
           "functionName": "CheckDNSLogByToken(${1:v1/*type: string*/})",
           "document": "",
           "definitionStr": "func risk.CheckDNSLogByToken(v1: string) return (r0: []*tpb.DNSLogEvent, r1: error)"
+        }
+      ]
+    },
+    {
+      "libName": "report",
+      "prefix": "report.",
+      "functions": [
+        {
+          "functionName": "New()",
+          "document": "新增 报告 机制",
+          "definitionStr": "func report.New() return (r0: *yakit.Report)"
         }
       ]
     },
@@ -2008,6 +2197,11 @@
           "definitionStr": "func poc.redirectTimes(maxRetry: int) return (r0: func pocConfig(v1: *yaklib._pocConfig) )"
         },
         {
+          "functionName": "redirectHandler(${1:v1/*type: func (v1: bool, v2: bytes, v3: bytes) return(bool) */})",
+          "document": "设置重定向处理函数",
+          "definitionStr": "func poc.redirectHandler(v1: func (v1: bool, v2: bytes, v3: bytes) return(bool) ) return (r0: func pocConfig(v1: *yaklib._pocConfig) )"
+        },
+        {
           "functionName": "proxy(${1:proxyUrl/*type ...string*/})",
           "document": "设置代理",
           "definitionStr": "func poc.proxy(proxyUrl ...string) return (r0: func pocConfig(v1: *yaklib._pocConfig) )"
@@ -2026,6 +2220,16 @@
           "functionName": "noRedirect(${1:v1/*type: bool*/})",
           "document": "",
           "definitionStr": "func poc.noRedirect(v1: bool) return (r0: func pocConfig(v1: *yaklib._pocConfig) )"
+        },
+        {
+          "functionName": "noFixContentLength(${1:v1/*type: bool*/})",
+          "document": "不修复 ContentLength 控制开关",
+          "definitionStr": "func poc.noFixContentLength(v1: bool) return (r0: func pocConfig(v1: *yaklib._pocConfig) )"
+        },
+        {
+          "functionName": "jsRedirect(${1:enable/*type: bool*/})",
+          "document": "控制 js 跳转是否启用",
+          "definitionStr": "func poc.jsRedirect(enable: bool) return (r0: func pocConfig(v1: *yaklib._pocConfig) )"
         },
         {
           "functionName": "https(${1:b/*type: bool*/})",
@@ -2053,6 +2257,11 @@
           "definitionStr": "func poc.ParseBytesToHTTPRequest(requestRaw: bytes) return (req: *http.Request, err: error)"
         },
         {
+          "functionName": "HTTPPacketForceChunked(${1:v1/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func poc.HTTPPacketForceChunked(v1: bytes) return (r0: bytes)"
+        },
+        {
           "functionName": "HTTP(${1:packet/*type: any*/}, ${2:extraParams/*type ...yaklib.pocConfig*/})",
           "document": "直接使用一个数据包，发送 HTTP 请求",
           "definitionStr": "func poc.HTTP(packet: any, extraParams ...yaklib.pocConfig) return (responsePacket: bytes, requestPacket: bytes, err: error)"
@@ -2066,6 +2275,11 @@
           "functionName": "FixHTTPRequest(${1:v1/*type: bytes*/})",
           "document": "修复可能有问题的 http request 数据包",
           "definitionStr": "func poc.FixHTTPRequest(v1: bytes) return (r0: bytes)"
+        },
+        {
+          "functionName": "FixHTTPPacketCRLF(${1:v1/*type: bytes*/}, ${2:v2/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func poc.FixHTTPPacketCRLF(v1: bytes, v2: bool) return (r0: bytes)"
         }
       ]
     },
@@ -2079,9 +2293,24 @@
           "definitionStr": "func ping.timeout(seconds: float64) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
         },
         {
+          "functionName": "tcpPingPorts(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func ping.tcpPingPorts(v1: string) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
+        },
+        {
+          "functionName": "skip(${1:v1/*type: bool*/})",
+          "document": "跳过存活检查，默认均为存活",
+          "definitionStr": "func ping.skip(v1: bool) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
+        },
+        {
           "functionName": "scanCClass(${1:v1/*type: bool*/})",
           "document": "直接 ping 整个 C 段",
           "definitionStr": "func ping.scanCClass(v1: bool) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
+        },
+        {
+          "functionName": "proxy(${1:v1/*type ...string*/})",
+          "document": "为 TCP Ping 增加代理",
+          "definitionStr": "func ping.proxy(v1 ...string) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
         },
         {
           "functionName": "dnsTimeout(${1:v1/*type: float64*/})",
@@ -2426,6 +2655,11 @@
           "definitionStr": "func nuclei.UpdatePoC() return (r0: error)"
         },
         {
+          "functionName": "UpdateDatabase(${1:localPath/*type ...string*/})",
+          "document": "",
+          "definitionStr": "func nuclei.UpdateDatabase(localPath ...string) return (r0: error)"
+        },
+        {
           "functionName": "ScanWithContext(${1:ctx/*type: context.Context*/}, ${2:targets/*type: string*/}, ${3:opts/*type ...tools.nucleiOpt*/})",
           "document": "带上下文进行扫描，通过上下文控制通断",
           "definitionStr": "func nuclei.ScanWithContext(ctx: context.Context, targets: string, opts ...tools.nucleiOpt) return (r0: chan *tools.PocVul, r1: error)"
@@ -2436,9 +2670,19 @@
           "definitionStr": "func nuclei.Scan(targets: string, nucleiParams ...params) return (pocChannel: chan *tools.PocVul, r1: error)"
         },
         {
-          "functionName": "AllPoC()",
-          "document": "获取当前所有可用 PoC",
-          "definitionStr": "func nuclei.AllPoC() return (r0: []*tools.templateDesc, error: error)"
+          "functionName": "RemoveDatabase()",
+          "document": "移除 nuclei 数据库",
+          "definitionStr": "func nuclei.RemoveDatabase() return (r0: error)"
+        },
+        {
+          "functionName": "PullDatabase(${1:gitUrl/*type: string*/}, ${2:proxies/*type ...string*/})",
+          "document": "拉去数据库",
+          "definitionStr": "func nuclei.PullDatabase(gitUrl: string, proxies ...string) return (r0: string, r1: error)"
+        },
+        {
+          "functionName": "AllPoC(${1:v1/*type ...string*/})",
+          "document": "获取当前所有 PoC 对象",
+          "definitionStr": "func nuclei.AllPoC(v1 ...string) return (r0: []*tools.templateDesc, r1: error)"
         }
       ]
     },
@@ -2572,6 +2816,27 @@
       ]
     },
     {
+      "libName": "judge",
+      "prefix": "judge.",
+      "functions": [
+        {
+          "functionName": "NewDiscriminator(${1:v1/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func judge.NewDiscriminator(v1: bytes) return (r0: *comparer.Discriminator)"
+        },
+        {
+          "functionName": "CompareRaw(${1:v1/*type: bytes*/}, ${2:v2/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func judge.CompareRaw(v1: bytes, v2: bytes) return (r0: float64)"
+        },
+        {
+          "functionName": "CompareHTTPResponse(${1:v1/*type: *http.Response*/}, ${2:v2/*type: *http.Response*/})",
+          "document": "",
+          "definitionStr": "func judge.CompareHTTPResponse(v1: *http.Response, v2: *http.Response) return (r0: float64)"
+        }
+      ]
+    },
+    {
       "libName": "json",
       "prefix": "json.",
       "functions": [
@@ -2594,6 +2859,57 @@
           "functionName": "Marshal(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "func json.Marshal(v1: any) return (r0: bytes, r1: error)"
+        }
+      ]
+    },
+    {
+      "libName": "js",
+      "prefix": "js.",
+      "functions": [
+        {
+          "functionName": "UndefinedValue()",
+          "document": "",
+          "definitionStr": "func js.UndefinedValue() return (r0: otto.Value)"
+        },
+        {
+          "functionName": "TrueValue()",
+          "document": "",
+          "definitionStr": "func js.TrueValue() return (r0: otto.Value)"
+        },
+        {
+          "functionName": "ToValue(${1:v1/*type: any*/})",
+          "document": "把 Golang/Yak 对象转变为 otto.Value 对象",
+          "definitionStr": "func js.ToValue(v1: any) return (r0: otto.Value, r1: error)"
+        },
+        {
+          "functionName": "Run(${1:v1/*type: any*/})",
+          "document": "执行一段 JS 代码，返回上下文以及代码的执行结果",
+          "definitionStr": "func js.Run(v1: any) return (r0: *otto.Otto, r1: otto.Value, r2: error)"
+        },
+        {
+          "functionName": "NullValue()",
+          "document": "返回 JS 的 NULL 对象",
+          "definitionStr": "func js.NullValue() return (r0: otto.Value)"
+        },
+        {
+          "functionName": "New()",
+          "document": "新创建一个 JS 执行上下文",
+          "definitionStr": "func js.New() return (r0: *otto.Otto)"
+        },
+        {
+          "functionName": "NaNValue()",
+          "document": "",
+          "definitionStr": "func js.NaNValue() return (r0: otto.Value)"
+        },
+        {
+          "functionName": "FalseValue()",
+          "document": "返回 JS 的 False 对象",
+          "definitionStr": "func js.FalseValue() return (r0: otto.Value)"
+        },
+        {
+          "functionName": "CallFunctionFromCode(${1:code/*type: any*/}, ${2:funcName/*type: string*/}, ${3:params/*type ...any*/})",
+          "document": "从一段代码中调用某个函数",
+          "definitionStr": "func js.CallFunctionFromCode(code: any, funcName: string, params ...any) return (ottoValue: otto.Value, r1: error)"
         }
       ]
     },
@@ -2773,6 +3089,11 @@
           "definitionStr": "func io.TeeReader(srcReader: io.Reader, teeWriter: io.Writer) return (r0: io.Reader)"
         },
         {
+          "functionName": "ReadStable(${1:v1/*type: net.Conn*/}, ${2:v2/*type: float64*/})",
+          "document": "增加一个【稳定即可】的 Reader",
+          "definitionStr": "func io.ReadStable(v1: net.Conn, v2: float64) return (r0: bytes)"
+        },
+        {
           "functionName": "ReadFile(${1:fileName/*type: string*/})",
           "document": "把一个文件中的内容全部读出来",
           "definitionStr": "func io.ReadFile(fileName: string) return (r0: bytes, r1: error)"
@@ -2880,6 +3201,11 @@
           "definitionStr": "func httpool.perRequestTimeout(seconds: float64) return (r0: opt)"
         },
         {
+          "functionName": "noFixContentLength(${1:v1/*type: bool*/})",
+          "document": "新增不修复 Content-Length 的可能性",
+          "definitionStr": "func httpool.noFixContentLength(v1: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+        },
+        {
           "functionName": "https(${1:isHttps/*type: bool*/})",
           "document": "为请求设置 HTTPS",
           "definitionStr": "func httpool.https(isHttps: bool) return (r0: opt)"
@@ -2888,6 +3214,11 @@
           "functionName": "host(${1:v1/*type: string*/}, ${2:v2/*type: bool*/})",
           "document": "",
           "definitionStr": "func httpool.host(v1: string, v2: bool) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
+        },
+        {
+          "functionName": "fuzzParams(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func httpool.fuzzParams(v1: any) return (r0: func httpPoolConfigOption(v1: *mutate.httpPoolConfig) )"
         },
         {
           "functionName": "fuzz(${1:v1/*type: bool*/})",
@@ -3057,6 +3388,11 @@
           "definitionStr": "`func hook.RemoveYakitPluginByName(manager: *yak.YakToCallerManager, pluginNames ...string)`"
         },
         {
+          "functionName": "NewMixPluginCaller()",
+          "document": "新增用于配合插件资深联动的主程序",
+          "definitionStr": "func hook.NewMixPluginCaller() return (r0: *yak.MixPluginCaller, r1: error)"
+        },
+        {
           "functionName": "NewManager()",
           "document": "",
           "definitionStr": "func hook.NewManager() return (r0: *yak.YakToCallerManager)"
@@ -3096,6 +3432,16 @@
           "functionName": "UrlsToHTTPRequests(${1:urlTemplate/*type ...[]byte|string|[]string*/})",
           "document": "把多个 URL 变成可以批量 Fuzz 的请求组(Batch)",
           "definitionStr": "func fuzz.UrlsToHTTPRequests(urlTemplate []byte|string|[]string) return (r0: *mutate.FuzzHTTPRequestBatch, r1: error)"
+        },
+        {
+          "functionName": "StringsWithParam(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "新增带参数的 fuzz",
+          "definitionStr": "func fuzz.StringsWithParam(v1: any, v2: any) return (r0: []string)"
+        },
+        {
+          "functionName": "StringsFunc(${1:v1/*type: any*/}, ${2:v2/*type: func (v1: *mutate.MutateResult) */}, ${3:v3/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func fuzz.StringsFunc(v1: any, v2: func (v1: *mutate.MutateResult) , v3 ...any) return (r0: error)"
         },
         {
           "functionName": "Strings(${1:fuzzTemplate/*type: []byte|string|[]string*/})",
@@ -3421,6 +3767,122 @@
       ]
     },
     {
+      "libName": "db",
+      "prefix": "db.",
+      "functions": [
+        {
+          "functionName": "SetKey(${1:key/*type: any*/}, ${2:value/*type: any*/})",
+          "document": "设置持久化 Key",
+          "definitionStr": "func db.SetKey(key: any, value: any) return (r0: error)"
+        },
+        {
+          "functionName": "SavePortFromResult(${1:result/*type: any*/})",
+          "document": "从某个结果中保存端口",
+          "definitionStr": "func db.SavePortFromResult(result: any) return (r0: error)"
+        },
+        {
+          "functionName": "SavePayloadByFile(${1:group/*type: string*/}, ${2:fileName/*type: string*/})",
+          "document": "保存 Payload 到文件",
+          "definitionStr": "func db.SavePayloadByFile(group: string, fileName: string) return (r0: error)"
+        },
+        {
+          "functionName": "SavePayload(${1:group/*type: string*/}, ${2:payload/*type: []string*/})",
+          "document": "保存 Payload 到一个组",
+          "definitionStr": "func db.SavePayload(group: string, payload: []string) return (r0: error)"
+        },
+        {
+          "functionName": "SaveHTTPFlowFromNative(${1:url/*type: string*/}, ${2:req/*type: *http.Request*/}, ${3:rsp/*type: *http.Response*/})",
+          "document": "从原始对象中保存 HTTP 资产",
+          "definitionStr": "func db.SaveHTTPFlowFromNative(url: string, req: *http.Request, rsp: *http.Response) return (r0: error)"
+        },
+        {
+          "functionName": "SaveDomain(${1:domain/*type: string*/}, ${2:ipaddress/*type ...string*/})",
+          "document": "保存域名",
+          "definitionStr": "func db.SaveDomain(domain: string, ipaddress ...string) return (r0: error)"
+        },
+        {
+          "functionName": "QueryUrlsByKeyword(${1:v1/*type: string*/})",
+          "document": "根据关键字查询 URL",
+          "definitionStr": "func db.QueryUrlsByKeyword(v1: string) return (r0: chan string)"
+        },
+        {
+          "functionName": "QueryUrlsAll()",
+          "document": "查询所有可用 URL",
+          "definitionStr": "func db.QueryUrlsAll() return (r0: chan string)"
+        },
+        {
+          "functionName": "QueryIPForIPS(${1:v1/*type: string*/})",
+          "document": "根据 IP 查询运营商",
+          "definitionStr": "func db.QueryIPForIPS(v1: string) return (r0: *geo.ISP, r1: error)"
+        },
+        {
+          "functionName": "QueryIPCity(${1:v1/*type: string*/})",
+          "document": "查询 IP 对应的城市位置",
+          "definitionStr": "func db.QueryIPCity(v1: string) return (r0: *geo.City, r1: error)"
+        },
+        {
+          "functionName": "QueryHostsByDomain(${1:v1/*type: string*/})",
+          "document": "根据域名查询 Hosts 资产",
+          "definitionStr": "func db.QueryHostsByDomain(v1: string) return (r0: chan *yakit.Host, r1: error)"
+        },
+        {
+          "functionName": "QueryHostPortByNetwork(${1:network/*type: string*/})",
+          "document": "根据网络查询 Host:Port",
+          "definitionStr": "func db.QueryHostPortByNetwork(network: string) return (r0: chan string)"
+        },
+        {
+          "functionName": "QueryHostPortByKeyword(${1:keyword/*type: string*/})",
+          "document": "通过关键字查询 HostPort",
+          "definitionStr": "func db.QueryHostPortByKeyword(keyword: string) return (r0: chan *yakit.Host, r1: error)"
+        },
+        {
+          "functionName": "QueryHTTPFlowsByKeyword(${1:v1/*type: string*/})",
+          "document": "根据关键字插件 HTTP 流对象",
+          "definitionStr": "func db.QueryHTTPFlowsByKeyword(v1: string) return (r0: chan *yakit.HTTPFlow)"
+        },
+        {
+          "functionName": "QueryHTTPFlowsAll()",
+          "document": "查询所有的 HTTP 流",
+          "definitionStr": "func db.QueryHTTPFlowsAll() return (r0: chan *yakit.HTTPFlow)"
+        },
+        {
+          "functionName": "QueryDomainsByTitle(${1:title/*type: string*/})",
+          "document": "根据网站名查询域名",
+          "definitionStr": "func db.QueryDomainsByTitle(title: string) return (r0: chan *yakit.Domain, r1: error)"
+        },
+        {
+          "functionName": "QueryDomainsByNetwork(${1:cidrNetwork/*type: string*/})",
+          "document": "根据解析到的网段查询域名资产",
+          "definitionStr": "func db.QueryDomainsByNetwork(cidrNetwork: string) return (r0: chan *yakit.Domain, r1: error)"
+        },
+        {
+          "functionName": "QueryDomainsByDomainKeyword(${1:keyword/*type: string*/})",
+          "document": "根据关键字查询域名资产",
+          "definitionStr": "func db.QueryDomainsByDomainKeyword(keyword: string) return (r0: chan *yakit.Domain, r1: error)"
+        },
+        {
+          "functionName": "GetKey(${1:key/*type: any*/})",
+          "document": "获取持久化 Key",
+          "definitionStr": "func db.GetKey(key: any) return (r0: string)"
+        },
+        {
+          "functionName": "DownloadGeoIP()",
+          "document": "下载并自动解压 GeoIP",
+          "definitionStr": "func db.DownloadGeoIP() return (r0: error)"
+        },
+        {
+          "functionName": "DeletePayloadByGroup(${1:group/*type: string*/})",
+          "document": "删除 Payload",
+          "definitionStr": "func db.DeletePayloadByGroup(group: string) return (r0: error)"
+        },
+        {
+          "functionName": "DelKey(${1:v1/*type: any*/})",
+          "document": "删除 Key 对应的值(数据库中)",
+          "definitionStr": "`func db.DelKey(v1: any)`"
+        }
+      ]
+    },
+    {
       "libName": "crawler",
       "prefix": "crawler.",
       "functions": [
@@ -3530,9 +3992,19 @@
           "definitionStr": "func crawler.basicAuth(username: string, password: string) return (r0: crawler.param)"
         },
         {
+          "functionName": "autoLogin(${1:username/*type: string*/}, ${2:password/*type: string*/}, ${3:v3/*type ...string*/})",
+          "document": "自动登录功能，支持 DVWA 的标准登陆功能",
+          "definitionStr": "func crawler.autoLogin(username: string, password: string, v3 ...string) return (r0: func configOpt(v1: *crawler.Config) )"
+        },
+        {
           "functionName": "Start(${1:urls/*type: string*/}, ${2:params/*type ...crawler.param*/})",
           "document": "核心函数，进行爬虫的入口，输入想要爬的网站，然后设置参数，在一个 chan 中接受爬虫的结果",
           "definitionStr": "func crawler.Start(urls: string, params ...crawler.param) return (r0: chan crawler.RequestIf, r1: error)"
+        },
+        {
+          "functionName": "RequestsFromFlow(${1:https/*type: bool*/}, ${2:req/*type: bytes*/}, ${3:rsp/*type: bytes*/})",
+          "document": "从一个请求中提取可能可以用于扫描的额外请求",
+          "definitionStr": "func crawler.RequestsFromFlow(https: bool, req: bytes, rsp: bytes) return (reqs: []bytes, r1: error)"
         }
       ]
     },
@@ -4137,6 +4609,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Yellow",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Yellow()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "YearDay",
       "structName": "time.Time",
       "structNameShort": "Time",
@@ -4506,14 +4986,6 @@
     {
       "isMethod": true,
       "fieldName": "Wait",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Wait()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Wait",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "Wait()",
@@ -4712,6 +5184,30 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Value",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Value()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Value",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Value()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Value",
+      "structName": "mime/multipart.Form",
+      "structNameShort": "Form",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Value",
       "structName": "net/http.Cookie",
@@ -4824,14 +5320,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "UserTime",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "UserTime()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "UserEliminated",
       "structName": "palm/common/utils/bruteutils.BruteItemResult",
@@ -4900,6 +5388,14 @@
       "fieldName": "Url",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Url",
+      "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
+      "structNameShort": "NetSpaceEngineResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -4994,6 +5490,14 @@
     {
       "isMethod": true,
       "fieldName": "UnmarshalBinary",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInit",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInit",
+      "methodsCompletion": "UnmarshalBinary(${1:v2 /*type: bytes*/}, ${2:v3 /*type: *encoder.Metadata*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnmarshalBinary",
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "UnmarshalBinary(${1:v2 /*type: bytes*/})",
@@ -5006,14 +5510,6 @@
       "structNameShort": "StringFilter",
       "methodsCompletion": "Unlock()",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Unlock",
-      "structName": "sync.Mutex",
-      "structNameShort": "Mutex",
-      "methodsCompletion": "Unlock()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -5109,14 +5605,6 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "Uint()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Uid",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -5434,10 +5922,42 @@
     {
       "isMethod": false,
       "fieldName": "TriggerTimestamp",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "TriggerTimestamp",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "TreeID",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TreeDisconnect",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "TreeDisconnect(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TreeConnect",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "TreeConnect(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -5454,6 +5974,14 @@
       "structNameShort": "Response",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Traits",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -5505,6 +6033,30 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ToValue",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "ToValue(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ToValue",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "ToValue(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ToString",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "ToString()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "ToString",
       "structName": "palm/common/subdomain.SubdomainResult",
       "structNameShort": "SubdomainResult",
@@ -5513,10 +6065,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ToRecord",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "ToRecord()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "ToRDNSequence",
       "structName": "crypto/x509/pkix.Name",
       "structNameShort": "Name",
       "methodsCompletion": "ToRDNSequence()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ToInteger",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "ToInteger()",
       "isGolangBuildOrigin": true
     },
     {
@@ -5538,16 +6106,56 @@
     {
       "isMethod": true,
       "fieldName": "ToGRPCModel",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "ToGRPCModel()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ToGRPCModel",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
       "methodsCompletion": "ToGRPCModel()",
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "ToFloat",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "ToFloat()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ToBoolean",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "ToBoolean()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "TitleVerbose",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Title",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Title(${1:v2 /*type: any*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Title",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -5570,6 +6178,14 @@
     {
       "isMethod": false,
       "fieldName": "Timestamp",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Timestamp",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
       "methodsCompletion": "",
@@ -5580,6 +6196,14 @@
       "fieldName": "Timestamp",
       "structName": "palm/common/mutate._httpResult",
       "structNameShort": "_httpResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Timestamp",
+      "structName": "palm/common/yak/yaklib.YakitLog",
+      "structNameShort": "YakitLog",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -5657,6 +6281,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Tags",
+      "structName": "palm/common/yakgrpc/yakit.Domain",
+      "structNameShort": "Domain",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Tags",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Tag",
       "structName": "encoding/asn1.RawValue",
       "structNameShort": "RawValue",
@@ -5669,6 +6309,14 @@
       "structName": "palm/common/yak/yaklib.YakitFixedTableData",
       "structNameShort": "YakitFixedTableData",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Table",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Table(${1:v2 /*type: any*/}, ${2:v3 /*type: ...any*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -5705,14 +6353,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "SystemTime",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "SystemTime()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "SyscallConn",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
@@ -5744,27 +6384,11 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "SysUsage",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "SysUsage()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "SysProcAttr",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Sys",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Sys()",
       "isGolangBuildOrigin": true
     },
     {
@@ -5782,14 +6406,6 @@
       "structNameShort": "JavaClassDetails",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Success",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Success()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -5832,6 +6448,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Subdivisions",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "Sub",
       "structName": "math/big.Int",
@@ -5845,6 +6469,30 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "Sub(${1:v2 /*type: time.Time*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "StructureSize",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "StructureSize",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "StructureSize",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -5868,6 +6516,14 @@
       "fieldName": "String",
       "structName": "github.com/dlclark/regexp2.Match",
       "structNameShort": "com/dlclark/regexp2.Match",
+      "methodsCompletion": "String()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "String",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
       "methodsCompletion": "String()",
       "isGolangBuildOrigin": true
     },
@@ -5914,14 +6570,6 @@
     {
       "isMethod": true,
       "fieldName": "String",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "String()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "String",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "String()",
@@ -5938,6 +6586,14 @@
     {
       "isMethod": true,
       "fieldName": "String",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "String()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "String",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
       "methodsCompletion": "String()",
@@ -5948,7 +6604,7 @@
       "fieldName": "String",
       "structName": "palm/common/fp.MatchResult",
       "structNameShort": "MatchResult",
-      "methodsCompletion": "String()",
+      "methodsCompletion": "String(${1:v2 /*type: ...string*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -6154,6 +6810,14 @@
     {
       "isMethod": false,
       "fieldName": "Status",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Status",
       "structName": "net/http.Response",
       "structNameShort": "Response",
       "methodsCompletion": "",
@@ -6254,6 +6918,30 @@
       "structNameShort": "Value",
       "methodsCompletion": "Slice(${1:v2 /*type: int*/}, ${2:v3 /*type: int*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SizeCachedHistoryConnectionCount",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Size",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Size",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -6368,11 +7056,11 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Signal",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Signal(${1:v2 /*type: os.Signal*/})",
+      "isMethod": false,
+      "fieldName": "Signature",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -6454,30 +7142,6 @@
       "structNameShort": "Risk",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setsid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setpgid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Setctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -6625,6 +7289,38 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetStackTraceLimit",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetStackTraceLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetStackTraceLimit",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetStackTraceLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetStackDepthLimit",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetStackDepthLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetStackDepthLimit",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetStackDepthLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetResultCallback",
       "structName": "palm/common/utils/bruteutils.BruteUtil",
       "structNameShort": "BruteUtil",
@@ -6705,6 +7401,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetRandomSource",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetRandomSource(${1:v2 /*type: func () return(float64) */})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetRandomSource",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetRandomSource(${1:v2 /*type: func () return(float64) */})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetProgress",
       "structName": "palm/common/yak/yaklib.YakitClient",
       "structNameShort": "YakitClient",
@@ -6718,6 +7430,22 @@
       "structNameShort": "Value",
       "methodsCompletion": "SetPointer(${1:v2 /*type: unsafe.Pointer*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetPayload",
+      "structName": "palm/common/facades/ldap/ldapserver.LdapServer",
+      "structNameShort": "LdapServer",
+      "methodsCompletion": "SetPayload(${1:v2 /*type: func (v1: string) return(bytes) */})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetNegativeSample",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "SetNegativeSample(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -6753,6 +7481,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetLDAPEntry",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "SetLDAPEntry(${1:v2 /*type: map[string]any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetInt64",
       "structName": "math/big.Int",
       "structNameShort": "Int",
@@ -6766,6 +7502,14 @@
       "structNameShort": "Value",
       "methodsCompletion": "SetInt(${1:v2 /*type: int64*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetHttpResource",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "SetHttpResource(${1:v2 /*type: func (v1: string) return(bytes) */})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -6809,11 +7553,35 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetFeedback",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "SetFeedback(${1:v2 /*type: func (v1: *ypb.ExecResult) return(error) */})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetDetails",
       "structName": "palm/common/yserx.JavaClassDesc",
       "structNameShort": "JavaClassDesc",
       "methodsCompletion": "SetDetails(${1:v2 /*type: *yserx.JavaClassDetails*/})",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetDebuggerHandler",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetDebuggerHandler(${1:v2 /*type: func (v1: *otto.Otto) */})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetDebuggerHandler",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "SetDebuggerHandler(${1:v2 /*type: func (v1: *otto.Otto) */})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -6946,6 +7714,38 @@
     {
       "isMethod": true,
       "fieldName": "Set",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Set(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Set(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Set(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Set(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "Set(${1:v2 /*type: *big.Int*/})",
@@ -6973,6 +7773,14 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "Set(${1:v2 /*type: reflect.Value*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SessionID",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -7006,6 +7814,14 @@
       "structNameShort": "ConnectionState",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Serve",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "Serve(${1:v2 /*type: context.Context*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -7045,6 +7861,14 @@
       "structName": "palm/common/yak/yaklib.udpConn",
       "structNameShort": "udpConn",
       "methodsCompletion": "SendTo(${1:v2 /*type: any*/}, ${2:v3 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SendRaw",
+      "structName": "palm/common/yak/yaklib.YakitClient",
+      "structNameShort": "YakitClient",
+      "methodsCompletion": "SendRaw(${1:v2 /*type: *yaklib.YakitLog*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -7097,6 +7921,46 @@
     },
     {
       "isMethod": false,
+      "fieldName": "SecurityMode",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SecurityMode",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SecurityBufferOffset",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SecurityBufferLength",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SecurityBlob",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Secure",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
@@ -7133,6 +7997,14 @@
       "structName": "palm/common/yak/yaklib.YakitClient",
       "structNameShort": "YakitClient",
       "methodsCompletion": "Save(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Save",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Save()",
       "isGolangBuildOrigin": false
     },
     {
@@ -7194,10 +8066,34 @@
     {
       "isMethod": true,
       "fieldName": "Run",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Run(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Run",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Run(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Run",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
       "methodsCompletion": "Run()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Run",
+      "structName": "palm/common/facades/ldap/ldapserver.LdapServer",
+      "structNameShort": "LdapServer",
+      "methodsCompletion": "Run(${1:v2 /*type: context.Context*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -7425,9 +8321,25 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ResetFilter",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "ResetFilter()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Reset",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
+      "methodsCompletion": "Reset()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Reset",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "Reset()",
       "isGolangBuildOrigin": false
     },
@@ -7493,6 +8405,22 @@
       "structName": "time.Timer",
       "structNameShort": "Timer",
       "methodsCompletion": "Reset(${1:v2 /*type: time.Duration*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Reserved",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Reserved",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -7584,6 +8512,30 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "ReqFlags",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInitData",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInitData",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "RepresentedCountry",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReplaceYakToCallerManager",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "ReplaceYakToCallerManager(${1:v2 /*type: *yak.YakToCallerManager*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "ReplaceAllStringFunc",
       "structName": "regexp.Regexp",
@@ -7657,10 +8609,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "RemoveColor",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "RemoveColor()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "RemoveChild",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "RemoveChild(${1:v2 /*type: *html.Node*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "RemoveAll",
+      "structName": "mime/multipart.Form",
+      "structNameShort": "Form",
+      "methodsCompletion": "RemoveAll()",
       "isGolangBuildOrigin": true
     },
     {
@@ -7708,6 +8676,14 @@
       "fieldName": "RemoteIP",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "RemoteAddrConvertorHandler",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -7792,12 +8768,12 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Release",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Release()",
-      "isGolangBuildOrigin": true
+      "isMethod": false,
+      "fieldName": "RegisteredCountry",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -7830,6 +8806,14 @@
       "structNameShort": "URL",
       "methodsCompletion": "Redacted()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Red",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Red()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -8105,6 +9089,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ReadForm",
+      "structName": "mime/multipart.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadForm(${1:v2 /*type: int64*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "ReadDir",
       "structName": "os.File",
       "structNameShort": "File",
@@ -8156,6 +9148,14 @@
       "fieldName": "Read",
       "structName": "math/rand.Rand",
       "structNameShort": "Rand",
+      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Read",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
       "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": true
     },
@@ -8400,6 +9400,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "QuotedJson",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "QuoRem",
       "structName": "math/big.Int",
@@ -8448,6 +9456,22 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Purple",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Purple()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "PublishedAt",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "PublicKeyAlgorithm",
       "structName": "crypto/x509.Certificate",
@@ -8460,14 +9484,6 @@
       "fieldName": "PublicKey",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Ptrace",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -8488,10 +9504,26 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "ProtocolID",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "ProtoReflect",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
+      "methodsCompletion": "ProtoReflect()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ProtoReflect",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "ProtoReflect()",
       "isGolangBuildOrigin": false
     },
@@ -8556,6 +9588,14 @@
       "fieldName": "ProtoMessage",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
+      "methodsCompletion": "ProtoMessage()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ProtoMessage",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "ProtoMessage()",
       "isGolangBuildOrigin": false
     },
@@ -8721,6 +9761,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "PreviousSessionID",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "PrevSibling",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
@@ -8742,6 +9790,14 @@
       "structNameShort": "Name",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Postal",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -8784,12 +9840,36 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "PositiveThresholdAverage",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "PositiveSample",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "Port",
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "Port()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Port",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -8894,30 +9974,6 @@
       "structNameShort": "PocVul",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Pid",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Pid",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Pid()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Pgid",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -9153,6 +10209,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Owner",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Owner(${1:v2 /*type: any*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Owner",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "OverflowUint",
       "structName": "reflect.Value",
       "structNameShort": "Value",
@@ -9224,6 +10296,22 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Organization",
+      "structName": "palm/common/geo.ISP",
+      "structNameShort": "ISP",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Orange",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Orange()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "Or",
       "structName": "math/big.Int",
@@ -9248,6 +10336,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Open",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "Open()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Opaque",
       "structName": "net/url.URL",
@@ -9269,6 +10365,14 @@
       "structName": "palm/common/utils/bruteutils.BruteUtil",
       "structNameShort": "BruteUtil",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "OnHandle",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "OnHandle(${1:v2 /*type: func (v1: *facades.Notification) */})",
       "isGolangBuildOrigin": false
     },
     {
@@ -9296,12 +10400,44 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Object",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Object(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Object",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Object(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Object",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "Object()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Object",
       "structName": "palm/common/yserx.JavaFieldValue",
       "structNameShort": "JavaFieldValue",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OID",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInit",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInit",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -9393,19 +10529,11 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Noctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
+      "fieldName": "NoFixContentLength",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "NoSetGroups",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -9425,6 +10553,30 @@
     },
     {
       "isMethod": true,
+      "fieldName": "NextRawPart",
+      "structName": "mime/multipart.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "NextRawPart()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NextPart",
+      "structName": "mime/multipart.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "NextPart()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "NextCommand",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Next",
       "structName": "palm/common/yak/yaklang/exec.ReservedInstr",
       "structNameShort": "ReservedInstr",
@@ -9437,6 +10589,46 @@
       "structName": "reflect.MapIter",
       "structNameShort": "MapIter",
       "methodsCompletion": "Next()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NewTreeDisconnectReq",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "NewTreeDisconnectReq(${1:v2 /*type: uint32*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NewTreeConnectReq",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "NewTreeConnectReq(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NewSessionSetup2Req",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "NewSessionSetup2Req()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NewSessionSetup1Req",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "NewSessionSetup1Req()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NewNegotiateReq",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "NewNegotiateReq()",
       "isGolangBuildOrigin": true
     },
     {
@@ -9486,6 +10678,30 @@
       "structNameShort": "ConnectionState",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NegotiateProtocol",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "NegotiateProtocol()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "NegativeThresholdAverage",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "NegativeSample",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -9738,6 +10954,14 @@
     {
       "isMethod": false,
       "fieldName": "Model",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Model",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
       "methodsCompletion": "",
@@ -9766,6 +10990,22 @@
       "structNameShort": "Int",
       "methodsCompletion": "Mod(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MirrorHTTPFlowEx",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "MirrorHTTPFlowEx(${1:v2 /*type: bool*/}, ${2:v3 /*type: bool*/}, ${3:v4 /*type: string*/}, ${4:v5 /*type: bytes*/}, ${5:v6 /*type: bytes*/}, ${6:v7 /*type: bytes*/}, ${7:v8 /*type: ...bool*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MirrorHTTPFlow",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "MirrorHTTPFlow(${1:v2 /*type: bool*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: bytes*/}, ${4:v5 /*type: bytes*/}, ${5:v6 /*type: bytes*/}, ${6:v7 /*type: ...bool*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -9820,6 +11060,38 @@
       "fieldName": "Metadata",
       "structName": "github.com/oschwald/maxminddb-golang.Reader",
       "structNameShort": "com/oschwald/maxminddb-golang.Reader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "MessageID",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "MechTypes",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInitData",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInitData",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "MechTokenMIC",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInitData",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInitData",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "MechToken",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInitData",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInitData",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -9925,6 +11197,14 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "MarshalJSON()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MarshalBinary",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInit",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInit",
+      "methodsCompletion": "MarshalBinary(${1:v2 /*type: *encoder.Metadata*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -10041,6 +11321,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Markdown",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Markdown(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "MapRange",
       "structName": "reflect.Value",
       "structNameShort": "Value",
@@ -10070,6 +11358,70 @@
       "structNameShort": "JavaClassDesc",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeTypeError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeTypeError(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeTypeError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeTypeError(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeSyntaxError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeSyntaxError(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeSyntaxError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeSyntaxError(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeRangeError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeRangeError(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeRangeError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeRangeError(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeCustomError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeCustomError(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MakeCustomError",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "MakeCustomError(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -10130,14 +11482,6 @@
     {
       "isMethod": true,
       "fieldName": "Lock",
-      "structName": "sync.Mutex",
-      "structNameShort": "Mutex",
-      "methodsCompletion": "Lock()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Lock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Lock()",
@@ -10150,6 +11494,14 @@
       "structNameShort": "Response",
       "methodsCompletion": "Location()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Location",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -10265,6 +11617,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "LoadPluginByName",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "LoadPluginByName(${1:v2 /*type: context.Context*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: []*ypb.ExecParamItem*/}, ${4:v5 /*type: ...string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "LoadPlugin",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "LoadPlugin(${1:v2 /*type: string*/}, ${2:v3 /*type: ...*ypb.ExecParamItem*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "LoadPlugin",
       "structName": "palm/common/yak.YakToCallerManager",
       "structNameShort": "YakToCallerManager",
@@ -10278,6 +11646,14 @@
       "structNameShort": "Map",
       "methodsCompletion": "LoadOrStore(${1:v2 /*type: any*/}, ${2:v3 /*type: any*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "LoadHotPatch",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "LoadHotPatch(${1:v2 /*type: context.Context*/}, ${2:v3 /*type: string*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -10332,6 +11708,14 @@
       "fieldName": "Level",
       "structName": "palm/common/yak/yaklib.YakitHTTPFlowRisk",
       "structNameShort": "YakitHTTPFlowRisk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Level",
+      "structName": "palm/common/yak/yaklib.YakitLog",
+      "structNameShort": "YakitLog",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -10425,10 +11809,34 @@
     },
     {
       "isMethod": true,
-      "fieldName": "Kill",
-      "structName": "os.Process",
-      "structNameShort": "Process",
-      "methodsCompletion": "Kill()",
+      "fieldName": "KeysByParent",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "KeysByParent()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "KeysByParent",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "KeysByParent()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Keys",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Keys()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Keys",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Keys()",
       "isGolangBuildOrigin": true
     },
     {
@@ -10561,10 +11969,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "IsUndefined",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsUndefined()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "IsUint64",
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "IsUint64()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsString",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsString()",
       "isGolangBuildOrigin": true
     },
     {
@@ -10584,12 +12008,52 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "IsSigningRequired",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsPrimitive",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsPrimitive()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsPositiveWithThreshold",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "IsPositiveWithThreshold(${1:v2 /*type: bytes*/}, ${2:v3 /*type: float64*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsPositive",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "IsPositive(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "IsOpen",
       "structName": "palm/common/fp.MatchResult",
       "structNameShort": "MatchResult",
       "methodsCompletion": "IsOpen()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsObject",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsObject()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -10602,10 +12066,26 @@
     {
       "isMethod": true,
       "fieldName": "IsNumber",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsNumber()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsNumber",
       "structName": "palm/common/yak/yaklib.yakJson",
       "structNameShort": "yakJson",
       "methodsCompletion": "IsNumber()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsNull",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsNull()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -10637,6 +12117,30 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "IsNil()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsNegativeWithThreshold",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "IsNegativeWithThreshold(${1:v2 /*type: bytes*/}, ${2:v3 /*type: float64*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsNegative",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "IsNegative(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsNaN",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsNaN()",
       "isGolangBuildOrigin": true
     },
     {
@@ -10713,6 +12217,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "IsFunction",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsFunction()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "IsEmptyBody",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
@@ -10745,6 +12257,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "IsDefined",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsDefined()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "IsDST",
       "structName": "time.Time",
       "structNameShort": "Time",
@@ -10765,6 +12285,14 @@
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsBoolean",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "IsBoolean()",
       "isGolangBuildOrigin": true
     },
     {
@@ -10792,6 +12320,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "IsAuthenticated",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "IsArray",
       "structName": "palm/common/yak/yaklib.yakJson",
@@ -10813,6 +12349,14 @@
       "structName": "math/rand.Rand",
       "structNameShort": "Rand",
       "methodsCompletion": "Intn(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Interrupt",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -10988,6 +12532,14 @@
       "fieldName": "Id",
       "structName": "palm/common/yak/yaklib/tools.templateDesc",
       "structNameShort": "templateDesc",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ISP",
+      "structName": "palm/common/geo.ISP",
+      "structNameShort": "ISP",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -11210,6 +12762,14 @@
     {
       "isMethod": false,
       "fieldName": "Host",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Host",
       "structName": "palm/common/synscan.SynScanResult",
       "structNameShort": "SynScanResult",
       "methodsCompletion": "",
@@ -11228,6 +12788,14 @@
       "fieldName": "Host",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Host",
+      "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
+      "structNameShort": "NetSpaceEngineResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -11281,6 +12849,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Histories",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "HijackSaveHTTPFlow",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "HijackSaveHTTPFlow(${1:v2 /*type: *yakit.HTTPFlow*/}, ${2:v3 /*type: func (v1: *yakit.HTTPFlow) */}, ${3:v4 /*type: func () */})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Highlight",
       "structName": "palm/common/yak/yaklib.YakitHTTPFlowRisk",
       "structNameShort": "YakitHTTPFlowRisk",
@@ -11300,6 +12884,38 @@
       "fieldName": "Header",
       "structName": "github.com/dgrijalva/jwt-go.Token",
       "structNameShort": "com/dgrijalva/jwt-go.Token",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -11370,6 +12986,14 @@
     {
       "isMethod": false,
       "fieldName": "Hash",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Hash",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
       "methodsCompletion": "",
@@ -11390,6 +13014,14 @@
       "structNameShort": "ConnectionState",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "HandleServiceScanResult",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "HandleServiceScanResult(${1:v2 /*type: *fp.MatchResult*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -11440,14 +13072,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "Groups",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "GroupCount",
       "structName": "github.com/dlclark/regexp2.Match",
@@ -11481,6 +13105,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Grey",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Grey()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Green",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Green()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GobEncode",
       "structName": "math/big.Int",
       "structNameShort": "Int",
@@ -11509,14 +13149,6 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "GoString()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Gid",
-      "structName": "syscall.Credential",
-      "structNameShort": "Credential",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -11577,10 +13209,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetUrl",
+      "structName": "palm/common/facades/ldap/ldapserver.LdapServer",
+      "structNameShort": "LdapServer",
+      "methodsCompletion": "GetUrl()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetType",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
       "methodsCompletion": "GetType()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetTriggerTimestamp",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "GetTriggerTimestamp()",
       "isGolangBuildOrigin": false
     },
     {
@@ -11604,6 +13252,14 @@
       "fieldName": "GetTimestamp",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
+      "methodsCompletion": "GetTimestamp()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetTimestamp",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "GetTimestamp()",
       "isGolangBuildOrigin": false
     },
@@ -11653,6 +13309,22 @@
       "structName": "palm/common/yak/yaklang/exec.Context",
       "structNameShort": "Context",
       "methodsCompletion": "GetSymNames()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetSizeCachedHistoryConnectionCount",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "GetSizeCachedHistoryConnectionCount()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetSize",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "GetSize()",
       "isGolangBuildOrigin": false
     },
     {
@@ -11785,6 +13457,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetNativeCaller",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "GetNativeCaller()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetLocalPortCachedHistoryConnectionCount",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
@@ -11849,10 +13529,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetHistories",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "GetHistories()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetHandle",
       "structName": "palm/common/yserx.JavaReference",
       "structNameShort": "JavaReference",
       "methodsCompletion": "GetHandle()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetHTTPHandler",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "GetHTTPHandler(${1:v2 /*type: bool*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -11890,9 +13586,25 @@
     {
       "isMethod": true,
       "fieldName": "GetCurrentRemoteCachedConnectionCount",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "GetCurrentRemoteCachedConnectionCount()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetCurrentRemoteCachedConnectionCount",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
       "methodsCompletion": "GetCurrentRemoteCachedConnectionCount()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetCurrentRemoteAddr",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "GetCurrentRemoteAddr()",
       "isGolangBuildOrigin": false
     },
     {
@@ -11966,6 +13678,54 @@
       "structNameShort": "BruteUtil",
       "methodsCompletion": "GetAllTargetsProcessing()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetAddr",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "GetAddr()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetAddr",
+      "structName": "palm/common/facades/ldap/ldapserver.LdapServer",
+      "structNameShort": "LdapServer",
+      "methodsCompletion": "GetAddr()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -12280,6 +14040,22 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "From",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "From(${1:v2 /*type: any*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "From",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "Fragment",
       "structName": "net/url.URL",
@@ -12337,6 +14113,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "FormName",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
+      "methodsCompletion": "FormName()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "FormFile",
       "structName": "net/http.Request",
       "structNameShort": "Request",
@@ -12364,14 +14148,6 @@
       "fieldName": "Form",
       "structName": "net/http.Request",
       "structNameShort": "Request",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Foreground",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -12409,6 +14185,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Flags",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Flags",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "FirstChild",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
@@ -12428,6 +14220,14 @@
       "fieldName": "Finished",
       "structName": "palm/common/utils/bruteutils.BruteItemResult",
       "structNameShort": "BruteItemResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Fingerprints",
+      "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
+      "structNameShort": "NetSpaceEngineResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -12609,11 +14409,35 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Filename",
+      "structName": "mime/multipart.FileHeader",
+      "structNameShort": "FileHeader",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "FilePath",
       "structName": "palm/common/yak.yakVariable",
       "structNameShort": "yakVariable",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "FileName",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
+      "methodsCompletion": "FileName()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "File",
+      "structName": "mime/multipart.Form",
+      "structNameShort": "Form",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -12737,6 +14561,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "FeedbackOrdinary",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "FeedbackOrdinary(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Feed",
       "structName": "palm/common/utils/bruteutils.BruteUtil",
       "structNameShort": "BruteUtil",
@@ -12849,6 +14681,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "ExternalHost",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Extensions",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
@@ -12912,6 +14752,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Export",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "Export()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Expires",
       "structName": "net/http.Cookie",
@@ -12949,22 +14797,6 @@
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "Exp(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/}, ${3:v4 /*type: *big.Int*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Exited",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "Exited()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "ExitCode",
-      "structName": "os.ProcessState",
-      "structNameShort": "ProcessState",
-      "methodsCompletion": "ExitCode()",
       "isGolangBuildOrigin": true
     },
     {
@@ -13109,6 +14941,22 @@
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Eval",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Eval(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Eval",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Eval(${1:v2 /*type: any*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -13353,6 +15201,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Divider",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Divider()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "DivMod",
       "structName": "math/big.Int",
       "structNameShort": "Int",
@@ -13385,6 +15241,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Dialects",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "DialectCount",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "DeviceType",
       "structName": "palm/common/fp.FingerprintInfo",
       "structNameShort": "FingerprintInfo",
@@ -13412,6 +15284,14 @@
       "fieldName": "Descriptor",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
+      "methodsCompletion": "Descriptor()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Descriptor",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "Descriptor()",
       "isGolangBuildOrigin": false
     },
@@ -13513,6 +15393,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Debug",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "Debug(${1:v2 /*type: string*/}, ${2:v3 /*type: error*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Day",
       "structName": "time.Time",
       "structNameShort": "Time",
@@ -13546,6 +15434,14 @@
     {
       "isMethod": false,
       "fieldName": "Data",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenInit",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenInit",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Data",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "",
@@ -13564,6 +15460,14 @@
       "fieldName": "Data",
       "structName": "palm/common/yak/yaklib.YakitGraph",
       "structNameShort": "YakitGraph",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Data",
+      "structName": "palm/common/yak/yaklib.YakitLog",
+      "structNameShort": "YakitLog",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -13592,6 +15496,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Cyan",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Cyan()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "CurrentTime",
       "structName": "crypto/x509.VerifyOptions",
@@ -13602,8 +15514,24 @@
     {
       "isMethod": false,
       "fieldName": "CurrentRemoteCachedConnectionCount",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "CurrentRemoteCachedConnectionCount",
       "structName": "palm/common/cybertunnel/tpb.RandomPortTriggerEvent",
       "structNameShort": "RandomPortTriggerEvent",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "CurrentRemoteAddr",
+      "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
+      "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -13617,14 +15545,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Ctty",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "Critical",
       "structName": "crypto/x509/pkix.Extension",
       "structNameShort": "Extension",
@@ -13633,9 +15553,17 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Credential",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
+      "fieldName": "Credits",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "CreditCharge",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -13664,6 +15592,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Country",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "CopyVars",
       "structName": "palm/common/yak/yaklang.YakEngine",
@@ -13686,6 +15622,14 @@
       "structNameShort": "Context",
       "methodsCompletion": "CopyVars()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Copy",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Copy()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -13769,10 +15713,74 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ConvertRemoteAddr",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "ConvertRemoteAddr(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Convert",
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "Convert(${1:v2 /*type: reflect.Type*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Continent",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ContextSkip",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "ContextSkip(${1:v2 /*type: int*/}, ${2:v3 /*type: bool*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ContextSkip",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "ContextSkip(${1:v2 /*type: int*/}, ${2:v3 /*type: bool*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ContextLimit",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "ContextLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ContextLimit",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "ContextLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Context",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Context()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Context",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Context()",
       "isGolangBuildOrigin": true
     },
     {
@@ -13857,6 +15865,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "ConfirmHttps",
+      "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
+      "structNameShort": "NetSpaceEngineResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Confidence",
       "structName": "github.com/saintfish/chardet.Result",
       "structNameShort": "com/saintfish/chardet.Result",
@@ -13872,10 +15888,34 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "CompileWithSourceMap",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "CompileWithSourceMap(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/}, ${3:v4 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Compile",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Compile(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "CommonName",
       "structName": "crypto/x509/pkix.Name",
       "structNameShort": "Name",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Command",
+      "structName": "github.com/stacktitan/smb/smb.Header",
+      "structNameShort": "com/stacktitan/smb/smb.Header",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -13886,6 +15926,14 @@
       "structNameShort": "Cmd",
       "methodsCompletion": "CombinedOutput()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ColorSharp",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "ColorSharp(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -13946,6 +15994,14 @@
     {
       "isMethod": true,
       "fieldName": "Close",
+      "structName": "github.com/stacktitan/smb/smb.Session",
+      "structNameShort": "com/stacktitan/smb/smb.Session",
+      "methodsCompletion": "Close()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Close",
       "structName": "io.PipeReader",
       "structNameShort": "PipeReader",
       "methodsCompletion": "Close()",
@@ -13956,6 +16012,14 @@
       "fieldName": "Close",
       "structName": "io.PipeWriter",
       "structNameShort": "PipeWriter",
+      "methodsCompletion": "Close()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Close",
+      "structName": "mime/multipart.Part",
+      "structNameShort": "Part",
       "methodsCompletion": "Close()",
       "isGolangBuildOrigin": true
     },
@@ -14073,10 +16137,34 @@
     },
     {
       "isMethod": false,
+      "fieldName": "ClientStartTime",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ClientGuid",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "ClearAll",
       "structName": "palm/common/yakgrpc/ypb.RemoveHookParams",
       "structNameShort": "RemoveHookParams",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ClassNameFactory",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "ClassNameFactory(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -14112,6 +16200,30 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Class",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Class()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Class",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Class()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Class",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "Class()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Claims",
       "structName": "github.com/dgrijalva/jwt-go.Token",
@@ -14130,6 +16242,14 @@
     {
       "isMethod": false,
       "fieldName": "City",
+      "structName": "palm/common/geo.City",
+      "structNameShort": "City",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "City",
       "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
       "structNameShort": "NetSpaceEngineResult",
       "methodsCompletion": "",
@@ -14140,14 +16260,6 @@
       "fieldName": "CipherSuite",
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Chroot",
-      "structName": "syscall.SysProcAttr",
-      "structNameShort": "SysProcAttr",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -14217,6 +16329,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Channel",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Captures",
       "structName": "github.com/dlclark/regexp2.Group",
       "structNameShort": "com/dlclark/regexp2.Group",
@@ -14228,6 +16348,22 @@
       "fieldName": "Capture",
       "structName": "github.com/dlclark/regexp2.Group",
       "structNameShort": "com/dlclark/regexp2.Group",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Capabilities",
+      "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
+      "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Capabilities",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -14297,10 +16433,34 @@
     },
     {
       "isMethod": true,
+      "fieldName": "CallPluginKeyByNameEx",
+      "structName": "palm/common/yak.YakToCallerManager",
+      "structNameShort": "YakToCallerManager",
+      "methodsCompletion": "CallPluginKeyByNameEx(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: ...func() any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "CallPluginKeyByName",
       "structName": "palm/common/yak.YakToCallerManager",
       "structNameShort": "YakToCallerManager",
       "methodsCompletion": "CallPluginKeyByName(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "CallHijackRequest",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "CallHijackRequest(${1:v2 /*type: bool*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: func () return(any) */}, ${4:v5 /*type: func () return(any) */}, ${5:v6 /*type: func () return(any) */})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "CallByNameEx",
+      "structName": "palm/common/yak.YakToCallerManager",
+      "structNameShort": "YakToCallerManager",
+      "methodsCompletion": "CallByNameEx(${1:v2 /*type: string*/}, ${2:v3 /*type: ...func() any*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -14310,6 +16470,46 @@
       "structNameShort": "YakToCallerManager",
       "methodsCompletion": "CallByName(${1:v2 /*type: string*/}, ${2:v3 /*type: ...any*/})",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Call",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Call(${1:v2 /*type: string*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Call",
+      "structName": "github.com/robertkrimen/otto.Object",
+      "structNameShort": "com/robertkrimen/otto.Object",
+      "methodsCompletion": "Call(${1:v2 /*type: string*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Call",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Call(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/}, ${3:v4 /*type: ...any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Call",
+      "structName": "github.com/robertkrimen/otto.Otto",
+      "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Call(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/}, ${3:v4 /*type: ...any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Call",
+      "structName": "github.com/robertkrimen/otto.Value",
+      "structNameShort": "com/robertkrimen/otto.Value",
+      "methodsCompletion": "Call(${1:v2 /*type: otto.Value*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -14340,6 +16540,14 @@
       "fieldName": "CalcHash",
       "structName": "palm/common/yakgrpc/yakit.Port",
       "structNameShort": "Port",
+      "methodsCompletion": "CalcHash()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "CalcHash",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
       "methodsCompletion": "CalcHash()",
       "isGolangBuildOrigin": false
     },
@@ -14401,6 +16609,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Bytescode",
+      "structName": "palm/common/yserx.JavaArray",
+      "structNameShort": "JavaArray",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Bytes",
       "structName": "encoding/asn1.BitString",
       "structNameShort": "BitString",
@@ -14422,6 +16638,14 @@
       "structNameShort": "Int",
       "methodsCompletion": "Bytes()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Bytes",
+      "structName": "palm/common/yserx.JavaArray",
+      "structNameShort": "JavaArray",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -14494,6 +16718,14 @@
       "structNameShort": "Response",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Blue",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "Blue()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -14594,6 +16826,14 @@
     {
       "isMethod": true,
       "fieldName": "BeforeSave",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "BeforeSave()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "BeforeSave",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
       "methodsCompletion": "BeforeSave()",
@@ -14652,6 +16892,30 @@
       "fieldName": "Banner",
       "structName": "palm/common/fp.FingerprintInfo",
       "structNameShort": "FingerprintInfo",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Banner",
+      "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
+      "structNameShort": "NetSpaceEngineResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "AutonomousSystemOrganization",
+      "structName": "palm/common/geo.ISP",
+      "structNameShort": "ISP",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "AutonomousSystemNumber",
+      "structName": "palm/common/geo.ISP",
+      "structNameShort": "ISP",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -14776,6 +17040,22 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "AdjustPositiveThreshold",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "AdjustPositiveThreshold(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "AdjustNegativeThreshold",
+      "structName": "palm/common/utils/comparer.Discriminator",
+      "structNameShort": "Discriminator",
+      "methodsCompletion": "AdjustNegativeThreshold(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "Addr",
       "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
@@ -14797,6 +17077,14 @@
       "structName": "palm/common/utils.SizedWaitGroup",
       "structNameShort": "SizedWaitGroup",
       "methodsCompletion": "AddWithContext(${1:v2 /*type: context.Context*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "AddTag",
+      "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
+      "structNameShort": "HTTPFlow",
+      "methodsCompletion": "AddTag(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
