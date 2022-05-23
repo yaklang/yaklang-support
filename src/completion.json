@@ -2480,6 +2480,11 @@
           "functionName": "Clearenv()",
           "document": "清除环境变量，与原生 Golang `go.Clearenv` 相同",
           "definitionStr": "`func os.Clearenv()`"
+        },
+        {
+          "functionName": "Chdir(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func os.Chdir(v1: string) return (r0: error)"
         }
       ]
     },
@@ -3544,6 +3549,11 @@
           "definitionStr": "func file.Stat(v1: string) return (r0: fs.FileInfo, r1: error)"
         },
         {
+          "functionName": "Split(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func file.Split(v1: string) return (r0: string, r1: string)"
+        },
+        {
           "functionName": "SaveJson(${1:filePath/*type: string*/}, ${2:v2/*type: any*/})",
           "document": "",
           "definitionStr": "func file.SaveJson(filePath: string, v2: any) return (r0: error)"
@@ -3652,6 +3662,11 @@
           "functionName": "IsAbs(${1:absPath/*type: string*/})",
           "document": "判断路径是否是绝对路径名",
           "definitionStr": "func file.IsAbs(absPath: string) return (r0: bool)"
+        },
+        {
+          "functionName": "GetDirPath(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func file.GetDirPath(v1: string) return (r0: string)"
         },
         {
           "functionName": "Dir(${1:dirName/*type: string*/})",
@@ -5378,14 +5393,6 @@
     {
       "isMethod": false,
       "fieldName": "Value",
-      "structName": "mime/multipart.Form",
-      "structNameShort": "Form",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Value",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
       "methodsCompletion": "",
@@ -5714,6 +5721,14 @@
     {
       "isMethod": true,
       "fieldName": "UnmarshalBinary",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenResp",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenResp",
+      "methodsCompletion": "UnmarshalBinary(${1:v2 /*type: bytes*/}, ${2:v3 /*type: *encoder.Metadata*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnmarshalBinary",
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "UnmarshalBinary(${1:v2 /*type: bytes*/})",
@@ -5726,14 +5741,6 @@
       "structNameShort": "StringFilter",
       "methodsCompletion": "Unlock()",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Unlock",
-      "structName": "sync.Mutex",
-      "structNameShort": "Mutex",
-      "methodsCompletion": "Unlock()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -6594,6 +6601,14 @@
     {
       "isMethod": false,
       "fieldName": "Tags",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Tags",
       "structName": "palm/common/subdomain.SubdomainResult",
       "structNameShort": "SubdomainResult",
       "methodsCompletion": "",
@@ -6761,19 +6776,19 @@
     },
     {
       "isMethod": false,
+      "fieldName": "SupportedMech",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenResp",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenResp",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "SuperClass",
       "structName": "palm/common/yserx.JavaClassDetails",
       "structNameShort": "JavaClassDetails",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Subjects",
-      "structName": "crypto/x509.CertPool",
-      "structNameShort": "CertPool",
-      "methodsCompletion": "Subjects()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -6852,6 +6867,30 @@
       "fieldName": "StructureSize",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "StructureSize",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "StructureSize",
+      "structName": "github.com/stacktitan/smb/smb.TreeConnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeConnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "StructureSize",
+      "structName": "github.com/stacktitan/smb/smb.TreeDisconnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeDisconnectReq",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -7194,6 +7233,14 @@
     {
       "isMethod": false,
       "fieldName": "State",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenResp",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenResp",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "State",
       "structName": "palm/common/fp.MatchResult",
       "structNameShort": "MatchResult",
       "methodsCompletion": "",
@@ -7318,14 +7365,6 @@
       "structNameShort": "ICMPTriggerNotification",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Size",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -8210,6 +8249,22 @@
     {
       "isMethod": true,
       "fieldName": "Set",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "Set(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "Set(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "Set(${1:v2 /*type: *big.Int*/})",
@@ -8425,9 +8480,25 @@
     },
     {
       "isMethod": false,
+      "fieldName": "SecurityMode",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "SecurityBufferOffset",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SecurityBufferOffset",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -8441,9 +8512,25 @@
     },
     {
       "isMethod": false,
+      "fieldName": "SecurityBufferLength",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "SecurityBlob",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SecurityBlob",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -8641,14 +8728,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Roots",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "RootCAs",
       "structName": "crypto/tls.Config",
       "structNameShort": "Config",
@@ -8734,6 +8813,14 @@
       "structNameShort": "BruteItem",
       "methodsCompletion": "Result()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ResponseToken",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenResp",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenResp",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -8952,6 +9039,22 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Reserved",
+      "structName": "github.com/stacktitan/smb/smb.TreeConnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeConnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Reserved",
+      "structName": "github.com/stacktitan/smb/smb.TreeDisconnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeDisconnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Reserve",
       "structName": "palm/common/yak/yaklang/exec.Code",
@@ -9165,14 +9268,6 @@
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "RemoveChild(${1:v2 /*type: *html.Node*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "RemoveAll",
-      "structName": "mime/multipart.Form",
-      "structNameShort": "Form",
-      "methodsCompletion": "RemoveAll()",
       "isGolangBuildOrigin": true
     },
     {
@@ -9649,14 +9744,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "ReadForm",
-      "structName": "mime/multipart.Reader",
-      "structNameShort": "Reader",
-      "methodsCompletion": "ReadForm(${1:v2 /*type: int64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "ReadDir",
       "structName": "os.File",
       "structNameShort": "File",
@@ -9708,14 +9795,6 @@
       "fieldName": "Read",
       "structName": "math/rand.Rand",
       "structNameShort": "Rand",
-      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Read",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
       "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": true
     },
@@ -10377,6 +10456,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "PreviousSessionID",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "PrevSibling",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
@@ -10705,6 +10792,30 @@
     },
     {
       "isMethod": false,
+      "fieldName": "PathOffset",
+      "structName": "github.com/stacktitan/smb/smb.TreeConnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeConnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "PathLength",
+      "structName": "github.com/stacktitan/smb/smb.TreeConnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeConnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Path",
+      "structName": "github.com/stacktitan/smb/smb.TreeConnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeConnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Path",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
@@ -10845,6 +10956,22 @@
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "Parse(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ParentBuf",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Parent",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -11032,14 +11159,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Open",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "Open()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "Opaque",
       "structName": "net/url.URL",
@@ -11102,6 +11221,14 @@
       "structNameShort": "PingResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Offsets",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -11264,27 +11391,11 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "NextRawPart",
-      "structName": "mime/multipart.Reader",
-      "structNameShort": "Reader",
-      "methodsCompletion": "NextRawPart()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "NextProtos",
       "structName": "crypto/tls.Config",
       "structNameShort": "Config",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "NextPart",
-      "structName": "mime/multipart.Reader",
-      "structNameShort": "Reader",
-      "methodsCompletion": "NextPart()",
       "isGolangBuildOrigin": true
     },
     {
@@ -11929,6 +12040,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "MechListMIC",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenResp",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenResp",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "MaxVersion",
       "structName": "crypto/tls.Config",
       "structNameShort": "Config",
@@ -11948,14 +12067,6 @@
       "fieldName": "MaxPathLen",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "MaxConstraintComparisions",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -12044,6 +12155,14 @@
       "fieldName": "MarshalBinary",
       "structName": "github.com/stacktitan/smb/gss.NegTokenInit",
       "structNameShort": "com/stacktitan/smb/gss.NegTokenInit",
+      "methodsCompletion": "MarshalBinary(${1:v2 /*type: *encoder.Metadata*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MarshalBinary",
+      "structName": "github.com/stacktitan/smb/gss.NegTokenResp",
+      "structNameShort": "com/stacktitan/smb/gss.NegTokenResp",
       "methodsCompletion": "MarshalBinary(${1:v2 /*type: *encoder.Metadata*/})",
       "isGolangBuildOrigin": true
     },
@@ -12322,14 +12441,6 @@
     {
       "isMethod": true,
       "fieldName": "Lock",
-      "structName": "sync.Mutex",
-      "structNameShort": "Mutex",
-      "methodsCompletion": "Lock()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Lock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Lock()",
@@ -12585,6 +12696,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Lens",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Length",
       "structName": "github.com/dlclark/regexp2.Capture",
       "structNameShort": "com/dlclark/regexp2.Capture",
@@ -12709,14 +12828,6 @@
       "structName": "github.com/robertkrimen/otto.Object",
       "structNameShort": "com/robertkrimen/otto.Object",
       "methodsCompletion": "Keys()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "KeyUsages",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -13288,14 +13399,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": false,
-      "fieldName": "Intermediates",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": true,
       "fieldName": "InterfaceData",
       "structName": "reflect.Value",
@@ -13858,16 +13961,24 @@
     {
       "isMethod": false,
       "fieldName": "Header",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
       "fieldName": "Header",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
+      "structName": "github.com/stacktitan/smb/smb.TreeConnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeConnectReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Header",
+      "structName": "github.com/stacktitan/smb/smb.TreeDisconnectReq",
+      "structNameShort": "com/stacktitan/smb/smb.TreeDisconnectReq",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -13965,6 +14076,22 @@
       "structName": "crypto/x509/pkix.CertificateList",
       "structNameShort": "CertificateList",
       "methodsCompletion": "HasExpired(${1:v2 /*type: time.Time*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Has",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "Has(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Has",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "Has(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -14281,6 +14408,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetString",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "GetString(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetString",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "GetString(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetSizeCachedHistoryConnectionCount",
       "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
       "structNameShort": "ICMPTriggerNotification",
@@ -14470,6 +14613,22 @@
       "structNameShort": "ExecParamItem",
       "methodsCompletion": "GetKey()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetInt",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "GetInt(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetInt",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "GetInt(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -14756,6 +14915,22 @@
       "fieldName": "Get",
       "structName": "github.com/robertkrimen/otto.Otto",
       "structNameShort": "com/robertkrimen/otto.Otto",
+      "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
+      "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "github.com/stacktitan/smb/smb/encoder.TagMap",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.TagMap",
       "methodsCompletion": "Get(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": true
     },
@@ -15201,14 +15376,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "FormName",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "FormName()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "FormFile",
       "structName": "net/http.Request",
       "structNameShort": "Request",
@@ -15292,6 +15459,14 @@
       "fieldName": "Flags",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Flags",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -15529,35 +15704,11 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Filename",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "FilePath",
       "structName": "palm/common/yak.yakVariable",
       "structNameShort": "yakVariable",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "FileName",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "FileName()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "File",
-      "structName": "mime/multipart.Form",
-      "structNameShort": "Form",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -16697,14 +16848,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "DNSName",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "DN",
       "structName": "github.com/go-ldap/ldap.AddRequest",
       "structNameShort": "com/go-ldap/ldap.AddRequest",
@@ -16761,14 +16904,6 @@
     },
     {
       "isMethod": false,
-      "fieldName": "CurrentTime",
-      "structName": "crypto/x509.VerifyOptions",
-      "structNameShort": "VerifyOptions",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "CurrentRemoteCachedConnectionCount",
       "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
       "structNameShort": "ICMPTriggerNotification",
@@ -16798,6 +16933,22 @@
       "structNameShort": "NodeNavigator",
       "methodsCompletion": "Current()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "CurrOffset",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "CurrField",
+      "structName": "github.com/stacktitan/smb/smb/encoder.Metadata",
+      "structNameShort": "com/stacktitan/smb/smb/encoder.Metadata",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -17378,14 +17529,6 @@
     {
       "isMethod": true,
       "fieldName": "Close",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "Close()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Close",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
       "methodsCompletion": "Close()",
@@ -17785,6 +17928,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Channel",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Changes",
       "structName": "github.com/go-ldap/ldap.ModifyRequest",
       "structNameShort": "com/go-ldap/ldap.ModifyRequest",
@@ -17836,6 +17987,14 @@
       "fieldName": "Capabilities",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Capabilities",
+      "structName": "github.com/stacktitan/smb/smb.SessionSetup2Req",
+      "structNameShort": "com/stacktitan/smb/smb.SessionSetup2Req",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -18553,14 +18712,6 @@
     },
     {
       "isMethod": true,
-      "fieldName": "AppendCertsFromPEM",
-      "structName": "crypto/x509.CertPool",
-      "structNameShort": "CertPool",
-      "methodsCompletion": "AppendCertsFromPEM(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "Append",
       "structName": "math/big.Int",
       "structNameShort": "Int",
@@ -18718,14 +18869,6 @@
       "structNameShort": "yakHttpRequest",
       "methodsCompletion": "AddCookie(${1:v2 /*type: *http.Cookie*/})",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "AddCert",
-      "structName": "crypto/x509.CertPool",
-      "structNameShort": "CertPool",
-      "methodsCompletion": "AddCert(${1:v2 /*type: *x509.Certificate*/})",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
