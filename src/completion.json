@@ -23,6 +23,7 @@
     "json",
     "judge",
     "jwt",
+    "ldap",
     "log",
     "mitm",
     "mmdb",
@@ -49,9 +50,26 @@
     "x",
     "xpath",
     "yakit",
-    "yso"
+    "yso",
+    "zip"
   ],
   "libCompletions": [
+    {
+      "libName": "zip",
+      "prefix": "zip.",
+      "functions": [
+        {
+          "functionName": "Decompress(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func zip.Decompress(v1: string, v2: string) return (r0: error)"
+        },
+        {
+          "functionName": "Compress(${1:v1/*type: string*/}, ${2:v2/*type ...string*/})",
+          "document": "",
+          "definitionStr": "func zip.Compress(v1: string, v2 ...string) return (r0: error)"
+        }
+      ]
+    },
     {
       "libName": "yso",
       "prefix": "yso.",
@@ -366,6 +384,11 @@
           "functionName": "Info(${1:fmt/*type: string*/}, ${2:items/*type ...any*/})",
           "document": "在 Yakit UI 中输出 Info 级别的信息",
           "definitionStr": "`func yakit.Info(fmt: string, items ...any)`"
+        },
+        {
+          "functionName": "GetHomeTempDir()",
+          "document": "",
+          "definitionStr": "func yakit.GetHomeTempDir() return (r0: string)"
         },
         {
           "functionName": "GetHomeDir()",
@@ -952,6 +975,11 @@
           "definitionStr": "func synscan.wait(v1: float64) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
         },
         {
+          "functionName": "rateLimit(${1:v1/*type: int*/}, ${2:v2/*type: int*/})",
+          "document": "",
+          "definitionStr": "func synscan.rateLimit(v1: int, v2: int) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+        },
+        {
           "functionName": "outputPrefix(${1:prefix/*type: string*/})",
           "document": "【参数】输出的文件每一行的前缀（用于增加 `https://` 这样的协议名等）",
           "definitionStr": "func synscan.outputPrefix(prefix: string) return (r0: opt)"
@@ -1200,9 +1228,9 @@
           "definitionStr": "func str.StringSliceContainsAll(slice: []string, subStrs ...string) return (r0: bool)"
         },
         {
-          "functionName": "StringSliceContains(${1:slice/*type: []string*/}, ${2:sub/*type: string*/})",
-          "document": "判断一个 Slice 中是否包含一个子字符串？",
-          "definitionStr": "func str.StringSliceContains(slice: []string, sub: string) return (r0: bool)"
+          "functionName": "StringSliceContains(${1:v1/*type: any*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func str.StringSliceContains(v1: any, v2: string) return (r0: bool)"
         },
         {
           "functionName": "StringContainsAnyOfSubString(${1:all/*type: string*/}, ${2:subStrs/*type: []string*/})",
@@ -1440,9 +1468,9 @@
           "definitionStr": "func str.JsonStreamToMapList(v1: io.Reader) return (r0: []map[string]any)"
         },
         {
-          "functionName": "Join(${1:strSlice/*type: []string*/}, ${2:seperator/*type: string*/})",
-          "document": "Join 一个字符串，把 slice 中拼成字符串，使用 seperator 作为分隔符",
-          "definitionStr": "func str.Join(strSlice: []string, seperator: string) return (r0: string)"
+          "functionName": "Join(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func str.Join(v1: any, v2: any) return (r0: string)"
         },
         {
           "functionName": "IsXmlValue(${1:v1/*type: any*/})",
@@ -1900,58 +1928,58 @@
       "functions": [
         {
           "functionName": "typeVerbose(${1:v1/*type: string*/})",
-          "document": "【参数】：漏洞类型别名",
-          "definitionStr": "func risk.typeVerbose(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.typeVerbose(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "type(${1:v1/*type: string*/})",
-          "document": "【参数】：必填，设置漏洞类型",
-          "definitionStr": "func risk.type(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.type(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "token(${1:v1/*type: string*/})",
-          "document": "【参数】：设置 reverse_token",
-          "definitionStr": "func risk.token(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.token(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "titleVerbose(${1:v1/*type: string*/})",
-          "document": "【参数】：展示标题",
-          "definitionStr": "func risk.titleVerbose(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.titleVerbose(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "title(${1:v1/*type: string*/})",
-          "document": "【参数】：设置漏洞标题（必须）",
-          "definitionStr": "func risk.title(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.title(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "severity(${1:v1/*type: string*/})",
-          "document": "设置漏洞级别",
-          "definitionStr": "func risk.severity(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.severity(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "payload(${1:v1/*type: string*/})",
-          "document": "【参数】：设置 Payload",
-          "definitionStr": "func risk.payload(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.payload(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
-          "functionName": "parameter(${1:name/*type: string*/})",
-          "document": "【参数】：设置漏洞/Risk的出问题的参数名",
-          "definitionStr": "func risk.parameter(name: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "functionName": "parameter(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func risk.parameter(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "level(${1:v1/*type: string*/})",
-          "document": "设置漏洞级别",
-          "definitionStr": "func risk.level(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.level(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "fromYakScript(${1:v1/*type: string*/})",
-          "document": "为漏洞设置来源脚本",
-          "definitionStr": "func risk.fromYakScript(v1: string) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.fromYakScript(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "details(${1:v1/*type: any*/})",
-          "document": "【参数】：为漏洞设置参数内容，一般传入一个 map[string]interface{} 即可",
-          "definitionStr": "func risk.details(v1: any) return (r0: func riskParamsOpt(v1: *yakit.Risk) )"
+          "document": "",
+          "definitionStr": "func risk.details(v1: any) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "Save(${1:v1/*type: *yakit.Risk*/})",
@@ -1959,49 +1987,49 @@
           "definitionStr": "func risk.Save(v1: *yakit.Risk) return (r0: error)"
         },
         {
-          "functionName": "NewUnverifiedRisk(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个 Risk 记录（可理解为漏洞），并标记为没有验证的漏洞",
-          "definitionStr": "func risk.NewUnverifiedRisk(v1: string, v2: string, v3 ...yakit.riskParamsOpt) return (r0: *yakit.Risk, r1: error)"
+          "functionName": "NewUnverifiedRisk(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewUnverifiedRisk(v1: string, v2: string, v3 ...yakit.RiskParamsOpt) return (r0: *yakit.Risk, r1: error)"
         },
         {
-          "functionName": "NewRisk(${1:v1/*type: string*/}, ${2:v2/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个 Risk 记录（可理解为漏洞）",
-          "definitionStr": "func risk.NewRisk(v1: string, v2 ...yakit.riskParamsOpt) return (r0: *yakit.Risk, r1: error)"
+          "functionName": "NewRisk(${1:v1/*type: string*/}, ${2:v2/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "`func risk.NewRisk(v1: string, v2 ...yakit.RiskParamsOpt)`"
         },
         {
-          "functionName": "NewRandomPortTrigger(${1:riskOpt/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建个新的随机端口检测记录",
-          "definitionStr": "func risk.NewRandomPortTrigger(riskOpt ...yakit.riskParamsOpt) return (token: string, hostPort: string, err: error)"
+          "functionName": "NewRandomPortTrigger(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewRandomPortTrigger(v1 ...yakit.RiskParamsOpt) return (r0: string, r1: string, r2: error)"
         },
         {
-          "functionName": "NewPublicReverseRMIUrl(${1:v1/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个远程服务器的 RMI URL（仅 yakit 内生效，并且需要配置 yak bridge）",
-          "definitionStr": "func risk.NewPublicReverseRMIUrl(v1 ...yakit.riskParamsOpt) return (r0: string)"
+          "functionName": "NewPublicReverseRMIUrl(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewPublicReverseRMIUrl(v1 ...yakit.RiskParamsOpt) return (r0: string)"
         },
         {
-          "functionName": "NewPublicReverseHTTPUrl(${1:v1/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个远程服务器的 HTTP URL（仅 yakit 内生效，并且需要配置 yak bridge）",
-          "definitionStr": "func risk.NewPublicReverseHTTPUrl(v1 ...yakit.riskParamsOpt) return (r0: string)"
+          "functionName": "NewPublicReverseHTTPUrl(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewPublicReverseHTTPUrl(v1 ...yakit.RiskParamsOpt) return (r0: string)"
         },
         {
-          "functionName": "NewPublicReverseHTTPSUrl(${1:v1/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个远程服务器的 HTTPS URL（仅 yakit 内生效，并且需要配置 yak bridge）",
-          "definitionStr": "func risk.NewPublicReverseHTTPSUrl(v1 ...yakit.riskParamsOpt) return (r0: string)"
+          "functionName": "NewPublicReverseHTTPSUrl(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewPublicReverseHTTPSUrl(v1 ...yakit.RiskParamsOpt) return (r0: string)"
         },
         {
-          "functionName": "NewLocalReverseRMIUrl(${1:v1/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个本地服务器的 RMI URL（仅 yakit 内生效）",
-          "definitionStr": "func risk.NewLocalReverseRMIUrl(v1 ...yakit.riskParamsOpt) return (r0: string)"
+          "functionName": "NewLocalReverseRMIUrl(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewLocalReverseRMIUrl(v1 ...yakit.RiskParamsOpt) return (r0: string)"
         },
         {
-          "functionName": "NewLocalReverseHTTPUrl(${1:v1/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个本地服务器的 HTTP URL（仅 yakit 内生效）",
-          "definitionStr": "func risk.NewLocalReverseHTTPUrl(v1 ...yakit.riskParamsOpt) return (r0: string)"
+          "functionName": "NewLocalReverseHTTPUrl(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewLocalReverseHTTPUrl(v1 ...yakit.RiskParamsOpt) return (r0: string)"
         },
         {
-          "functionName": "NewLocalReverseHTTPSUrl(${1:v1/*type ...yakit.riskParamsOpt*/})",
-          "document": "创建一个本地服务器的 HTTPS(TLS+HTTP)URL（仅 yakit 内生效）",
-          "definitionStr": "func risk.NewLocalReverseHTTPSUrl(v1 ...yakit.riskParamsOpt) return (r0: string)"
+          "functionName": "NewLocalReverseHTTPSUrl(${1:v1/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.NewLocalReverseHTTPSUrl(v1 ...yakit.RiskParamsOpt) return (r0: string)"
         },
         {
           "functionName": "NewDNSLogDomain()",
@@ -2017,6 +2045,11 @@
           "functionName": "ExtractTokenFromUrl(${1:url/*type: string*/})",
           "document": "从 URL 中提取 token",
           "definitionStr": "func risk.ExtractTokenFromUrl(url: string) return (r0: string)"
+        },
+        {
+          "functionName": "CreateRisk(${1:v1/*type: string*/}, ${2:v2/*type ...yakit.RiskParamsOpt*/})",
+          "document": "",
+          "definitionStr": "func risk.CreateRisk(v1: string, v2 ...yakit.RiskParamsOpt) return (r0: *yakit.Risk)"
         },
         {
           "functionName": "CheckRandomTriggerByToken(${1:token/*type: string*/})",
@@ -2311,6 +2344,11 @@
           "functionName": "proxy(${1:v1/*type ...string*/})",
           "document": "为 TCP Ping 增加代理",
           "definitionStr": "func ping.proxy(v1 ...string) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
+        },
+        {
+          "functionName": "onResult(${1:v1/*type: func (v1: *pingutil.PingResult) */})",
+          "document": "",
+          "definitionStr": "func ping.onResult(v1: func (v1: *pingutil.PingResult) ) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
         },
         {
           "functionName": "dnsTimeout(${1:v1/*type: float64*/})",
@@ -2680,6 +2718,16 @@
           "definitionStr": "func nuclei.PullDatabase(gitUrl: string, proxies ...string) return (r0: string, r1: error)"
         },
         {
+          "functionName": "PocVulToRisk(${1:v1/*type: *tools.PocVul*/})",
+          "document": "",
+          "definitionStr": "func nuclei.PocVulToRisk(v1: *tools.PocVul) return (r0: *yakit.Risk)"
+        },
+        {
+          "functionName": "GetPoCDir()",
+          "document": "",
+          "definitionStr": "func nuclei.GetPoCDir() return (r0: string)"
+        },
+        {
           "functionName": "AllPoC(${1:v1/*type ...string*/})",
           "document": "获取当前所有 PoC 对象",
           "definitionStr": "func nuclei.AllPoC(v1 ...string) return (r0: []*tools.templateDesc, r1: error)"
@@ -2785,6 +2833,17 @@
       ]
     },
     {
+      "libName": "ldap",
+      "prefix": "ldap.",
+      "functions": [
+        {
+          "functionName": "Login(${1:v1/*type: string*/}, ${2:v2/*type ...func(*yaklib.ldapClientConfig)*/})",
+          "document": "",
+          "definitionStr": "func ldap.Login(v1: string, v2 ...func(*yaklib.ldapClientConfig)) return (r0: *ldap.Conn, r1: error)"
+        }
+      ]
+    },
+    {
       "libName": "jwt",
       "prefix": "jwt.",
       "functions": [
@@ -2859,6 +2918,16 @@
           "functionName": "Marshal(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "func json.Marshal(v1: any) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "FindPath(${1:v1/*type: any*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func json.FindPath(v1: any, v2: string) return (r0: any)"
+        },
+        {
+          "functionName": "Find(${1:v1/*type: any*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func json.Find(v1: any, v2: string) return (r0: any)"
         }
       ]
     },
@@ -3460,9 +3529,14 @@
       "prefix": "file.",
       "functions": [
         {
-          "functionName": "TempFile(${1:dirName/*type: string*/})",
-          "document": "打开一个临时文件",
-          "definitionStr": "func file.TempFile(dirName: string) return (r0: *yaklib._yakFile, r1: error)"
+          "functionName": "TempFileName()",
+          "document": "",
+          "definitionStr": "func file.TempFileName() return (r0: string, r1: error)"
+        },
+        {
+          "functionName": "TempFile(${1:v1/*type ...string*/})",
+          "document": "",
+          "definitionStr": "func file.TempFile(v1 ...string) return (r0: *yaklib._yakFile, r1: error)"
         },
         {
           "functionName": "Stat(${1:v1/*type: string*/})",
@@ -3495,9 +3569,19 @@
           "definitionStr": "func file.Remove(fileName: string) return (r0: error)"
         },
         {
+          "functionName": "ReadFileInfoInDirectory(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func file.ReadFileInfoInDirectory(v1: string) return (r0: []*utils.FileInfo, r1: error)"
+        },
+        {
           "functionName": "ReadFile(${1:fileName/*type: string*/})",
           "document": "把一个文件内容读出来",
           "definitionStr": "func file.ReadFile(fileName: string) return (fileContent: bytes, r1: error)"
+        },
+        {
+          "functionName": "ReadDirInfoInDirectory(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func file.ReadDirInfoInDirectory(v1: string) return (r0: []*utils.FileInfo, r1: error)"
         },
         {
           "functionName": "ReadAll(${1:ioReader/*type: io.Reader*/})",
@@ -3776,6 +3860,11 @@
           "definitionStr": "func db.SetKey(key: any, value: any) return (r0: error)"
         },
         {
+          "functionName": "SaveYakitMenuItemByBatchExecuteConfig(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func db.SaveYakitMenuItemByBatchExecuteConfig(v1: any) return (r0: error)"
+        },
+        {
           "functionName": "SavePortFromResult(${1:result/*type: any*/})",
           "document": "从某个结果中保存端口",
           "definitionStr": "func db.SavePortFromResult(result: any) return (r0: error)"
@@ -3861,6 +3950,11 @@
           "definitionStr": "func db.QueryDomainsByDomainKeyword(keyword: string) return (r0: chan *yakit.Domain, r1: error)"
         },
         {
+          "functionName": "GetYakitPluginByName(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func db.GetYakitPluginByName(v1: string) return (r0: *yakit.YakScript, r1: error)"
+        },
+        {
           "functionName": "GetKey(${1:key/*type: any*/})",
           "document": "获取持久化 Key",
           "definitionStr": "func db.GetKey(key: any) return (r0: string)"
@@ -3869,6 +3963,11 @@
           "functionName": "DownloadGeoIP()",
           "document": "下载并自动解压 GeoIP",
           "definitionStr": "func db.DownloadGeoIP() return (r0: error)"
+        },
+        {
+          "functionName": "DeleteYakitMenuItemAll()",
+          "document": "",
+          "definitionStr": "func db.DeleteYakitMenuItemAll() return (r0: error)"
         },
         {
           "functionName": "DeletePayloadByGroup(${1:group/*type: string*/})",
@@ -4423,6 +4522,11 @@
           "functionName": "check()",
           "document": "检查当前设置的所有参数，如果有不合理的参数（无法确定值），则停止执行，打印出帮助信息",
           "definitionStr": "`func cli.check()`"
+        },
+        {
+          "functionName": "YakitPlugin()",
+          "document": "",
+          "definitionStr": "func cli.YakitPlugin() return (r0: []string)"
         },
         {
           "functionName": "Urls(${1:v1/*type: string*/}, ${2:v2/*type ...cli.setHelp|cli.setDefault*/})",
@@ -5002,6 +5106,22 @@
     {
       "isMethod": true,
       "fieldName": "Wait",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "Wait()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Wait",
+      "structName": "palm/common/yak.YakToCallerManager",
+      "structNameShort": "YakToCallerManager",
+      "methodsCompletion": "Wait()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Wait",
       "structName": "sync.Cond",
       "structNameShort": "Cond",
       "methodsCompletion": "Wait()",
@@ -5056,11 +5176,27 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "VerifyPeerCertificate",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "VerifyHostname",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
       "methodsCompletion": "VerifyHostname(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "VerifyConnection",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -5092,6 +5228,22 @@
       "fieldName": "VerboseName",
       "structName": "palm/common/yak.CallerHookDescription",
       "structNameShort": "CallerHookDescription",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Verbose",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "Verbose()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Verbose",
+      "structName": "palm/common/yak/yaklang/exec.StackValue",
+      "structNameShort": "StackValue",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -5137,6 +5289,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Vars",
+      "structName": "palm/common/yak/yaklang/exec.Object",
+      "structNameShort": "Object",
+      "methodsCompletion": "Vars()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Variadic",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Var",
       "structName": "palm/common/yak/yaklang.YakEngine",
       "structNameShort": "YakEngine",
@@ -5158,6 +5326,14 @@
       "structNameShort": "Context",
       "methodsCompletion": "Var(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Values",
+      "structName": "github.com/go-ldap/ldap.EntryAttribute",
+      "structNameShort": "com/go-ldap/ldap.EntryAttribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -5232,6 +5408,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "Value",
+      "structName": "palm/common/yak/yaklang/exec.StackValue",
+      "structNameShort": "StackValue",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "Value",
       "structName": "palm/common/yak/yaklib.yakJson",
@@ -5281,6 +5465,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Vals",
+      "structName": "github.com/go-ldap/ldap.Attribute",
+      "structNameShort": "com/go-ldap/ldap.Attribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Vals",
+      "structName": "github.com/go-ldap/ldap.PartialAttribute",
+      "structNameShort": "com/go-ldap/ldap.PartialAttribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Valid",
       "structName": "github.com/dgrijalva/jwt-go.Token",
       "structNameShort": "com/dgrijalva/jwt-go.Token",
@@ -5292,6 +5492,14 @@
       "fieldName": "Val",
       "structName": "golang.org/x/net/html.Attribute",
       "structNameShort": "org/x/net/html.Attribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Username",
+      "structName": "github.com/go-ldap/ldap.SimpleBindRequest",
+      "structNameShort": "com/go-ldap/ldap.SimpleBindRequest",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -5318,6 +5526,14 @@
       "structNameShort": "BruteItemResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "UserIdentity",
+      "structName": "github.com/go-ldap/ldap.PasswordModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.PasswordModifyRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -5514,6 +5730,14 @@
     {
       "isMethod": true,
       "fieldName": "Unlock",
+      "structName": "sync.Mutex",
+      "structNameShort": "Mutex",
+      "methodsCompletion": "Unlock()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Unlock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Unlock()",
@@ -5573,6 +5797,14 @@
       "structName": "net/http.Response",
       "structNameShort": "Response",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnauthenticatedBind",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "UnauthenticatedBind(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5638,6 +5870,14 @@
       "structNameShort": "udpConn",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "TypesOnly",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -5746,6 +5986,22 @@
     {
       "isMethod": false,
       "fieldName": "Type",
+      "structName": "github.com/go-ldap/ldap.Attribute",
+      "structNameShort": "com/go-ldap/ldap.Attribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Type",
+      "structName": "github.com/go-ldap/ldap.PartialAttribute",
+      "structNameShort": "com/go-ldap/ldap.PartialAttribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Type",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "",
@@ -5780,6 +6036,14 @@
       "fieldName": "Type",
       "structName": "palm/common/yak/yaklib.YakitGraph",
       "structNameShort": "YakitGraph",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Type",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -6089,6 +6353,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ToIFunc",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "ToIFunc()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "ToGRPCModelFull",
       "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
       "structNameShort": "HTTPFlow",
@@ -6121,6 +6393,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ToGRPCModel",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "ToGRPCModel()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "ToFloat",
       "structName": "github.com/robertkrimen/otto.Value",
       "structNameShort": "com/robertkrimen/otto.Value",
@@ -6140,6 +6420,14 @@
       "fieldName": "TitleVerbose",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "TitleName",
+      "structName": "palm/common/yak/yaklib/tools.PocVul",
+      "structNameShort": "PocVul",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -6217,6 +6505,30 @@
     },
     {
       "isMethod": false,
+      "fieldName": "TimeLimit",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Time",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Tidy",
+      "structName": "palm/common/fp.MatchResult",
+      "structNameShort": "MatchResult",
+      "methodsCompletion": "Tidy()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "ThisUpdate",
       "structName": "crypto/x509/pkix.TBSCertificateList",
       "structNameShort": "TBSCertificateList",
@@ -6290,6 +6602,14 @@
     {
       "isMethod": false,
       "fieldName": "Tags",
+      "structName": "palm/common/yak/yaklib/tools.PocVul",
+      "structNameShort": "PocVul",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Tags",
       "structName": "palm/common/yakgrpc/yakit.Domain",
       "structNameShort": "Domain",
       "methodsCompletion": "",
@@ -6300,6 +6620,14 @@
       "fieldName": "Tags",
       "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
       "structNameShort": "HTTPFlow",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Tags",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -6333,6 +6661,14 @@
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TLSConnectionState",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "TLSConnectionState()",
       "isGolangBuildOrigin": true
     },
     {
@@ -6414,6 +6750,14 @@
       "structNameShort": "targetProcessing",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SupportedSignatureAlgorithms",
+      "structName": "crypto/tls.Certificate",
+      "structNameShort": "Certificate",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -6628,6 +6972,14 @@
       "fieldName": "String",
       "structName": "palm/common/fp/webfingerprint.CPE",
       "structNameShort": "CPE",
+      "methodsCompletion": "String()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "String",
+      "structName": "palm/common/synscan.SynScanResult",
+      "structNameShort": "SynScanResult",
       "methodsCompletion": "String()",
       "isGolangBuildOrigin": false
     },
@@ -6865,6 +7217,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "StartTLS",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "StartTLS(${1:v2 /*type: *tls.Config*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Start",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Start()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Start",
       "structName": "os/exec.Cmd",
       "structNameShort": "Cmd",
@@ -6937,6 +7305,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "SizeLimit",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "SizeCachedHistoryConnectionCount",
       "structName": "palm/common/cybertunnel/tpb.ICMPTriggerNotification",
       "structNameShort": "ICMPTriggerNotification",
@@ -7001,6 +7377,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SimpleBind",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "SimpleBind(${1:v2 /*type: *ldap.SimpleBindRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "SigningString",
       "structName": "github.com/dgrijalva/jwt-go.Token",
       "structNameShort": "com/dgrijalva/jwt-go.Token",
@@ -7013,6 +7397,14 @@
       "structName": "github.com/dgrijalva/jwt-go.Token",
       "structNameShort": "com/dgrijalva/jwt-go.Token",
       "methodsCompletion": "SignedString(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SignedCertificateTimestamps",
+      "structName": "crypto/tls.Certificate",
+      "structNameShort": "Certificate",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -7257,6 +7649,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetVar",
+      "structName": "palm/common/yak/yaklang/exec.Object",
+      "structNameShort": "Object",
+      "methodsCompletion": "SetVar(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetUint64",
       "structName": "math/big.Int",
       "structNameShort": "Int",
@@ -7269,6 +7669,14 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "SetUint(${1:v2 /*type: uint64*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetTimeout",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "SetTimeout(${1:v2 /*type: time.Duration*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -7333,6 +7741,14 @@
       "structName": "github.com/robertkrimen/otto.Otto",
       "structNameShort": "com/robertkrimen/otto.Otto",
       "methodsCompletion": "SetStackDepthLimit(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetSessionTicketKeys",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "SetSessionTicketKeys(${1:v2 /*type: [][32]byte*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -7577,6 +7993,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetDividedContext",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "SetDividedContext(${1:v2 /*type: bool*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetDividedContext",
+      "structName": "palm/common/yak.YakToCallerManager",
+      "structNameShort": "YakToCallerManager",
+      "methodsCompletion": "SetDividedContext(${1:v2 /*type: bool*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetDetails",
       "structName": "palm/common/yserx.JavaClassDesc",
       "structNameShort": "JavaClassDesc",
@@ -7645,6 +8077,22 @@
       "structName": "palm/common/yak/yaklib.udpConn",
       "structNameShort": "udpConn",
       "methodsCompletion": "SetDeadline(${1:v2 /*type: time.Time*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetConcurrent",
+      "structName": "palm/common/yak.MixPluginCaller",
+      "structNameShort": "MixPluginCaller",
+      "methodsCompletion": "SetConcurrent(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetConcurrent",
+      "structName": "palm/common/yak.YakToCallerManager",
+      "structNameShort": "YakToCallerManager",
+      "methodsCompletion": "SetConcurrent(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -7793,6 +8241,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "SessionTicketsDisabled",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "SessionTicketKey",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "SessionID",
       "structName": "github.com/stacktitan/smb/smb.Header",
       "structNameShort": "com/stacktitan/smb/smb.Header",
@@ -7822,6 +8286,14 @@
       "structNameShort": "FingerprintInfo",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ServerName",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -7992,6 +8464,38 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "SearchWithPaging",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "SearchWithPaging(${1:v2 /*type: *ldap.SearchRequest*/}, ${2:v3 /*type: uint32*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Search",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Search(${1:v2 /*type: *ldap.SearchRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ScriptName",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Scope",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Scheme",
       "structName": "net/url.URL",
@@ -8140,6 +8644,14 @@
       "fieldName": "Roots",
       "structName": "crypto/x509.VerifyOptions",
       "structNameShort": "VerifyOptions",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "RootCAs",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -8601,6 +9113,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Replace",
+      "structName": "github.com/go-ldap/ldap.ModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyRequest",
+      "methodsCompletion": "Replace(${1:v2 /*type: string*/}, ${2:v3 /*type: []string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Repeat",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
@@ -8614,6 +9134,14 @@
       "structNameShort": "FuzzHTTPRequestBatch",
       "methodsCompletion": "Repeat(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Renegotiation",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -8790,6 +9318,22 @@
       "structNameShort": "City",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Referrals",
+      "structName": "github.com/go-ldap/ldap.SearchResult",
+      "structNameShort": "com/go-ldap/ldap.SearchResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Referral",
+      "structName": "github.com/go-ldap/ldap.PasswordModifyResult",
+      "structNameShort": "com/go-ldap/ldap.PasswordModifyResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -9376,6 +9920,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Rand",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Rand",
       "structName": "math/big.Int",
@@ -9457,6 +10009,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "PushRetWithVerbose",
+      "structName": "palm/common/yak/yaklang/exec.Stack",
+      "structNameShort": "Stack",
+      "methodsCompletion": "PushRetWithVerbose(${1:v2 /*type: []reflect.Value*/}, ${2:v3 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "PushRet",
       "structName": "palm/common/yak/yaklang/exec.Stack",
       "structNameShort": "Stack",
@@ -9468,7 +10028,7 @@
       "fieldName": "Push",
       "structName": "palm/common/yak/yaklang/exec.Stack",
       "structNameShort": "Stack",
-      "methodsCompletion": "Push(${1:v2 /*type: any*/})",
+      "methodsCompletion": "Push(${1:v2 /*type: any*/}, ${2:v3 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -9777,6 +10337,38 @@
     },
     {
       "isMethod": false,
+      "fieldName": "PrivateKey",
+      "structName": "crypto/tls.Certificate",
+      "structNameShort": "Certificate",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Print",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "Print()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Print",
+      "structName": "github.com/go-ldap/ldap.EntryAttribute",
+      "structNameShort": "com/go-ldap/ldap.EntryAttribute",
+      "methodsCompletion": "Print()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Print",
+      "structName": "github.com/go-ldap/ldap.SearchResult",
+      "structNameShort": "com/go-ldap/ldap.SearchResult",
+      "methodsCompletion": "Print()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "PreviousSessionID",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
@@ -9793,11 +10385,43 @@
     },
     {
       "isMethod": true,
+      "fieldName": "PrettyPrint",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "PrettyPrint(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "PrettyPrint",
+      "structName": "github.com/go-ldap/ldap.EntryAttribute",
+      "structNameShort": "com/go-ldap/ldap.EntryAttribute",
+      "methodsCompletion": "PrettyPrint(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "PrettyPrint",
+      "structName": "github.com/go-ldap/ldap.SearchResult",
+      "structNameShort": "com/go-ldap/ldap.SearchResult",
+      "methodsCompletion": "PrettyPrint(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Prefix",
       "structName": "palm/common/utils/htmlquery.NodeNavigator",
       "structNameShort": "NodeNavigator",
       "methodsCompletion": "Prefix()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "PreferServerCipherSuites",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -9953,6 +10577,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "PopArgsWithStackValue",
+      "structName": "palm/common/yak/yaklang/exec.Stack",
+      "structNameShort": "Stack",
+      "methodsCompletion": "PopArgsWithStackValue(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "PopArgs",
       "structName": "palm/common/yak/yaklang/exec.Stack",
       "structNameShort": "Stack",
@@ -9988,6 +10620,14 @@
       "fieldName": "PocName",
       "structName": "palm/common/yak/yaklib/tools.PocVul",
       "structNameShort": "PocVul",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "PluginSelectorTypes",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -10105,6 +10745,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "PasswordModify",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "PasswordModify(${1:v2 /*type: *ldap.PasswordModifyRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Password",
+      "structName": "github.com/go-ldap/ldap.SimpleBindRequest",
+      "structNameShort": "com/go-ldap/ldap.SimpleBindRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Password",
       "structName": "net/url.Userinfo",
       "structNameShort": "Userinfo",
@@ -10200,11 +10856,27 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Parent",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "ParamsHash",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
       "methodsCompletion": "ParamsHash()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Params",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
     {
@@ -10352,6 +11024,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "Operation",
+      "structName": "github.com/go-ldap/ldap.Change",
+      "structNameShort": "com/go-ldap/ldap.Change",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Open",
       "structName": "mime/multipart.FileHeader",
@@ -10390,6 +11070,14 @@
       "structNameShort": "FacadeServer",
       "methodsCompletion": "OnHandle(${1:v2 /*type: func (v1: *facades.Notification) */})",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OldPassword",
+      "structName": "github.com/go-ldap/ldap.PasswordModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.PasswordModifyRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -10452,6 +11140,14 @@
       "fieldName": "OID",
       "structName": "github.com/stacktitan/smb/gss.NegTokenInit",
       "structNameShort": "com/stacktitan/smb/gss.NegTokenInit",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OCSPStaple",
+      "structName": "crypto/tls.Certificate",
+      "structNameShort": "Certificate",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -10576,6 +11272,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "NextProtos",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "NextPart",
       "structName": "mime/multipart.Reader",
@@ -10624,6 +11328,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "NewSuperior",
+      "structName": "github.com/go-ldap/ldap.ModifyDNRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyDNRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "NewSessionSetup2Req",
       "structName": "github.com/stacktitan/smb/smb.Session",
@@ -10640,12 +11352,44 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "NewRDN",
+      "structName": "github.com/go-ldap/ldap.ModifyDNRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyDNRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "NewPassword",
+      "structName": "github.com/go-ldap/ldap.PasswordModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.PasswordModifyRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "NewNegotiateReq",
       "structName": "github.com/stacktitan/smb/smb.Session",
       "structNameShort": "com/stacktitan/smb/smb.Session",
       "methodsCompletion": "NewNegotiateReq()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "NewInstance",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "NewInstance(${1:v2 /*type: *exec.Stack*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "New",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "New(${1:v2 /*type: *exec.Stack*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -10761,9 +11505,25 @@
     },
     {
       "isMethod": false,
+      "fieldName": "NameToCertificate",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Name",
       "structName": "github.com/dlclark/regexp2.Group",
       "structNameShort": "com/dlclark/regexp2.Group",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Name",
+      "structName": "github.com/go-ldap/ldap.EntryAttribute",
+      "structNameShort": "com/go-ldap/ldap.EntryAttribute",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -10936,6 +11696,30 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "ModifyDN",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "ModifyDN(${1:v2 /*type: *ldap.ModifyDNRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Modify",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Modify(${1:v2 /*type: *ldap.ModifyRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Modification",
+      "structName": "github.com/go-ldap/ldap.Change",
+      "structNameShort": "com/go-ldap/ldap.Change",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "Model",
       "structName": "palm/common/yakgrpc/yakit.Domain",
@@ -10980,6 +11764,14 @@
       "fieldName": "Model",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Model",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -11029,6 +11821,14 @@
       "structName": "time.Time",
       "structNameShort": "Time",
       "methodsCompletion": "Minute()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "MinVersion",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -11088,6 +11888,22 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Merge",
+      "structName": "palm/common/fp.MatchResult",
+      "structNameShort": "MatchResult",
+      "methodsCompletion": "Merge(${1:v2 /*type: *fp.MatchResult*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Member",
+      "structName": "palm/common/yak/yaklang/exec.Object",
+      "structNameShort": "Object",
+      "methodsCompletion": "Member(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "MechTypes",
       "structName": "github.com/stacktitan/smb/gss.NegTokenInitData",
@@ -11108,6 +11924,14 @@
       "fieldName": "MechToken",
       "structName": "github.com/stacktitan/smb/gss.NegTokenInitData",
       "structNameShort": "com/stacktitan/smb/gss.NegTokenInitData",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "MaxVersion",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -11498,6 +12322,14 @@
     {
       "isMethod": true,
       "fieldName": "Lock",
+      "structName": "sync.Mutex",
+      "structNameShort": "Mutex",
+      "methodsCompletion": "Lock()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Lock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Lock()",
@@ -11564,6 +12396,14 @@
       "fieldName": "LocalPath",
       "structName": "palm/common/yak/yaklib/tools.templateDesc",
       "structNameShort": "templateDesc",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "LocalPath",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -11737,6 +12577,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Level",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Length",
       "structName": "github.com/dlclark/regexp2.Capture",
       "structNameShort": "com/dlclark/regexp2.Capture",
@@ -11765,6 +12613,14 @@
       "structName": "strings.Reader",
       "structNameShort": "Reader",
       "methodsCompletion": "Len()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Leaf",
+      "structName": "crypto/tls.Certificate",
+      "structNameShort": "Certificate",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -11868,6 +12724,14 @@
       "fieldName": "KeyUsage",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "KeyLogWriter",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -12217,6 +13081,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "IsHistory",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "IsHTTPS",
       "structName": "palm/common/fp.HTTPFlow",
       "structNameShort": "HTTPFlow",
@@ -12240,12 +13112,28 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "IsGeneralModule",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "IsFunction",
       "structName": "github.com/robertkrimen/otto.Value",
       "structNameShort": "com/robertkrimen/otto.Value",
       "methodsCompletion": "IsFunction()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "IsExternal",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -12304,6 +13192,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "IsClosing",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "IsClosing()",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "IsCA",
       "structName": "crypto/x509.Certificate",
@@ -12341,6 +13237,14 @@
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
       "methodsCompletion": "IsBodyFormEncoded()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "IsBatchScript",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
     {
@@ -12480,6 +13384,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "InsecureSkipVerify",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "InjectMethods",
       "structName": "palm/common/yak/yaklang.YakEngine",
@@ -12534,6 +13446,14 @@
       "structNameShort": "Time",
       "methodsCompletion": "In(${1:v2 /*type: *time.Location*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Ignored",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -12905,6 +13825,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Help",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Header",
       "structName": "github.com/dgrijalva/jwt-go.Token",
       "structNameShort": "com/dgrijalva/jwt-go.Token",
@@ -12980,6 +13908,14 @@
       "fieldName": "Hash",
       "structName": "palm/common/subdomain.SubdomainResult",
       "structNameShort": "SubdomainResult",
+      "methodsCompletion": "Hash()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Hash",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
       "methodsCompletion": "Hash()",
       "isGolangBuildOrigin": false
     },
@@ -13166,6 +14102,14 @@
       "structNameShort": "Int",
       "methodsCompletion": "GobDecode(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GoType",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "GoType()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -13417,6 +14361,22 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetRawAttributeValues",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "GetRawAttributeValues(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetRawAttributeValue",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "GetRawAttributeValue(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetRaw",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
@@ -13664,6 +14624,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "GetConfigForClient",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "GetCommonParams",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
@@ -13672,12 +14640,28 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "GetClientCertificate",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "GetClearAll",
       "structName": "palm/common/yakgrpc/ypb.RemoveHookParams",
       "structNameShort": "RemoveHookParams",
       "methodsCompletion": "GetClearAll()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "GetCertificate",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -13702,6 +14686,22 @@
       "structNameShort": "MatchResult",
       "methodsCompletion": "GetBanner()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetAttributeValues",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "GetAttributeValues(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetAttributeValue",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "GetAttributeValue(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -13766,6 +14766,30 @@
       "structNameShort": "Pool",
       "methodsCompletion": "Get()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "GeneratedPassword",
+      "structName": "github.com/go-ldap/ldap.PasswordModifyResult",
+      "structNameShort": "com/go-ldap/ldap.PasswordModifyResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "GeneralModuleVerbose",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "GeneralModuleKey",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -14001,6 +15025,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "FuncName",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "FullBytes",
       "structName": "encoding/asn1.RawValue",
       "structNameShort": "RawValue",
@@ -14024,6 +15056,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "FromStore",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "FromRegexp2Match",
       "structName": "palm/common/fp.FingerprintInfo",
@@ -14036,6 +15076,22 @@
       "fieldName": "FromModeRaw",
       "structName": "palm/common/subdomain.SubdomainResult",
       "structNameShort": "SubdomainResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "FromLocal",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "FromGit",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -14190,6 +15246,14 @@
       "structNameShort": "URL",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Fns",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -14437,6 +15501,14 @@
       "structName": "regexp.Regexp",
       "structNameShort": "Regexp",
       "methodsCompletion": "Find(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Filter",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -14769,6 +15841,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ExtCall",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "ExtCall(${1:v2 /*type: *exec.Context*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Exports",
       "structName": "palm/common/yak/yaklang.YakEngine",
       "structNameShort": "YakEngine",
@@ -14946,6 +16026,14 @@
     {
       "isMethod": true,
       "fieldName": "Exec",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "Exec(${1:v2 /*type: *exec.Stack*/}, ${2:v3 /*type: *exec.Context*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Exec",
       "structName": "palm/common/yak/yaklang/exec.Code",
       "structNameShort": "Code",
       "methodsCompletion": "Exec(${1:v2 /*type: int*/}, ${2:v3 /*type: int*/}, ${3:v4 /*type: *exec.Stack*/}, ${4:v5 /*type: *exec.Context*/})",
@@ -15081,9 +16169,25 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Entries",
+      "structName": "github.com/go-ldap/ldap.SearchResult",
+      "structNameShort": "com/go-ldap/ldap.SearchResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Engine",
       "structName": "palm/common/yak.yakVariable",
       "structNameShort": "yakVariable",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "EnablePluginSelector",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -15126,6 +16230,14 @@
       "structNameShort": "CPE",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "DynamicRecordSizingDisabled",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -15314,6 +16426,14 @@
     {
       "isMethod": false,
       "fieldName": "Details",
+      "structName": "palm/common/yak/yaklib/tools.PocVul",
+      "structNameShort": "PocVul",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Details",
       "structName": "palm/common/yakgrpc/yakit.Risk",
       "structNameShort": "Risk",
       "methodsCompletion": "",
@@ -15400,6 +16520,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "DerefAliases",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Delta",
       "structName": "palm/common/yak/yaklang/exec.ReservedInstr",
@@ -15424,6 +16552,22 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "DeleteOldRDN",
+      "structName": "github.com/go-ldap/ldap.ModifyDNRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyDNRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Delete",
+      "structName": "github.com/go-ldap/ldap.ModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyRequest",
+      "methodsCompletion": "Delete(${1:v2 /*type: string*/}, ${2:v3 /*type: []string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Delete",
       "structName": "sync.Map",
@@ -15433,10 +16577,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Del",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Del(${1:v2 /*type: *ldap.DelRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Decode",
       "structName": "github.com/oschwald/maxminddb-golang.Reader",
       "structNameShort": "com/oschwald/maxminddb-golang.Reader",
       "methodsCompletion": "Decode(${1:v2 /*type: uintptr*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Debug",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -15544,12 +16704,60 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "DN",
+      "structName": "github.com/go-ldap/ldap.AddRequest",
+      "structNameShort": "com/go-ldap/ldap.AddRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "DN",
+      "structName": "github.com/go-ldap/ldap.DelRequest",
+      "structNameShort": "com/go-ldap/ldap.DelRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "DN",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "DN",
+      "structName": "github.com/go-ldap/ldap.ModifyDNRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyDNRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "DN",
+      "structName": "github.com/go-ldap/ldap.ModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Cyan",
       "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
       "structNameShort": "HTTPFlow",
       "methodsCompletion": "Cyan()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "CurvePreferences",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -15589,6 +16797,14 @@
       "structName": "palm/common/utils/htmlquery.NodeNavigator",
       "structNameShort": "NodeNavigator",
       "methodsCompletion": "Current()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Ctx",
+      "structName": "palm/common/yak/yaklang/exec.Class",
+      "structNameShort": "Class",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
     {
@@ -15777,6 +16993,62 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.AddRequest",
+      "structNameShort": "com/go-ldap/ldap.AddRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.DelRequest",
+      "structNameShort": "com/go-ldap/ldap.DelRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.ModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.SearchResult",
+      "structNameShort": "com/go-ldap/ldap.SearchResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.SimpleBindRequest",
+      "structNameShort": "com/go-ldap/ldap.SimpleBindRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Controls",
+      "structName": "github.com/go-ldap/ldap.SimpleBindResult",
+      "structNameShort": "com/go-ldap/ldap.SimpleBindResult",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Continent",
       "structName": "palm/common/geo.City",
       "structNameShort": "City",
@@ -15896,6 +17168,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Content",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "Contains",
       "structName": "net.IPNet",
@@ -15949,6 +17229,14 @@
       "structName": "github.com/robertkrimen/otto.Otto",
       "structNameShort": "com/robertkrimen/otto.Otto",
       "methodsCompletion": "Compile(${1:v2 /*type: string*/}, ${2:v3 /*type: any*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Compare",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Compare(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: string*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -16016,6 +17304,22 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Cls",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Cls",
+      "structName": "palm/common/yak/yaklang/exec.Object",
+      "structNameShort": "Object",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "CloseWithError",
       "structName": "io.PipeReader",
@@ -16029,6 +17333,14 @@
       "structName": "io.PipeWriter",
       "structNameShort": "PipeWriter",
       "methodsCompletion": "CloseWithError(${1:v2 /*type: error*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Close",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Close()",
       "isGolangBuildOrigin": true
     },
     {
@@ -16154,10 +17466,66 @@
     {
       "isMethod": true,
       "fieldName": "Clone",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "Clone()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
       "structName": "net/http.Request",
       "structNameShort": "Request",
       "methodsCompletion": "Clone(${1:v2 /*type: context.Context*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
+      "structName": "palm/common/yak/yaklang.YakEngine",
+      "structNameShort": "YakEngine",
+      "methodsCompletion": "Clone(${1:v2 /*type: map[string]*exec.Function*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
+      "structName": "palm/common/yak/yaklang.YakEngine",
+      "structNameShort": "YakEngine",
+      "methodsCompletion": "Clone(${1:v2 /*type: map[string]*exec.Function*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
+      "structName": "palm/common/yak/yaklang/exec.Code",
+      "structNameShort": "Code",
+      "methodsCompletion": "Clone()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
+      "structName": "palm/common/yak/yaklang/exec.Context",
+      "structNameShort": "Context",
+      "methodsCompletion": "Clone(${1:v2 /*type: map[string]*exec.Function*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "Clone(${1:v2 /*type: map[string]*exec.Function*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Clone",
+      "structName": "palm/common/yak/yaklang/exec.Stack",
+      "structNameShort": "Stack",
+      "methodsCompletion": "Clone()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -16193,9 +17561,33 @@
     },
     {
       "isMethod": false,
+      "fieldName": "ClientSessionCache",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "ClientGuid",
       "structName": "github.com/stacktitan/smb/smb.NegotiateReq",
       "structNameShort": "com/stacktitan/smb/smb.NegotiateReq",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ClientCAs",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "ClientAuth",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -16305,6 +17697,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "CipherSuites",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "CipherSuite",
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
@@ -16380,6 +17780,30 @@
       "fieldName": "Channel",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Changes",
+      "structName": "github.com/go-ldap/ldap.ModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Certificates",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Certificate",
+      "structName": "crypto/tls.Certificate",
+      "structNameShort": "Certificate",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -16473,6 +17897,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "CallWithMirrorStack",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "CallWithMirrorStack(${1:v2 /*type: *exec.Stack*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "CallSlice",
       "structName": "reflect.Value",
       "structNameShort": "Value",
@@ -16558,6 +17990,14 @@
       "structNameShort": "com/robertkrimen/otto.Value",
       "methodsCompletion": "Call(${1:v2 /*type: otto.Value*/}, ${2:v3 /*type: ...any*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Call",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "Call(${1:v2 /*type: *exec.Stack*/}, ${2:v3 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -16713,6 +18153,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "ByteValues",
+      "structName": "github.com/go-ldap/ldap.EntryAttribute",
+      "structNameShort": "com/go-ldap/ldap.EntryAttribute",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "BuildNameToCertificate",
+      "structName": "crypto/tls.Config",
+      "structNameShort": "Config",
+      "methodsCompletion": "BuildNameToCertificate()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "BuildIn",
       "structName": "palm/common/utils.FileInfo",
       "structNameShort": "FileInfo",
@@ -16832,6 +18288,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Bind",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Bind(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": false,
       "fieldName": "BinaryFormatMinorVersion",
       "structName": "github.com/oschwald/maxminddb-golang.Metadata",
@@ -16889,6 +18353,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "BeforeSave",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "BeforeSave()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "Before",
       "structName": "time.Time",
       "structNameShort": "Time",
@@ -16937,6 +18409,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "BaseDN",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Banner",
       "structName": "palm/common/fp.FingerprintInfo",
       "structNameShort": "FingerprintInfo",
@@ -16977,6 +18457,46 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Author",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Attributes",
+      "structName": "github.com/go-ldap/ldap.AddRequest",
+      "structNameShort": "com/go-ldap/ldap.AddRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Attributes",
+      "structName": "github.com/go-ldap/ldap.Entry",
+      "structNameShort": "com/go-ldap/ldap.Entry",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Attributes",
+      "structName": "github.com/go-ldap/ldap.SearchRequest",
+      "structNameShort": "com/go-ldap/ldap.SearchRequest",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Attribute",
+      "structName": "github.com/go-ldap/ldap.AddRequest",
+      "structNameShort": "com/go-ldap/ldap.AddRequest",
+      "methodsCompletion": "Attribute(${1:v2 /*type: string*/}, ${2:v3 /*type: []string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
       "fieldName": "Attr",
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
@@ -17006,6 +18526,14 @@
       "structNameShort": "Cmd",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Args",
+      "structName": "palm/common/yak/yaklang/exec.Function",
+      "structNameShort": "Function",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -17069,6 +18597,14 @@
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "And(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "AllowEmptyPassword",
+      "structName": "github.com/go-ldap/ldap.SimpleBindRequest",
+      "structNameShort": "com/go-ldap/ldap.SimpleBindRequest",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
     {
@@ -17137,6 +18673,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "AddGoNative",
+      "structName": "palm/common/yak.YakToCallerManager",
+      "structNameShort": "YakToCallerManager",
+      "methodsCompletion": "AddGoNative(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/}, ${3:v4 /*type: func (v1 ...any) */})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "AddForYakit",
       "structName": "palm/common/yak.YakToCallerManager",
       "structNameShort": "YakToCallerManager",
@@ -17181,6 +18725,22 @@
       "structName": "crypto/x509.CertPool",
       "structNameShort": "CertPool",
       "methodsCompletion": "AddCert(${1:v2 /*type: *x509.Certificate*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Add",
+      "structName": "github.com/go-ldap/ldap.Conn",
+      "structNameShort": "com/go-ldap/ldap.Conn",
+      "methodsCompletion": "Add(${1:v2 /*type: *ldap.AddRequest*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Add",
+      "structName": "github.com/go-ldap/ldap.ModifyRequest",
+      "structNameShort": "com/go-ldap/ldap.ModifyRequest",
+      "methodsCompletion": "Add(${1:v2 /*type: string*/}, ${2:v3 /*type: []string*/})",
       "isGolangBuildOrigin": true
     },
     {
