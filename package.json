@@ -3,7 +3,7 @@
     "displayName": "yaklang",
     "publisher": "v1ll4n",
     "description": "Yaklang Utils for VSCode",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "engines": {
         "vscode": "^1.56.0"
     },
