@@ -1,5 +1,6 @@
 {
   "libNames": [
+    "__global__",
     "brute",
     "cli",
     "codec",
@@ -77,6 +78,31 @@
       "prefix": "yso.",
       "functions": [
         {
+          "functionName": "SetjavaFactory(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.SetjavaFactory(v1: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
+          "functionName": "SetObjectClass(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.SetObjectClass(v1: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
+          "functionName": "SetJavaCodeBase(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.SetJavaCodeBase(v1: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
+          "functionName": "SetJavaClassName(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.SetJavaClassName(v1: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
+          "functionName": "SetHttpResource(${1:v1/*type: string*/}, ${2:v2/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func yso.SetHttpResource(v1: string, v2: bytes) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
           "functionName": "NewLdapServerWithPort(${1:v1/*type: int*/}, ${2:v2/*type: int*/})",
           "document": "新增 LDAP 服务器，并设置端口",
           "definitionStr": "func yso.NewLdapServerWithPort(v1: int, v2: int) return (r0: ldapserver.LdapServer)"
@@ -87,9 +113,9 @@
           "definitionStr": "func yso.NewLdapServer() return (r0: *ldapserver.LdapServer)"
         },
         {
-          "functionName": "NewFacadeServer(${1:v1/*type: string*/}, ${2:v2/*type: int*/})",
-          "document": "新增 Facade 反连服务器",
-          "definitionStr": "func yso.NewFacadeServer(v1: string, v2: int) return (r0: *facades.FacadeServer)"
+          "functionName": "NewFacadeServer(${1:v1/*type: string*/}, ${2:v2/*type: int*/}, ${3:v3/*type ...facades.FacadeServerConfig*/})",
+          "document": "",
+          "definitionStr": "func yso.NewFacadeServer(v1: string, v2: int, v3 ...facades.FacadeServerConfig) return (r0: *facades.FacadeServer)"
         },
         {
           "functionName": "GetTomcatEcho(${1:v1/*type: string*/})",
@@ -185,6 +211,11 @@
           "functionName": "GetClojure(${1:v1/*type: string*/})",
           "document": "",
           "definitionStr": "func yso.GetClojure(v1: string) return (r0: yserx.JavaSerializable, r1: error)"
+        },
+        {
+          "functionName": "GenExecClass(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.GenExecClass(v1: string, v2: string) return (r0: bytes)"
         }
       ]
     },
@@ -510,14 +541,9 @@
           "definitionStr": "func xhtml.RandomUpperAndLower(v1: string) return (r0: string)"
         },
         {
-          "functionName": "NewXssFuzz(${1:v1/*type: any*/})",
+          "functionName": "MatchBetween(${1:v1/*type: any*/}, ${2:v2/*type: string*/}, ${3:v3/*type: string*/}, ${4:v4/*type: int*/})",
           "document": "",
-          "definitionStr": "func xhtml.NewXssFuzz(v1: any) return (r0: *xhtml.XssFuzz)"
-        },
-        {
-          "functionName": "MatchBetween(${1:raw/*type: string*/}, ${2:start/*type: string*/}, ${3:end/*type: string*/}, ${4:v4/*type: int*/})",
-          "document": "提取两个字符串之间的数据",
-          "definitionStr": "func xhtml.MatchBetween(raw: string, start: string, end: string, v4: int) return (r0: int, r1: string)"
+          "definitionStr": "func xhtml.MatchBetween(v1: any, v2: string, v3: string, v4: int) return (r0: int, r1: string)"
         },
         {
           "functionName": "GenerateXPath(${1:v1/*type: *html.Node*/})",
@@ -530,9 +556,9 @@
           "definitionStr": "func xhtml.Find(html: any, keyword: string) return (r0: []*xhtml.MatchNodeInfo)"
         },
         {
-          "functionName": "CompareHtml(${1:htmlStr1/*type: any*/}, ${2:v2/*type: any*/})",
-          "document": "比较两个 HTML 不同的点",
-          "definitionStr": "func xhtml.CompareHtml(htmlStr1: any, v2: any) return (htmlStr2: []xhtml.DiffInfo, r1: error)"
+          "functionName": "CompareHtml(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func xhtml.CompareHtml(v1: any, v2: any) return (r0: []*xhtml.DiffInfo, r1: error)"
         }
       ]
     },
@@ -992,6 +1018,11 @@
           "definitionStr": "func t3.timeout(v1: float64) return (r0: func OptionFun(v1: *t3.T3Paylaod) )"
         },
         {
+          "functionName": "debugHandler(${1:v1/*type: func (v1: string) */})",
+          "document": "",
+          "definitionStr": "func t3.debugHandler(v1: func (v1: string) ) return (r0: func OptionFun(v1: *t3.T3Paylaod) )"
+        },
+        {
           "functionName": "clearBackdoor(${1:v1/*type: bool*/})",
           "document": "",
           "definitionStr": "func t3.clearBackdoor(v1: bool) return (r0: func OptionFun(v1: *t3.T3Paylaod) )"
@@ -1000,6 +1031,11 @@
           "functionName": "SendJavaObjectStreamBytes(${1:v1/*type: string*/}, ${2:v2/*type: any*/}, ${3:v3/*type ...t3.OptionFun*/})",
           "document": "",
           "definitionStr": "func t3.SendJavaObjectStreamBytes(v1: string, v2: any, v3 ...t3.OptionFun) return (r0: error)"
+        },
+        {
+          "functionName": "GenerateWeblogicJNDIPayload(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func t3.GenerateWeblogicJNDIPayload(v1: string) return (r0: bytes)"
         },
         {
           "functionName": "GenerateJavaObjectStreamBytes(${1:v1/*type: string*/})",
@@ -1934,9 +1970,19 @@
           "definitionStr": "func servicescan.maxProbes(count: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
+          "functionName": "databaseCache(${1:v1/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func servicescan.databaseCache(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
           "functionName": "concurrent(${1:concurrentSize/*type: int*/})",
           "document": "",
           "definitionStr": "func servicescan.concurrent(concurrentSize: int) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "cache(${1:v1/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func servicescan.cache(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
           "functionName": "all()",
@@ -2008,6 +2054,21 @@
           "functionName": "severity(${1:v1/*type: string*/})",
           "document": "",
           "definitionStr": "func risk.severity(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
+          "functionName": "runtimeId(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func risk.runtimeId(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
+          "functionName": "response(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func risk.response(v1: any) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
+          "functionName": "request(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func risk.request(v1: any) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
           "functionName": "payload(${1:v1/*type: string*/})",
@@ -3969,6 +4030,11 @@
           "definitionStr": "func db.SetKey(key: any, value: any) return (r0: error)"
         },
         {
+          "functionName": "SaveYakitPlugin(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type: any*/})",
+          "document": "",
+          "definitionStr": "func db.SaveYakitPlugin(v1: string, v2: string, v3: any) return (r0: error)"
+        },
+        {
           "functionName": "SaveYakitMenuItemByBatchExecuteConfig(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "func db.SaveYakitMenuItemByBatchExecuteConfig(v1: any) return (r0: error)"
@@ -4653,6 +4719,11 @@
           "definitionStr": "func cli.Url(param: string, v2 ...cli.setHelp|cli.setDefault) return (r0: []string)"
         },
         {
+          "functionName": "StringSlice(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func cli.StringSlice(v1: string) return (r0: []string)"
+        },
+        {
           "functionName": "String(${1:v1/*type: string*/}, ${2:v2/*type ...cli.setHelp|cli.setDefault*/})",
           "document": "最基础的命令行获取接口，把参数的值解析成字符串",
           "definitionStr": "func cli.String(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: string)"
@@ -4814,6 +4885,327 @@
           "definitionStr": "func brute.GetAvailableBruteTypes() return (r0: []string)"
         }
       ]
+    },
+    {
+      "libName": "__global__",
+      "prefix": "__global__.",
+      "functions": [
+        {
+          "functionName": "wait(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func wait(v1: any)`"
+        },
+        {
+          "functionName": "uuid()",
+          "document": "",
+          "definitionStr": "func uuid() return (r0: string)"
+        },
+        {
+          "functionName": "timestampToTime(${1:v1/*type: int64*/})",
+          "document": "",
+          "definitionStr": "func timestampToTime(v1: int64) return (r0: time.Time)"
+        },
+        {
+          "functionName": "timestampToDatetime(${1:v1/*type: int64*/})",
+          "document": "",
+          "definitionStr": "func timestampToDatetime(v1: int64) return (r0: string)"
+        },
+        {
+          "functionName": "timestamp()",
+          "document": "",
+          "definitionStr": "func timestamp() return (r0: int64)"
+        },
+        {
+          "functionName": "tick1s(${1:v1/*type: func () return(bool) */})",
+          "document": "",
+          "definitionStr": "`func tick1s(v1: func () return(bool) )`"
+        },
+        {
+          "functionName": "sub(${1:v1/*type: any*/}, ${2:v2/*type: any*/}, ${3:v3/*type: any*/})",
+          "document": "",
+          "definitionStr": "func sub(v1: any, v2: any, v3: any) return (r0: any)"
+        },
+        {
+          "functionName": "sprintln(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func sprintln(v1 ...any) return (r0: string)"
+        },
+        {
+          "functionName": "sprintf(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func sprintf(v1: string, v2 ...any) return (r0: string)"
+        },
+        {
+          "functionName": "sprint(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func sprint(v1 ...any) return (r0: string)"
+        },
+        {
+          "functionName": "sliceOf(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func sliceOf(v1: any) return (r0: any)"
+        },
+        {
+          "functionName": "slice(${1:v1/*type: any*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func slice(v1: any, v2 ...any) return (r0: any)"
+        },
+        {
+          "functionName": "sleep(${1:v1/*type: float64*/})",
+          "document": "",
+          "definitionStr": "`func sleep(v1: float64)`"
+        },
+        {
+          "functionName": "set(${1:v1/*type: any*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func set(v1: any, v2 ...any)`"
+        },
+        {
+          "functionName": "sdump(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func sdump(v1 ...any) return (r0: string)"
+        },
+        {
+          "functionName": "randstr(${1:v1/*type: int*/})",
+          "document": "",
+          "definitionStr": "func randstr(v1: int) return (r0: string)"
+        },
+        {
+          "functionName": "randn(${1:v1/*type: int*/}, ${2:v2/*type: int*/})",
+          "document": "",
+          "definitionStr": "func randn(v1: int, v2: int) return (r0: int)"
+        },
+        {
+          "functionName": "println(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func println(v1 ...any) return (r0: int, r1: error)"
+        },
+        {
+          "functionName": "printf(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func printf(v1: string, v2 ...any) return (r0: int, r1: error)"
+        },
+        {
+          "functionName": "print(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func print(v1 ...any) return (r0: int, r1: error)"
+        },
+        {
+          "functionName": "parseTime(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func parseTime(v1: string, v2: string) return (r0: time.Time, r1: error)"
+        },
+        {
+          "functionName": "parseString(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func parseString(v1: any) return (r0: string)"
+        },
+        {
+          "functionName": "parseStr(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func parseStr(v1: any) return (r0: string)"
+        },
+        {
+          "functionName": "parseInt(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func parseInt(v1: string) return (r0: int)"
+        },
+        {
+          "functionName": "parseFloat(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func parseFloat(v1: string) return (r0: float64)"
+        },
+        {
+          "functionName": "parseBoolean(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func parseBoolean(v1: string) return (r0: bool)"
+        },
+        {
+          "functionName": "parseBool(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func parseBool(v1: string) return (r0: bool)"
+        },
+        {
+          "functionName": "panicf(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func panicf(v1: string, v2 ...any)`"
+        },
+        {
+          "functionName": "panic(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func panic(v1: any)`"
+        },
+        {
+          "functionName": "now()",
+          "document": "",
+          "definitionStr": "func now() return (r0: time.Time)"
+        },
+        {
+          "functionName": "nanotimestamp()",
+          "document": "",
+          "definitionStr": "func nanotimestamp() return (r0: int64)"
+        },
+        {
+          "functionName": "mkslice(${1:v1/*type: any*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func mkslice(v1: any, v2 ...any) return (r0: any)"
+        },
+        {
+          "functionName": "mkmap(${1:v1/*type: any*/}, ${2:v2/*type ...int*/})",
+          "document": "",
+          "definitionStr": "func mkmap(v1: any, v2 ...int) return (r0: any)"
+        },
+        {
+          "functionName": "min(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func min(v1 ...any) return (r0: any)"
+        },
+        {
+          "functionName": "max(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func max(v1 ...any) return (r0: any)"
+        },
+        {
+          "functionName": "mapOf(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func mapOf(v1: any, v2: any) return (r0: any)"
+        },
+        {
+          "functionName": "mapFrom(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func mapFrom(v1 ...any) return (r0: any)"
+        },
+        {
+          "functionName": "make(${1:v1/*type: spec.GoTyper*/}, ${2:v2/*type ...int*/})",
+          "document": "",
+          "definitionStr": "func make(v1: spec.GoTyper, v2 ...int) return (r0: any)"
+        },
+        {
+          "functionName": "loglevel(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func loglevel(v1: any)`"
+        },
+        {
+          "functionName": "len(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func len(v1: any) return (r0: int)"
+        },
+        {
+          "functionName": "isEmpty(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func isEmpty(v1: any) return (r0: bool)"
+        },
+        {
+          "functionName": "import(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func import(v1: string, v2: string) return (r0: *yak.yakVariable, r1: error)"
+        },
+        {
+          "functionName": "get(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func get(v1: any, v2: any) return (r0: any)"
+        },
+        {
+          "functionName": "fprintln(${1:v1/*type: io.Writer*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func fprintln(v1: io.Writer, v2 ...any) return (r0: int, r1: error)"
+        },
+        {
+          "functionName": "fail(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func fail(v1 ...any)`"
+        },
+        {
+          "functionName": "eval(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func eval(v1: any) return (r0: error)"
+        },
+        {
+          "functionName": "dump(${1:v1/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func dump(v1 ...any)`"
+        },
+        {
+          "functionName": "die(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func die(v1: any)`"
+        },
+        {
+          "functionName": "descStr(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func descStr(v1: any) return (r0: string)"
+        },
+        {
+          "functionName": "desc(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func desc(v1: any)`"
+        },
+        {
+          "functionName": "delete(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func delete(v1: any, v2: any)`"
+        },
+        {
+          "functionName": "datetimeToTimestamp(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func datetimeToTimestamp(v1: string) return (r0: int64, r1: error)"
+        },
+        {
+          "functionName": "datetime()",
+          "document": "",
+          "definitionStr": "func datetime() return (r0: string)"
+        },
+        {
+          "functionName": "date()",
+          "document": "",
+          "definitionStr": "func date() return (r0: string)"
+        },
+        {
+          "functionName": "copy(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func copy(v1: any, v2: any) return (r0: int)"
+        },
+        {
+          "functionName": "close(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func close(v1: any)`"
+        },
+        {
+          "functionName": "cap(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func cap(v1: any) return (r0: int)"
+        },
+        {
+          "functionName": "atoi(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func atoi(v1: string) return (r0: int, r1: error)"
+        },
+        {
+          "functionName": "assertf(${1:v1/*type: bool*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func assertf(v1: bool, v2: string, v3 ...any)`"
+        },
+        {
+          "functionName": "assertTrue(${1:v1/*type: bool*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func assertTrue(v1: bool, v2 ...any)`"
+        },
+        {
+          "functionName": "assertEmpty(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "`func assertEmpty(v1: any)`"
+        },
+        {
+          "functionName": "assert(${1:v1/*type: bool*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "`func assert(v1: bool, v2 ...any)`"
+        },
+        {
+          "functionName": "append(${1:v1/*type: any*/}, ${2:v2/*type ...any*/})",
+          "document": "",
+          "definitionStr": "func append(v1: any, v2 ...any) return (r0: any)"
+        }
+      ]
     }
   ],
   "fieldsCompletions": [
@@ -4912,6 +5304,30 @@
       "structNameShort": "Int",
       "methodsCompletion": "Xor(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteToUDPAddrPort",
+      "structName": "net.UDPConn",
+      "structNameShort": "UDPConn",
+      "methodsCompletion": "WriteToUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: netip.AddrPort*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteToUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "WriteToUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: netip.AddrPort*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteToUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "WriteToUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: netip.AddrPort*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -5015,6 +5431,30 @@
       "structName": "palm/common/yak/yaklib.yakHttpRequest",
       "structNameShort": "yakHttpRequest",
       "methodsCompletion": "WriteProxy(${1:v2 /*type: io.Writer*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteMsgUDPAddrPort",
+      "structName": "net.UDPConn",
+      "structNameShort": "UDPConn",
+      "methodsCompletion": "WriteMsgUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/}, ${3:v4 /*type: netip.AddrPort*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteMsgUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "WriteMsgUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/}, ${3:v4 /*type: netip.AddrPort*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteMsgUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "WriteMsgUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/}, ${3:v4 /*type: netip.AddrPort*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -5522,18 +5962,26 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": false,
+      "isMethod": true,
       "fieldName": "Value",
-      "structName": "palm/common/xhtml.MatchNodeInfo",
-      "structNameShort": "MatchNodeInfo",
-      "methodsCompletion": "",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Value()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Value",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "Value()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
       "fieldName": "Value",
-      "structName": "palm/common/xhtml.Param",
-      "structNameShort": "Param",
+      "structName": "palm/common/xhtml.MatchNodeInfo",
+      "structNameShort": "MatchNodeInfo",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -5623,6 +6071,14 @@
       "structName": "github.com/dgrijalva/jwt-go.Token",
       "structNameShort": "com/dgrijalva/jwt-go.Token",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Valid",
+      "structName": "net/http.Cookie",
+      "structNameShort": "Cookie",
+      "methodsCompletion": "Valid()",
       "isGolangBuildOrigin": true
     },
     {
@@ -5795,6 +6251,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "UnsafePointer",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "UnsafePointer()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "UnsafeAddr",
       "structName": "reflect.Value",
       "structNameShort": "Value",
@@ -5864,6 +6328,14 @@
       "structNameShort": "StringFilter",
       "methodsCompletion": "Unlock()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Unlock",
+      "structName": "sync.Mutex",
+      "structNameShort": "Mutex",
+      "methodsCompletion": "Unlock()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -6180,14 +6652,6 @@
     {
       "isMethod": false,
       "fieldName": "Type",
-      "structName": "palm/common/xhtml.Param",
-      "structNameShort": "Param",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Type",
       "structName": "palm/common/yak/yaklib.YakitGraph",
       "structNameShort": "YakitGraph",
       "methodsCompletion": "",
@@ -6335,6 +6799,38 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "TryRecv()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TryRLock",
+      "structName": "sync.RWMutex",
+      "structNameShort": "RWMutex",
+      "methodsCompletion": "TryRLock()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TryLock",
+      "structName": "palm/common/filter.StringFilter",
+      "structNameShort": "StringFilter",
+      "methodsCompletion": "TryLock()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TryLock",
+      "structName": "sync.Mutex",
+      "structNameShort": "Mutex",
+      "methodsCompletion": "TryLock()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "TryLock",
+      "structName": "sync.RWMutex",
+      "structNameShort": "RWMutex",
+      "methodsCompletion": "TryLock()",
       "isGolangBuildOrigin": true
     },
     {
@@ -6756,6 +7252,14 @@
     {
       "isMethod": false,
       "fieldName": "Target",
+      "structName": "palm/common/utils/bruteutils.targetProcessing",
+      "structNameShort": "targetProcessing",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Target",
       "structName": "palm/common/yak/yaklib/tools.PocVul",
       "structNameShort": "PocVul",
       "methodsCompletion": "",
@@ -6920,6 +7424,14 @@
       "structNameShort": "File",
       "methodsCompletion": "Sync()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Swg",
+      "structName": "palm/common/utils/bruteutils.targetProcessing",
+      "structNameShort": "targetProcessing",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -7174,6 +7686,14 @@
       "fieldName": "String",
       "structName": "palm/common/utils/bruteutils.BruteItemResult",
       "structNameShort": "BruteItemResult",
+      "methodsCompletion": "String()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "String",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
       "methodsCompletion": "String()",
       "isGolangBuildOrigin": false
     },
@@ -7963,6 +8483,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "SetResource",
+      "structName": "palm/common/facades/ldap/ldapserver.LdapServer",
+      "structNameShort": "LdapServer",
+      "methodsCompletion": "SetResource(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "SetReadDeadline",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
@@ -8115,11 +8643,19 @@
     },
     {
       "isMethod": true,
-      "fieldName": "SetLDAPEntry",
-      "structName": "palm/common/facades.FacadeServer",
-      "structNameShort": "FacadeServer",
-      "methodsCompletion": "SetLDAPEntry(${1:v2 /*type: map[string]any*/})",
-      "isGolangBuildOrigin": false
+      "fieldName": "SetIterValue",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "SetIterValue(${1:v2 /*type: *reflect.MapIter*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetIterKey",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "SetIterKey(${1:v2 /*type: *reflect.MapIter*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -8136,14 +8672,6 @@
       "structNameShort": "Value",
       "methodsCompletion": "SetInt(${1:v2 /*type: int64*/})",
       "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "SetHttpResource",
-      "structName": "palm/common/facades.FacadeServer",
-      "structNameShort": "FacadeServer",
-      "methodsCompletion": "SetHttpResource(${1:v2 /*type: func (v1: string) return(bytes) */})",
-      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -8762,6 +9290,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "RuntimeId",
+      "structName": "palm/common/yakgrpc/yakit.Risk",
+      "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": true,
       "fieldName": "Runes",
       "structName": "github.com/dlclark/regexp2.Group",
@@ -9124,6 +9660,14 @@
     {
       "isMethod": true,
       "fieldName": "Reset",
+      "structName": "reflect.MapIter",
+      "structNameShort": "MapIter",
+      "methodsCompletion": "Reset(${1:v2 /*type: reflect.Value*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Reset",
       "structName": "strings.Reader",
       "structNameShort": "Reader",
       "methodsCompletion": "Reset(${1:v2 /*type: string*/})",
@@ -9223,14 +9767,6 @@
       "structName": "palm/common/mutate._httpResult",
       "structNameShort": "_httpResult",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Request",
-      "structName": "palm/common/xhtml.XssFuzz",
-      "structNameShort": "XssFuzz",
-      "methodsCompletion": "Request(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -9350,6 +9886,14 @@
       "fieldName": "Repeat",
       "structName": "palm/common/mutate.FuzzHTTPRequestBatch",
       "structNameShort": "FuzzHTTPRequestBatch",
+      "methodsCompletion": "Repeat(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Repeat",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
       "methodsCompletion": "Repeat(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": false
     },
@@ -9803,6 +10347,30 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ReadMsgUDPAddrPort",
+      "structName": "net.UDPConn",
+      "structNameShort": "UDPConn",
+      "methodsCompletion": "ReadMsgUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadMsgUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "ReadMsgUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadMsgUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "ReadMsgUDPAddrPort(${1:v2 /*type: bytes*/}, ${2:v3 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "ReadMsgUDP",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
@@ -9831,6 +10399,30 @@
       "structName": "palm/common/yak/yaklib._yakFile",
       "structNameShort": "_yakFile",
       "methodsCompletion": "ReadLines()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadFromUDPAddrPort",
+      "structName": "net.UDPConn",
+      "structNameShort": "UDPConn",
+      "methodsCompletion": "ReadFromUDPAddrPort(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadFromUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "ReadFromUDPAddrPort(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadFromUDPAddrPort",
+      "structName": "palm/common/yak/yaklib.udpConn",
+      "structNameShort": "udpConn",
+      "methodsCompletion": "ReadFromUDPAddrPort(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -10224,6 +10816,22 @@
       "structNameShort": "RWMutex",
       "methodsCompletion": "RLock()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "QuotedResponse",
+      "structName": "palm/common/yakgrpc/yakit.Risk",
+      "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "QuotedRequest",
+      "structName": "palm/common/yakgrpc/yakit.Risk",
+      "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -10666,6 +11274,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Prefix",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "Prefix()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "PreferServerCipherSuites",
       "structName": "crypto/tls.Config",
@@ -10743,6 +11359,22 @@
       "structName": "palm/common/utils/comparer.Discriminator",
       "structNameShort": "Discriminator",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "PositionVerbose",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "PositionVerbose()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Position",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Position()",
       "isGolangBuildOrigin": false
     },
     {
@@ -11498,6 +12130,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "NodeType",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "NodeType()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "NodeCount",
       "structName": "github.com/oschwald/maxminddb-golang.Metadata",
@@ -11818,6 +12458,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": true,
+      "fieldName": "Name",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Name()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "Name",
       "structName": "palm/common/utils.FileInfo",
@@ -11896,6 +12544,70 @@
       "structNameShort": "Int",
       "methodsCompletion": "Mul(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToRoot",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToRoot()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToPrevious",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToPrevious()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToParent",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToParent()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToNextAttribute",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToNextAttribute()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToNext",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToNext()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToFirst",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToFirst()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveToChild",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveToChild()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "MoveTo",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "MoveTo(${1:v2 /*type: xpath.NodeNavigator*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -12548,6 +13260,14 @@
     {
       "isMethod": true,
       "fieldName": "Lock",
+      "structName": "sync.Mutex",
+      "structNameShort": "Mutex",
+      "methodsCompletion": "Lock()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Lock",
       "structName": "sync.RWMutex",
       "structNameShort": "RWMutex",
       "methodsCompletion": "Lock()",
@@ -12623,6 +13343,14 @@
       "structName": "palm/common/yakgrpc/yakit.YakScript",
       "structNameShort": "YakScript",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "LocalName",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "LocalName()",
       "isGolangBuildOrigin": false
     },
     {
@@ -12964,14 +13692,6 @@
     {
       "isMethod": false,
       "fieldName": "Key",
-      "structName": "palm/common/xhtml.Param",
-      "structNameShort": "Param",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Key",
       "structName": "palm/common/yak/yaklib.yakitGraphValue",
       "structNameShort": "yakitGraphValue",
       "methodsCompletion": "",
@@ -12992,6 +13712,14 @@
       "structNameShort": "MapIter",
       "methodsCompletion": "Key()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Items",
+      "structName": "palm/common/utils/bruteutils.targetProcessing",
+      "structNameShort": "targetProcessing",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -13143,6 +13871,14 @@
       "structName": "palm/common/javascript/otto.Value",
       "structNameShort": "Value",
       "methodsCompletion": "IsPrimitive()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsPostParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "IsPostParams()",
       "isGolangBuildOrigin": false
     },
     {
@@ -13346,6 +14082,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "IsGetParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "IsGetParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "IsGeneralModule",
       "structName": "palm/common/yakgrpc/yakit.YakScript",
@@ -13416,6 +14160,14 @@
       "structNameShort": "Time",
       "methodsCompletion": "IsDST()",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "IsCookieParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "IsCookieParams()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -14571,6 +15323,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetRequestURI",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetRequestURI()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetRemoveHookID",
       "structName": "palm/common/yakgrpc/ypb.RemoveHookParams",
       "structNameShort": "RemoveHookParams",
@@ -14651,6 +15411,38 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetQueryValues",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetQueryValues()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetQueryValue",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetQueryValue(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetQueryRaw",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetQueryRaw()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetQueryKeys",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetQueryKeys()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetProto",
       "structName": "palm/common/fp.MatchResult",
       "structNameShort": "MatchResult",
@@ -14663,6 +15455,38 @@
       "structName": "palm/common/utils/bruteutils.BruteUtil",
       "structNameShort": "BruteUtil",
       "methodsCompletion": "GetProcessingByTarget(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPostQueryValues",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPostQueryValues()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPostQueryValue",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPostQueryValue(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPostQueryKeys",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPostQueryKeys()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPostQuery",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPostQuery()",
       "isGolangBuildOrigin": false
     },
     {
@@ -14682,19 +15506,59 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "GetPathWithQuery",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPathWithQuery()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPathRawParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPathRawParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPathParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPathParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPathBlockParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPathBlockParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPathAppendParams",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPathAppendParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetPath",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetPath()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "GetParamsTotal",
       "structName": "palm/common/yakgrpc/yakit.HTTPFlow",
       "structNameShort": "HTTPFlow",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "GetParams",
-      "structName": "palm/common/xhtml.XssFuzz",
-      "structNameShort": "XssFuzz",
-      "methodsCompletion": "GetParams()",
       "isGolangBuildOrigin": false
     },
     {
@@ -14719,6 +15583,14 @@
       "structName": "palm/common/yak.MixPluginCaller",
       "structNameShort": "MixPluginCaller",
       "methodsCompletion": "GetNativeCaller()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetMethod",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetMethod()",
       "isGolangBuildOrigin": false
     },
     {
@@ -14795,6 +15667,30 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetHeaderValues",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetHeaderValues()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetHeaderKeys",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetHeaderKeys()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetHeader",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetHeader(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetHandle",
       "structName": "palm/common/yserx.JavaReference",
       "structNameShort": "JavaReference",
@@ -14823,6 +15719,22 @@
       "structName": "palm/common/yak/yaklang.YakEngine",
       "structNameShort": "YakEngine",
       "methodsCompletion": "GetFntable()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetFirstFuzzHTTPRequest",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetFirstFuzzHTTPRequest()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetFirstFuzzHTTPRequest",
+      "structName": "palm/common/mutate.FuzzHTTPRequestBatch",
+      "structNameShort": "FuzzHTTPRequestBatch",
+      "methodsCompletion": "GetFirstFuzzHTTPRequest()",
       "isGolangBuildOrigin": false
     },
     {
@@ -14883,10 +15795,26 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetCurrentCount",
+      "structName": "palm/common/utils/bruteutils.targetProcessing",
+      "structNameShort": "targetProcessing",
+      "methodsCompletion": "GetCurrentCount()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetCookieParams",
       "structName": "palm/common/mutate.FuzzHTTPRequest",
       "structNameShort": "FuzzHTTPRequest",
       "methodsCompletion": "GetCookieParams()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetContentType",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetContentType()",
       "isGolangBuildOrigin": false
     },
     {
@@ -14922,6 +15850,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "GetClassUrl",
+      "structName": "palm/common/facades/ldap/ldapserver.LdapServer",
+      "structNameShort": "LdapServer",
+      "methodsCompletion": "GetClassUrl()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "GetCertificate",
       "structName": "crypto/tls.Config",
@@ -14938,12 +15874,28 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "GetBytes",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetBytes()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "GetBody",
       "structName": "net/http.Request",
       "structNameShort": "Request",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "GetBody",
+      "structName": "palm/common/mutate.FuzzHTTPRequest",
+      "structNameShort": "FuzzHTTPRequest",
+      "methodsCompletion": "GetBody()",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -15298,6 +16250,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Fuzz",
+      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
+      "structNameShort": "FuzzHTTPRequestParam",
+      "methodsCompletion": "Fuzz(${1:v2 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "FuncName",
       "structName": "palm/common/yak/yaklang/exec.Function",
@@ -15607,6 +16567,22 @@
       "structName": "palm/common/utils/bruteutils.BruteItemResult",
       "structNameShort": "BruteItemResult",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Finished",
+      "structName": "palm/common/utils/bruteutils.targetProcessing",
+      "structNameShort": "targetProcessing",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Finish",
+      "structName": "palm/common/utils/bruteutils.targetProcessing",
+      "structNameShort": "targetProcessing",
+      "methodsCompletion": "Finish()",
       "isGolangBuildOrigin": false
     },
     {
@@ -15935,6 +16911,14 @@
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "FieldByName(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "FieldByIndexErr",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "FieldByIndexErr(${1:v2 /*type: []int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -17074,6 +18058,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Current",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
+      "methodsCompletion": "Current()",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "Ctx",
       "structName": "palm/common/yak/yaklang/exec.Class",
@@ -17166,6 +18158,14 @@
       "fieldName": "Copy",
       "structName": "palm/common/javascript/otto.Otto",
       "structNameShort": "Otto",
+      "methodsCompletion": "Copy()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Copy",
+      "structName": "palm/common/utils/htmlquery.NodeNavigator",
+      "structNameShort": "NodeNavigator",
       "methodsCompletion": "Copy()",
       "isGolangBuildOrigin": false
     },
@@ -17471,6 +18471,14 @@
       "structName": "palm/server/dbm/falcons/spacengine.NetSpaceEngineResult",
       "structNameShort": "NetSpaceEngineResult",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Config",
+      "structName": "palm/common/facades.FacadeServer",
+      "structNameShort": "FacadeServer",
+      "methodsCompletion": "Config(${1:v2 /*type: ...facades.FacadeServerConfig*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -17874,14 +18882,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "ClassNameFactory",
-      "structName": "palm/common/facades.FacadeServer",
-      "structNameShort": "FacadeServer",
-      "methodsCompletion": "ClassNameFactory(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": false
-    },
-    {
       "isMethod": false,
       "fieldName": "ClassName1",
       "structName": "palm/common/yserx.JavaClassField",
@@ -18131,6 +19131,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "CanUint",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "CanUint()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "CanSet",
       "structName": "reflect.Value",
       "structNameShort": "Value",
@@ -18147,10 +19155,34 @@
     },
     {
       "isMethod": true,
+      "fieldName": "CanInt",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "CanInt()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "CanFloat",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "CanFloat()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "CanConvert",
       "structName": "reflect.Value",
       "structNameShort": "Value",
       "methodsCompletion": "CanConvert(${1:v2 /*type: reflect.Type*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "CanComplex",
+      "structName": "reflect.Value",
+      "structNameShort": "Value",
+      "methodsCompletion": "CanComplex()",
       "isGolangBuildOrigin": true
     },
     {
