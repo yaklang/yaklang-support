@@ -2,10 +2,12 @@
   "libNames": [
     "__global__",
     "brute",
+    "bufio",
     "cli",
     "codec",
     "context",
     "crawler",
+    "csrf",
     "db",
     "dictutil",
     "dns",
@@ -19,6 +21,7 @@
     "http",
     "httpool",
     "httpserver",
+    "iiop",
     "io",
     "java",
     "js",
@@ -34,6 +37,7 @@
     "ping",
     "poc",
     "re",
+    "redis",
     "report",
     "risk",
     "servicescan",
@@ -83,9 +87,19 @@
           "definitionStr": "func yso.SetjavaFactory(v1: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
         },
         {
+          "functionName": "SetRmiResourceAddr(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.SetRmiResourceAddr(v1: string, v2: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
           "functionName": "SetObjectClass(${1:v1/*type: string*/})",
           "document": "",
           "definitionStr": "func yso.SetObjectClass(v1: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
+        },
+        {
+          "functionName": "SetLdapResourceAddr(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func yso.SetLdapResourceAddr(v1: string, v2: string) return (r0: func FacadeServerConfig(v1: *facades.FacadeServer) )"
         },
         {
           "functionName": "SetJavaCodeBase(${1:v1/*type: string*/})",
@@ -213,9 +227,19 @@
           "definitionStr": "func yso.GetClojure(v1: string) return (r0: yserx.JavaSerializable, r1: error)"
         },
         {
+          "functionName": "GenTomcatEchoFilterMemTarjon(${1:v1/*type: string*/}, ${2:v2/*type ...yso.ClassOptionFun*/})",
+          "document": "",
+          "definitionStr": "func yso.GenTomcatEchoFilterMemTarjon(v1: string, v2 ...yso.ClassOptionFun) return (r0: bytes)"
+        },
+        {
           "functionName": "GenExecClass(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
           "document": "",
           "definitionStr": "func yso.GenExecClass(v1: string, v2: string) return (r0: bytes)"
+        },
+        {
+          "functionName": "GenConstructExec(${1:v1/*type: string*/}, ${2:v2/*type ...yso.ClassOptionFun*/})",
+          "document": "",
+          "definitionStr": "func yso.GenConstructExec(v1: string, v2 ...yso.ClassOptionFun) return (r0: bytes)"
         }
       ]
     },
@@ -244,6 +268,11 @@
           "definitionStr": "func yakit.UpdateYakitStore() return (r0: error)"
         },
         {
+          "functionName": "UpdateOnlineYakitStore()",
+          "document": "更新所有线上商店的内容",
+          "definitionStr": "func yakit.UpdateOnlineYakitStore() return (r0: error)"
+        },
+        {
           "functionName": "Text(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "`func yakit.Text(v1: any)`"
@@ -269,6 +298,11 @@
           "definitionStr": "`func yakit.SetProgress(progress: float64)`"
         },
         {
+          "functionName": "SetOnlineBaseUrl(${1:v1/*type: string*/})",
+          "document": "设置 Yakit Online 的基础 URL",
+          "definitionStr": "`func yakit.SetOnlineBaseUrl(v1: string)`"
+        },
+        {
           "functionName": "SavePortFromResult(${1:result/*type: any*/})",
           "document": "把端口信息保存到数据库中，支持 synscan 和 servicescan 的扫描结果直接保存。",
           "definitionStr": "func yakit.SavePortFromResult(result: any) return (r0: error)"
@@ -292,6 +326,11 @@
           "functionName": "SaveDomain(${1:v1/*type: string*/}, ${2:v2/*type ...string*/})",
           "document": "",
           "definitionStr": "func yakit.SaveDomain(v1: string, v2 ...string) return (r0: error)"
+        },
+        {
+          "functionName": "Report(${1:生成的报告的 ID/*type: int*/})",
+          "document": "返回报告的内容给 Yakit",
+          "definitionStr": "`func yakit.Report(生成的报告的 ID: int)`"
         },
         {
           "functionName": "QueryUrlsByKeyword(${1:keyword/*type: string*/})",
@@ -419,6 +458,11 @@
           "definitionStr": "`func yakit.Info(fmt: string, items ...any)`"
         },
         {
+          "functionName": "GetOnlineBaseUrl()",
+          "document": "",
+          "definitionStr": "func yakit.GetOnlineBaseUrl() return (r0: string)"
+        },
+        {
           "functionName": "GetHomeTempDir()",
           "document": "",
           "definitionStr": "func yakit.GetHomeTempDir() return (r0: string)"
@@ -429,9 +473,9 @@
           "definitionStr": "func yakit.GetHomeDir() return (r0: string)"
         },
         {
-          "functionName": "GenerateYakitMITMHooksParams(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:httpOpts/*type ...http.Opts*/})",
-          "document": "用于生成 MITM 插件的参数",
-          "definitionStr": "func yakit.GenerateYakitMITMHooksParams(method: string, url: string, httpOpts http.Opts) return (paramLists: []any, err: error)"
+          "functionName": "GenerateYakitMITMHooksParams(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yakhttp.HttpOption*/})",
+          "document": "",
+          "definitionStr": "func yakit.GenerateYakitMITMHooksParams(v1: string, v2: string, v3 ...yakhttp.HttpOption) return (r0: []any, r1: error)"
         },
         {
           "functionName": "File(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
@@ -1084,6 +1128,16 @@
           "definitionStr": "func synscan.initHostFilter(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
         },
         {
+          "functionName": "excludePorts(${1:v1/*type: string*/})",
+          "document": "设置排除端口",
+          "definitionStr": "func synscan.excludePorts(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+        },
+        {
+          "functionName": "excludeHosts(${1:v1/*type: string*/})",
+          "document": "可设置排除的 Host",
+          "definitionStr": "func synscan.excludeHosts(v1: string) return (r0: func scanOpt(v1: *tools._yakPortScanConfig) )"
+        },
+        {
           "functionName": "ScanFromPing(${1:v1/*type: chan *pingutil.PingResult*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...tools.scanOpt*/})",
           "document": "新增从 Ping 中的扫描",
           "definitionStr": "func synscan.ScanFromPing(v1: chan *pingutil.PingResult, v2: string, v3 ...tools.scanOpt) return (r0: chan *synscan.SynScanResult, r1: error)"
@@ -1592,9 +1646,9 @@
           "definitionStr": "func str.IsUrlParam(v1: string, v2: any) return (r0: bool)"
         },
         {
-          "functionName": "IsTLSServer(${1:v1/*type: string*/})",
-          "document": "判断一个地址是不是 TLS",
-          "definitionStr": "func str.IsTLSServer(v1: string) return (r0: bool)"
+          "functionName": "IsTLSServer(${1:v1/*type: string*/}, ${2:v2/*type ...string*/})",
+          "document": "判断地址对应是不是 TLS",
+          "definitionStr": "func str.IsTLSServer(v1: string, v2 ...string) return (r0: bool)"
         },
         {
           "functionName": "IsStrongPassword(${1:v1/*type: string*/})",
@@ -1970,8 +2024,18 @@
           "definitionStr": "func servicescan.maxProbes(count: int) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
+          "functionName": "excludePorts(${1:v1/*type: string*/})",
+          "document": "设置排除端口",
+          "definitionStr": "func servicescan.excludePorts(v1: string) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
+          "functionName": "excludeHosts(${1:v1/*type: string*/})",
+          "document": "设置排除 hosts",
+          "definitionStr": "func servicescan.excludeHosts(v1: string) return (r0: func ConfigOption(v1: *fp.Config) )"
+        },
+        {
           "functionName": "databaseCache(${1:v1/*type: bool*/})",
-          "document": "",
+          "document": "设置缓存（数据库中缓存）",
           "definitionStr": "func servicescan.databaseCache(v1: bool) return (r0: func ConfigOption(v1: *fp.Config) )"
         },
         {
@@ -2071,6 +2135,11 @@
           "definitionStr": "func risk.request(v1: any) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
         },
         {
+          "functionName": "potential(${1:v1/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func risk.potential(v1: bool) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
           "functionName": "payload(${1:v1/*type: string*/})",
           "document": "",
           "definitionStr": "func risk.payload(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
@@ -2094,6 +2163,21 @@
           "functionName": "details(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "func risk.details(v1: any) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
+          "functionName": "cve(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func risk.cve(v1: string) return (r0: func RiskParamsOpt(v1: *yakit.Risk) )"
+        },
+        {
+          "functionName": "YieldRiskByTarget(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func risk.YieldRiskByTarget(v1: string) return (r0: chan *yakit.Risk)"
+        },
+        {
+          "functionName": "YieldRiskByRuntimeId(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func risk.YieldRiskByRuntimeId(v1: string) return (r0: chan *yakit.Risk)"
         },
         {
           "functionName": "Save(${1:v1/*type: *yakit.Risk*/})",
@@ -2190,6 +2274,52 @@
           "functionName": "New()",
           "document": "新增 报告 机制",
           "definitionStr": "func report.New() return (r0: *yakit.Report)"
+        }
+      ]
+    },
+    {
+      "libName": "redis",
+      "prefix": "redis.",
+      "functions": [
+        {
+          "functionName": "username(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func redis.username(v1: string) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "timeoutSeconds(${1:v1/*type: int*/})",
+          "document": "",
+          "definitionStr": "func redis.timeoutSeconds(v1: int) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "retry(${1:v1/*type: int*/})",
+          "document": "",
+          "definitionStr": "func redis.retry(v1: int) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "port(${1:v1/*type: int*/})",
+          "document": "",
+          "definitionStr": "func redis.port(v1: int) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "password(${1:v1/*type: string*/})",
+          "document": "设置 Redis 密码",
+          "definitionStr": "func redis.password(v1: string) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "host(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func redis.host(v1: string) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "addr(${1:v1/*type: string*/})",
+          "document": "设置 Redis 地址",
+          "definitionStr": "func redis.addr(v1: string) return (r0: func redisConfigOpt(v1: *yaklib.redisConfig) )"
+        },
+        {
+          "functionName": "New(${1:v1/*type ...yaklib.redisConfigOpt*/})",
+          "document": "启动一个 Redis 客户端",
+          "definitionStr": "func redis.New(v1 ...yaklib.redisConfigOpt) return (r0: *yaklib.redisClient)"
         }
       ]
     },
@@ -2473,6 +2603,11 @@
           "functionName": "onResult(${1:v1/*type: func (v1: *pingutil.PingResult) */})",
           "document": "",
           "definitionStr": "func ping.onResult(v1: func (v1: *pingutil.PingResult) ) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
+        },
+        {
+          "functionName": "excludeHosts(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func ping.excludeHosts(v1: string) return (r0: func _pingConfigOpt(v1: *yaklib._pingConfig) )"
         },
         {
           "functionName": "dnsTimeout(${1:v1/*type: float64*/})",
@@ -3344,6 +3479,32 @@
       ]
     },
     {
+      "libName": "iiop",
+      "prefix": "iiop.",
+      "functions": [
+        {
+          "functionName": "SendPayload(${1:v1/*type: string*/}, ${2:v2/*type: func PayloadGeneraterFun(v1: net.Conn, v2: bytes) return(error) */})",
+          "document": "",
+          "definitionStr": "func iiop.SendPayload(v1: string, v2: func PayloadGeneraterFun(v1: net.Conn, v2: bytes) return(error) ) return (r0: error)"
+        },
+        {
+          "functionName": "RebindPayload(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func iiop.RebindPayload(v1: string) return (r0: func PayloadGeneraterFun(v1: net.Conn, v2: bytes) return(error) )"
+        },
+        {
+          "functionName": "InvokePayload(${1:v1/*type: string*/}, ${2:v2/*type: string*/})",
+          "document": "",
+          "definitionStr": "func iiop.InvokePayload(v1: string, v2: string) return (r0: func PayloadGeneraterFun(v1: net.Conn, v2: bytes) return(error) )"
+        },
+        {
+          "functionName": "BindPayload(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "func iiop.BindPayload(v1: string) return (r0: func PayloadGeneraterFun(v1: net.Conn, v2: bytes) return(error) )"
+        }
+      ]
+    },
+    {
       "libName": "httpserver",
       "prefix": "httpserver.",
       "functions": [
@@ -3445,9 +3606,9 @@
       "prefix": "http.",
       "functions": [
         {
-          "functionName": "useragent(${1:userAgent/*type: any*/})",
-          "document": "【参数】设置 UserAgent",
-          "definitionStr": "func http.useragent(userAgent: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "useragent(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func http.useragent(v1: any) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
           "functionName": "uarand()",
@@ -3455,14 +3616,14 @@
           "definitionStr": "func http.uarand() return (r0: string)"
         },
         {
-          "functionName": "ua(${1:userAgent/*type: any*/})",
-          "document": "【参数】设置 UserAgent",
-          "definitionStr": "func http.ua(userAgent: any) return (r0: httpOpt)"
+          "functionName": "ua(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func http.ua(v1: any) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
-          "functionName": "timeout(${1:seconds/*type: float64*/})",
-          "document": "【参数】设置超时时间",
-          "definitionStr": "func http.timeout(seconds: float64) return (r0: httpOpt)"
+          "functionName": "timeout(${1:v1/*type: float64*/})",
+          "document": "",
+          "definitionStr": "func http.timeout(v1: float64) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
           "functionName": "showhead(${1:reqOrRsp/*type: http.Request/Response*/})",
@@ -3476,23 +3637,28 @@
         },
         {
           "functionName": "redirect(${1:v1/*type: func (v1: *http.Request, v2: []*http.Request) return(bool) */})",
-          "document": "设置重定向",
-          "definitionStr": "func http.redirect(v1: func (v1: *http.Request, v2: []*http.Request) return(bool) ) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "document": "",
+          "definitionStr": "func http.redirect(v1: func (v1: *http.Request, v2: []*http.Request) return(bool) ) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
-          "functionName": "proxy(${1:proxyUrls/*type ...string*/})",
-          "document": "【参数】为请求设置 http 代理",
-          "definitionStr": "func http.proxy(proxyUrls ...string) return (r0: httpOpt)"
+          "functionName": "proxy(${1:v1/*type ...string*/})",
+          "document": "",
+          "definitionStr": "func http.proxy(v1 ...string) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
-          "functionName": "json(${1:obj/*type: any*/})",
-          "document": "设置发送模式为 JSON，传入的参数会被 JSON 序列化，把结果设置为 Body，然后设置 application/json 为 Content-Type",
-          "definitionStr": "func http.json(obj: any) return (r0: func httpOption(v1: *yaklib.yakHttpRequest) )"
+          "functionName": "noredirect(${1:v1/*type: func (v1: *http.Request, v2: []*http.Request) return(bool) */})",
+          "document": "",
+          "definitionStr": "func http.noredirect(v1: func (v1: *http.Request, v2: []*http.Request) return(bool) ) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
-          "functionName": "header(${1:headerName/*type: string*/}, ${2:headerValue/*type: string*/})",
-          "document": "【参数】为请求设置 http header",
-          "definitionStr": "func http.header(headerName: string, headerValue: string) return (r0: httpOpt)"
+          "functionName": "json(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func http.json(v1: any) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
+        },
+        {
+          "functionName": "header(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func http.header(v1: any, v2: any) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
           "functionName": "dumphead(${1:reqOrRsp/*type: http.Response/Request*/})",
@@ -3505,14 +3671,14 @@
           "definitionStr": "func http.dump(reqOrRsp: http.Response/Request) return (r0: bytes, r1: error)"
         },
         {
-          "functionName": "cookie(${1:cookieRaw/*type: string*/})",
-          "document": "【参数】设置请求的 Cookie",
-          "definitionStr": "func http.cookie(cookieRaw: string) return (r0: httpOpt)"
+          "functionName": "cookie(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func http.cookie(v1: any) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
-          "functionName": "body(${1:body/*type: string|[]byte|io.Reader|any(fmt.Sprint)*/})",
-          "document": "【参数】设置请求的 body",
-          "definitionStr": "func http.body(body: string|[]byte|io.Reader|any(fmt.Sprint)) return (r0: httpOpt)"
+          "functionName": "body(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func http.body(v1: any) return (r0: func HttpOption(v1: *yakhttp.YakHttpRequest) )"
         },
         {
           "functionName": "RequestToSha256(${1:url/*type: string*/})",
@@ -3545,9 +3711,9 @@
           "definitionStr": "func http.RequestFaviconHash(v1: string) return (r0: string, r1: error)"
         },
         {
-          "functionName": "Request(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:params/*type ...httpOpt*/})",
-          "document": "立即发起一个 http 请求，不需要 `http.Do` 来执行",
-          "definitionStr": "func http.Request(method: string, url: string, params ...httpOpt) return (r0: *http.Response, r1: error)"
+          "functionName": "Request(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yakhttp.HttpOption*/})",
+          "document": "",
+          "definitionStr": "func http.Request(v1: string, v2: string, v3 ...yakhttp.HttpOption) return (r0: *http.Response, r1: error)"
         },
         {
           "functionName": "Raw(${1:req/*type: []byte|string|*http.Request|http.Request*/})",
@@ -3555,14 +3721,14 @@
           "definitionStr": "func http.Raw(req: []byte|string|*http.Request|http.Request) return (r0: *http.Request, r1: error)"
         },
         {
-          "functionName": "Post(${1:url/*type: string*/}, ${2:params/*type ...httpOpt*/})",
+          "functionName": "Post(${1:v1/*type: string*/}, ${2:v2/*type ...yakhttp.HttpOption*/})",
           "document": "",
-          "definitionStr": "func http.Post(url: string, params ...httpOpt) return (r0: *http.Response, r1: error)"
+          "definitionStr": "func http.Post(v1: string, v2 ...yakhttp.HttpOption) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "NewRequest(${1:method/*type: string*/}, ${2:url/*type: string*/}, ${3:params/*type ...httpOpt*/})",
-          "document": "创建一个新的 Request，创建之后，需要通过 `http.Do` 来发送",
-          "definitionStr": "func http.NewRequest(method: string, url: string, params ...httpOpt) return (r0: *yaklib.yakHttpRequest, r1: error)"
+          "functionName": "NewRequest(${1:v1/*type: string*/}, ${2:v2/*type: string*/}, ${3:v3/*type ...yakhttp.HttpOption*/})",
+          "document": "",
+          "definitionStr": "func http.NewRequest(v1: string, v2: string, v3 ...yakhttp.HttpOption) return (r0: *yakhttp.YakHttpRequest, r1: error)"
         },
         {
           "functionName": "GetAllBody(${1:response/*type: *http.Response*/})",
@@ -3570,14 +3736,14 @@
           "definitionStr": "func http.GetAllBody(response: *http.Response) return (r0: []byte)"
         },
         {
-          "functionName": "Get(${1:url/*type: opt*/}, ${2:params/*type ...httpOpt*/})",
-          "document": "发送一个 http 请求",
-          "definitionStr": "func http.Get(url: opt, params ...httpOpt) return (r0: *http.Response, r1: error)"
+          "functionName": "Get(${1:v1/*type: string*/}, ${2:v2/*type ...yakhttp.HttpOption*/})",
+          "document": "",
+          "definitionStr": "func http.Get(v1: string, v2 ...yakhttp.HttpOption) return (r0: *http.Response, r1: error)"
         },
         {
-          "functionName": "Do(${1:request/*type: *yaklib.yakHttpRequest*/})",
-          "document": "执行一个 http 请求，这个请求是 `http.NewRequest` 创建的",
-          "definitionStr": "func http.Do(request: *yaklib.yakHttpRequest) return (r0: *http.Response, r1: error)"
+          "functionName": "Do(${1:v1/*type: *yakhttp.YakHttpRequest*/})",
+          "document": "",
+          "definitionStr": "func http.Do(v1: *yakhttp.YakHttpRequest) return (r0: *http.Response, r1: error)"
         }
       ]
     },
@@ -4025,6 +4191,11 @@
       "prefix": "db.",
       "functions": [
         {
+          "functionName": "YieldYakScriptAll()",
+          "document": "",
+          "definitionStr": "func db.YieldYakScriptAll() return (r0: chan *yakit.YakScript)"
+        },
+        {
           "functionName": "SetKey(${1:key/*type: any*/}, ${2:value/*type: any*/})",
           "document": "设置持久化 Key",
           "definitionStr": "func db.SetKey(key: any, value: any) return (r0: error)"
@@ -4053,6 +4224,11 @@
           "functionName": "SavePayload(${1:group/*type: string*/}, ${2:payload/*type: []string*/})",
           "document": "保存 Payload 到一个组",
           "definitionStr": "func db.SavePayload(group: string, payload: []string) return (r0: error)"
+        },
+        {
+          "functionName": "SaveHTTPFlowFromNativeWithType(${1:v1/*type: string*/}, ${2:v2/*type: *http.Request*/}, ${3:v3/*type: *http.Response*/}, ${4:v4/*type: string*/})",
+          "document": "",
+          "definitionStr": "func db.SaveHTTPFlowFromNativeWithType(v1: string, v2: *http.Request, v3: *http.Response, v4: string) return (r0: error)"
         },
         {
           "functionName": "SaveHTTPFlowFromNative(${1:url/*type: string*/}, ${2:req/*type: *http.Request*/}, ${3:rsp/*type: *http.Response*/})",
@@ -4153,6 +4329,22 @@
           "functionName": "DelKey(${1:v1/*type: any*/})",
           "document": "删除 Key 对应的值(数据库中)",
           "definitionStr": "`func db.DelKey(v1: any)`"
+        }
+      ]
+    },
+    {
+      "libName": "csrf",
+      "prefix": "csrf.",
+      "functions": [
+        {
+          "functionName": "multipartDefaultValue(${1:v1/*type: bool*/})",
+          "document": "",
+          "definitionStr": "func csrf.multipartDefaultValue(v1: bool) return (r0: func csrfConfig(v1: *yaklib._csrfConfig) )"
+        },
+        {
+          "functionName": "Generate(${1:v1/*type: any*/}, ${2:v2/*type ...yaklib.csrfConfig*/})",
+          "document": "",
+          "definitionStr": "func csrf.Generate(v1: any, v2 ...yaklib.csrfConfig) return (r0: string, r1: error)"
         }
       ]
     },
@@ -4663,6 +4855,16 @@
           "definitionStr": "func codec.AESEncrypt(key: bytes, data: any, v3: bytes) return (r0: bytes, r1: error)"
         },
         {
+          "functionName": "AESECBEncrypt(${1:v1/*type: bytes*/}, ${2:v2/*type: any*/}, ${3:v3/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func codec.AESECBEncrypt(v1: bytes, v2: any, v3: bytes) return (r0: bytes, r1: error)"
+        },
+        {
+          "functionName": "AESECBDecrypt(${1:v1/*type: bytes*/}, ${2:v2/*type: any*/}, ${3:v3/*type: bytes*/})",
+          "document": "",
+          "definitionStr": "func codec.AESECBDecrypt(v1: bytes, v2: any, v3: bytes) return (r0: bytes, r1: error)"
+        },
+        {
           "functionName": "AESDecrypt(${1:key/*type: bytes*/}, ${2:data/*type: any*/}, ${3:iv/*type: bytes*/})",
           "document": "aes 解密",
           "definitionStr": "func codec.AESDecrypt(key: bytes, data: any, iv: bytes) return (r0: bytes, r1: error)"
@@ -4699,6 +4901,11 @@
           "definitionStr": "func cli.setDefault(default: any) return (r0: cli.setDefault)"
         },
         {
+          "functionName": "help(${1:v1/*type ...io.Writer*/})",
+          "document": "",
+          "definitionStr": "`func cli.help(v1 ...io.Writer)`"
+        },
+        {
           "functionName": "check()",
           "document": "检查当前设置的所有参数，如果有不合理的参数（无法确定值），则停止执行，打印出帮助信息",
           "definitionStr": "`func cli.check()`"
@@ -4727,6 +4934,16 @@
           "functionName": "String(${1:v1/*type: string*/}, ${2:v2/*type ...cli.setHelp|cli.setDefault*/})",
           "document": "最基础的命令行获取接口，把参数的值解析成字符串",
           "definitionStr": "func cli.String(v1: string, v2 ...cli.setHelp|cli.setDefault) return (r0: string)"
+        },
+        {
+          "functionName": "SetDoc(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "`func cli.SetDoc(v1: string)`"
+        },
+        {
+          "functionName": "SetCliName(${1:v1/*type: string*/})",
+          "document": "",
+          "definitionStr": "`func cli.SetCliName(v1: string)`"
         },
         {
           "functionName": "Ports(${1:v1/*type: string*/}, ${2:v2/*type ...cli.setHelp|cli.setDefault*/})",
@@ -4807,6 +5024,42 @@
           "functionName": "Args()",
           "document": "获取全部的命令行参数，返回结果等同于 `os.Args`\"",
           "definitionStr": "func cli.Args() return (args: []string)"
+        }
+      ]
+    },
+    {
+      "libName": "bufio",
+      "prefix": "bufio.",
+      "functions": [
+        {
+          "functionName": "NewWriterSize(${1:v1/*type: any*/}, ${2:v2/*type: int*/})",
+          "document": "",
+          "definitionStr": "func bufio.NewWriterSize(v1: any, v2: int) return (r0: *bufio.Writer, r1: error)"
+        },
+        {
+          "functionName": "NewWriter(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func bufio.NewWriter(v1: any) return (r0: *bufio.Writer, r1: error)"
+        },
+        {
+          "functionName": "NewScanner(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func bufio.NewScanner(v1: any) return (r0: *bufio.Scanner, r1: error)"
+        },
+        {
+          "functionName": "NewReaderSize(${1:v1/*type: any*/}, ${2:v2/*type: int*/})",
+          "document": "",
+          "definitionStr": "func bufio.NewReaderSize(v1: any, v2: int) return (r0: *bufio.Reader, r1: error)"
+        },
+        {
+          "functionName": "NewReader(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func bufio.NewReader(v1: any) return (r0: *bufio.Reader, r1: error)"
+        },
+        {
+          "functionName": "NewReadWriter(${1:v1/*type: any*/}, ${2:v2/*type: any*/})",
+          "document": "",
+          "definitionStr": "func bufio.NewReadWriter(v1: any, v2: any) return (r0: *bufio.ReadWriter, r1: error)"
         }
       ]
     },
@@ -5016,14 +5269,14 @@
           "definitionStr": "func parseFloat(v1: string) return (r0: float64)"
         },
         {
-          "functionName": "parseBoolean(${1:v1/*type: string*/})",
+          "functionName": "parseBoolean(${1:v1/*type: any*/})",
           "document": "",
-          "definitionStr": "func parseBoolean(v1: string) return (r0: bool)"
+          "definitionStr": "func parseBoolean(v1: any) return (r0: bool)"
         },
         {
-          "functionName": "parseBool(${1:v1/*type: string*/})",
+          "functionName": "parseBool(${1:v1/*type: any*/})",
           "document": "",
-          "definitionStr": "func parseBool(v1: string) return (r0: bool)"
+          "definitionStr": "func parseBool(v1: any) return (r0: bool)"
         },
         {
           "functionName": "panicf(${1:v1/*type: string*/}, ${2:v2/*type ...any*/})",
@@ -5034,6 +5287,11 @@
           "functionName": "panic(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "`func panic(v1: any)`"
+        },
+        {
+          "functionName": "ord(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func ord(v1: any) return (r0: int)"
         },
         {
           "functionName": "now()",
@@ -5171,6 +5429,11 @@
           "definitionStr": "`func close(v1: any)`"
         },
         {
+          "functionName": "chr(${1:v1/*type: any*/})",
+          "document": "",
+          "definitionStr": "func chr(v1: any) return (r0: string)"
+        },
+        {
           "functionName": "cap(${1:v1/*type: any*/})",
           "document": "",
           "definitionStr": "func cap(v1: any) return (r0: int)"
@@ -5306,6 +5569,14 @@
       "isGolangBuildOrigin": true
     },
     {
+      "isMethod": false,
+      "fieldName": "Writer",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "WriteToUDPAddrPort",
       "structName": "net.UDPConn",
@@ -5352,6 +5623,30 @@
       "structNameShort": "udpConn",
       "methodsCompletion": "WriteToUDP(${1:v2 /*type: bytes*/}, ${2:v3 /*type: *net.UDPAddr*/})",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteTo",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteTo(${1:v2 /*type: io.Writer*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteTo",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteTo(${1:v2 /*type: io.Writer*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteTo",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "WriteTo(${1:v2 /*type: io.Writer*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -5388,6 +5683,30 @@
     {
       "isMethod": true,
       "fieldName": "WriteString",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteString(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteString",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteString(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteString",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "WriteString(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteString",
       "structName": "io.discard",
       "structNameShort": "discard",
       "methodsCompletion": "WriteString(${1:v2 /*type: string*/})",
@@ -5411,6 +5730,30 @@
     },
     {
       "isMethod": true,
+      "fieldName": "WriteRune",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteRune(${1:v2 /*type: int32*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteRune",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteRune(${1:v2 /*type: int32*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteRune",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "WriteRune(${1:v2 /*type: int32*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "WriteProxy",
       "structName": "net/http.Request",
       "structNameShort": "Request",
@@ -5420,16 +5763,16 @@
     {
       "isMethod": true,
       "fieldName": "WriteProxy",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "WriteProxy(${1:v2 /*type: io.Writer*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "WriteProxy",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "WriteProxy(${1:v2 /*type: io.Writer*/})",
       "isGolangBuildOrigin": false
     },
@@ -5491,10 +5834,58 @@
     },
     {
       "isMethod": true,
+      "fieldName": "WriteByte",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteByte(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteByte",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "WriteByte(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WriteByte",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "WriteByte(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "WriteAt",
       "structName": "os.File",
       "structNameShort": "File",
       "methodsCompletion": "WriteAt(${1:v2 /*type: bytes*/}, ${2:v3 /*type: int64*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Write",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Write(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Write",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Write(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Write",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "Write(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -5588,17 +5979,25 @@
     {
       "isMethod": true,
       "fieldName": "Write",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Write(${1:v2 /*type: io.Writer*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "Write",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Write(${1:v2 /*type: io.Writer*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "WordCloud",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "WordCloud(${1:v2 /*type: ...any*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -5612,16 +6011,16 @@
     {
       "isMethod": true,
       "fieldName": "WithContext",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "WithContext(${1:v2 /*type: context.Context*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "WithContext",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "WithContext(${1:v2 /*type: context.Context*/})",
       "isGolangBuildOrigin": false
     },
@@ -5932,14 +6331,6 @@
     {
       "isMethod": false,
       "fieldName": "Value",
-      "structName": "mime/multipart.Form",
-      "structNameShort": "Form",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Value",
       "structName": "net/http.Cookie",
       "structNameShort": "Cookie",
       "methodsCompletion": "",
@@ -5964,25 +6355,9 @@
     {
       "isMethod": true,
       "fieldName": "Value",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "Value()",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Value",
       "structName": "palm/common/utils/htmlquery.NodeNavigator",
       "structNameShort": "NodeNavigator",
       "methodsCompletion": "Value()",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Value",
-      "structName": "palm/common/xhtml.MatchNodeInfo",
-      "structNameShort": "MatchNodeInfo",
-      "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
     {
@@ -6091,6 +6466,22 @@
     },
     {
       "isMethod": false,
+      "fieldName": "Val",
+      "structName": "palm/common/xhtml.MatchNodeInfo",
+      "structNameShort": "MatchNodeInfo",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Uuid",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "Username",
       "structName": "github.com/go-ldap/ldap.SimpleBindRequest",
       "structNameShort": "com/go-ldap/ldap.SimpleBindRequest",
@@ -6131,6 +6522,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "UserId",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "UserEliminated",
       "structName": "palm/common/utils/bruteutils.BruteItemResult",
       "structNameShort": "BruteItemResult",
@@ -6148,16 +6547,16 @@
     {
       "isMethod": true,
       "fieldName": "UserAgent",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "UserAgent()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "UserAgent",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "UserAgent()",
       "isGolangBuildOrigin": false
     },
@@ -6268,9 +6667,57 @@
     {
       "isMethod": true,
       "fieldName": "UnreadRune",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "UnreadRune()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnreadRune",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "UnreadRune()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnreadRune",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "UnreadRune()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnreadRune",
       "structName": "strings.Reader",
       "structNameShort": "Reader",
       "methodsCompletion": "UnreadRune()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnreadByte",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "UnreadByte()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnreadByte",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "UnreadByte()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "UnreadByte",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "UnreadByte()",
       "isGolangBuildOrigin": true
     },
     {
@@ -6995,6 +7442,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ToReport",
+      "structName": "palm/common/yakgrpc/yakit.ReportRecord",
+      "structNameShort": "ReportRecord",
+      "methodsCompletion": "ToReport()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "ToRecord",
       "structName": "palm/common/yakgrpc/yakit.Report",
       "structNameShort": "Report",
@@ -7207,6 +7662,14 @@
       "structName": "crypto/x509/pkix.TBSCertificateList",
       "structNameShort": "TBSCertificateList",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Text",
+      "structName": "bufio.Scanner",
+      "structNameShort": "Scanner",
+      "methodsCompletion": "Text()",
       "isGolangBuildOrigin": true
     },
     {
@@ -7972,6 +8435,14 @@
     {
       "isMethod": true,
       "fieldName": "Split",
+      "structName": "bufio.Scanner",
+      "structNameShort": "Scanner",
+      "methodsCompletion": "Split(${1:v2 /*type: func SplitFunc(v1: bytes, v2: bool) return(int, bytes, error) */})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Split",
       "structName": "regexp.Regexp",
       "structNameShort": "Regexp",
       "methodsCompletion": "Split(${1:v2 /*type: string*/}, ${2:v3 /*type: int*/})",
@@ -8026,11 +8497,19 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": false,
+      "isMethod": true,
       "fieldName": "Size",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "Size()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Size",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "Size()",
       "isGolangBuildOrigin": true
     },
     {
@@ -8343,6 +8822,14 @@
       "structName": "palm/common/yak/yaklib.udpConn",
       "structNameShort": "udpConn",
       "methodsCompletion": "SetWriteBuffer(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "SetWithTTL",
+      "structName": "palm/common/yak/yaklib.redisClient",
+      "structNameShort": "redisClient",
+      "methodsCompletion": "SetWithTTL(${1:v2 /*type: any*/}, ${2:v3 /*type: any*/}, ${3:v4 /*type: int*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -8892,16 +9379,16 @@
     {
       "isMethod": true,
       "fieldName": "SetBasicAuth",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "SetBasicAuth(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "SetBasicAuth",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "SetBasicAuth(${1:v2 /*type: string*/}, ${2:v3 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
@@ -8959,6 +9446,14 @@
       "structName": "palm/common/yak/yaklang/exec.ReservedInstr",
       "structNameShort": "ReservedInstr",
       "methodsCompletion": "Set(${1:v2 /*type: exec.Instr*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Set",
+      "structName": "palm/common/yak/yaklib.redisClient",
+      "structNameShort": "redisClient",
+      "methodsCompletion": "Set(${1:v2 /*type: any*/}, ${2:v3 /*type: any*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -9231,6 +9726,14 @@
       "structName": "net/url.URL",
       "structNameShort": "URL",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Scan",
+      "structName": "bufio.Scanner",
+      "structNameShort": "Scanner",
+      "methodsCompletion": "Scan()",
       "isGolangBuildOrigin": true
     },
     {
@@ -9604,6 +10107,22 @@
     {
       "isMethod": true,
       "fieldName": "Reset",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "Reset(${1:v2 /*type: io.Reader*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Reset",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "Reset(${1:v2 /*type: io.Writer*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Reset",
       "structName": "palm/common/cybertunnel/tpb.DNSLogEvent",
       "structNameShort": "DNSLogEvent",
       "methodsCompletion": "Reset()",
@@ -9780,8 +10299,8 @@
     {
       "isMethod": false,
       "fieldName": "Request",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -9890,14 +10409,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "Repeat",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "Repeat(${1:v2 /*type: int*/})",
-      "isGolangBuildOrigin": false
-    },
-    {
       "isMethod": false,
       "fieldName": "Renegotiation",
       "structName": "crypto/tls.Config",
@@ -9927,14 +10438,6 @@
       "structName": "golang.org/x/net/html.Node",
       "structNameShort": "org/x/net/html.Node",
       "methodsCompletion": "RemoveChild(${1:v2 /*type: *html.Node*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "RemoveAll",
-      "structName": "mime/multipart.Form",
-      "structNameShort": "Form",
-      "methodsCompletion": "RemoveAll()",
       "isGolangBuildOrigin": true
     },
     {
@@ -10140,16 +10643,16 @@
     {
       "isMethod": true,
       "fieldName": "Referer",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Referer()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "Referer",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Referer()",
       "isGolangBuildOrigin": false
     },
@@ -10306,6 +10809,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": false,
+      "fieldName": "Reader",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
       "isMethod": true,
       "fieldName": "Readdirnames",
       "structName": "os.File",
@@ -10332,10 +10843,82 @@
     {
       "isMethod": true,
       "fieldName": "ReadString",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadString(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadString",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadString(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadString",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadString(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadString",
       "structName": "palm/common/yak/yaklib._yakFile",
       "structNameShort": "_yakFile",
       "methodsCompletion": "ReadString()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadSlice",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadSlice(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadSlice",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadSlice(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadSlice",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadSlice(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadRune",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadRune()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadRune",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadRune()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadRune",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadRune()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -10403,6 +10986,30 @@
     },
     {
       "isMethod": true,
+      "fieldName": "ReadLine",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadLine()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadLine",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadLine()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadLine",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadLine()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "ReadFromUDPAddrPort",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
@@ -10460,6 +11067,30 @@
     {
       "isMethod": true,
       "fieldName": "ReadFrom",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadFrom(${1:v2 /*type: io.Reader*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadFrom",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadFrom(${1:v2 /*type: io.Reader*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadFrom",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "ReadFrom(${1:v2 /*type: io.Reader*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadFrom",
       "structName": "io.discard",
       "structNameShort": "discard",
       "methodsCompletion": "ReadFrom(${1:v2 /*type: io.Reader*/})",
@@ -10499,18 +11130,58 @@
     },
     {
       "isMethod": true,
-      "fieldName": "ReadForm",
-      "structName": "mime/multipart.Reader",
-      "structNameShort": "Reader",
-      "methodsCompletion": "ReadForm(${1:v2 /*type: int64*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
       "fieldName": "ReadDir",
       "structName": "os.File",
       "structNameShort": "File",
       "methodsCompletion": "ReadDir(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadBytes",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadBytes(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadBytes",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadBytes(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadBytes",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadBytes(${1:v2 /*type: byte*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadByte",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadByte()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadByte",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "ReadByte()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadByte",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "ReadByte()",
       "isGolangBuildOrigin": true
     },
     {
@@ -10532,6 +11203,14 @@
     {
       "isMethod": true,
       "fieldName": "ReadAt",
+      "structName": "palm/common/yak/yaklib._yakFile",
+      "structNameShort": "_yakFile",
+      "methodsCompletion": "ReadAt(${1:v2 /*type: bytes*/}, ${2:v3 /*type: int64*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "ReadAt",
       "structName": "strings.Reader",
       "structNameShort": "Reader",
       "methodsCompletion": "ReadAt(${1:v2 /*type: bytes*/}, ${2:v3 /*type: int64*/})",
@@ -10544,6 +11223,30 @@
       "structNameShort": "_yakFile",
       "methodsCompletion": "ReadAll()",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Read",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Read",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Read",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -10564,14 +11267,6 @@
     {
       "isMethod": true,
       "fieldName": "Read",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Read",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
       "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
@@ -10584,6 +11279,14 @@
       "structNameShort": "File",
       "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Read",
+      "structName": "palm/common/yak/yaklib._yakFile",
+      "structNameShort": "_yakFile",
+      "methodsCompletion": "Read(${1:v2 /*type: bytes*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
@@ -10754,6 +11457,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "Raw",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Raw(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "Raw",
       "structName": "palm/common/yserx.JavaString",
@@ -10838,6 +11549,14 @@
       "fieldName": "QuotedJson",
       "structName": "palm/common/yakgrpc/yakit.ReportRecord",
       "structNameShort": "ReportRecord",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "Quote",
+      "structName": "palm/common/xhtml.MatchNodeInfo",
+      "structNameShort": "MatchNodeInfo",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -11116,16 +11835,16 @@
     {
       "isMethod": true,
       "fieldName": "ProtoAtLeast",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "ProtoAtLeast(${1:v2 /*type: int*/}, ${2:v3 /*type: int*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "ProtoAtLeast",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "ProtoAtLeast(${1:v2 /*type: int*/}, ${2:v3 /*type: int*/})",
       "isGolangBuildOrigin": false
     },
@@ -11324,16 +12043,16 @@
     {
       "isMethod": true,
       "fieldName": "PostFormValue",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "PostFormValue(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "PostFormValue",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "PostFormValue(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
@@ -11359,22 +12078,6 @@
       "structName": "palm/common/utils/comparer.Discriminator",
       "structNameShort": "Discriminator",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "PositionVerbose",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "PositionVerbose()",
-      "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Position",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "Position()",
       "isGolangBuildOrigin": false
     },
     {
@@ -11514,6 +12217,14 @@
       "isGolangBuildOrigin": false
     },
     {
+      "isMethod": true,
+      "fieldName": "PieGraph",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "PieGraph(${1:v2 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
       "isMethod": false,
       "fieldName": "PermittedURIDomains",
       "structName": "crypto/x509.Certificate",
@@ -11567,6 +12278,30 @@
       "structName": "crypto/tls.ConnectionState",
       "structNameShort": "ConnectionState",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Peek",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Peek(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Peek",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Peek(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Peek",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "Peek(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -11684,16 +12419,16 @@
     {
       "isMethod": true,
       "fieldName": "ParseMultipartForm",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "ParseMultipartForm(${1:v2 /*type: int64*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "ParseMultipartForm",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "ParseMultipartForm(${1:v2 /*type: int64*/})",
       "isGolangBuildOrigin": false
     },
@@ -11708,16 +12443,16 @@
     {
       "isMethod": true,
       "fieldName": "ParseForm",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "ParseForm()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "ParseForm",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "ParseForm()",
       "isGolangBuildOrigin": false
     },
@@ -11938,14 +12673,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Open",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "Open()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "Opaque",
       "structName": "net/url.URL",
@@ -11966,6 +12693,38 @@
       "fieldName": "OnlyNeedPassword",
       "structName": "palm/common/utils/bruteutils.BruteUtil",
       "structNameShort": "BruteUtil",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OnlineScriptName",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OnlineIsPrivate",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OnlineId",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
+      "fieldName": "OnlineContributors",
+      "structName": "palm/common/yakgrpc/yakit.YakScript",
+      "structNameShort": "YakScript",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
@@ -12178,27 +12937,11 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "NextRawPart",
-      "structName": "mime/multipart.Reader",
-      "structNameShort": "Reader",
-      "methodsCompletion": "NextRawPart()",
-      "isGolangBuildOrigin": true
-    },
-    {
       "isMethod": false,
       "fieldName": "NextProtos",
       "structName": "crypto/tls.Config",
       "structNameShort": "Config",
       "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "NextPart",
-      "structName": "mime/multipart.Reader",
-      "structNameShort": "Reader",
-      "methodsCompletion": "NextPart()",
       "isGolangBuildOrigin": true
     },
     {
@@ -12458,14 +13201,6 @@
       "isGolangBuildOrigin": true
     },
     {
-      "isMethod": true,
-      "fieldName": "Name",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "Name()",
-      "isGolangBuildOrigin": false
-    },
-    {
       "isMethod": false,
       "fieldName": "Name",
       "structName": "palm/common/utils.FileInfo",
@@ -12508,16 +13243,16 @@
     {
       "isMethod": true,
       "fieldName": "MultipartReader",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "MultipartReader()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "MultipartReader",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "MultipartReader()",
       "isGolangBuildOrigin": false
     },
@@ -13874,11 +14609,11 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "IsPostParams",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "IsPostParams()",
+      "isMethod": false,
+      "fieldName": "IsPotential",
+      "structName": "palm/common/yakgrpc/yakit.Risk",
+      "structNameShort": "Risk",
+      "methodsCompletion": "",
       "isGolangBuildOrigin": false
     },
     {
@@ -14082,14 +14817,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "IsGetParams",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "IsGetParams()",
-      "isGolangBuildOrigin": false
-    },
-    {
       "isMethod": false,
       "fieldName": "IsGeneralModule",
       "structName": "palm/common/yakgrpc/yakit.YakScript",
@@ -14160,14 +14887,6 @@
       "structNameShort": "Time",
       "methodsCompletion": "IsDST()",
       "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "IsCookieParams",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "IsCookieParams()",
-      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -14870,22 +15589,6 @@
       "fieldName": "Header",
       "structName": "github.com/stacktitan/smb/smb.SessionSetup1Req",
       "structNameShort": "com/stacktitan/smb/smb.SessionSetup1Req",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Header",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "Header",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
     },
@@ -15739,6 +16442,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "GetEx",
+      "structName": "palm/common/yak/yaklib.redisClient",
+      "structNameShort": "redisClient",
+      "methodsCompletion": "GetEx(${1:v2 /*type: any*/}, ${2:v3 /*type: int*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "GetDomains",
       "structName": "palm/common/fp.MatchResult",
       "structNameShort": "MatchResult",
@@ -15975,6 +16686,14 @@
       "structName": "palm/common/javascript/otto.Otto",
       "structNameShort": "Otto",
       "methodsCompletion": "Get(${1:v2 /*type: string*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Get",
+      "structName": "palm/common/yak/yaklib.redisClient",
+      "structNameShort": "redisClient",
+      "methodsCompletion": "Get(${1:v2 /*type: any*/})",
       "isGolangBuildOrigin": false
     },
     {
@@ -16250,14 +16969,6 @@
       "isGolangBuildOrigin": false
     },
     {
-      "isMethod": true,
-      "fieldName": "Fuzz",
-      "structName": "palm/common/mutate.FuzzHTTPRequestParam",
-      "structNameShort": "FuzzHTTPRequestParam",
-      "methodsCompletion": "Fuzz(${1:v2 /*type: ...any*/})",
-      "isGolangBuildOrigin": false
-    },
-    {
       "isMethod": false,
       "fieldName": "FuncName",
       "structName": "palm/common/yak/yaklang/exec.Function",
@@ -16428,26 +17139,18 @@
     {
       "isMethod": true,
       "fieldName": "FormValue",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "FormValue(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "FormValue",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "FormValue(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "FormName",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "FormName()",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -16460,16 +17163,16 @@
     {
       "isMethod": true,
       "fieldName": "FormFile",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "FormFile(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "FormFile",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "FormFile(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
@@ -16496,6 +17199,30 @@
       "structNameShort": "Class",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Flush",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Flush()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Flush",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Flush()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Flush",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "Flush()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -16779,35 +17506,11 @@
     },
     {
       "isMethod": false,
-      "fieldName": "Filename",
-      "structName": "mime/multipart.FileHeader",
-      "structNameShort": "FileHeader",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
       "fieldName": "FilePath",
       "structName": "palm/common/yak.yakVariable",
       "structNameShort": "yakVariable",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
-    },
-    {
-      "isMethod": true,
-      "fieldName": "FileName",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "FileName()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": false,
-      "fieldName": "File",
-      "structName": "mime/multipart.Form",
-      "structNameShort": "Form",
-      "methodsCompletion": "",
-      "isGolangBuildOrigin": true
     },
     {
       "isMethod": true,
@@ -17403,6 +18106,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Err",
+      "structName": "bufio.Scanner",
+      "structNameShort": "Scanner",
+      "methodsCompletion": "Err()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
       "fieldName": "Equal",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
@@ -17639,6 +18350,30 @@
       "structName": "math/big.Int",
       "structNameShort": "Int",
       "methodsCompletion": "Div(${1:v2 /*type: *big.Int*/}, ${2:v3 /*type: *big.Int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Discard",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Discard(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Discard",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Discard(${1:v2 /*type: int*/})",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Discard",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "Discard(${1:v2 /*type: int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -18196,16 +18931,16 @@
     {
       "isMethod": true,
       "fieldName": "Cookies",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Cookies()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "Cookies",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Cookies()",
       "isGolangBuildOrigin": false
     },
@@ -18228,16 +18963,16 @@
     {
       "isMethod": true,
       "fieldName": "Cookie",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Cookie(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "Cookie",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Cookie(${1:v2 /*type: string*/})",
       "isGolangBuildOrigin": false
     },
@@ -18388,16 +19123,16 @@
     {
       "isMethod": true,
       "fieldName": "Context",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Context()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "Context",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Context()",
       "isGolangBuildOrigin": false
     },
@@ -18571,6 +19306,14 @@
     },
     {
       "isMethod": true,
+      "fieldName": "Code",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "Code(${1:v2 /*type: any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
       "fieldName": "CmpAbs",
       "structName": "math/big.Int",
       "structNameShort": "Int",
@@ -18660,14 +19403,6 @@
     {
       "isMethod": true,
       "fieldName": "Close",
-      "structName": "mime/multipart.Part",
-      "structNameShort": "Part",
-      "methodsCompletion": "Close()",
-      "isGolangBuildOrigin": true
-    },
-    {
-      "isMethod": true,
-      "fieldName": "Close",
       "structName": "net.UDPConn",
       "structNameShort": "UDPConn",
       "methodsCompletion": "Close()",
@@ -18702,6 +19437,14 @@
       "fieldName": "Close",
       "structName": "palm/common/yak/yaklib._yakFile",
       "structNameShort": "_yakFile",
+      "methodsCompletion": "Close()",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Close",
+      "structName": "palm/common/yak/yaklib.redisClient",
+      "structNameShort": "redisClient",
       "methodsCompletion": "Close()",
       "isGolangBuildOrigin": false
     },
@@ -18812,16 +19555,16 @@
     {
       "isMethod": true,
       "fieldName": "Clone",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Clone(${1:v2 /*type: context.Context*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "Clone",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "Clone(${1:v2 /*type: context.Context*/})",
       "isGolangBuildOrigin": false
     },
@@ -19347,6 +20090,14 @@
     },
     {
       "isMethod": false,
+      "fieldName": "CVE",
+      "structName": "palm/common/yakgrpc/yakit.Risk",
+      "structNameShort": "Risk",
+      "methodsCompletion": "",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": false,
       "fieldName": "CRLDistributionPoints",
       "structName": "crypto/x509.Certificate",
       "structNameShort": "Certificate",
@@ -19408,6 +20159,14 @@
       "structNameShort": "JavaArray",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Bytes",
+      "structName": "bufio.Scanner",
+      "structNameShort": "Scanner",
+      "methodsCompletion": "Bytes()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -19487,6 +20246,30 @@
       "structName": "github.com/oschwald/maxminddb-golang.Metadata",
       "structNameShort": "com/oschwald/maxminddb-golang.Metadata",
       "methodsCompletion": "",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Buffered",
+      "structName": "bufio.Reader",
+      "structNameShort": "Reader",
+      "methodsCompletion": "Buffered()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Buffered",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "Buffered()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Buffer",
+      "structName": "bufio.Scanner",
+      "structNameShort": "Scanner",
+      "methodsCompletion": "Buffer(${1:v2 /*type: bytes*/}, ${2:v3 /*type: int*/})",
       "isGolangBuildOrigin": true
     },
     {
@@ -19692,16 +20475,16 @@
     {
       "isMethod": true,
       "fieldName": "BasicAuth",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "BasicAuth()",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "BasicAuth",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "BasicAuth()",
       "isGolangBuildOrigin": false
     },
@@ -19720,6 +20503,22 @@
       "structNameShort": "com/go-ldap/ldap.SearchRequest",
       "methodsCompletion": "",
       "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "BarGraphVertical",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "BarGraphVertical(${1:v2 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "BarGraphHorizontal",
+      "structName": "palm/common/yakgrpc/yakit.Report",
+      "structNameShort": "Report",
+      "methodsCompletion": "BarGraphHorizontal(${1:v2 /*type: ...any*/})",
+      "isGolangBuildOrigin": false
     },
     {
       "isMethod": false,
@@ -19744,6 +20543,54 @@
       "structNameShort": "ASTWalkerResult",
       "methodsCompletion": "",
       "isGolangBuildOrigin": false
+    },
+    {
+      "isMethod": true,
+      "fieldName": "AvailableBuffer",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "AvailableBuffer()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "AvailableBuffer",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "AvailableBuffer()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "AvailableBuffer",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "AvailableBuffer()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Available",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Available()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Available",
+      "structName": "bufio.ReadWriter",
+      "structNameShort": "ReadWriter",
+      "methodsCompletion": "Available()",
+      "isGolangBuildOrigin": true
+    },
+    {
+      "isMethod": true,
+      "fieldName": "Available",
+      "structName": "bufio.Writer",
+      "structNameShort": "Writer",
+      "methodsCompletion": "Available()",
+      "isGolangBuildOrigin": true
     },
     {
       "isMethod": false,
@@ -20020,16 +20867,16 @@
     {
       "isMethod": true,
       "fieldName": "AddCookie",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "AddCookie(${1:v2 /*type: *http.Cookie*/})",
       "isGolangBuildOrigin": false
     },
     {
       "isMethod": true,
       "fieldName": "AddCookie",
-      "structName": "palm/common/yak/yaklib.yakHttpRequest",
-      "structNameShort": "yakHttpRequest",
+      "structName": "palm/common/yak/yaklib/yakhttp.YakHttpRequest",
+      "structNameShort": "YakHttpRequest",
       "methodsCompletion": "AddCookie(${1:v2 /*type: *http.Cookie*/})",
       "isGolangBuildOrigin": false
     },
