@@ -1,0 +1,8 @@
+func test() {
+println("hello")	
+}
+
+a = 1
+b = a + 1
+test()
+println("222")

@@ -15,8 +15,7 @@
         "Language Packs"
     ],
     "activationEvents": [
-        "*",
-        "onCommand:yak.exec"
+        "onLanguage:yak"
     ],
     "main": "./out/extension.js",
     "contributes": {
@@ -24,6 +23,16 @@
             {
                 "command": "yak.exec",
                 "title": "Exec Yak Script"
+            },
+            {
+                "command": "yak.debug.file",
+                "title": "Yak: Debug file",
+                "description": "Debug file"
+            },
+            {
+                "command": "yak.fmt.file",
+                "title": "Yak: Format file",
+                "description": "Format file"
             }
         ],
         "snippets": [
@@ -52,10 +61,51 @@
                 "path": "./syntaxes/yak.tmLanguage.json"
             }
         ],
-        "keybindings": [
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceFilename =~ /.yak$/",
+                    "command": "yak.debug.file",
+                    "group": "yak"
+                },
+                {
+                    "when": "resourceFilename =~ /.yak$/",
+                    "command": "yak.fmt.file",
+                    "group": "yak"
+                }
+            ]
+        },
+        "breakpoints": [
             {
-                "key": "F5",
-                "command": "yak.exec"
+                "language": "yak"
+            }
+        ],
+        "debuggers": [
+            {
+                "type": "yak",
+                "languages": [
+                    "yak"
+                ],
+                "label": "Yaklang Debug",
+                "configurationAttributes": {
+                    "launch": {
+                        "required": [
+                            "program"
+                        ],
+                        "properties": {
+                            "program": {
+                                "type": "string",
+                                "description": "Absolute path to a text file.",
+                                "default": "${workspaceFolder}/${command:AskForProgramName}"
+                            },
+                            "debug": {
+                                "type": "boolean",
+                                "description": "enable debug for debugger adapter",
+                                "default": false
+                            }
+                        }
+                    }
+                }
             }
         ]
     },
@@ -73,6 +123,8 @@
         "@typescript-eslint/parser": "^4.16.0",
         "eslint": "^7.21.0",
         "typescript": "^4.3.2",
-        "vsce": "^1.100.0"
+        "vsce": "^1.100.0",
+        "vscode-debugadapter": "^1.51.0",
+        "vscode-debugprotocol": "^1.51.0"
     }
 }
