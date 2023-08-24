@@ -5,10 +5,26 @@ yak 是 yaklang 的语言支持，可以帮助用户更快编写 yak 脚本
 ## Features
 
 1. 支持功能库的自动补全和功能库自动提示
-1. 在你想要的执行的脚本按 `F5` 将会立即调用 `yak [your-script-name].yak` 命令，用户可以观察命令行中的执行结果
 
 ### 当前内部版本 Release Note
 
+### 1.1.0
+**支持代码格式化与代码调试(测试中)**
+调试的一个示例的launch.json如下:
+```json
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "yak",
+			"request": "launch",
+			"name": "Debug yaklang program",
+			"program": "${file}",
+		}
+	]
+}
+
+```
 ### 1.0.15-sp6
 
 修复恼人的缩紧问题，新增一些补全内容

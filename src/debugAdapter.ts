@@ -52,8 +52,14 @@ export class YakDebugAdapterExecutableFactory implements vscode.DebugAdapterDesc
 
                 const dap = spawn(binary, args);
                 dap.stdout.on('data', (data) => {
+                    let message: string = data.toString();
+
                     if (this.debugConsole) {
-                        this.debugConsole.appendLine(data.toString());
+                        this.debugConsole.appendLine(message);
+                    } else if (message.includes("[ERRO]")) {
+                        const splited = message.split(" ", 2);
+                        const errorMessage = splited[1];
+                        vscode.window.showErrorMessage(errorMessage);
                     }
 
                     if (data.includes("Start DAP server")) {
@@ -66,12 +72,8 @@ export class YakDebugAdapterExecutableFactory implements vscode.DebugAdapterDesc
                 });
 
                 dap.stderr.on('data', (data) => {
-                    if (this.debugConsole) {
-                        if (!data.includes("use of closed network connection")) {
-                            this.debugConsole.appendLine(data.toString());
-                        }
-                    }
-                    vscode.window.showErrorMessage(data.toString());
+                    let message: string = data.toString();
+                    vscode.window.showErrorMessage(message);
                 });
                 dap.on('close', (code) => {
                     if (this.debugConsole) {
