@@ -1,0 +1,5 @@
+try {
+    panic("111") 
+} catch err {
+    print("222")
+}

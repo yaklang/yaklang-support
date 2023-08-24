@@ -3,6 +3,9 @@
  *--------------------------------------------------------*/
 
 import * as vscode from 'vscode';
+import { registerDebugger } from './activateDebug';
+import { registerYakFormatter } from './fmt';
+import * as commands from './commands';
 import { CompletionSchema, getCompletions } from './completionSchema';
 
 const completions = getCompletions();
@@ -172,4 +175,16 @@ export function activate(context: vscode.ExtensionContext) {
         provider2, hoverProvider, execYakCommandProvider,
         execYakShortcut,
     );
+
+
+    // debug
+    registerDebugger(context);
+    // formatter
+    registerYakFormatter(context);
+
+    // commands
+    let disposable = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
+    context.subscriptions.push(disposable);
+    disposable = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
+    context.subscriptions.push(disposable);
 }

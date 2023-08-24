@@ -10,8 +10,12 @@
             "type": "extensionHost",
             "request": "launch",
             "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
-            ]
+                "--extensionDevelopmentPath=${workspaceFolder}",
+				"${workspaceFolder}/sampleWorkspace"
+            ],
+            "outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
         }
     ]
 }
