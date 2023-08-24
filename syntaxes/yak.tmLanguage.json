@@ -29,6 +29,30 @@
 				}
 			]
 		},
+        {
+			"comment": "Interpreted string literals",
+			"begin": "'(?=[^']{2,})",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yak"
+				}
+			},
+			"end": "(?=[^']{2,})'",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yak"
+				}
+			},
+			"name": "string.quoted.single.yak",
+			"patterns": [
+				{
+					"include": "#string_escaped_char"
+				},
+				{
+					"include": "#string_placeholder"
+				}
+			]
+		},
 		{
 			"comment": "Raw string literals",
 			"begin": "`",
@@ -198,10 +222,10 @@
 			]
 		},
 		{
-			"begin": "\\b(import)\\s+",
+			"begin": "\\b(include)\\s+",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.import.yak"
+					"name": "keyword.control.import.yak"
 				}
 			},
 			"end": "(?!\\G)",
@@ -388,13 +412,13 @@
 		"imports": {
 			"patterns": [
 				{
-					"match": "((?!\\s+\")[^\\s]*)?\\s*((\")([^\"]*)(\"))",
+                    "match": "((?!\\s+['\"])[^\\s]*)?\\s*((['\"])([^'\"]*)(['\"]))",
 					"captures": {
 						"1": {
 							"name": "entity.alias.import.yak"
 						},
 						"2": {
-							"name": "string.quoted.double.yak"
+							"name": "string.quoted.yak"
 						},
 						"3": {
 							"name": "punctuation.definition.string.begin.yak"
@@ -435,7 +459,7 @@
 			"patterns": [
 				{
 					"comment": "Flow control keywords",
-					"match": "\\b(break|case|continue|default|defer|else|fallthrough|for|go|goto|if|range|return|select|switch)\\b",
+					"match": "\\b(break|case|continue|default|defer|else|fallthrough|for|in|go|goto|if|range|return|select|switch|try|catch|finally)\\b",
 					"name": "keyword.control.yak"
 				},
 				{
