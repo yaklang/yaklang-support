@@ -4,6 +4,7 @@ import * as https from 'https';
 
 import { spawnSync } from 'child_process';
 import { findYakBinary } from './path';
+import { showErrorMessageWithDownloadOption } from '../commands';
 
 const YAK_VERSION_KEY_NAME = 'yak_version';
 
@@ -19,9 +20,18 @@ export function getAndSetYakVersion(context: vscode.ExtensionContext): string | 
     }
 
     const binary = findYakBinary(context);
+    if (binary === "") {
+        showErrorMessageWithDownloadOption(context, "Cannot find yak in PATH");
+        return "";
+    }
     const p = spawnSync(binary, ["version", "-json"]);
-    const result = JSON.parse(p.stdout?.toString() || "");
-    version = result.Version ?? "";
+    if (p.status !== 0 || p.stderr?.toString().length > 0) {
+        showErrorMessageWithDownloadOption(context, "Cannot get yak version, please download the latest version of yak");
+        return "";
+    } else {
+        const result = JSON.parse(p.stdout?.toString() || "");
+        version = result.Version ?? "";
+    }
     if (version !== "") {
         context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
     }
