@@ -4,13 +4,14 @@ import { ProviderResult } from 'vscode';
 import { findYakBinary } from './utils/path';
 import { CanDebug } from './utils/dap';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
+import { showErrorMessageWithDownloadOption } from './commands';
 
 function Random(min: number, max: number): number {
     return Math.round(Math.random() * (max - min)) + min;
 }
 
 export class YakDebugAdapterFactory implements vscode.DebugAdapterDescriptorFactory {
-    private ctx?: vscode.ExtensionContext;
+    private ctx: vscode.ExtensionContext;
     private dap?: ChildProcessWithoutNullStreams;
     private host?: string;
     private port?: number;
@@ -28,13 +29,13 @@ export class YakDebugAdapterFactory implements vscode.DebugAdapterDescriptorFact
             return new Promise<vscode.DebugAdapterDescriptor>((resolve, reject) => {
                 let binary = findYakBinary(this.ctx);
                 if (binary === "") {
-                    vscode.window.showErrorMessage("Cannot find yak in PATH");
+                    showErrorMessageWithDownloadOption(this.ctx, "Cannot find yak in PATH");
                     return;
                 }
 
                 if (!CanDebug(binary)) {
-                    const message = "yak binary does not support debug, please download the latest version from https://github.com/yaklang/yaklang/releases"
-                    vscode.window.showErrorMessage(message);
+                    const message = "yak binary does not support debug, please download the latest version of yak"
+                    showErrorMessageWithDownloadOption(this.ctx, message);
                     return;
                 }
 
@@ -89,7 +90,7 @@ export class YakDebugAdapterFactory implements vscode.DebugAdapterDescriptorFact
         }
     }
 
-    constructor(ctx?: vscode.ExtensionContext) {
+    constructor(ctx: vscode.ExtensionContext) {
         this.ctx = ctx;
     }
 

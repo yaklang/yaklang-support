@@ -16,9 +16,7 @@ export function registerStatusBar(context: vscode.ExtensionContext): Promise<voi
     return new Promise<void>((resolve, reject) => {
         let version = getAndSetYakVersion(context);
         updateStatusBar(context, version).then(() => {
-            if (yakEnvStatusbarItem) {
-                yakEnvStatusbarItem.show();
-            }
+            yakEnvStatusbarItem.show();
             return resolve();
         });
     });

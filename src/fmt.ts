@@ -2,20 +2,21 @@ import * as vscode from 'vscode';
 import { CanFmt } from './utils/fmt';
 import { findYakBinary, getCurrentFilePath } from './utils/path';
 import { spawnSync } from 'child_process';
+import { showErrorMessageWithDownloadOption } from './commands';
 
 class YakDocumentFormattingEditProvider implements vscode.DocumentFormattingEditProvider {
-    private ctx?: vscode.ExtensionContext;
+    private ctx: vscode.ExtensionContext;
 
     provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
         let binary = findYakBinary(this.ctx);
         if (binary === "") {
-            vscode.window.showErrorMessage("Cannot find yak in PATH");
+            showErrorMessageWithDownloadOption(this.ctx, "Cannot find yak in PATH");
             return [];
         }
 
         if (!CanFmt(binary)) {
-            const message = "yak binary does not support fmt, please download the latest version from https://github.com/yaklang/yaklang/releases"
-            vscode.window.showErrorMessage(message);
+            const message = "yak binary does not support fmt, please download latest version of yak"
+            showErrorMessageWithDownloadOption(this.ctx, message);
             return [];
         }
 
@@ -38,7 +39,7 @@ class YakDocumentFormattingEditProvider implements vscode.DocumentFormattingEdit
         return [];
     }
 
-    constructor(ctx?: vscode.ExtensionContext) {
+    constructor(ctx: vscode.ExtensionContext) {
         this.ctx = ctx;
     }
 }

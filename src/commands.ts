@@ -30,6 +30,13 @@ export async function formatFile() {
     await vscode.commands.executeCommand('editor.action.formatDocument');
 }
 
+export async function showErrorMessageWithDownloadOption(context: vscode.ExtensionContext, message: string) {
+    let selection = await vscode.window.showErrorMessage(message, "Download", "Cancel");
+    if (selection === 'Download') {
+        downloadLatestYakBinary(context);
+    }
+}
+
 function setYakBinary(context: vscode.ExtensionContext, path: string) {
     setYakBinaryPath(context, path);
     updateYakVersionByBinary(context, path);
@@ -70,13 +77,13 @@ async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
     let downloadURL = "";
     switch (platform) {
         case 'Windows':
-            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion||"latest"}/yak_windows_amd64.exe`
+            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_windows_amd64.exe`
             break;
         case 'Linux':
-            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion||"latest"}/yak_linux_amd64`
+            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_linux_amd64`
             break;
         case 'Darwin':
-            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion||"latest"}/yak_darwin_amd64`
+            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_darwin_amd64`
             break;
     }
     if (downloadURL === "") {
@@ -133,12 +140,12 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
             outputChannel.appendLine(`Download latest ${binaryName}`);
             const outputPath = `${folderPath}/${binary}`;
             const request = https.get(downloadURL, (response) => {
-                const totalBytes = parseInt(response.headers['content-length']|| "0", 10);
+                const totalBytes = parseInt(response.headers['content-length'] || "0", 10);
                 let downloadedBytes = 0;
-    
+
                 const writer = fs.createWriteStream(outputPath);
                 response.pipe(writer);
-    
+
                 response.on('data', (chunk) => {
                     downloadedBytes += chunk.length;
                     progress.report({
@@ -146,7 +153,7 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
                         increment: (chunk.length / totalBytes) * 100
                     });
                 });
-    
+
                 writer.on('finish', () => {
                     writer.end();
                     outputChannel.appendLine(successMessage);
@@ -154,13 +161,13 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
 
                     setYakBinary(context, outputPath);
                 });
-    
+
                 writer.on('error', (err) => {
                     outputChannel.appendLine(failedMessage);
                     vscode.window.showErrorMessage(failedMessage);
                 });
             });
-    
+
             request.on('error', (err) => {
                 outputChannel.appendLine(failedMessage);
                 vscode.window.showErrorMessage(failedMessage);
