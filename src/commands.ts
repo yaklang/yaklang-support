@@ -130,62 +130,66 @@ async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
 async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, binary: string, latestVersion: string, folderPath: string, downloadURL: string) {
     binary = binary.includes(".exe") ? "yak.exe" : "yak";
     const binaryName = `${binary}(${latestVersion})`;
-    const downloadMessage = `Downloading ${binaryName}...`;
     const successMessage = `Download ${binaryName} SUCCEEDED`;
     const failedMessage = `Download ${binaryName} FAILED`;
 
-    return await vscode.window.withProgress(
+    await vscode.window.withProgress(
         {
             title: `Downloading ${binaryName}`,
             location: vscode.ProgressLocation.Notification
         },
         async (progress) => {
-            outputChannel.clear();
-            outputChannel.show();
-            outputChannel.appendLine(`Download latest ${binaryName}`);
-            const outputPath = path.join(folderPath, binary);
-
-            const request = https.get(downloadURL, (response) => {
-                const totalBytes = parseInt(response.headers['content-length'] || "0", 10);
-                let downloadedBytes = 0;
-
-                const writer = fs.createWriteStream(outputPath);
-                let success = false;
-                response.pipe(writer);
-
-                response.on('data', (chunk) => {
-                    downloadedBytes += chunk.length;
-                    progress.report({
-                        message: downloadMessage,
-                        increment: (chunk.length / totalBytes) * 100
+            return new Promise<void>((resolve, reject) => {
+                outputChannel.clear();
+                outputChannel.show();
+                outputChannel.appendLine(`Download latest ${binaryName}`);
+                const outputPath = path.join(folderPath, binary);
+    
+                const request = https.get(downloadURL, (response) => {
+                    const totalBytes = parseInt(response.headers['content-length'] || "0", 10);
+                    let downloadedBytes = 0;
+    
+                    const writer = fs.createWriteStream(outputPath);
+                    let success = false;
+                    response.pipe(writer);
+    
+                    response.on('data', (chunk) => {
+                        downloadedBytes += chunk.length;
+                        progress.report({
+                            message: `${Math.round((downloadedBytes / totalBytes) * 100) }%`,
+                            increment: (chunk.length / totalBytes) * 100,
+                        });
+                    });
+    
+                    writer.on('finish', () => {
+                        outputChannel.appendLine(successMessage);
+                        vscode.window.showInformationMessage(successMessage);
+                        success = true;
+                    });
+    
+                    writer.on('close', () => {
+                        if (success) {
+                            setYakBinary(context, outputPath);
+                            resolve();
+                        }
+                    })
+    
+                    writer.on('error', (err) => {
+                        outputChannel.appendLine(failedMessage);
+                        vscode.window.showErrorMessage(failedMessage);
+                        reject(err);
                     });
                 });
-
-                writer.on('finish', () => {
-                    writer.end();
-                    outputChannel.appendLine(successMessage);
-                    vscode.window.showInformationMessage(successMessage);
-                    success = true;
-                });
-
-                writer.on('close', () => {
-                    if (success) {
-                        setYakBinary(context, outputPath);
-                    }
-                })
-
-                writer.on('error', (err) => {
+    
+                request.on('error', (err) => {
                     outputChannel.appendLine(failedMessage);
                     vscode.window.showErrorMessage(failedMessage);
+                    reject(err);
                 });
             });
-
-            request.on('error', (err) => {
-                outputChannel.appendLine(failedMessage);
-                vscode.window.showErrorMessage(failedMessage);
-            });
         }
-    )
+    )    
+    return ;
 }
 
 export const expandYakStatusBar = (context: vscode.ExtensionContext) => async () => {
