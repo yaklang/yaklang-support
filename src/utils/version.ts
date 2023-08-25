@@ -36,10 +36,14 @@ export function updateYakVersionByBinary(context: vscode.ExtensionContext, path:
     if (p.status !== 0) {
         return "";
     }
-    const result = JSON.parse(p.stdout?.toString() || "");
-    let version = result.Version ?? "";
-    context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
-    return version;
+    try {
+        const result = JSON.parse(p.stdout?.toString() || "");
+        let version = result.Version ?? "";
+        context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
+        return version;
+    } catch {
+        return "";
+    }
 }
 
 export function getYakVersion(context: vscode.ExtensionContext): string | undefined {
