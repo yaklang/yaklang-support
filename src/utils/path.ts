@@ -42,8 +42,22 @@ export function getCurrentFilePath(): string | undefined {
 
 
 // yak
-export function findYakBinary(): string {
+const YAK_BINARY_KEY_NAME = "yak_binary_path";
+export function findYakBinary(context?: vscode.ExtensionContext): string {
+
+    var state: vscode.Memento | undefined = undefined;
+    if (context) {
+        state = context.workspaceState;
+        const path = state.get<string>(YAK_BINARY_KEY_NAME);
+        if (path) {
+            return path;
+        }
+    }
+
     let binary = (process.platform === "win32") ? "yak.exe" : "yak";
     binary = findBinaryFromPATH(binary);
+    if (binary != "" && state) {
+        state.update(YAK_BINARY_KEY_NAME, binary);
+    }
     return binary;
 }

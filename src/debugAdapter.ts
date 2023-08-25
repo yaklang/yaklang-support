@@ -9,7 +9,8 @@ function Random(min: number, max: number): number {
     return Math.round(Math.random() * (max - min)) + min;
 }
 
-export class YakDebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFactory {
+export class YakDebugAdapterFactory implements vscode.DebugAdapterDescriptorFactory {
+    private ctx?: vscode.ExtensionContext;
     private dap?: ChildProcessWithoutNullStreams;
     private host?: string;
     private port?: number;
@@ -25,7 +26,7 @@ export class YakDebugAdapterExecutableFactory implements vscode.DebugAdapterDesc
                 return new vscode.DebugAdapterServer(this.port || 0, this.host);
             }
             return new Promise<vscode.DebugAdapterDescriptor>((resolve, reject) => {
-                let binary = findYakBinary();
+                let binary = findYakBinary(this.ctx);
                 if (binary === "") {
                     vscode.window.showErrorMessage("Cannot find yak in PATH");
                     return;
@@ -88,9 +89,17 @@ export class YakDebugAdapterExecutableFactory implements vscode.DebugAdapterDesc
         }
     }
 
+    constructor(ctx?: vscode.ExtensionContext) {
+        this.ctx = ctx;
+    }
+
     dispose() {
         if (this.dap) {
             this.dap.kill('SIGTERM');
         }
     }
+}
+
+export function registerYakDebuggerAdapter(context: vscode.ExtensionContext) {
+    context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('yak', new YakDebugAdapterFactory(context)));
 }
