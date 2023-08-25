@@ -1,10 +1,11 @@
 import * as vscode from 'vscode';
 import * as https from 'https';
 import * as fs from 'fs';
+import * as path from 'path';
 
 import { getCurrentWorkspaceFolder } from './utils/workspace';
 import { getDefaultConfig } from './utils/dap';
-import { asyncFetchLatestYaklangVersion, getAndSetYakVersion, getYakVersion, isValidYakBinary, resetYakVersion, updateYakVersionByBinary } from './utils/version';
+import { asyncFetchLatestYaklangVersion, getYakVersion, isValidYakBinary, resetYakVersion, updateYakVersionByBinary } from './utils/version';
 import { updateStatusBar, yakEnvStatusbarItem } from './statusbar';
 import { executableFileExists, fixDriveCasingInWindows, getCurrentFilePath, resetYakBinaryPath, setYakBinaryPath } from './utils/path';
 import { basename } from 'path';
@@ -72,7 +73,10 @@ async function chooseYakBinaryLocation(context: vscode.ExtensionContext) {
 
 async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
     const { platform } = getSystemInfo();
-    const latestYakVersion = await asyncFetchLatestYaklangVersion();
+    let latestYakVersion = await asyncFetchLatestYaklangVersion();
+    if (latestYakVersion.startsWith("v")) {
+        latestYakVersion = latestYakVersion.substr(1);
+    }
 
     let downloadURL = "";
     switch (platform) {
@@ -124,6 +128,7 @@ async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
 }
 
 async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, binary: string, latestVersion: string, folderPath: string, downloadURL: string) {
+    binary = binary.includes(".exe") ? "yak.exe" : "yak";
     const binaryName = `${binary}(${latestVersion})`;
     const downloadMessage = `Downloading ${binaryName}...`;
     const successMessage = `Download ${binaryName} SUCCEEDED`;
@@ -138,12 +143,14 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
             outputChannel.clear();
             outputChannel.show();
             outputChannel.appendLine(`Download latest ${binaryName}`);
-            const outputPath = `${folderPath}/${binary}`;
+            const outputPath = path.join(folderPath, binary);
+
             const request = https.get(downloadURL, (response) => {
                 const totalBytes = parseInt(response.headers['content-length'] || "0", 10);
                 let downloadedBytes = 0;
 
                 const writer = fs.createWriteStream(outputPath);
+                let success = false;
                 response.pipe(writer);
 
                 response.on('data', (chunk) => {
@@ -158,9 +165,14 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
                     writer.end();
                     outputChannel.appendLine(successMessage);
                     vscode.window.showInformationMessage(successMessage);
-
-                    setYakBinary(context, outputPath);
+                    success = true;
                 });
+
+                writer.on('close', () => {
+                    if (success) {
+                        setYakBinary(context, outputPath);
+                    }
+                })
 
                 writer.on('error', (err) => {
                     outputChannel.appendLine(failedMessage);

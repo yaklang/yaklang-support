@@ -24,16 +24,9 @@ export function getAndSetYakVersion(context: vscode.ExtensionContext): string | 
         showErrorMessageWithDownloadOption(context, "Cannot find yak in PATH");
         return "";
     }
-    const p = spawnSync(binary, ["version", "-json"]);
-    if (p.status !== 0 || p.stderr?.toString().length > 0) {
+    version = updateYakVersionByBinary(context, binary);
+    if (version === "") {
         showErrorMessageWithDownloadOption(context, "Cannot get yak version, please download the latest version of yak");
-        return "";
-    } else {
-        const result = JSON.parse(p.stdout?.toString() || "");
-        version = result.Version ?? "";
-    }
-    if (version !== "") {
-        context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
     }
     return version;
 }
