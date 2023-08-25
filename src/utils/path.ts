@@ -40,6 +40,24 @@ export function getCurrentFilePath(): string | undefined {
     return undefined;
 }
 
+export function fixDriveCasingInWindows(pathToFix: string): string {
+	return process.platform === 'win32' && pathToFix
+		? pathToFix.substr(0, 1).toUpperCase() + pathToFix.substr(1)
+		: pathToFix;
+}
+
+export function executableFileExists(filePath: string): boolean {
+	let exists = true;
+	try {
+		exists = fs.statSync(filePath).isFile();
+		if (exists) {
+			fs.accessSync(filePath, fs.constants.F_OK | fs.constants.X_OK);
+		}
+	} catch (e) {
+		exists = false;
+	}
+	return exists;
+}
 
 // yak
 const YAK_BINARY_KEY_NAME = "yak_binary_path";
@@ -60,4 +78,12 @@ export function findYakBinary(context?: vscode.ExtensionContext): string {
         state.update(YAK_BINARY_KEY_NAME, binary);
     }
     return binary;
+}
+
+export function resetYakBinaryPath(context: vscode.ExtensionContext) {
+    context.workspaceState.update(YAK_BINARY_KEY_NAME, undefined);
+}
+
+export function setYakBinaryPath(context: vscode.ExtensionContext, path: string) {
+    context.workspaceState.update(YAK_BINARY_KEY_NAME, path);
 }

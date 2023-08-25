@@ -7,6 +7,7 @@ import { registerDebugger } from './activateDebug';
 import { registerYakFormatter } from './fmt';
 import * as commands from './commands';
 import { CompletionSchema, getCompletions } from './completionSchema';
+import { registerStatusBar } from './statusbar';
 
 const completions = getCompletions();
 let maxLengthWithPadding: number = 26;
@@ -181,10 +182,12 @@ export function activate(context: vscode.ExtensionContext) {
     registerDebugger(context);
     // formatter
     registerYakFormatter(context);
+    // statusbar
+    registerStatusBar(context);
 
     // commands
-    let disposable = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
-    context.subscriptions.push(disposable);
-    disposable = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
-    context.subscriptions.push(disposable);
+    let commandDebugFile = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
+    let commandFmtFile = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
+    let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));
+    context.subscriptions.push(commandDebugFile, commandFmtFile, commandYakEnvStatus);
 }
