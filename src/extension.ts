@@ -170,9 +170,9 @@ export function activate(context: vscode.ExtensionContext) {
     registerStatusBar(context);
 
     // commands
-    let commandRunFile = vscode.commands.registerCommand('yak.exec.file', commands.execFile(context));
+    let commandExecFile = vscode.commands.registerCommand('yak.exec.file', commands.execFile(context));
     let commandDebugFile = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
     let commandFmtFile = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
     let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));
-    context.subscriptions.push(commandDebugFile, commandFmtFile, commandYakEnvStatus);
+    context.subscriptions.push(commandExecFile,commandDebugFile, commandFmtFile, commandYakEnvStatus);
 }
