@@ -7,7 +7,7 @@ import { getCurrentWorkspaceFolder } from './utils/workspace';
 import { getDefaultConfig } from './utils/dap';
 import { asyncFetchLatestYaklangVersion, getYakVersion, isValidYakBinary, resetYakVersion, updateYakVersionByBinary } from './utils/version';
 import { updateStatusBar, yakEnvStatusbarItem } from './statusbar';
-import { executableFileExists, fixDriveCasingInWindows, getCurrentFilePath, resetYakBinaryPath, setYakBinaryPath } from './utils/path';
+import { executableFileExists, findYakBinary, fixDriveCasingInWindows, getCurrentFilePath, resetYakBinaryPath, setYakBinaryPath } from './utils/path';
 import { basename } from 'path';
 import { getSystemInfo } from './utils/os';
 
@@ -17,6 +17,7 @@ const DOWNLOAD_LATEST_YAK_BINARY_SELECTION = 'Download latest yak binary';
 const CLEAR_YAK_BINARY_SELECTION = 'Clear yak binary selection';
 
 export const outputChannel = vscode.window.createOutputChannel('Yak');
+export let YakTerminal = vscode.window.createTerminal({ name: "YAK Runner" });
 
 export function debugFile() {
     const folder = getCurrentWorkspaceFolder();
@@ -29,6 +30,29 @@ export function debugFile() {
 
 export async function formatFile() {
     await vscode.commands.executeCommand('editor.action.formatDocument');
+}
+
+export const execFile = (context: vscode.ExtensionContext) => (args: string) =>  {
+    if (YakTerminal.exitStatus) {
+        YakTerminal = vscode.window.createTerminal({ name: "YAK Runner" });
+    }
+    const binary = findYakBinary(context);
+    if (binary === "") {
+        showErrorMessageWithDownloadOption(context, "Cannot find yak in PATH");
+        return;
+    }
+    YakTerminal.show(true);
+    if (args) {
+        args = decodeURIComponent(args);
+        if (args.startsWith("file:///")) {
+            args = args.substr(8);
+        }
+        YakTerminal.sendText(`${binary} ${args}`, true);
+    } else {
+        if (vscode.window.activeTextEditor?.document) {
+            YakTerminal.sendText(`${binary} ${vscode.window.activeTextEditor?.document.fileName}`)
+        }
+    }
 }
 
 export async function showErrorMessageWithDownloadOption(context: vscode.ExtensionContext, message: string) {

@@ -21,18 +21,19 @@
     "contributes": {
         "commands": [
             {
-                "command": "yak.exec",
-                "title": "Exec Yak Script"
+                "command": "yak.exec.file",
+                "title": "Yak: Exec file",
+                "description": "Exec Yak file"
             },
             {
                 "command": "yak.debug.file",
                 "title": "Yak: Debug file",
-                "description": "Debug file"
+                "description": "Debug Yak file"
             },
             {
                 "command": "yak.fmt.file",
                 "title": "Yak: Format file",
-                "description": "Format file"
+                "description": "Format Yak file"
             }
         ],
         "snippets": [
@@ -65,6 +66,11 @@
             "editor/context": [
                 {
                     "when": "resourceFilename =~ /.yak$/",
+                    "command": "yak.exec.file",
+                    "group": "yak"
+                },
+                {
+                    "when": "resourceFilename =~ /.yak$/",
                     "command": "yak.debug.file",
                     "group": "yak"
                 },
@@ -75,6 +81,14 @@
                 }
             ]
         },
+        "keybindings": [
+            {
+                "command": "yak.exec.file",
+                "key": "ctrl+shift+b",
+                "mac": "cmd+shift+b",
+                "when": "editorFocus && resourceFilename =~ /.yak$/"
+            }
+        ],
         "breakpoints": [
             {
                 "language": "yak"

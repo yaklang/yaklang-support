@@ -7,6 +7,8 @@ import { findYakBinary } from './path';
 import { showErrorMessageWithDownloadOption } from '../commands';
 
 const YAK_VERSION_KEY_NAME = 'yak_version';
+const VERSION_REGEXP = /    Version: .*/ig;
+
 
 export function isValidYakBinary(binary: string): boolean {
     const p = spawnSync(binary, ["version"]);
@@ -32,24 +34,37 @@ export function getAndSetYakVersion(context: vscode.ExtensionContext): string | 
 }
 
 export function updateYakVersionByBinary(context: vscode.ExtensionContext, path: string) {
-    const p = spawnSync(path, ["version", "-json"]);
+    let p = spawnSync(path, ["version", "-json"]);
     if (p.status !== 0) {
         return "";
     }
+
     try {
         const result = JSON.parse(p.stdout?.toString() || "");
         let version = result.Version ?? "";
         context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
         return version;
     } catch {
-        return "";
+        // 兼容旧版本
+        p = spawnSync(path, ["version"]);
+        const result = p.stdout?.toString();
+        let version = result?.match(VERSION_REGEXP)?.[0]?.replace("Version: ", "").trim() ?? "";
+        // 去除git-hash
+        const splited = version.split("-");
+        if (splited.length > 1) {
+            version = `${splited[0]}-${splited[1]}`;
+        }
+        if (version.startsWith("v")) {
+            version = version.substr(1);
+        }
+        return version;
     }
 }
 
 export function getYakVersion(context: vscode.ExtensionContext): string | undefined {
-    let version: string| undefined = context.workspaceState.get(YAK_VERSION_KEY_NAME);
+    let version: string | undefined = context.workspaceState.get(YAK_VERSION_KEY_NAME);
     if (!version) {
-        version = "no selection";
+        version = "";
     }
     return version;
 }

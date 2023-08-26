@@ -61,13 +61,13 @@ export function executableFileExists(filePath: string): boolean {
 
 // yak
 const YAK_BINARY_KEY_NAME = "yak_binary_path";
-export function findYakBinary(context?: vscode.ExtensionContext): string {
+export function findYakBinary(context: vscode.ExtensionContext): string {
 
     var state: vscode.Memento | undefined = undefined;
     if (context) {
         state = context.workspaceState;
         const path = state.get<string>(YAK_BINARY_KEY_NAME);
-        if (path) {
+        if (path && executableFileExists(path)) {
             return path;
         }
     }
