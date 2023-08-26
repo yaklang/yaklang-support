@@ -10,87 +10,61 @@ import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
 import { getDefaultConfig } from './utils/dap';
 
-import { YakDebugAdapterExecutableFactory as YakDebugAdapterFactory } from './debugAdapter';
+import { registerYakDebuggerAdapter} from './debugAdapter';
+import { registerConfiguration } from './configuration';
 
 
 export function registerDebugger(context: vscode.ExtensionContext) {
+    // register configuration 
+    registerConfiguration(context);
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('extension.yak-debug.runEditorContents', (resource: vscode.Uri) => {
-            let targetResource = resource;
-            if (!targetResource && vscode.window.activeTextEditor) {
-                targetResource = vscode.window.activeTextEditor.document.uri;
-            }
-            if (targetResource) {
-                vscode.debug.startDebugging(undefined, {
-                    type: 'yak',
-                    name: 'Run File',
-                    request: 'launch',
-                    program: targetResource.fsPath
-                },
-                    { noDebug: true }
-                );
-            }
-        }),
-        vscode.commands.registerCommand('extension.yak-debug.debugEditorContents', (resource: vscode.Uri) => {
-            let targetResource = resource;
-            if (!targetResource && vscode.window.activeTextEditor) {
-                targetResource = vscode.window.activeTextEditor.document.uri;
-            }
-            if (targetResource) {
-                vscode.debug.startDebugging(undefined, {
-                    type: 'yak',
-                    name: 'Debug File',
-                    request: 'launch',
-                    program: targetResource.fsPath,
-                    stopOnEntry: true
-                });
-            }
-        }),
-    );
+    let blacklist = /make|close|chan|float|float64|float32|int8|int16|int32|int64|int|uint|byte|uint8|uint16|uint64|string|bool|map|var|type|max|min|func|fn|def|var|true|false|nil|undefined|include|break|case|continue|default|defer|else|fallthrough|for|in|go|goto|if|range|return|select|switch|try|catch|finally/ig;
 
-    // register a configuration provider for 'yak' debug type
-    const provider = new YakConfigurationProvider();
-    context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('yak', provider));
+    // register evaluate expression provider
+    context.subscriptions.push(vscode.languages.registerEvaluatableExpressionProvider('yak', {
+        provideEvaluatableExpression(document: vscode.TextDocument, position: vscode.Position): vscode.ProviderResult<vscode.EvaluatableExpression> {
 
-    // register a dynamic configuration provider for 'yak' debug type
-    context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('yak', {
-        provideDebugConfigurations(folder: WorkspaceFolder | undefined): ProviderResult<DebugConfiguration[]> {
-            return [
-                {
-                    name: "Launch",
-                    request: "launch",
-                    type: "yak",
-                    program: "${file}"
-                },
-            ];
+            // 获取当前行的内容
+            let lineText = document.lineAt(position.line).text;
+
+            // 获取当前单词
+            let wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z_][a-zA-Z0-9_]*/ig);
+            let word = document.getText(wordRange);
+
+            // 黑名单的单词不会被执行
+            if (blacklist.exec(word)) {
+                return undefined;
+            } else if (wordRange) {
+                return new vscode.EvaluatableExpression(wordRange);
+            }
+
+            return undefined;
         }
-    }, vscode.DebugConfigurationProviderTriggerKind.Dynamic));
+    }));
 
-    context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('yak', new YakDebugAdapterFactory()));
+    // register inline values provider
+    context.subscriptions.push(vscode.languages.registerInlineValuesProvider('yak', {
+
+        provideInlineValues(document: vscode.TextDocument, viewport: vscode.Range, context: vscode.InlineValueContext): vscode.ProviderResult<vscode.InlineValue[]> {
+
+            const allValues: vscode.InlineValue[] = [];
+            const l = context.stoppedLocation.end.line;
+            const line = document.lineAt(l);
+            var regExp = /([a-zA-Z_][a-zA-Z0-9_]*)/ig;
+            do {
+                var m = regExp.exec(line.text);
+                // 黑名单的单词不会inline
+                if (m && !blacklist.exec(m[1])) {
+                    const varName = m[1];
+                    const varRange = new vscode.Range(l, m.index, l, m.index + varName.length);
+                    allValues.push(new vscode.InlineValueVariableLookup(varRange, varName, false));
+                }
+            } while (m);
+            return allValues;
+        }
+    }));
+
+    // register debug adapter
+    registerYakDebuggerAdapter(context);
 }
 
-class YakConfigurationProvider implements vscode.DebugConfigurationProvider {
-
-    /**
-     * Massage a debug configuration just before a debug session is being launched,
-     * e.g. add all missing attributes to the debug configuration.
-     */
-    resolveDebugConfiguration(folder: WorkspaceFolder | undefined, config: DebugConfiguration, token?: CancellationToken): ProviderResult<DebugConfiguration> {
-        // if launch.json is missing or empty
-        if (!config.type && !config.request && !config.name) {
-            const editor = vscode.window.activeTextEditor;
-            if (editor && editor.document.languageId === 'yak') {
-                config = getDefaultConfig();
-            }
-        }
-
-        if (!config.program) {
-            return vscode.window.showErrorMessage("Cannot find a program to debug").then(_ => {
-                return undefined;	// abort launch
-            });
-        }
-
-        return config;
-    }
-}

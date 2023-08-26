@@ -7,6 +7,8 @@ import { registerDebugger } from './activateDebug';
 import { registerYakFormatter } from './fmt';
 import * as commands from './commands';
 import { CompletionSchema, getCompletions } from './completionSchema';
+import { registerStatusBar } from './statusbar';
+import { findYakBinary } from './utils/path';
 
 const completions = getCompletions();
 let maxLengthWithPadding: number = 26;
@@ -137,32 +139,15 @@ export function activate(context: vscode.ExtensionContext) {
         '.' // triggered whenever a '.' is being typed
     );
 
-    let terminal = vscode.window.createTerminal({ name: "YAK Runner" });
-    let execYakCommandProvider = vscode.commands.registerCommand(
-        "yak.exec", (args: string) => {
-            if (terminal.exitStatus) {
-                terminal = vscode.window.createTerminal({ name: "YAK Runner" });
-            }
-            terminal.show(true);
-            if (args) {
-                terminal.sendText(`yak ${args}`, true);
-            } else {
-                if (vscode.window.activeTextEditor?.document) {
-                    terminal.sendText(`yak ${vscode.window.activeTextEditor?.document.fileName}`)
-                }
-            }
-        }
-    )
-
     let execYakShortcut = vscode.languages.registerCodeActionsProvider(
         "yak",
         {
             provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken) {
 
-                let action = new vscode.CodeAction("Exec Yak Script", vscode.CodeActionKind.Empty)
+                let action = new vscode.CodeAction("Yak: Run file", vscode.CodeActionKind.Empty)
                 action.isPreferred = true
                 action.command = {
-                    command: "yak.exec",
+                    command: "yak.exec.file",
                     arguments: [document.fileName],
                     title: "Quick Exec Current Yak Script",
                 }
@@ -172,7 +157,7 @@ export function activate(context: vscode.ExtensionContext) {
     )
 
     context.subscriptions.push(
-        provider2, hoverProvider, execYakCommandProvider,
+        provider2, hoverProvider,
         execYakShortcut,
     );
 
@@ -181,10 +166,13 @@ export function activate(context: vscode.ExtensionContext) {
     registerDebugger(context);
     // formatter
     registerYakFormatter(context);
+    // statusbar
+    registerStatusBar(context);
 
     // commands
-    let disposable = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
-    context.subscriptions.push(disposable);
-    disposable = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
-    context.subscriptions.push(disposable);
+    let commandExecFile = vscode.commands.registerCommand('yak.exec.file', commands.execFile(context));
+    let commandDebugFile = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
+    let commandFmtFile = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
+    let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));
+    context.subscriptions.push(commandExecFile,commandDebugFile, commandFmtFile, commandYakEnvStatus);
 }
