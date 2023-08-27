@@ -116,6 +116,14 @@
                                 "type": "boolean",
                                 "description": "enable debug for debugger adapter",
                                 "default": false
+                            },
+                            "args": {
+                                "type": "array",
+                                "description": "Arguments passed to the program.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "default": []
                             }
                         }
                     }
