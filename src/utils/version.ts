@@ -15,13 +15,13 @@ export function isValidYakBinary(binary: string): boolean {
     return p.stdout?.toString().includes("Yak Language Build Info:");
 }
 
-export function getAndSetYakVersion(context: vscode.ExtensionContext): string | undefined {
+export function getAndSetYakVersion(context: vscode.ExtensionContext, cache?: boolean): string | undefined {
     let version: string | undefined = context.workspaceState.get(YAK_VERSION_KEY_NAME);
-    if (version) {
+    if (version && !cache) {
         return version;
     }
 
-    const binary = findYakBinary(context);
+    const binary = findYakBinary(context, cache);
     if (binary === "") {
         showErrorMessageWithDownloadOption(context, "Cannot find yak in PATH");
         return "";
@@ -57,6 +57,7 @@ export function updateYakVersionByBinary(context: vscode.ExtensionContext, path:
         if (version.startsWith("v")) {
             version = version.substr(1);
         }
+        context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
         return version;
     }
 }
