@@ -57,6 +57,7 @@ export function updateYakVersionByBinary(context: vscode.ExtensionContext, path:
         if (version.startsWith("v")) {
             version = version.substr(1);
         }
+        context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
         return version;
     }
 }
