@@ -48,6 +48,9 @@ export const execFile = (context: vscode.ExtensionContext) => (args: string) => 
         const urlInstance = new URL(args)
         console.info(urlInstance.pathname)
         args = urlInstance.pathname
+        if (process.platform == "win32" && args.startsWith("/")) {
+            args = args.substring(1)
+        }
         YakTerminal.sendText(`${binary} ${args}`, true);
     } else {
         if (vscode.window.activeTextEditor?.document) {
