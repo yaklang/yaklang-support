@@ -10,13 +10,13 @@ import { CompletionSchema, getCompletions } from './completionSchema';
 import { registerStatusBar } from './statusbar';
 import { findYakBinary } from './utils/path';
 
-const completions = getCompletions();
-let maxLengthWithPadding: number = 26;
-completions.fieldsCompletions.forEach(i => {
-    maxLengthWithPadding = i.fieldName.length + 4 > maxLengthWithPadding ? i.fieldName.length + 4 : maxLengthWithPadding
-})
 
 export function activate(context: vscode.ExtensionContext) {
+    const completions = getCompletions();
+    let maxLengthWithPadding: number = 26;
+    (completions?.fieldsCompletions||[]).forEach(i => {
+        maxLengthWithPadding = i.fieldName.length + 4 > maxLengthWithPadding ? i.fieldName.length + 4 : maxLengthWithPadding
+    })
     const hoverProvider = vscode.languages.registerSignatureHelpProvider(
         "yak",
         {
@@ -58,8 +58,8 @@ export function activate(context: vscode.ExtensionContext) {
                                 const funcName = funcNames.reverse().join("");
                                 // const SignatureInformation = new vscode.SignatureInformation(`${func.id}(${func.takes.length > 0 ? func.takes.map(x => x.origin()).join(", ") : ""}) -> ${func.returns ?? "nothing"}`);
                                 // SignatureInformation.documentation = new vscode.MarkdownString().appendText(program.description(func));
-                                completions.libCompletions.forEach(lib => {
-                                    lib.functions.forEach(func => {
+                                (completions?.libCompletions||[]).forEach(lib => {
+                                    (lib?.functions||[]).forEach(func => {
                                         if (func.functionName.substr(0, func.functionName.indexOf('(')) == funcName) {
                                             const sigInfo = new vscode.SignatureInformation(`Guess: ${func.definitionStr}`);
                                             sigInfo.documentation = new vscode.MarkdownString(func.document || "### sorry no doc for now...")
@@ -91,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // 补充内置扩展库的补全提示
                 let isLibName: boolean = false;
-                completions.libCompletions.forEach(e => {
+                (completions?.libCompletions||[]).forEach(e => {
                     if (!linePrefix.endsWith(e.prefix)) {
                         return
                     }
@@ -109,7 +109,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // 没有内置库，提供一些方法，字段调用的补全（虽然不一定正确，但是能省得用户老查手册）
                 if (!isLibName) {
-                    completions.fieldsCompletions.forEach(e => {
+                    (completions?.fieldsCompletions||[]).forEach(e => {
                         let blocks = linePrefix.split(".").map(i => i.trim());
                         if (blocks.length > 0) {
                             let fieldName = e.fieldName.toLowerCase();
@@ -170,7 +170,9 @@ export function activate(context: vscode.ExtensionContext) {
     registerStatusBar(context);
 
     // commands
-    let commandExecFile = vscode.commands.registerCommand('yak.exec.file', commands.execFile(context));
+    let commandExecFile = vscode.commands.registerCommand('yak.exec.file', args => {
+        return commands.execFile(context)(args)
+    });
     let commandDebugFile = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
     let commandFmtFile = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
     let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));

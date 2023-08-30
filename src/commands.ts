@@ -10,6 +10,7 @@ import { updateStatusBar, yakEnvStatusbarItem } from './statusbar';
 import { executableFileExists, findYakBinary, fixDriveCasingInWindows, getCurrentFilePath, resetYakBinaryPath, setYakBinaryPath } from './utils/path';
 import { basename } from 'path';
 import { getSystemInfo } from './utils/os';
+import { URL } from 'url';
 
 
 const CHOOSE_FROM_FILE_BROWSER_SELECTION = 'Choose yak binary from file browser';
@@ -44,9 +45,9 @@ export const execFile = (context: vscode.ExtensionContext) => (args: string) => 
     YakTerminal.show(true);
     if (args) {
         args = decodeURIComponent(args);
-        if (args.startsWith("file:///")) {
-            args = args.substr(8);
-        }
+        const urlInstance = new URL(args)
+        console.info(urlInstance.pathname)
+        args = urlInstance.pathname
         YakTerminal.sendText(`${binary} ${args}`, true);
     } else {
         if (vscode.window.activeTextEditor?.document) {
