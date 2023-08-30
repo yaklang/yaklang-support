@@ -205,9 +205,7 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
                                 }
                             }
                             try {
-                                setYakBinaryPath(context, outputPath);
-                                updateYakVersionByBinary(context, outputPath);
-                                updateStatusBar(context, getYakVersion(context));
+                                setYakBinary(context, outputPath)
                                 vscode.window.showInformationMessage(`Auto Set use:${latestVersion} Finished`)
                             } catch (e) {
                                 vscode.window.showErrorMessage(`Use Version ${latestVersion} Yaklang Engine Failed`)
