@@ -125,6 +125,14 @@
                                     "type": "string"
                                 },
                                 "default": []
+                            },
+                            "env": {
+                                "type": "array",
+                                "description": "Environments passed to the program.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "default": []
                             }
                         }
                     }
