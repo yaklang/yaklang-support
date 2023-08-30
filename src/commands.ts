@@ -115,11 +115,12 @@ async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
             downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_linux_amd64`
             break;
         case 'Darwin':
+        case 'Mac':
             downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_darwin_amd64`
             break;
     }
     if (downloadURL === "") {
-        vscode.window.showErrorMessage("Unsupported platform");
+        vscode.window.showErrorMessage(`Unsupported platform for ${platform}`);
         return;
     }
     const binaryName = basename(downloadURL);
@@ -198,6 +199,20 @@ async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, 
                     writer.on('close', () => {
                         if (success) {
                             setYakBinary(context, outputPath);
+                            if (!outputPath.endsWith(".exe")) {
+                                try {
+                                    fs.chmodSync(outputPath, 0o555)
+                                    vscode.window.showInformationMessage("Linux/Mac Chmod +x Finished")
+                                }catch(e) {
+                                    vscode.window.showErrorMessage(`Linux/Mac Chmod Failed: ${e}`)
+                                }
+                            }
+                            try {
+                                setYakBinary(context, outputPath)
+                                vscode.window.showInformationMessage(`Auto Set use:${latestVersion} Finished`)
+                            } catch (e) {
+                                vscode.window.showErrorMessage(`Use Version ${latestVersion} Yaklang Engine Failed`)
+                            }
                             resolve();
                         }
                     })
