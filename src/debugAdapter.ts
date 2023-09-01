@@ -27,6 +27,13 @@ export class YakDebugAdapterFactory implements vscode.DebugAdapterDescriptorFact
                 return new vscode.DebugAdapterServer(this.port || 0, this.host);
             }
             return new Promise<vscode.DebugAdapterDescriptor>((resolve, reject) => {
+                const config = _session.configuration;
+
+                if (config.host && config.port) {
+                    resolve(new vscode.DebugAdapterServer(config.port, config.host));
+                    return;   
+                }
+
                 let binary = findYakBinary(this.ctx);
                 if (binary === "") {
                     showErrorMessageWithDownloadOption(this.ctx, "Cannot find yak in PATH");
@@ -38,10 +45,9 @@ export class YakDebugAdapterFactory implements vscode.DebugAdapterDescriptorFact
                     showErrorMessageWithDownloadOption(this.ctx, message);
                     return;
                 }
-
-                const config = _session.configuration;
-                const host = config.host || "127.0.0.1";
-                const port = config.port || Random(50000, 65535).toString();
+                
+                const host = "127.0.0.1";
+                const port = Random(50000, 65535).toString();
                 const debug = config.debug as boolean;
                 const args = [
                     "dap",

@@ -133,6 +133,14 @@
                                     "type": "string"
                                 },
                                 "default": []
+                            },
+                            "host": {
+                                "type": "string",
+                                "description": "debugger adapter host"
+                            },
+                            "port": {
+                                "type": "number",
+                                "description": "debugger adapter port"
                             }
                         }
                     }
