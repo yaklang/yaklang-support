@@ -37,7 +37,7 @@
 					"name": "punctuation.definition.string.begin.yak"
 				}
 			},
-			"end": "(?=[^']{2,})'",
+			"end": "(?<=[^']{2,})'",
 			"endCaptures": {
 				"0": {
 					"name": "punctuation.definition.string.end.yak"
