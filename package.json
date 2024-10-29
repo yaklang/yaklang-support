@@ -54,6 +54,17 @@
                     "yak"
                 ],
                 "configuration": "./language-configuration.json"
+            }, 
+            {
+                "id": "syntaxflow", 
+                "aliases": [
+                    "SyntaxFlow",
+                    "syntaxflow"
+                ],
+                "extensions": [
+                    "sf"
+                ],
+                "configuration": "./language-configuration.json"
             }
         ],
         "grammars": [

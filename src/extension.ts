@@ -9,6 +9,7 @@ import * as commands from './commands';
 import { CompletionSchema, getCompletions } from './completionSchema';
 import { registerStatusBar } from './statusbar';
 import { findYakBinary } from './utils/path';
+import { registerSyntaxflow } from './syntaxflow';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -168,6 +169,9 @@ export function activate(context: vscode.ExtensionContext) {
     registerYakFormatter(context);
     // statusbar
     registerStatusBar(context);
+
+    // syntaxflow 
+    registerSyntaxflow(context);
 
     // commands
     let commandExecFile = vscode.commands.registerCommand('yak.exec.file', args => {
