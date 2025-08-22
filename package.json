@@ -15,7 +15,8 @@
         "Language Packs"
     ],
     "activationEvents": [
-        "onLanguage:yak"
+        "onLanguage:yak",
+        "onLanguage:syntaxflow"
     ],
     "icon": "images/icon.png",
     "main": "./out/extension.js",
@@ -54,9 +55,9 @@
                     "yak"
                 ],
                 "configuration": "./language-configuration.json"
-            }, 
+            },
             {
-                "id": "syntaxflow", 
+                "id": "syntaxflow",
                 "aliases": [
                     "SyntaxFlow",
                     "syntaxflow"
@@ -72,6 +73,11 @@
                 "language": "yak",
                 "scopeName": "source.yak",
                 "path": "./syntaxes/yak.tmLanguage.json"
+            },
+            {
+                "language": "syntaxflow",
+                "scopeName": "source.syntaxflow",
+                "path": "./syntaxes/syntaxflow.tmLanguage.json"
             }
         ],
         "menus": {
