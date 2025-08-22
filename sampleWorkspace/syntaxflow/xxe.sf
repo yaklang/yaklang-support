@@ -5,8 +5,26 @@ desc (
 
 a* as $a; 
 
+
 <Hello World!
-<Hello World!
+<Hello World!> 
+"arsteno"
 
 
+<<<CODE
+arsetno e
+CODE
+
+desc (
+    "file://ar": <<<CODE
+arsto e
+CODE 
+    'file://bb': <<<CODE
+aersnt 
+CODE 
+)
+$a -> as $b 
+$a -{
+    include: "* ?{opcode: const}", 
+}> 
 <const($a)>
