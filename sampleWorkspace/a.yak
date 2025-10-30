@@ -6,4 +6,4 @@ bot.FromEnv()
 
 rag.BuildCollectionFromRaw("test", "test", "test")
 
-rag.Build
+rag.
