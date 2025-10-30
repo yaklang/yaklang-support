@@ -38,9 +38,29 @@
                 "description": "Format Yak file"
             },
             {
+                "command": "yak.environment.status",
+                "title": "Yak: 配置引擎",
+                "description": "查看和配置 Yak 引擎版本"
+            },
+            {
+                "command": "yaklang.lsp.showStatus",
+                "title": "Yaklang: LSP 状态",
+                "description": "查看 YAK LSP 服务器状态"
+            },
+            {
                 "command": "yaklang.lsp.restart",
                 "title": "Yaklang: 重启 LSP 服务器",
-                "description": "强制重启 Yaklang LSP 服务器"
+                "description": "强制重启 YAK LSP 服务器"
+            },
+            {
+                "command": "yaklang.downloadEngine",
+                "title": "Yaklang: 下载 Yak 引擎",
+                "description": "下载指定版本的 Yak 引擎到 ~/.yak/bin"
+            },
+            {
+                "command": "yaklang.listInstalledVersions",
+                "title": "Yaklang: 查看已安装版本",
+                "description": "查看所有已安装的 Yak 引擎版本"
             }
         ],
         "snippets": [

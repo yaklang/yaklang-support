@@ -2,8 +2,10 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as net from 'net';
 import axios from 'axios';
 import { findYakBinary } from './utils/path';
+import { getYakVersionWithReason } from './utils/version';
 
 let lspProcess: cp.ChildProcess | undefined;
 let lspActive: boolean = false;
@@ -22,6 +24,69 @@ const LSP_URL = `http://${LSP_HOST}:${LSP_PORT}`;
 // 检查 LSP 是否已激活
 export function isLSPActive(): boolean {
     return lspActive;
+}
+
+// 检查端口是否被占用
+async function isPortInUse(port: number): Promise<boolean> {
+    return new Promise((resolve) => {
+        const server = net.createServer();
+        
+        server.once('error', (err: any) => {
+            if (err.code === 'EADDRINUSE') {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
+        
+        server.once('listening', () => {
+            server.close();
+            resolve(false);
+        });
+        
+        server.listen(port, '127.0.0.1');
+    });
+}
+
+// 诊断 LSP 启动失败的原因
+async function diagnoseLSPFailure(context: vscode.ExtensionContext): Promise<string> {
+    const diagnostics: string[] = [];
+    
+    // 1. 检查端口是否被占用
+    const portInUse = await isPortInUse(LSP_PORT);
+    if (portInUse) {
+        diagnostics.push(`❌ 端口 ${LSP_PORT} 已被占用`);
+        diagnostics.push(`   解决方法: 关闭占用端口的程序或重启 LSP 服务器`);
+    } else {
+        diagnostics.push(`✓ 端口 ${LSP_PORT} 可用`);
+    }
+    
+    // 2. 检查 YAK 引擎状态
+    const versionResult = getYakVersionWithReason(context);
+    if (!versionResult.success) {
+        diagnostics.push(`❌ YAK 引擎状态异常`);
+        diagnostics.push(`   原因: ${versionResult.reason}`);
+        diagnostics.push(`   解决方法: 检查 YAK 引擎安装是否正确`);
+    } else {
+        diagnostics.push(`✓ YAK 引擎状态正常 (版本: ${versionResult.version})`);
+        
+        // 3. 检查版本是否过旧（假设最低版本要求为 1.3.0）
+        const version = versionResult.version || '';
+        const versionMatch = version.match(/^(\d+)\.(\d+)\.(\d+)/);
+        if (versionMatch) {
+            const major = parseInt(versionMatch[1]);
+            const minor = parseInt(versionMatch[2]);
+            
+            // 检查是否低于 1.3.0
+            if (major < 1 || (major === 1 && minor < 3)) {
+                diagnostics.push(`⚠️  YAK 引擎版本过旧 (${version})`);
+                diagnostics.push(`   LSP HTTP 服务器功能需要 YAK 1.3.0 或更高版本`);
+                diagnostics.push(`   解决方法: 更新 YAK 引擎到最新版本`);
+            }
+        }
+    }
+    
+    return diagnostics.join('\n');
 }
 
 // 更新文档的语法诊断
@@ -113,22 +178,22 @@ function updateLSPStatusBar(status: 'starting' | 'active' | 'inactive' | 'error'
 
     switch (status) {
         case 'starting':
-            lspStatusBar.text = '$(sync~spin) Yaklang LSP: 启动中...';
+            lspStatusBar.text = '$(sync~spin) YAK LSP: 启动中...';
             lspStatusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
-            lspStatusBar.tooltip = '正在启动 Yaklang LSP HTTP 服务器...';
+            lspStatusBar.tooltip = '正在启动 YAK LSP HTTP 服务器...';
             break;
         case 'active':
-            lspStatusBar.text = '$(check) Yaklang LSP: 已启用';
+            lspStatusBar.text = '$(check) YAK LSP: 已启用';
             lspStatusBar.backgroundColor = undefined;
-            lspStatusBar.tooltip = 'Yaklang LSP HTTP 服务器运行正常\n点击查看详情';
+            lspStatusBar.tooltip = 'YAK LSP HTTP 服务器运行正常\n点击查看详情';
             break;
         case 'inactive':
-            lspStatusBar.text = '$(warning) Yaklang LSP: 未启用';
+            lspStatusBar.text = '$(warning) YAK LSP: 未启用';
             lspStatusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
             lspStatusBar.tooltip = message || 'LSP 未启用，使用静态补全\n点击查看详情';
             break;
         case 'error':
-            lspStatusBar.text = '$(error) Yaklang LSP: 错误';
+            lspStatusBar.text = '$(error) YAK LSP: 错误';
             lspStatusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
             lspStatusBar.tooltip = message || 'LSP 启动失败\n点击查看详情';
             break;
@@ -548,10 +613,34 @@ export async function activateLSP(context: vscode.ExtensionContext, forceRestart
         console.log('[Yaklang LSP] Server not running, starting new instance...');
         isRunning = await startLSPServer(context, yakBinary);
         if (!isRunning) {
-            const errorMsg = 'Failed to start Yaklang LSP HTTP server';
+            // 诊断失败原因
+            const diagnostics = await diagnoseLSPFailure(context);
+            const errorMsg = 'Yaklang LSP 启动失败';
+            
             console.error('[Yaklang LSP]', errorMsg);
-            updateLSPStatusBar('error', errorMsg);
-            vscode.window.showErrorMessage(errorMsg);
+            console.error('[Yaklang LSP] 诊断信息:\n', diagnostics);
+            
+            updateLSPStatusBar('error', `${errorMsg}\n\n诊断信息:\n${diagnostics}`);
+            
+            // 显示详细的错误信息
+            const selection = await vscode.window.showErrorMessage(
+                `${errorMsg}\n\n请检查以下项目:\n${diagnostics}`,
+                '查看日志',
+                '重试'
+            );
+            
+            if (selection === '查看日志') {
+                const logFile = '/tmp/lsp-server.log';
+                if (fs.existsSync(logFile)) {
+                    const doc = await vscode.workspace.openTextDocument(logFile);
+                    await vscode.window.showTextDocument(doc);
+                } else {
+                    vscode.window.showInformationMessage('日志文件不存在');
+                }
+            } else if (selection === '重试') {
+                await restartLSP(context);
+            }
+            
             return;
         }
     } else {

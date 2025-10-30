@@ -11,9 +11,83 @@ const AVAILABLE_VERSIONS_KEY_NAME = 'yak_available_versions';
 const VERSION_REGEXP = /    Version: .*/ig;
 
 
+export interface YakVersionResult {
+    success: boolean;
+    version?: string;
+    reason?: string;
+}
+
 export function isValidYakBinary(binary: string): boolean {
     const p = spawnSync(binary, ["version"]);
     return p.stdout?.toString().includes("Yak Language Build Info:");
+}
+
+// 获取 Yak 版本，包含详细的失败原因
+export function getYakVersionWithReason(context: vscode.ExtensionContext): YakVersionResult {
+    const binary = findYakBinary(context);
+    
+    if (!binary || binary === "") {
+        return {
+            success: false,
+            reason: "未找到 yak 二进制文件，请检查 PATH 环境变量或配置自定义路径"
+        };
+    }
+
+    try {
+        // 先尝试 JSON 格式获取版本
+        const p = spawnSync(binary, ["-v"], { timeout: 5000 });
+        
+        if (p.error) {
+            return {
+                success: false,
+                reason: `执行 'yak -v' 失败: ${p.error.message}`
+            };
+        }
+
+        if (p.status !== 0) {
+            const stderr = p.stderr?.toString() || '';
+            const stdout = p.stdout?.toString() || '';
+            return {
+                success: false,
+                reason: `'yak -v' 返回错误码 ${p.status}${stderr ? `\n错误信息: ${stderr}` : ''}${stdout ? `\n输出: ${stdout}` : ''}`
+            };
+        }
+
+        const output = p.stdout?.toString() || '';
+        if (!output) {
+            return {
+                success: false,
+                reason: "'yak -v' 未返回任何输出"
+            };
+        }
+
+        // 解析版本号 (格式可能是 "yak version 1.4.4-alpha..." 或 "1.4.4-alpha..." 或 "v1.4.4-alpha...")
+        let version = output.trim();
+        
+        // 如果包含 "yak version"，提取版本号部分
+        const versionMatch = version.match(/yak\s+version\s+(.+)/i);
+        if (versionMatch) {
+            version = versionMatch[1].trim();
+        }
+        
+        // 去掉可能的 "v" 前缀
+        if (version.startsWith('v')) {
+            version = version.substring(1);
+        }
+        
+        // 缓存版本号
+        context.workspaceState.update(YAK_VERSION_KEY_NAME, version);
+        
+        return {
+            success: true,
+            version: version
+        };
+    } catch (error: any) {
+        return {
+            success: false,
+            reason: `执行 'yak -v' 时发生异常: ${error.message || error}`
+        };
+    }
 }
 
 export function getAndSetYakVersion(context: vscode.ExtensionContext, cache?: boolean): string | undefined {

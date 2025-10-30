@@ -8,7 +8,7 @@ import { registerYakFormatter } from './fmt';
 import * as commands from './commands';
 import { CompletionSchema, getCompletions } from './completionSchema';
 import { registerStatusBar } from './statusbar';
-import { findYakBinary } from './utils/path';
+import { findYakBinary, downloadYakEngine, listInstalledYakVersions, getYakSymlinkPath } from './utils/path';
 import { registerSyntaxflow } from './syntaxflow';
 import { activateLSP, deactivateLSP, isLSPActive } from './lspClient';
 import { getAvailableYaklangVersions } from './utils/version';
@@ -22,11 +22,15 @@ export async function activate(context: vscode.ExtensionContext) {
         console.error('[Yaklang] Failed to fetch available versions:', err);
     });
 
-    // 监听配置变更，当 yak 二进制配置改变时重启 LSP
+    // 监听配置变更，当 yak 二进制配置改变时更新状态栏并重启 LSP
     const configWatcher = vscode.workspace.onDidChangeConfiguration(async (e) => {
         if (e.affectsConfiguration('yaklang.yakBinarySource') || 
             e.affectsConfiguration('yaklang.yakBinaryPath')) {
-            console.log('[Yaklang] Configuration changed, restarting LSP...');
+            console.log('[Yaklang] Configuration changed, updating status bar and restarting LSP...');
+            
+            // 先更新状态栏显示新的引擎信息
+            const { updateStatusBar } = require('./statusbar');
+            await updateStatusBar(context);
             
             // 显示通知
             const yakBinary = findYakBinary(context);
@@ -43,7 +47,10 @@ export async function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(configWatcher);
 
-    // 启动 LSP 客户端（HTTP 模式）
+    // 先注册状态栏并获取 Yak 引擎版本（这样可以先显示引擎状态）
+    await registerStatusBar(context);
+
+    // 然后启动 LSP 客户端（HTTP 模式）
     try {
         await activateLSP(context);
     } catch (error) {
@@ -232,8 +239,6 @@ export async function activate(context: vscode.ExtensionContext) {
     registerDebugger(context);
     // formatter
     registerYakFormatter(context);
-    // statusbar
-    registerStatusBar(context);
 
     // syntaxflow 
     registerSyntaxflow(context);
@@ -265,7 +270,96 @@ export async function activate(context: vscode.ExtensionContext) {
         await restartLSP(context);
     });
     
-    context.subscriptions.push(commandExecFile, commandDebugFile, commandFmtFile, commandYakEnvStatus, commandLSPStatus, commandRestartLSP);
+    // 添加下载 Yak 引擎命令
+    let commandDownloadEngine = vscode.commands.registerCommand('yaklang.downloadEngine', async () => {
+        try {
+            // 获取可用版本列表
+            const versionInfos = await getAvailableYaklangVersions(context);
+            
+            if (!versionInfos || versionInfos.length === 0) {
+                vscode.window.showErrorMessage('无法获取可用的 Yak 引擎版本列表');
+                return;
+            }
+            
+            // 转换为 QuickPick 项目
+            const items = versionInfos.map(info => ({
+                label: info.displayName,
+                description: info.isLatest ? '最新版本' : '',
+                detail: `版本: ${info.version}`,
+                version: info.version
+            }));
+            
+            // 显示版本选择
+            const selectedItem = await vscode.window.showQuickPick(items, {
+                placeHolder: '选择要下载的 Yak 引擎版本',
+                ignoreFocusOut: true
+            });
+            
+            if (!selectedItem) {
+                return; // 用户取消
+            }
+            
+            // 下载引擎
+            await downloadYakEngine(selectedItem.version, context);
+            
+            // 提示是否重启 LSP
+            const restart = await vscode.window.showInformationMessage(
+                '是否重启 LSP 服务器以使用新引擎？',
+                '重启',
+                '稍后'
+            );
+            
+            if (restart === '重启') {
+                const { restartLSP } = require('./lspClient');
+                await restartLSP(context);
+            }
+            
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            vscode.window.showErrorMessage(`下载 Yak 引擎失败: ${errorMessage}`);
+            console.error('[yaklang.downloadEngine] Error:', error);
+        }
+    });
+    
+    // 添加查看已安装版本命令
+    let commandListInstalledVersions = vscode.commands.registerCommand('yaklang.listInstalledVersions', async () => {
+        try {
+            const versions = listInstalledYakVersions();
+            
+            if (versions.length === 0) {
+                vscode.window.showInformationMessage('没有找到已安装的 Yak 引擎版本');
+                return;
+            }
+            
+            const currentPath = getYakSymlinkPath();
+            const items = versions.map(v => ({
+                label: v,
+                description: `~/.yak/bin/yak_${v}`,
+                detail: ''
+            }));
+            
+            vscode.window.showQuickPick(items, {
+                placeHolder: `已安装的版本 (当前: ${currentPath})`,
+                ignoreFocusOut: true
+            });
+            
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            vscode.window.showErrorMessage(`获取已安装版本失败: ${errorMessage}`);
+            console.error('[yaklang.listInstalledVersions] Error:', error);
+        }
+    });
+    
+    context.subscriptions.push(
+        commandExecFile, 
+        commandDebugFile, 
+        commandFmtFile, 
+        commandYakEnvStatus, 
+        commandLSPStatus, 
+        commandRestartLSP,
+        commandDownloadEngine,
+        commandListInstalledVersions
+    );
 }
 
 export function deactivate(): Thenable<void> | undefined {

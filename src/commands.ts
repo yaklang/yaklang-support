@@ -76,7 +76,7 @@ async function setYakBinary(context: vscode.ExtensionContext, path: string) {
     
     setYakBinaryPath(context, path);
     updateYakVersionByBinary(context, path);
-    updateStatusBar(context, getYakVersion(context));
+    updateStatusBar(context);
     
     // Restart LSP with new binary
     const { restartLSP } = require('./lspClient');
@@ -414,15 +414,17 @@ export const expandYakStatusBar = (context: vscode.ExtensionContext) => async ()
             await chooseYakBinaryLocation(context);
             break;
         case DOWNLOAD_LATEST_YAK_BINARY_SELECTION:
-            await downloadLatestYakBinary(context);
+            // Use the new automatic download command instead of the old manual one
+            await vscode.commands.executeCommand('yaklang.downloadEngine');
             break;
         case DOWNLOAD_SPECIFIC_VERSION_SELECTION:
-            await downloadSpecificVersionYakBinary(context);
+            // Use the new automatic download command instead of the old manual one
+            await vscode.commands.executeCommand('yaklang.downloadEngine');
             break;
         case CLEAR_YAK_BINARY_SELECTION:
             resetYakBinaryPath(context);
             resetYakVersion(context);
-            updateStatusBar(context, "");
+            updateStatusBar(context);
             break;
     }
 }
