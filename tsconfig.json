@@ -3,13 +3,15 @@
 		"module": "commonjs",
 		"target": "es2019",
 		"lib": [
-			"ES2019"
+			"ES2019",
+			"DOM"
 		],
 		"outDir": "out",
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"strict": true,
-		"rootDir": "src"
+		"rootDir": "src",
+		"skipLibCheck": true
 	},
 	"include": [
 		"**/*"

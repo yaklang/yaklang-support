@@ -1,8 +1,8 @@
-a = 1
-if a == 2 {
-    println(a)
-} else if a == 0 {
-    println(a)
-} else {
-    println(a)
+// this is in vscode supporting plugin
+if a in [1, 2, 3] {
+    
+}
+
+if YAK_MAIN {
+    dump("Hello, World!")
 }

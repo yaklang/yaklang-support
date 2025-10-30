@@ -3,7 +3,7 @@
     "displayName": "yaklang",
     "publisher": "v1ll4n",
     "description": "Yaklang Utils for VSCode",
-    "version": "1.2.0",
+    "version": "1.3.1",
     "engines": {
         "vscode": "^1.56.0"
     },
@@ -36,6 +36,46 @@
                 "command": "yak.fmt.file",
                 "title": "Yak: Format file",
                 "description": "Format Yak file"
+            },
+            {
+                "command": "yak.environment.status",
+                "title": "Yak: 配置引擎",
+                "description": "查看和配置 Yak 引擎版本"
+            },
+            {
+                "command": "yaklang.lsp.showStatus",
+                "title": "Yaklang: LSP 状态",
+                "description": "查看 YAK LSP 服务器状态"
+            },
+            {
+                "command": "yaklang.lsp.restart",
+                "title": "Yaklang: 重启 LSP 服务器",
+                "description": "强制重启 YAK LSP 服务器"
+            },
+            {
+                "command": "yaklang.downloadEngine",
+                "title": "Yaklang: 下载 Yak 引擎",
+                "description": "下载指定版本的 Yak 引擎到 ~/.yak/bin"
+            },
+            {
+                "command": "yaklang.listInstalledVersions",
+                "title": "Yaklang: 查看已安装版本",
+                "description": "查看所有已安装的 Yak 引擎版本"
+            },
+            {
+                "command": "yaklang.switchLanguage",
+                "title": "Yaklang: 切换语言 / Switch Language",
+                "description": "切换插件界面语言（中文/English）"
+            },
+            {
+                "command": "yak.exec.function",
+                "title": "Yak: Run Function",
+                "description": "Run a specific Yak function"
+            },
+            {
+                "command": "yak.test.codelens",
+                "title": "Yak: Test CodeLens",
+                "description": "Test CodeLens functionality"
             }
         ],
         "snippets": [
@@ -98,6 +138,29 @@
                     "group": "yak"
                 }
             ]
+        },
+        "configuration": {
+            "title": "Yaklang",
+            "properties": {
+                "yaklang.yakBinarySource": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "custom"
+                    ],
+                    "enumDescriptions": [
+                        "Automatically use yak from system PATH",
+                        "Use custom yak binary path (select via status bar)"
+                    ],
+                    "default": "auto",
+                    "description": "Choose how to locate yak binary: 'auto' uses system PATH, 'custom' uses manually specified path"
+                },
+                "yaklang.yakBinaryPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Custom path to yak binary (only used when yakBinarySource is 'custom')"
+                }
+            }
         },
         "keybindings": [
             {
@@ -163,6 +226,12 @@
                     }
                 }
             }
+        ],
+        "codeLens": [
+            {
+                "language": "yak",
+                "scheme": "file"
+            }
         ]
     },
     "scripts": {
@@ -171,6 +240,10 @@
         "lint": "eslint . --ext .ts,.tsx",
         "watch": "tsc -watch -p ./",
         "publish": "vsce publish"
+    },
+    "dependencies": {
+        "axios": "^1.6.0",
+        "vscode-languageclient": "^7.0.0"
     },
     "devDependencies": {
         "@types/node": "^12.12.0",
