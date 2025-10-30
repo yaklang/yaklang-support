@@ -282,23 +282,47 @@ export async function activate(context: vscode.ExtensionContext) {
     });
     
     // 添加下载 Yak 引擎命令
-    let commandDownloadEngine = vscode.commands.registerCommand('yaklang.downloadEngine', async () => {
+    let commandDownloadEngine = vscode.commands.registerCommand('yaklang.downloadEngine', async (forceRefresh: boolean = false) => {
         try {
-            // 获取可用版本列表
-            const versionInfos = await getAvailableYaklangVersions(context);
+            // 获取可用版本列表（支持强制刷新）
+            let versionInfos: any[] = [];
+            
+            if (forceRefresh) {
+                await vscode.window.withProgress(
+                    {
+                        title: t('engine.download.refreshing'),
+                        location: vscode.ProgressLocation.Notification
+                    },
+                    async () => {
+                        versionInfos = await getAvailableYaklangVersions(context, true);
+                    }
+                );
+                vscode.window.showInformationMessage(t('engine.download.refreshed'));
+            } else {
+                versionInfos = await getAvailableYaklangVersions(context);
+            }
             
             if (!versionInfos || versionInfos.length === 0) {
                 vscode.window.showErrorMessage(t('engine.download.noVersions'));
                 return;
             }
             
-            // 转换为 QuickPick 项目
-            const items = versionInfos.map(info => ({
-                label: info.displayName,
-                description: info.isLatest ? t('engine.download.latest') : '',
-                detail: t('engine.download.versionLabel', info.version),
-                version: info.version
-            }));
+            // 转换为 QuickPick 项目，添加刷新选项
+            const items = [
+                {
+                    label: '$(sync) ' + t('engine.download.refresh'),
+                    description: t('engine.download.refreshDescription'),
+                    detail: '__refresh__',
+                    version: '__refresh__',
+                    alwaysShow: true
+                },
+                ...versionInfos.map(info => ({
+                    label: info.displayName,
+                    description: info.isLatest ? t('engine.download.latest') : '',
+                    detail: t('engine.download.versionLabel', info.version),
+                    version: info.version
+                }))
+            ];
             
             // 显示版本选择
             const selectedItem = await vscode.window.showQuickPick(items, {
@@ -308,6 +332,11 @@ export async function activate(context: vscode.ExtensionContext) {
             
             if (!selectedItem) {
                 return; // 用户取消
+            }
+            
+            // 如果选择了刷新，重新调用命令并强制刷新
+            if (selectedItem.version === '__refresh__') {
+                return vscode.commands.executeCommand('yaklang.downloadEngine', true);
             }
             
             // 下载引擎

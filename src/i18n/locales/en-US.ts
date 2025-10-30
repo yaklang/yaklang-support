@@ -102,6 +102,10 @@ export const enUS = {
     'engine.download.redownload': 'Redownload',
     'engine.download.useExisting': 'Use Existing',
     'engine.download.unsupportedPlatform': 'Unsupported platform: {0}',
+    'engine.download.refresh': 'Refresh Version List',
+    'engine.download.refreshDescription': 'Fetch latest versions from server',
+    'engine.download.refreshing': 'Refreshing version list...',
+    'engine.download.refreshed': 'Version list refreshed successfully',
     
     // Commands
     'command.cannotFindWorkspace': "Can't find workspace folder",

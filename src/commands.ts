@@ -48,12 +48,24 @@ export const execFile = (context: vscode.ExtensionContext) => (args: string) => 
     }
     YakTerminal.show(true);
     if (args) {
-        args = decodeURIComponent(args);
-        const urlInstance = new URL(args)
-        console.info(urlInstance.pathname)
-        args = urlInstance.pathname
-        if (process.platform == "win32" && args.startsWith("/")) {
-            args = args.substring(1)
+        // 尝试处理 URL 格式或普通文件路径
+        try {
+            // 检查是否是 URL 格式（例如 file:// 或 vscode:// 协议）
+            if (args.includes('://')) {
+                args = decodeURIComponent(args);
+                const urlInstance = new URL(args);
+                console.info('[execFile] Parsed URL pathname:', urlInstance.pathname);
+                args = urlInstance.pathname;
+                if (process.platform == "win32" && args.startsWith("/")) {
+                    args = args.substring(1);
+                }
+            } else {
+                // 普通文件路径，直接使用
+                console.info('[execFile] Using file path:', args);
+            }
+        } catch (error) {
+            // 如果 URL 解析失败，假定是普通文件路径
+            console.warn('[execFile] URL parse failed, using as file path:', error);
         }
         YakTerminal.sendText(`${binary} ${args}`, true);
     } else {

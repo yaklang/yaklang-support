@@ -102,6 +102,10 @@ export const zhCN = {
     'engine.download.redownload': '重新下载',
     'engine.download.useExisting': '使用现有版本',
     'engine.download.unsupportedPlatform': '不支持的平台: {0}',
+    'engine.download.refresh': '刷新版本列表',
+    'engine.download.refreshDescription': '从服务器获取最新版本',
+    'engine.download.refreshing': '正在刷新版本列表...',
+    'engine.download.refreshed': '版本列表刷新成功',
     
     // Commands
     'command.cannotFindWorkspace': '无法找到工作区文件夹',
