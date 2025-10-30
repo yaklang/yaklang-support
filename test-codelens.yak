@@ -1,0 +1,13 @@
+a = 1
+for range 10 {
+    a++
+}
+dump(a)
+
+func main() {
+    println("Hello from main")
+}
+
+func testFunction() {
+    println("Test function")
+}

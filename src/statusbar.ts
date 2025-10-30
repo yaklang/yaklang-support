@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { getYakVersionWithReason } from './utils/version';
 import { getYakBinarySource, findYakBinary } from './utils/path';
+import { t } from './i18n';
 
 const STATUS_BAR_ITEM_NAME = 'Yak';
 export let yakEnvStatusbarItem: vscode.StatusBarItem;
@@ -28,9 +29,9 @@ export async function updateStatusBar(context: vscode.ExtensionContext) {
     }
 
     // 显示 Loading 状态（黄色背景）
-    yakEnvStatusbarItem.text = `$(sync~spin) YAK: 检查中...`;
+    yakEnvStatusbarItem.text = `$(sync~spin) ${t('statusbar.checking')}`;
     yakEnvStatusbarItem.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
-    yakEnvStatusbarItem.tooltip = '正在检查 Yak 引擎状态...';
+    yakEnvStatusbarItem.tooltip = t('statusbar.checkingTooltip');
 
     // 异步获取 Yak 版本和详细信息（包括失败原因）
     const versionResult = await getYakVersionWithReason(context);
@@ -43,28 +44,30 @@ export async function updateStatusBar(context: vscode.ExtensionContext) {
         yakEnvStatusbarItem.backgroundColor = undefined; // 默认背景色
         
         // Build tooltip with detailed information (without repeating version)
-        let tooltip = `二进制模式: ${binarySource === 'auto' ? '自动 (系统 PATH)' : '自定义路径'}\n`;
+        const modeText = binarySource === 'auto' ? t('statusbar.autoMode') : t('statusbar.customMode');
+        let tooltip = `${t('statusbar.binaryMode')}: ${modeText}\n`;
         if (yakBinary) {
-            tooltip += `路径: ${yakBinary}`;
+            tooltip += `${t('common.path')}: ${yakBinary}`;
         }
         
         yakEnvStatusbarItem.tooltip = tooltip;
     } else {
         // 获取版本失败
-        yakEnvStatusbarItem.text = `YAK: Failed`;
+        yakEnvStatusbarItem.text = t('statusbar.failed');
         yakEnvStatusbarItem.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
         
         // 显示详细的失败原因
-        let tooltip = `Yak 引擎状态检查失败\n`;
-        tooltip += `原因: ${versionResult.reason || '未知错误'}\n`;
+        const modeText = binarySource === 'auto' ? t('statusbar.autoMode') : t('statusbar.customMode');
+        let tooltip = `${t('statusbar.failedTooltip')}\n`;
+        tooltip += `${t('common.reason')}: ${versionResult.reason || '未知错误'}\n`;
         tooltip += `\n`;
-        tooltip += `二进制模式: ${binarySource === 'auto' ? '自动 (系统 PATH)' : '自定义路径'}\n`;
+        tooltip += `${t('statusbar.binaryMode')}: ${modeText}\n`;
         if (yakBinary) {
-            tooltip += `尝试使用的路径: ${yakBinary}\n`;
+            tooltip += `${t('statusbar.tryingPath')}: ${yakBinary}\n`;
         } else {
-            tooltip += `未找到 yak 二进制文件\n`;
+            tooltip += `${t('statusbar.notFound')}\n`;
         }
-        tooltip += `\n点击查看如何修复`;
+        tooltip += `\n${t('statusbar.clickToFix')}`;
         
         yakEnvStatusbarItem.tooltip = tooltip;
     }

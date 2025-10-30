@@ -2,4 +2,6 @@ a = 1
 for range 10 {
 	a++
 }
+dump(a)
 
+println("Hello, World!")

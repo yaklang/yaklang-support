@@ -61,6 +61,21 @@
                 "command": "yaklang.listInstalledVersions",
                 "title": "Yaklang: 查看已安装版本",
                 "description": "查看所有已安装的 Yak 引擎版本"
+            },
+            {
+                "command": "yaklang.switchLanguage",
+                "title": "Yaklang: 切换语言 / Switch Language",
+                "description": "切换插件界面语言（中文/English）"
+            },
+            {
+                "command": "yak.exec.function",
+                "title": "Yak: Run Function",
+                "description": "Run a specific Yak function"
+            },
+            {
+                "command": "yak.test.codelens",
+                "title": "Yak: Test CodeLens",
+                "description": "Test CodeLens functionality"
             }
         ],
         "snippets": [
@@ -210,6 +225,12 @@
                         }
                     }
                 }
+            }
+        ],
+        "codeLens": [
+            {
+                "language": "yak",
+                "scheme": "file"
             }
         ]
     },

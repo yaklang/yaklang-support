@@ -1,0 +1,5 @@
+{
+    "editor.codeLens": true,
+    "diffEditor.codeLens": true,
+    "yaklang.codeLens.enabled": true
+}

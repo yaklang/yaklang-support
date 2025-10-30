@@ -10,13 +10,19 @@ import { CompletionSchema, getCompletions } from './completionSchema';
 import { registerStatusBar } from './statusbar';
 import { findYakBinary, downloadYakEngine, listInstalledYakVersions, getYakSymlinkPath } from './utils/path';
 import { registerSyntaxflow } from './syntaxflow';
+import { registerYakCodeLens } from './codeLens';
+import { registerSimpleYakCodeLens } from './simpleCodeLens';
 import { activateLSP, deactivateLSP, isLSPActive } from './lspClient';
 import { getAvailableYaklangVersions } from './utils/version';
+import { t, initI18n, setLocale, getLocale, getAvailableLocales } from './i18n';
 
 // 用于跟踪是否已经显示过静态补全警告
 let staticCompletionWarningShown = false;
 
 export async function activate(context: vscode.ExtensionContext) {
+    // 初始化 i18n
+    initI18n(context);
+    
     // 后台获取可用版本列表并缓存（不阻塞启动流程）
     getAvailableYaklangVersions(context).catch(err => {
         console.error('[Yaklang] Failed to fetch available versions:', err);
@@ -35,9 +41,7 @@ export async function activate(context: vscode.ExtensionContext) {
             // 显示通知
             const yakBinary = findYakBinary(context);
             if (yakBinary) {
-                vscode.window.showInformationMessage(
-                    `Yak 二进制配置已更新，正在重启 LSP 服务器...\n当前路径: ${yakBinary}`
-                );
+                vscode.window.showInformationMessage(t('config.updated', yakBinary));
             }
             
             // 重启 LSP
@@ -50,13 +54,12 @@ export async function activate(context: vscode.ExtensionContext) {
     // 先注册状态栏并获取 Yak 引擎版本（这样可以先显示引擎状态）
     await registerStatusBar(context);
 
-    // 然后启动 LSP 客户端（HTTP 模式）
-    try {
-        await activateLSP(context);
-    } catch (error) {
-        console.error('Failed to start LSP client:', error);
-        vscode.window.showWarningMessage('Yaklang LSP 启动失败，使用静态补全作为后备');
-    }
+    // LSP 客户端作为可选功能在后台启动（不阻塞其他功能）
+    console.log('[Extension] Starting LSP in background...');
+    activateLSP(context).catch(error => {
+        console.error('[Extension] LSP startup failed (non-blocking):', error);
+        vscode.window.showWarningMessage(t('lsp.startupWarning'));
+    });
 
     // 保留静态补全作为后备
     const completions = getCompletions();
@@ -141,15 +144,15 @@ export async function activate(context: vscode.ExtensionContext) {
                 // 检查 LSP 是否已激活，如果未激活则显示警告（仅一次）
                 if (!lspIsActive && !staticCompletionWarningShown) {
                     staticCompletionWarningShown = true;
-                    console.warn('[Yaklang] WARNING: LSP 补全未启用，正在使用静态补全（功能受限）');
-                    console.warn('[Yaklang] 静态补全特性：');
-                    console.warn('[Yaklang]   - 支持: 标准库名称补全');
-                    console.warn('[Yaklang]   - 支持: 标准库函数补全');
-                    console.warn('[Yaklang]   - 有限: 对象方法补全（有限）');
-                    console.warn('[Yaklang]   - 不支持: 实时类型推断');
-                    console.warn('[Yaklang] 建议：检查 LSP 服务器是否正常启动');
-                    vscode.window.showWarningMessage('LSP 补全未启用，正在使用静态补全（功能受限）', '查看日志').then(selection => {
-                        if (selection === '查看日志') {
+                    console.warn(`[Yaklang] WARNING: ${t('completion.warning')}`);
+                    console.warn(`[Yaklang] ${t('completion.features')}`);
+                    console.warn(`[Yaklang] ${t('completion.supportLibName')}`);
+                    console.warn(`[Yaklang] ${t('completion.supportLibFunc')}`);
+                    console.warn(`[Yaklang] ${t('completion.limitedMethod')}`);
+                    console.warn(`[Yaklang] ${t('completion.noTypeInfer')}`);
+                    console.warn(`[Yaklang] ${t('completion.checkLsp')}`);
+                    vscode.window.showWarningMessage(t('completion.warning'), t('common.viewLog')).then(selection => {
+                        if (selection === t('common.viewLog')) {
                             vscode.commands.executeCommand('workbench.action.toggleDevTools');
                         }
                     });
@@ -242,6 +245,16 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // syntaxflow 
     registerSyntaxflow(context);
+    
+    // CodeLens - 使用简单版本进行测试（独立于 LSP）
+    console.log('[Extension] Registering simple CodeLens (LSP-independent)');
+    try {
+        registerSimpleYakCodeLens(context);
+        console.log('[Extension] Simple CodeLens registered successfully');
+    } catch (error) {
+        console.error('[Extension] Failed to register CodeLens:', error);
+        vscode.window.showErrorMessage('Failed to register CodeLens: ' + error);
+    }
 
     // commands
     let commandExecFile = vscode.commands.registerCommand('yak.exec.file', args => {
@@ -252,13 +265,11 @@ export async function activate(context: vscode.ExtensionContext) {
     let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));
     let commandLSPStatus = vscode.commands.registerCommand('yaklang.lsp.showStatus', () => {
         const lspActive = isLSPActive();
-        const message = lspActive 
-            ? 'Yaklang LSP HTTP 服务器运行正常\n\n服务地址: http://127.0.0.1:9339\n状态: 已启用\n补全模式: LSP 动态补全'
-            : 'Yaklang LSP 未启用\n\n当前使用: 静态补全（功能受限）\n\n建议:\n1. 检查开发者控制台日志\n2. 确认 yak 命令可用\n3. 检查端口 9339 是否被占用';
+        const message = lspActive ? t('lsp.status.running') : t('lsp.status.notRunning');
         
-        const action = lspActive ? '查看日志' : '打开日志';
-        vscode.window.showInformationMessage(message, action, '关闭').then(selection => {
-            if (selection === action || selection === '查看日志' || selection === '打开日志') {
+        const action = lspActive ? t('common.viewLog') : t('common.openLog');
+        vscode.window.showInformationMessage(message, action, t('common.close')).then(selection => {
+            if (selection === action || selection === t('common.viewLog') || selection === t('common.openLog')) {
                 vscode.commands.executeCommand('workbench.action.toggleDevTools');
             }
         });
@@ -277,21 +288,21 @@ export async function activate(context: vscode.ExtensionContext) {
             const versionInfos = await getAvailableYaklangVersions(context);
             
             if (!versionInfos || versionInfos.length === 0) {
-                vscode.window.showErrorMessage('无法获取可用的 Yak 引擎版本列表');
+                vscode.window.showErrorMessage(t('engine.download.noVersions'));
                 return;
             }
             
             // 转换为 QuickPick 项目
             const items = versionInfos.map(info => ({
                 label: info.displayName,
-                description: info.isLatest ? '最新版本' : '',
-                detail: `版本: ${info.version}`,
+                description: info.isLatest ? t('engine.download.latest') : '',
+                detail: t('engine.download.versionLabel', info.version),
                 version: info.version
             }));
             
             // 显示版本选择
             const selectedItem = await vscode.window.showQuickPick(items, {
-                placeHolder: '选择要下载的 Yak 引擎版本',
+                placeHolder: t('engine.download.selectVersion'),
                 ignoreFocusOut: true
             });
             
@@ -304,20 +315,65 @@ export async function activate(context: vscode.ExtensionContext) {
             
             // 提示是否重启 LSP
             const restart = await vscode.window.showInformationMessage(
-                '是否重启 LSP 服务器以使用新引擎？',
-                '重启',
-                '稍后'
+                t('engine.download.restartPrompt'),
+                t('common.restart'),
+                t('common.later')
             );
             
-            if (restart === '重启') {
+            if (restart === t('common.restart')) {
                 const { restartLSP } = require('./lspClient');
                 await restartLSP(context);
             }
             
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            vscode.window.showErrorMessage(`下载 Yak 引擎失败: ${errorMessage}`);
+            vscode.window.showErrorMessage(t('engine.download.failed', errorMessage));
             console.error('[yaklang.downloadEngine] Error:', error);
+        }
+    });
+    
+    // 添加语言切换命令
+    let commandSwitchLanguage = vscode.commands.registerCommand('yaklang.switchLanguage', async () => {
+        const locales = getAvailableLocales();
+        const currentLocale = getLocale();
+        
+        const items = locales.map(locale => ({
+            label: locale.name,
+            description: locale.id === currentLocale ? t('lang.current') : '',
+            id: locale.id
+        }));
+        
+        const selected = await vscode.window.showQuickPick(items, {
+            placeHolder: t('lang.selectLanguage'),
+            ignoreFocusOut: true
+        });
+        
+        if (!selected || selected.id === currentLocale) {
+            return; // 用户取消或选择当前语言
+        }
+        
+        // 设置新语言
+        await setLocale(selected.id, context);
+        
+        // 通知用户语言已切换
+        const langName = selected.id === 'zh-CN' ? t('lang.zhCN') : t('lang.enUS');
+        const reloadAction = selected.id === 'zh-CN' ? '立即重载' : 'Reload Now';
+        const laterAction = selected.id === 'zh-CN' ? '稍后' : 'Later';
+        const message = selected.id === 'zh-CN' 
+            ? `语言已切换到 ${langName}` 
+            : `Language switched to ${langName}`;
+        const reloadMessage = selected.id === 'zh-CN'
+            ? '切换语言后需要重新加载窗口才能完全生效'
+            : 'Window reload required for language change to take full effect';
+        
+        const choice = await vscode.window.showInformationMessage(
+            `${message}\n${reloadMessage}`,
+            reloadAction,
+            laterAction
+        );
+        
+        if (choice === reloadAction) {
+            vscode.commands.executeCommand('workbench.action.reloadWindow');
         }
     });
     
@@ -327,7 +383,7 @@ export async function activate(context: vscode.ExtensionContext) {
             const versions = listInstalledYakVersions();
             
             if (versions.length === 0) {
-                vscode.window.showInformationMessage('没有找到已安装的 Yak 引擎版本');
+                vscode.window.showInformationMessage(t('engine.download.noInstalled'));
                 return;
             }
             
@@ -339,13 +395,13 @@ export async function activate(context: vscode.ExtensionContext) {
             }));
             
             vscode.window.showQuickPick(items, {
-                placeHolder: `已安装的版本 (当前: ${currentPath})`,
+                placeHolder: t('engine.download.installedVersions', currentPath),
                 ignoreFocusOut: true
             });
             
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            vscode.window.showErrorMessage(`获取已安装版本失败: ${errorMessage}`);
+            vscode.window.showErrorMessage(t('engine.download.getInstalledFailed', errorMessage));
             console.error('[yaklang.listInstalledVersions] Error:', error);
         }
     });
@@ -358,7 +414,8 @@ export async function activate(context: vscode.ExtensionContext) {
         commandLSPStatus, 
         commandRestartLSP,
         commandDownloadEngine,
-        commandListInstalledVersions
+        commandListInstalledVersions,
+        commandSwitchLanguage
     );
 }
 

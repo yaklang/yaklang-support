@@ -1,0 +1,143 @@
+export const zhCN = {
+    // Common
+    'common.cancel': '取消',
+    'common.confirm': '确认',
+    'common.close': '关闭',
+    'common.restart': '重启',
+    'common.later': '稍后',
+    'common.download': '下载',
+    'common.viewLog': '查看日志',
+    'common.openLog': '打开日志',
+    'common.checking': '检查中...',
+    'common.version': '版本',
+    'common.status': '状态',
+    'common.enabled': '已启用',
+    'common.disabled': '未启用',
+    'common.path': '路径',
+    'common.currentPath': '当前路径',
+    'common.reason': '原因',
+    'common.solution': '解决方法',
+    
+    // Status Bar
+    'statusbar.checking': 'YAK: 检查中...',
+    'statusbar.checkingTooltip': '正在检查 Yak 引擎状态...',
+    'statusbar.failed': 'YAK: Failed',
+    'statusbar.binaryMode': '二进制模式',
+    'statusbar.autoMode': '自动 (系统 PATH)',
+    'statusbar.customMode': '自定义路径',
+    'statusbar.failedTooltip': 'Yak 引擎状态检查失败',
+    'statusbar.notFound': '未找到 yak 二进制文件',
+    'statusbar.tryingPath': '尝试使用的路径',
+    'statusbar.clickToFix': '点击查看如何修复',
+    
+    // LSP Status Bar
+    'lsp.statusbar.starting': 'YAK LSP: 启动中...',
+    'lsp.statusbar.startingTooltip': '正在启动 YAK LSP HTTP 服务器...',
+    'lsp.statusbar.active': 'YAK LSP: 已启用',
+    'lsp.statusbar.activeTooltip': 'YAK LSP HTTP 服务器运行正常\n点击查看详情',
+    'lsp.statusbar.inactive': 'YAK LSP: 未启用',
+    'lsp.statusbar.inactiveTooltip': 'LSP 未启用，使用静态补全\n点击查看详情',
+    'lsp.statusbar.error': 'YAK LSP: 错误',
+    'lsp.statusbar.errorTooltip': 'LSP 启动失败\n点击查看详情',
+    
+    // LSP Messages
+    'lsp.starting': '正在启动 YAK LSP HTTP 失败：{0}',
+    'lsp.failed': '启动 YAK LSP HTTP 失败：{0}',
+    'lsp.abnormalExit': 'YAK LSP 服务器异常退出 (code: {0})',
+    'lsp.notFound': '没有 YAK LSP 服务：未找到 yak 二进制文件',
+    'lsp.restarting': '正在重启 YAK LSP 服务器...',
+    'lsp.startupFailed': 'YAK LSP 启动失败',
+    'lsp.alreadyRunning': 'YAK LSP 服务器已在运行',
+    'lsp.loadSuccess': '加载 YAK LSP HTTP 成功',
+    'lsp.startupWarning': 'YAK LSP 启动失败，使用静态补全作为后备',
+    
+    // LSP Status Dialog
+    'lsp.status.running': 'YAK LSP HTTP 服务器运行正常\n\n服务地址: http://127.0.0.1:9339\n状态: 已启用\n补全模式: LSP 动态补全',
+    'lsp.status.notRunning': 'YAK LSP 未启用\n\n当前使用: 静态补全（功能受限）\n\n建议:\n1. 检查开发者控制台日志\n2. 确认 yak 命令可用\n3. 检查端口 9339 是否被占用',
+    
+    // LSP Diagnostics
+    'lsp.diagnostic.portInUse': '❌ 端口 {0} 已被占用',
+    'lsp.diagnostic.portInUseSolution': '   解决方法: 关闭占用端口的程序或重启 LSP 服务器',
+    'lsp.diagnostic.portAvailable': '✓ 端口 {0} 可用',
+    'lsp.diagnostic.engineAbnormal': '❌ YAK 引擎状态异常',
+    'lsp.diagnostic.engineReason': '   原因: {0}',
+    'lsp.diagnostic.engineSolution': '   解决方法: 检查 YAK 引擎安装是否正确',
+    'lsp.diagnostic.engineNormal': '✓ YAK 引擎状态正常 (版本: {0})',
+    'lsp.diagnostic.versionOld': '⚠️  YAK 引擎版本过旧 ({0})',
+    'lsp.diagnostic.versionRequired': '   LSP HTTP 服务器功能需要 YAK 1.3.0 或更高版本',
+    'lsp.diagnostic.updateSolution': '   解决方法: 更新 YAK 引擎到最新版本',
+    
+    // Static Completion
+    'completion.warning': 'LSP 补全未启用，正在使用静态补全（功能受限）',
+    'completion.features': '静态补全特性：',
+    'completion.supportLibName': '  - 支持: 标准库名称补全',
+    'completion.supportLibFunc': '  - 支持: 标准库函数补全',
+    'completion.limitedMethod': '  - 有限: 对象方法补全（有限）',
+    'completion.noTypeInfer': '  - 不支持: 实时类型推断',
+    'completion.checkLsp': '建议：检查 LSP 服务器是否正常启动',
+    
+    // Configuration
+    'config.updated': 'Yak 二进制配置已更新，正在重启 LSP 服务器...\n当前路径: {0}',
+    
+    // Engine Download
+    'engine.download.noVersions': '无法获取可用的 Yak 引擎版本列表',
+    'engine.download.selectVersion': '选择要下载的 Yak 引擎版本',
+    'engine.download.latest': '最新版本',
+    'engine.download.versionLabel': '版本: {0}',
+    'engine.download.restartPrompt': '是否重启 LSP 服务器以使用新引擎？',
+    'engine.download.failed': '下载 Yak 引擎失败: {0}',
+    'engine.download.noInstalled': '没有找到已安装的 Yak 引擎版本',
+    'engine.download.installedVersions': '已安装的版本 (当前: {0})',
+    'engine.download.getInstalledFailed': '获取已安装版本失败: {0}',
+    'engine.download.downloadingVersion': '正在下载 Yak 引擎版本 {0}...',
+    'engine.download.detectingOS': '检测操作系统...',
+    'engine.download.downloadURL': '下载地址: {0}',
+    'engine.download.downloading': '正在下载: {0}',
+    'engine.download.downloaded': '已下载: {0} / {1} ({2}%)',
+    'engine.download.extracting': '正在解压...',
+    'engine.download.settingPermissions': '设置可执行权限...',
+    'engine.download.createSymlink': '创建符号链接...',
+    'engine.download.success': 'Yak 引擎 {0} 下载成功！\n安装路径: {1}',
+    'engine.download.alreadyExists': 'Yak 引擎版本 {0} 已存在\n路径: {1}\n是否重新下载？',
+    'engine.download.redownload': '重新下载',
+    'engine.download.useExisting': '使用现有版本',
+    'engine.download.unsupportedPlatform': '不支持的平台: {0}',
+    
+    // Commands
+    'command.cannotFindWorkspace': '无法找到工作区文件夹',
+    'command.cannotFindYak': 'Cannot find yak in PATH',
+    'command.selectYakBinary': '选择 Yak 二进制文件',
+    'command.chooseFromBrowser': 'Choose yak binary from file browser',
+    'command.downloadLatest': 'Download latest yak binary',
+    'command.downloadSpecific': 'Download specific version',
+    'command.clearSelection': 'Clear yak binary selection',
+    'command.useSystemPath': 'Use yak from system PATH (auto mode)',
+    'command.switchedToAuto': '已切换到自动模式，将使用系统 PATH 中的 yak',
+    'command.switchedToCustom': '已切换到自定义模式',
+    'command.clearedSelection': '已清除 yak 二进制选择，将使用系统 PATH',
+    
+    // Language Switch
+    'lang.current': '当前语言',
+    'lang.selectLanguage': '选择界面语言',
+    'lang.switchSuccess': '语言已切换到 {0}',
+    'lang.reloadPrompt': '切换语言后需要重新加载窗口才能完全生效',
+    'lang.reloadNow': '立即重载',
+    'lang.reloadLater': '稍后',
+    'lang.zhCN': '简体中文',
+    'lang.enUS': 'English',
+    
+    // Status bar menu options
+    'menu.switchLanguage': '切换语言 / Switch Language',
+    'menu.useSystemPath': '使用系统 PATH 中的 yak（自动模式）',
+    'menu.chooseFromBrowser': '从文件浏览器选择 yak 二进制文件',
+    'menu.downloadLatest': '下载最新版本的 yak 二进制文件',
+    'menu.downloadSpecific': '下载指定版本',
+    'menu.clearSelection': '清除 yak 二进制文件选择',
+
+    // CodeLens 相关
+    'codeLens.runScript': 'Run Yak Script',
+    'codeLens.debugScript': 'Debug Yak Script',
+    'codeLens.runFunction': 'Run Function {0}',
+    'codeLens.runMain': 'Run main Function',
+} as const;
+
