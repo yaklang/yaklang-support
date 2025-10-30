@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { getAndSetYakVersion } from './utils/version';
+import { getYakBinarySource, findYakBinary } from './utils/path';
 
 const STATUS_BAR_ITEM_NAME = 'Yak';
 export let yakEnvStatusbarItem: vscode.StatusBarItem;
@@ -27,8 +28,22 @@ export async function updateStatusBar(context: vscode.ExtensionContext, version:
     if (!hasVersion) {
         version = "❌";
     }
+    
+    // Get binary source mode
+    const binarySource = getYakBinarySource();
+    const sourceIcon = binarySource === 'auto' ? '🔄' : '📌';
+    const yakBinary = findYakBinary(context);
+    
     if (yakEnvStatusbarItem) {
-        yakEnvStatusbarItem.text = `Yak: ${version}`;
-        yakEnvStatusbarItem.tooltip = "yak version";
+        yakEnvStatusbarItem.text = `${sourceIcon} Yak: ${version}`;
+        
+        // Build tooltip with detailed information
+        let tooltip = `Yak 版本: ${version}\n`;
+        tooltip += `二进制模式: ${binarySource === 'auto' ? '自动 (系统 PATH)' : '自定义路径'}\n`;
+        if (yakBinary) {
+            tooltip += `当前路径: ${yakBinary}`;
+        }
+        
+        yakEnvStatusbarItem.tooltip = tooltip;
     }
 }

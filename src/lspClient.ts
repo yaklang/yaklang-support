@@ -16,7 +16,7 @@ let referencesProvider: vscode.Disposable | undefined;
 let diagnosticCollection: vscode.DiagnosticCollection | undefined;
 
 const LSP_HOST = '127.0.0.1';
-const LSP_PORT = 9633;
+const LSP_PORT = 9339;
 const LSP_URL = `http://${LSP_HOST}:${LSP_PORT}`;
 
 // 检查 LSP 是否已激活
@@ -96,11 +96,11 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
             });
             
             diagnosticCollection.set(document.uri, diagnostics);
-            console.log(`[Yaklang LSP] ✅ Set ${diagnostics.length} diagnostics for ${document.uri.toString()}`);
+            console.log(`[Yaklang LSP] Set ${diagnostics.length} diagnostics for ${document.uri.toString()}`);
         } else {
             // 清除诊断
             diagnosticCollection.set(document.uri, []);
-            console.log(`[Yaklang LSP] ✅ Cleared diagnostics for ${document.uri.toString()}`);
+            console.log(`[Yaklang LSP] Cleared diagnostics for ${document.uri.toString()}`);
         }
     } catch (error) {
         console.error('[Yaklang LSP] Diagnostics request failed:', error);
@@ -141,19 +141,158 @@ function updateLSPStatusBar(status: 'starting' | 'active' | 'inactive' | 'error'
     lspStatusBar.show();
 }
 
-// 检查 LSP 服务器是否运行
-async function checkLSPServer(): Promise<boolean> {
+// 检查 LSP 服务器是否运行并验证功能
+async function checkLSPServer(retries: number = 1, verifyCompletion: boolean = false): Promise<boolean> {
+    for (let i = 0; i < retries; i++) {
+        try {
+            console.log(`[Yaklang LSP] Health check attempt ${i + 1}/${retries}...`);
+            const response = await axios.get(`${LSP_URL}/health`, { timeout: 3000 });
+            if (response.data && response.data.status === 'ok') {
+                console.log('[Yaklang LSP] Health check passed');
+                
+                // 如果需要验证补全功能
+                if (verifyCompletion) {
+                    console.log('[Yaklang LSP] Verifying completion functionality...');
+                    const isValid = await verifyLSPCompletion();
+                    if (isValid) {
+                        console.log('[Yaklang LSP] Completion verification passed');
+                        return true;
+                    } else {
+                        console.log('[Yaklang LSP] Completion verification failed');
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+        } catch (error) {
+            console.log(`[Yaklang LSP] Health check attempt ${i + 1} failed:`, error instanceof Error ? error.message : String(error));
+            if (i < retries - 1) {
+                // 等待 500ms 再重试
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+    }
+    return false;
+}
+
+// 验证 LSP 补全功能是否正常工作
+async function verifyLSPCompletion(): Promise<boolean> {
     try {
-        const response = await axios.get(`${LSP_URL}/health`, { timeout: 2000 });
-        return response.data.status === 'ok';
+        // 测试代码：输入 "str." 应该能获得字符串方法补全
+        const testCode = 'str.';
+        const testUri = 'file:///test.yak';
+        
+        const completionRequest = {
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'textDocument/completion',
+            params: {
+                textDocument: { uri: testUri },
+                position: { line: 0, character: testCode.length },
+                context: { triggerKind: 2, triggerCharacter: '.' }
+            }
+        };
+
+        const requestPayload = {
+            code: testCode,
+            request: completionRequest
+        };
+
+        console.log('[Yaklang LSP] Sending completion verification request:');
+        console.log('[Yaklang LSP] URL:', `${LSP_URL}/lsp`);
+        console.log('[Yaklang LSP] Payload:', JSON.stringify(requestPayload, null, 2));
+
+        const response = await axios.post(`${LSP_URL}/lsp`, requestPayload, { timeout: 5000 });
+
+        console.log('[Yaklang LSP] Received response:');
+        console.log('[Yaklang LSP] Status:', response.status);
+        console.log('[Yaklang LSP] Data:', JSON.stringify(response.data, null, 2));
+
+        // 检查是否有补全结果
+        if (response.data && response.data.result) {
+            const items = response.data.result.items || response.data.result;
+            if (Array.isArray(items) && items.length > 0) {
+                console.log(`[Yaklang LSP] Found ${items.length} completion items`);
+                console.log('[Yaklang LSP] First 5 items:', items.slice(0, 5).map((i: any) => i.label).join(', '));
+                
+                // 检查是否包含常见的字符串方法
+                const hasStringMethods = items.some((item: any) => 
+                    item.label && (
+                        item.label.includes('ToLower') ||
+                        item.label.includes('ToUpper') ||
+                        item.label.includes('Split') ||
+                        item.label.includes('Contains') ||
+                        item.label.includes('Replace')
+                    )
+                );
+                
+                if (hasStringMethods) {
+                    console.log(`[Yaklang LSP] Found expected string methods in completion items`);
+                    return true;
+                } else {
+                    console.log(`[Yaklang LSP] No expected string methods found in completion items`);
+                    return false;
+                }
+            } else {
+                console.log('[Yaklang LSP] Items array is empty or not an array');
+            }
+        } else {
+            console.log('[Yaklang LSP] No result field in response');
+        }
+        
+        console.log('[Yaklang LSP] No completion results returned');
+        return false;
     } catch (error) {
+        console.error('[Yaklang LSP] Completion verification error:', error instanceof Error ? error.message : String(error));
+        if (axios.isAxiosError(error)) {
+            console.error('[Yaklang LSP] Response data:', error.response?.data);
+            console.error('[Yaklang LSP] Response status:', error.response?.status);
+        }
         return false;
     }
 }
 
+// 获取 yak 二进制版本
+async function getYakVersion(yakBinary: string): Promise<string> {
+    return new Promise((resolve) => {
+        try {
+            const proc = cp.spawn(yakBinary, ['version'], {
+                stdio: ['ignore', 'pipe', 'pipe']
+            });
+            
+            let output = '';
+            proc.stdout?.on('data', (data) => {
+                output += data.toString();
+            });
+            
+            proc.on('close', () => {
+                resolve(output.trim() || 'unknown');
+            });
+            
+            proc.on('error', () => {
+                resolve('error');
+            });
+            
+            // 超时保护
+            setTimeout(() => {
+                proc.kill();
+                resolve('timeout');
+            }, 3000);
+        } catch (error) {
+            resolve('failed');
+        }
+    });
+}
+
 // 启动 LSP HTTP 服务器
 async function startLSPServer(context: vscode.ExtensionContext, yakBinary: string): Promise<boolean> {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
+        // 打印 yak 版本信息
+        const version = await getYakVersion(yakBinary);
+        console.log('[Yaklang LSP] Yak binary path:', yakBinary);
+        console.log('[Yaklang LSP] Yak version:', version);
+        
         let logFile = context.logUri?.fsPath 
             ? `${context.logUri.fsPath}/yaklang-lsp-http.log`
             : '/tmp/yaklang-lsp-http.log';
@@ -225,18 +364,19 @@ async function startLSPServer(context: vscode.ExtensionContext, yakBinary: strin
                 lspProcess = undefined;
             });
 
-            // 等待服务器启动
-            console.log('[Yaklang LSP] Waiting for server to start (2 seconds)...');
+            // 等待服务器启动并进行健康检查
+            console.log('[Yaklang LSP] Waiting for server to start...');
             setTimeout(async () => {
-                const isRunning = await checkLSPServer();
+                // 尝试 5 次健康检查，总共最多 3 + 0.5*4 = 5 秒
+                const isRunning = await checkLSPServer(5);
                 if (isRunning) {
-                    console.log('[Yaklang LSP] ✅ Server health check passed');
+                    console.log('[Yaklang LSP] Server started successfully');
                 } else {
-                    console.error('[Yaklang LSP] ❌ Server health check failed');
+                    console.error('[Yaklang LSP] Server health check failed after multiple retries');
                     console.error('[Yaklang LSP] Server may not have started properly. Check log:', logFile);
                 }
                 resolve(isRunning);
-            }, 2000);
+            }, 1500);
         } catch (error) {
             console.error('[Yaklang LSP] Failed to spawn process:', error);
             resolve(false);
@@ -244,7 +384,74 @@ async function startLSPServer(context: vscode.ExtensionContext, yakBinary: strin
     });
 }
 
-export async function activateLSP(context: vscode.ExtensionContext): Promise<void> {
+// 停止 LSP 进程（包括使用 kill 命令强制停止）
+async function stopLSPProcess(): Promise<void> {
+    console.log('[Yaklang LSP] Stopping LSP server...');
+    
+    // 如果有我们启动的进程，先尝试正常关闭
+    if (lspProcess) {
+        console.log('[Yaklang LSP] Killing LSP process (PID:', lspProcess.pid, ')');
+        lspProcess.kill('SIGTERM');
+        lspProcess = undefined;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    
+    // 无论如何，尝试通过端口查找并杀死所有占用该端口的进程
+    return new Promise((resolve) => {
+        try {
+            const isWindows = process.platform === 'win32';
+            
+            if (isWindows) {
+                // Windows: 使用 netstat 查找进程
+                const cmd = `netstat -ano | findstr :${LSP_PORT}`;
+                cp.exec(cmd, (error, stdout) => {
+                    if (stdout) {
+                        const lines = stdout.trim().split('\n');
+                        const pids = new Set<string>();
+                        lines.forEach(line => {
+                            const match = line.match(/\s+(\d+)\s*$/);
+                            if (match) {
+                                pids.add(match[1]);
+                            }
+                        });
+                        
+                        pids.forEach(pid => {
+                            console.log('[Yaklang LSP] Killing process on port', LSP_PORT, 'PID:', pid);
+                            cp.exec(`taskkill /F /PID ${pid}`, (err) => {
+                                if (err) {
+                                    console.error('[Yaklang LSP] Failed to kill process:', err.message);
+                                }
+                            });
+                        });
+                    }
+                    setTimeout(resolve, 1000);
+                });
+            } else {
+                // Unix-like: 使用 lsof 查找进程
+                const cmd = `lsof -ti :${LSP_PORT}`;
+                cp.exec(cmd, (error, stdout) => {
+                    if (stdout) {
+                        const pids = stdout.trim().split('\n').filter(p => p);
+                        pids.forEach(pid => {
+                            console.log('[Yaklang LSP] Killing process on port', LSP_PORT, 'PID:', pid);
+                            try {
+                                process.kill(parseInt(pid), 'SIGTERM');
+                            } catch (err) {
+                                console.error('[Yaklang LSP] Failed to kill process:', err);
+                            }
+                        });
+                    }
+                    setTimeout(resolve, 1000);
+                });
+            }
+        } catch (error) {
+            console.error('[Yaklang LSP] Error stopping LSP process:', error);
+            resolve();
+        }
+    });
+}
+
+export async function activateLSP(context: vscode.ExtensionContext, forceRestart: boolean = false): Promise<void> {
     const yakBinary = findYakBinary(context);
     
     if (!yakBinary) {
@@ -257,30 +464,33 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
 
     console.log('[Yaklang LSP] Found yak binary:', yakBinary);
 
+    // 如果强制重启，先停止现有进程
+    if (forceRestart) {
+        console.log('[Yaklang LSP] Force restart requested, stopping existing processes...');
+        vscode.window.showInformationMessage('正在重启 Yaklang LSP 服务器...');
+        await stopLSPProcess();
+        console.log('[Yaklang LSP] Existing processes stopped');
+    }
+
     // 检查服务器是否已经运行
     console.log('[Yaklang LSP] Checking if LSP server is already running...');
     updateLSPStatusBar('starting');
-    let isRunning = await checkLSPServer();
     
-    // 如果没有运行，尝试启动
+    let isRunning = await checkLSPServer(3, false);
+    
     if (!isRunning) {
-        console.log('[Yaklang LSP] Server not running, attempting to start...');
-        vscode.window.showInformationMessage('正在启动 Yaklang LSP HTTP 服务器...');
-        
+        console.log('[Yaklang LSP] Server not running, starting new instance...');
         isRunning = await startLSPServer(context, yakBinary);
-        
         if (!isRunning) {
-            const errorMsg = '启动 Yaklang LSP HTTP 失败：无法启动服务器';
+            const errorMsg = 'Failed to start Yaklang LSP HTTP server';
             console.error('[Yaklang LSP]', errorMsg);
-            console.error('[Yaklang LSP] Please check the log file for details');
-            updateLSPStatusBar('error', '无法启动服务器');
+            updateLSPStatusBar('error', errorMsg);
             vscode.window.showErrorMessage(errorMsg);
             return;
         }
-        
-        console.log('[Yaklang LSP] Server started successfully');
     } else {
-        console.log('[Yaklang LSP] Server is already running');
+        console.log('[Yaklang LSP] Server already running');
+        vscode.window.showInformationMessage('Yaklang LSP 服务器已在运行');
     }
 
     try {
@@ -296,9 +506,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
                     
                     try {
                         const code = document.getText();
-                        console.log(`[Yaklang LSP] Sending HTTP completion request to ${LSP_URL}/lsp`);
-                        
-                        const response = await axios.post(`${LSP_URL}/lsp`, {
+                        const params = {
                             jsonrpc: '2.0',
                             id: Date.now(),
                             method: 'textDocument/completion',
@@ -312,12 +520,11 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
                                     character: position.character
                                 }
                             }
-                        }, {
+                        };
+                        const response = await axios.post(`${LSP_URL}/lsp`, params, {
                             headers: { 'Content-Type': 'application/json' },
                             timeout: 5000
                         });
-
-                        console.log('[Yaklang LSP] ✅ HTTP Response received');
                         
                         const items = response.data.result || [];
                         console.log(`[Yaklang LSP] Got ${items.length} completion items`);
@@ -344,7 +551,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
                             return completionItem;
                         });
                     } catch (error) {
-                        console.error('[Yaklang LSP] ❌ HTTP completion request failed:', error);
+                        console.error('[Yaklang LSP] HTTP completion request failed:', error);
                         return [];
                     }
                 }
@@ -352,7 +559,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
             '.', '(' // 触发字符
         );
 
-        console.log('[Yaklang LSP] ✅ LSP completion provider registered');
+        console.log('[Yaklang LSP] LSP completion provider registered');
         
         // 注册 Hover Provider
         hoverProvider = vscode.languages.registerHoverProvider(
@@ -415,7 +622,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
                 }
             }
         );
-        console.log('[Yaklang LSP] ✅ LSP hover provider registered');
+        console.log('[Yaklang LSP] LSP hover provider registered');
         
         // 注册 Signature Help Provider
         signatureProvider = vscode.languages.registerSignatureHelpProvider(
@@ -489,7 +696,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
             },
             '(', ','
         );
-        console.log('[Yaklang LSP] ✅ LSP signature help provider registered');
+        console.log('[Yaklang LSP] LSP signature help provider registered');
         
         // 注册 Definition Provider
         definitionProvider = vscode.languages.registerDefinitionProvider(
@@ -540,7 +747,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
                 }
             }
         );
-        console.log('[Yaklang LSP] ✅ LSP definition provider registered');
+        console.log('[Yaklang LSP] LSP definition provider registered');
         
         // 注册 References Provider
         referencesProvider = vscode.languages.registerReferenceProvider(
@@ -591,11 +798,11 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
                 }
             }
         );
-        console.log('[Yaklang LSP] ✅ LSP references provider registered');
+        console.log('[Yaklang LSP] LSP references provider registered');
         
         // 创建 Diagnostic Collection
         diagnosticCollection = vscode.languages.createDiagnosticCollection('yaklang');
-        console.log('[Yaklang LSP] ✅ Diagnostic collection created');
+        console.log('[Yaklang LSP] Diagnostic collection created');
         
         // 注册文档变化监听，自动进行语法检查
         const documentChangeListener = vscode.workspace.onDidChangeTextDocument(async (event) => {
@@ -618,7 +825,7 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
             }
         });
         
-        console.log('[Yaklang LSP] ✅ Document change listeners registered');
+        console.log('[Yaklang LSP] Document change listeners registered');
         
         // 标记 LSP 已激活
         lspActive = true;
@@ -656,9 +863,9 @@ export async function activateLSP(context: vscode.ExtensionContext): Promise<voi
         });
 
         vscode.window.showInformationMessage('加载 Yaklang LSP HTTP 成功');
-        console.log('[Yaklang LSP] 🎉 All systems ready!');
+        console.log('[Yaklang LSP] All systems ready!');
     } catch (error) {
-        console.error('[Yaklang LSP] ❌ Failed to start LSP client:', error);
+        console.error('[Yaklang LSP] Failed to start LSP client:', error);
         console.error('[Yaklang LSP] Error details:', {
             name: (error as Error).name,
             message: (error as Error).message,
@@ -721,5 +928,11 @@ export function deactivateLSP(): Thenable<void> | undefined {
     }
     
     return Promise.resolve();
+}
+
+// 导出重启 LSP 服务器的函数
+export async function restartLSP(context: vscode.ExtensionContext): Promise<void> {
+    console.log('[Yaklang LSP] Restarting LSP server...');
+    await activateLSP(context, true);
 }
 

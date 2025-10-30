@@ -36,6 +36,11 @@
                 "command": "yak.fmt.file",
                 "title": "Yak: Format file",
                 "description": "Format Yak file"
+            },
+            {
+                "command": "yaklang.lsp.restart",
+                "title": "Yaklang: 重启 LSP 服务器",
+                "description": "强制重启 Yaklang LSP 服务器"
             }
         ],
         "snippets": [
@@ -98,6 +103,29 @@
                     "group": "yak"
                 }
             ]
+        },
+        "configuration": {
+            "title": "Yaklang",
+            "properties": {
+                "yaklang.yakBinarySource": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "custom"
+                    ],
+                    "enumDescriptions": [
+                        "Automatically use yak from system PATH",
+                        "Use custom yak binary path (select via status bar)"
+                    ],
+                    "default": "auto",
+                    "description": "Choose how to locate yak binary: 'auto' uses system PATH, 'custom' uses manually specified path"
+                },
+                "yaklang.yakBinaryPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Custom path to yak binary (only used when yakBinarySource is 'custom')"
+                }
+            }
         },
         "keybindings": [
             {

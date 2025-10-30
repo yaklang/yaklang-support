@@ -16,6 +16,27 @@ import { activateLSP, deactivateLSP, isLSPActive } from './lspClient';
 let staticCompletionWarningShown = false;
 
 export async function activate(context: vscode.ExtensionContext) {
+    // 监听配置变更，当 yak 二进制配置改变时重启 LSP
+    const configWatcher = vscode.workspace.onDidChangeConfiguration(async (e) => {
+        if (e.affectsConfiguration('yaklang.yakBinarySource') || 
+            e.affectsConfiguration('yaklang.yakBinaryPath')) {
+            console.log('[Yaklang] Configuration changed, restarting LSP...');
+            
+            // 显示通知
+            const yakBinary = findYakBinary(context);
+            if (yakBinary) {
+                vscode.window.showInformationMessage(
+                    `Yak 二进制配置已更新，正在重启 LSP 服务器...\n当前路径: ${yakBinary}`
+                );
+            }
+            
+            // 重启 LSP
+            const { restartLSP } = require('./lspClient');
+            await restartLSP(context);
+        }
+    });
+    context.subscriptions.push(configWatcher);
+
     // 启动 LSP 客户端（HTTP 模式）
     try {
         await activateLSP(context);
@@ -231,7 +252,14 @@ export async function activate(context: vscode.ExtensionContext) {
             }
         });
     });
-    context.subscriptions.push(commandExecFile,commandDebugFile, commandFmtFile, commandYakEnvStatus, commandLSPStatus);
+    
+    // 添加重启 LSP 服务器命令
+    let commandRestartLSP = vscode.commands.registerCommand('yaklang.lsp.restart', async () => {
+        const { restartLSP } = require('./lspClient');
+        await restartLSP(context);
+    });
+    
+    context.subscriptions.push(commandExecFile, commandDebugFile, commandFmtFile, commandYakEnvStatus, commandLSPStatus, commandRestartLSP);
 }
 
 export function deactivate(): Thenable<void> | undefined {

@@ -61,17 +61,44 @@ export function executableFileExists(filePath: string): boolean {
 
 // yak
 const YAK_BINARY_KEY_NAME = "yak_binary_path";
-export function findYakBinary(context: vscode.ExtensionContext, cache?: boolean): string {
 
+/**
+ * Find yak binary based on configuration and cache
+ * Priority: 
+ * 1. If yakBinarySource is 'custom': use yakBinaryPath config or workspace cache
+ * 2. If yakBinarySource is 'auto': always use PATH (ignore cache)
+ * 3. Fallback: search in PATH
+ */
+export function findYakBinary(context: vscode.ExtensionContext, cache?: boolean): string {
+    const config = vscode.workspace.getConfiguration('yaklang');
+    const binarySource = config.get<string>('yakBinarySource', 'auto');
+    const configBinaryPath = config.get<string>('yakBinaryPath', '');
+
+    // Mode: auto - always use system PATH
+    if (binarySource === 'auto') {
+        let binary = (process.platform === "win32") ? "yak.exe" : "yak";
+        binary = findBinaryFromPATH(binary);
+        return binary;
+    }
+
+    // Mode: custom - use configured path or workspace cache
     var state: vscode.Memento | undefined = undefined;
     if (context) {
         state = context.workspaceState;
-        const path = state.get<string>(YAK_BINARY_KEY_NAME);
-        if (path && executableFileExists(path) && !cache) {
-            return path;
+        
+        // First check config path
+        if (configBinaryPath && executableFileExists(configBinaryPath)) {
+            return configBinaryPath;
+        }
+
+        // Then check workspace cache
+        const cachedPath = state.get<string>(YAK_BINARY_KEY_NAME);
+        if (cachedPath && executableFileExists(cachedPath) && !cache) {
+            return cachedPath;
         }
     }
 
+    // Fallback to PATH search
     let binary = (process.platform === "win32") ? "yak.exe" : "yak";
     binary = findBinaryFromPATH(binary);
     if (binary != "" && state) {
@@ -85,5 +112,27 @@ export function resetYakBinaryPath(context: vscode.ExtensionContext) {
 }
 
 export function setYakBinaryPath(context: vscode.ExtensionContext, path: string) {
+    // Update workspace state for backward compatibility
     context.workspaceState.update(YAK_BINARY_KEY_NAME, path);
+    
+    // Also update configuration
+    const config = vscode.workspace.getConfiguration('yaklang');
+    config.update('yakBinaryPath', path, vscode.ConfigurationTarget.Global);
+    config.update('yakBinarySource', 'custom', vscode.ConfigurationTarget.Global);
+}
+
+/**
+ * Get current yak binary source mode
+ */
+export function getYakBinarySource(): string {
+    const config = vscode.workspace.getConfiguration('yaklang');
+    return config.get<string>('yakBinarySource', 'auto');
+}
+
+/**
+ * Set yak binary source mode
+ */
+export function setYakBinarySource(mode: 'auto' | 'custom') {
+    const config = vscode.workspace.getConfiguration('yaklang');
+    config.update('yakBinarySource', mode, vscode.ConfigurationTarget.Global);
 }
