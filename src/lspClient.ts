@@ -37,8 +37,6 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
         // 映射 VSCode 语言 ID 到 Yaklang 脚本类型
         const scriptType = languageId === 'syntaxflow' ? 'syntaxflow' : 'yak';
         
-        console.log(`[Yaklang LSP] Checking diagnostics for ${document.uri.toString()}`);
-        
         const response = await axios.post(`${LSP_URL}/lsp`, {
             jsonrpc: '2.0',
             id: Date.now(),
@@ -96,11 +94,9 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
             });
             
             diagnosticCollection.set(document.uri, diagnostics);
-            console.log(`[Yaklang LSP] Set ${diagnostics.length} diagnostics for ${document.uri.toString()}`);
         } else {
             // 清除诊断
             diagnosticCollection.set(document.uri, []);
-            console.log(`[Yaklang LSP] Cleared diagnostics for ${document.uri.toString()}`);
         }
     } catch (error) {
         console.error('[Yaklang LSP] Diagnostics request failed:', error);
@@ -291,30 +287,99 @@ async function startLSPServer(context: vscode.ExtensionContext, yakBinary: strin
         // 打印 yak 版本信息
         const version = await getYakVersion(yakBinary);
         console.log('[Yaklang LSP] Yak binary path:', yakBinary);
+        
+        // 检查是否为软链接，如果是则打印真实路径
+        try {
+            const realPath = fs.realpathSync(yakBinary);
+            if (realPath !== yakBinary) {
+                console.log('[Yaklang LSP] ⚠️  Binary is a symlink!');
+                console.log('[Yaklang LSP] Symlink:', yakBinary);
+                console.log('[Yaklang LSP] Real path:', realPath);
+            } else {
+                console.log('[Yaklang LSP] Binary is NOT a symlink');
+            }
+        } catch (err) {
+            console.log('[Yaklang LSP] Error checking symlink:', err);
+        }
+        
         console.log('[Yaklang LSP] Yak version:', version);
         
-        let logFile = context.logUri?.fsPath 
-            ? `${context.logUri.fsPath}/yaklang-lsp-http.log`
-            : '/tmp/yaklang-lsp-http.log';
+        // 统一使用 /tmp/lsp-server.log
+        const logFile = '/tmp/lsp-server.log';
 
-        console.log('[Yaklang LSP] Starting server with command:', yakBinary, 'lsp --http --port', LSP_PORT);
+        console.log('[Yaklang LSP] Starting server with command:', yakBinary, 'lsp --http --host', LSP_HOST, '--port', LSP_PORT);
         console.log('[Yaklang LSP] Log file:', logFile);
 
-        // 确保日志目录存在
+        // 准备日志文件并写入 banner
         try {
-            const logDir = path.dirname(logFile);
-            if (!fs.existsSync(logDir)) {
-                console.log('[Yaklang LSP] Creating log directory:', logDir);
-                fs.mkdirSync(logDir, { recursive: true });
+            const timestamp = new Date().toISOString();
+            let realPath = yakBinary;
+            try {
+                realPath = fs.realpathSync(yakBinary);
+            } catch (err) {
+                // ignore
+            }
+            
+            const isSymlink = realPath !== yakBinary;
+            const banner = `
+================================================================================
+                    YAKLANG LSP SERVER START
+================================================================================
+Time: ${timestamp}
+Binary: ${yakBinary}
+${isSymlink ? `Real Path: ${realPath} (symlink detected)` : 'Real Path: (not a symlink)'}
+Version: ${version}
+Host: ${LSP_HOST}
+Port: ${LSP_PORT}
+================================================================================
+
+`;
+            
+            if (fs.existsSync(logFile)) {
+                // 如果文件已存在，追加 banner
+                fs.appendFileSync(logFile, banner);
+                console.log('[Yaklang LSP] Log file exists, appended banner');
+            } else {
+                // 如果文件不存在，创建并写入 banner
+                fs.writeFileSync(logFile, banner);
+                console.log('[Yaklang LSP] Created new log file with banner');
             }
         } catch (error) {
-            console.error('[Yaklang LSP] Failed to create log directory:', error);
-            // 如果创建失败，使用 /tmp
-            logFile = '/tmp/yaklang-lsp-http.log';
-            console.log('[Yaklang LSP] Falling back to:', logFile);
+            console.error('[Yaklang LSP] Failed to prepare log file:', error);
         }
 
         try {
+            // 构建增强的环境变量
+            // 对于 goenv/nvm/pyenv 等版本管理工具的 shims，需要特殊处理
+            const enhancedEnv = { ...process.env };
+            
+            // 检测是否使用了版本管理工具的 shim
+            // shim 是 shell 脚本，需要通过 shell 执行
+            let useShell = false;
+            const isShim = yakBinary.includes('/shims/') || 
+                          yakBinary.includes('.goenv/shims') || 
+                          yakBinary.includes('.nvm/') ||
+                          yakBinary.includes('.pyenv/shims') ||
+                          yakBinary.includes('.rbenv/shims');
+            
+            if (isShim) {
+                useShell = true;
+                console.log('[Yaklang LSP] Detected version manager shim, will use shell mode');
+                
+                // 对于 goenv，确保 GOENV_ROOT 被设置
+                if (yakBinary.includes('.goenv')) {
+                    const homeDir = process.env.HOME || process.env.USERPROFILE;
+                    if (homeDir && !enhancedEnv.GOENV_ROOT) {
+                        enhancedEnv.GOENV_ROOT = path.join(homeDir, '.goenv');
+                        console.log('[Yaklang LSP] Set GOENV_ROOT:', enhancedEnv.GOENV_ROOT);
+                    }
+                }
+            }
+            
+            console.log('[Yaklang LSP] Binary path:', yakBinary);
+            console.log('[Yaklang LSP] Using shell:', useShell);
+            console.log('[Yaklang LSP] Environment PATH:', enhancedEnv.PATH?.substring(0, 200) + '...');
+            
             lspProcess = cp.spawn(yakBinary, [
                 'lsp',
                 '--http',
@@ -324,7 +389,8 @@ async function startLSPServer(context: vscode.ExtensionContext, yakBinary: strin
             ], {
                 detached: false,
                 stdio: ['ignore', 'pipe', 'pipe'],
-                env: process.env
+                env: enhancedEnv,
+                shell: useShell  // 对于 goenv shim，使用 shell 模式
             });
 
             console.log('[Yaklang LSP] Process spawned with PID:', lspProcess.pid);
