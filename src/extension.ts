@@ -10,9 +10,21 @@ import { CompletionSchema, getCompletions } from './completionSchema';
 import { registerStatusBar } from './statusbar';
 import { findYakBinary } from './utils/path';
 import { registerSyntaxflow } from './syntaxflow';
+import { activateLSP, deactivateLSP, isLSPActive } from './lspClient';
 
+// 用于跟踪是否已经显示过静态补全警告
+let staticCompletionWarningShown = false;
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+    // 启动 LSP 客户端（HTTP 模式）
+    try {
+        await activateLSP(context);
+    } catch (error) {
+        console.error('Failed to start LSP client:', error);
+        vscode.window.showWarningMessage('Yaklang LSP 启动失败，使用静态补全作为后备');
+    }
+
+    // 保留静态补全作为后备
     const completions = getCompletions();
     let maxLengthWithPadding: number = 26;
     (completions?.fieldsCompletions||[]).forEach(i => {
@@ -85,6 +97,32 @@ export function activate(context: vscode.ExtensionContext) {
         'yak',
         {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+                const lspIsActive = isLSPActive();
+                
+                // 如果 LSP 已激活，返回空列表让 LSP 处理
+                if (lspIsActive) {
+                    return []; // LSP 补全已激活，使用 LSP
+                }
+                
+                // 检查 LSP 是否已激活，如果未激活则显示警告（仅一次）
+                if (!lspIsActive && !staticCompletionWarningShown) {
+                    staticCompletionWarningShown = true;
+                    console.warn('[Yaklang] ⚠️  LSP 补全未启用，正在使用静态补全（功能受限）');
+                    console.warn('[Yaklang] 静态补全特性：');
+                    console.warn('[Yaklang]   - ✅ 标准库名称补全');
+                    console.warn('[Yaklang]   - ✅ 标准库函数补全');
+                    console.warn('[Yaklang]   - ⚠️  对象方法补全（有限）');
+                    console.warn('[Yaklang]   - ❌ 实时类型推断');
+                    console.warn('[Yaklang] 建议：检查 LSP 服务器是否正常启动');
+                    vscode.window.showWarningMessage('LSP 补全未启用，正在使用静态补全（功能受限）', '查看日志').then(selection => {
+                        if (selection === '查看日志') {
+                            vscode.commands.executeCommand('workbench.action.toggleDevTools');
+                        }
+                    });
+                }
+
+                console.log('[Yaklang Static Completion] Using static completion');
+                
                 // get all text until the `position` and check if it reads `console.`
                 // and if so then complete if `log`, `warn`, and `error`
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
@@ -180,5 +218,22 @@ export function activate(context: vscode.ExtensionContext) {
     let commandDebugFile = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
     let commandFmtFile = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
     let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));
-    context.subscriptions.push(commandExecFile,commandDebugFile, commandFmtFile, commandYakEnvStatus);
+    let commandLSPStatus = vscode.commands.registerCommand('yaklang.lsp.showStatus', () => {
+        const lspActive = isLSPActive();
+        const message = lspActive 
+            ? '✅ Yaklang LSP HTTP 服务器运行正常\n\n服务地址: http://127.0.0.1:9633\n状态: 已启用\n补全模式: LSP 动态补全'
+            : '⚠️  Yaklang LSP 未启用\n\n当前使用: 静态补全（功能受限）\n\n建议:\n1. 检查开发者控制台日志\n2. 确认 yak 命令可用\n3. 检查端口 9633 是否被占用';
+        
+        const action = lspActive ? '查看日志' : '打开日志';
+        vscode.window.showInformationMessage(message, action, '关闭').then(selection => {
+            if (selection === action || selection === '查看日志' || selection === '打开日志') {
+                vscode.commands.executeCommand('workbench.action.toggleDevTools');
+            }
+        });
+    });
+    context.subscriptions.push(commandExecFile,commandDebugFile, commandFmtFile, commandYakEnvStatus, commandLSPStatus);
+}
+
+export function deactivate(): Thenable<void> | undefined {
+    return deactivateLSP();
 }

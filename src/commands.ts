@@ -109,14 +109,14 @@ async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
     let downloadURL = "";
     switch (platform) {
         case 'Windows':
-            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_windows_amd64.exe`
+            downloadURL = `https://oss-qn.yaklang.com/yak/${latestYakVersion || "latest"}/yak_windows_amd64.exe`
             break;
         case 'Linux':
-            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_linux_amd64`
+            downloadURL = `https://oss-qn.yaklang.com/yak/${latestYakVersion || "latest"}/yak_linux_amd64`
             break;
         case 'Darwin':
         case 'Mac':
-            downloadURL = `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${latestYakVersion || "latest"}/yak_darwin_amd64`
+            downloadURL = `https://oss-qn.yaklang.com/yak/${latestYakVersion || "latest"}/yak_darwin_amd64`
             break;
     }
     if (downloadURL === "") {
