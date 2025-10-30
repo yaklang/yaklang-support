@@ -11,11 +11,17 @@ import { registerStatusBar } from './statusbar';
 import { findYakBinary } from './utils/path';
 import { registerSyntaxflow } from './syntaxflow';
 import { activateLSP, deactivateLSP, isLSPActive } from './lspClient';
+import { getAvailableYaklangVersions } from './utils/version';
 
 // 用于跟踪是否已经显示过静态补全警告
 let staticCompletionWarningShown = false;
 
 export async function activate(context: vscode.ExtensionContext) {
+    // 后台获取可用版本列表并缓存（不阻塞启动流程）
+    getAvailableYaklangVersions(context).catch(err => {
+        console.error('[Yaklang] Failed to fetch available versions:', err);
+    });
+
     // 监听配置变更，当 yak 二进制配置改变时重启 LSP
     const configWatcher = vscode.workspace.onDidChangeConfiguration(async (e) => {
         if (e.affectsConfiguration('yaklang.yakBinarySource') || 
@@ -128,12 +134,12 @@ export async function activate(context: vscode.ExtensionContext) {
                 // 检查 LSP 是否已激活，如果未激活则显示警告（仅一次）
                 if (!lspIsActive && !staticCompletionWarningShown) {
                     staticCompletionWarningShown = true;
-                    console.warn('[Yaklang] ⚠️  LSP 补全未启用，正在使用静态补全（功能受限）');
+                    console.warn('[Yaklang] WARNING: LSP 补全未启用，正在使用静态补全（功能受限）');
                     console.warn('[Yaklang] 静态补全特性：');
-                    console.warn('[Yaklang]   - ✅ 标准库名称补全');
-                    console.warn('[Yaklang]   - ✅ 标准库函数补全');
-                    console.warn('[Yaklang]   - ⚠️  对象方法补全（有限）');
-                    console.warn('[Yaklang]   - ❌ 实时类型推断');
+                    console.warn('[Yaklang]   - 支持: 标准库名称补全');
+                    console.warn('[Yaklang]   - 支持: 标准库函数补全');
+                    console.warn('[Yaklang]   - 有限: 对象方法补全（有限）');
+                    console.warn('[Yaklang]   - 不支持: 实时类型推断');
                     console.warn('[Yaklang] 建议：检查 LSP 服务器是否正常启动');
                     vscode.window.showWarningMessage('LSP 补全未启用，正在使用静态补全（功能受限）', '查看日志').then(selection => {
                         if (selection === '查看日志') {
@@ -242,8 +248,8 @@ export async function activate(context: vscode.ExtensionContext) {
     let commandLSPStatus = vscode.commands.registerCommand('yaklang.lsp.showStatus', () => {
         const lspActive = isLSPActive();
         const message = lspActive 
-            ? '✅ Yaklang LSP HTTP 服务器运行正常\n\n服务地址: http://127.0.0.1:9633\n状态: 已启用\n补全模式: LSP 动态补全'
-            : '⚠️  Yaklang LSP 未启用\n\n当前使用: 静态补全（功能受限）\n\n建议:\n1. 检查开发者控制台日志\n2. 确认 yak 命令可用\n3. 检查端口 9633 是否被占用';
+            ? 'Yaklang LSP HTTP 服务器运行正常\n\n服务地址: http://127.0.0.1:9339\n状态: 已启用\n补全模式: LSP 动态补全'
+            : 'Yaklang LSP 未启用\n\n当前使用: 静态补全（功能受限）\n\n建议:\n1. 检查开发者控制台日志\n2. 确认 yak 命令可用\n3. 检查端口 9339 是否被占用';
         
         const action = lspActive ? '查看日志' : '打开日志';
         vscode.window.showInformationMessage(message, action, '关闭').then(selection => {

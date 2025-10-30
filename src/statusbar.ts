@@ -26,12 +26,12 @@ export function registerStatusBar(context: vscode.ExtensionContext): Promise<voi
 export async function updateStatusBar(context: vscode.ExtensionContext, version: string | undefined) {
     const hasVersion = version != "";
     if (!hasVersion) {
-        version = "❌";
+        version = "N/A";
     }
     
     // Get binary source mode
     const binarySource = getYakBinarySource();
-    const sourceIcon = binarySource === 'auto' ? '🔄' : '📌';
+    const sourceIcon = binarySource === 'auto' ? '[Auto]' : '[Custom]';
     const yakBinary = findYakBinary(context);
     
     if (yakEnvStatusbarItem) {

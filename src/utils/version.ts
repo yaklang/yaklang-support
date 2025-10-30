@@ -7,6 +7,7 @@ import { findYakBinary } from './path';
 import { showErrorMessageWithDownloadOption } from '../commands';
 
 const YAK_VERSION_KEY_NAME = 'yak_version';
+const AVAILABLE_VERSIONS_KEY_NAME = 'yak_available_versions';
 const VERSION_REGEXP = /    Version: .*/ig;
 
 
@@ -86,4 +87,74 @@ export const asyncFetchLatestYaklangVersion = (): Promise<string> => {
         })
         rsp.on("error", reject)
     })
+}
+
+export interface YaklangVersionInfo {
+    version: string;
+    displayName: string;
+    isLatest?: boolean;
+}
+
+export const asyncFetchAvailableYaklangVersions = (): Promise<YaklangVersionInfo[]> => {
+    return new Promise((resolve, reject) => {
+        const url = "https://oss-qn.yaklang.com/yak/version-info/active_versions.txt";
+        let rsp = https.get(url)
+        rsp.on("response", (rsp) => {
+            let data = '';
+            rsp.on("data", (chunk) => {
+                data += chunk.toString('utf8');
+            }).on("end", () => {
+                try {
+                    // 解析版本列表，每行一个版本号
+                    const versions = data.trim().split('\n')
+                        .map(v => v.trim())
+                        .filter(v => v.length > 0)
+                        .map((v, index) => ({
+                            version: v.startsWith('v') ? v.substring(1) : v,
+                            displayName: v.startsWith('v') ? v : `v${v}`,
+                            isLatest: index === 0
+                        }));
+                    resolve(versions);
+                } catch (err) {
+                    reject(err);
+                }
+            }).on("error", (err) => {
+                reject(err)
+            })
+        })
+        rsp.on("error", reject)
+    })
+}
+
+// 从缓存获取可用版本列表，如果缓存不存在则返回 undefined
+export function getCachedAvailableVersions(context: vscode.ExtensionContext): YaklangVersionInfo[] | undefined {
+    return context.globalState.get(AVAILABLE_VERSIONS_KEY_NAME);
+}
+
+// 缓存可用版本列表
+export function cacheAvailableVersions(context: vscode.ExtensionContext, versions: YaklangVersionInfo[]) {
+    context.globalState.update(AVAILABLE_VERSIONS_KEY_NAME, versions);
+}
+
+// 获取可用版本列表，优先从缓存读取，缓存不存在时从网络获取并缓存
+export async function getAvailableYaklangVersions(context: vscode.ExtensionContext, forceRefresh: boolean = false): Promise<YaklangVersionInfo[]> {
+    if (!forceRefresh) {
+        const cached = getCachedAvailableVersions(context);
+        if (cached && cached.length > 0) {
+            return cached;
+        }
+    }
+    
+    try {
+        const versions = await asyncFetchAvailableYaklangVersions();
+        cacheAvailableVersions(context, versions);
+        return versions;
+    } catch (err) {
+        // 如果获取失败，尝试返回缓存的版本
+        const cached = getCachedAvailableVersions(context);
+        if (cached && cached.length > 0) {
+            return cached;
+        }
+        throw err;
+    }
 }

@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import { getCurrentWorkspaceFolder } from './utils/workspace';
 import { getDefaultConfig } from './utils/dap';
-import { asyncFetchLatestYaklangVersion, getYakVersion, isValidYakBinary, resetYakVersion, updateYakVersionByBinary } from './utils/version';
+import { asyncFetchLatestYaklangVersion, getYakVersion, isValidYakBinary, resetYakVersion, updateYakVersionByBinary, getAvailableYaklangVersions, YaklangVersionInfo } from './utils/version';
 import { updateStatusBar, yakEnvStatusbarItem } from './statusbar';
 import { executableFileExists, findYakBinary, fixDriveCasingInWindows, getCurrentFilePath, resetYakBinaryPath, setYakBinaryPath, getYakBinarySource } from './utils/path';
 import { basename } from 'path';
@@ -15,6 +15,7 @@ import { URL } from 'url';
 
 const CHOOSE_FROM_FILE_BROWSER_SELECTION = 'Choose yak binary from file browser';
 const DOWNLOAD_LATEST_YAK_BINARY_SELECTION = 'Download latest yak binary';
+const DOWNLOAD_SPECIFIC_VERSION_SELECTION = 'Download specific version';
 const CLEAR_YAK_BINARY_SELECTION = 'Clear yak binary selection';
 const USE_SYSTEM_PATH_YAK_SELECTION = 'Use yak from system PATH (auto mode)';
 
@@ -166,6 +167,121 @@ async function downloadLatestYakBinary(context: vscode.ExtensionContext) {
     }
 }
 
+async function downloadSpecificVersionYakBinary(context: vscode.ExtensionContext, forceRefresh: boolean = false): Promise<void> {
+    const { platform } = getSystemInfo();
+    
+    // 获取可用版本列表（优先从缓存读取，除非强制刷新）
+    let versions: YaklangVersionInfo[] = [];
+    try {
+        if (forceRefresh) {
+            await vscode.window.withProgress(
+                {
+                    title: 'Refreshing version list...',
+                    location: vscode.ProgressLocation.Notification
+                },
+                async () => {
+                    versions = await getAvailableYaklangVersions(context, true);
+                }
+            );
+            vscode.window.showInformationMessage('Version list refreshed successfully');
+        } else {
+            versions = await getAvailableYaklangVersions(context);
+        }
+    } catch (err) {
+        vscode.window.showErrorMessage(`Failed to fetch available versions: ${err}`);
+        return;
+    }
+
+    if (versions.length === 0) {
+        vscode.window.showErrorMessage('No available versions found');
+        return;
+    }
+
+    // 让用户选择版本，添加刷新选项
+    const versionItems = [
+        {
+            label: '$(sync) Refresh Version List',
+            description: 'Fetch latest versions from server',
+            detail: 'refresh',
+            alwaysShow: true
+        },
+        ...versions.map(v => ({
+            label: v.displayName,
+            description: v.isLatest ? '(Latest)' : '',
+            detail: v.version
+        }))
+    ];
+
+    const selectedVersion = await vscode.window.showQuickPick(versionItems, {
+        title: 'Select a Yaklang version to download',
+        placeHolder: 'Choose version or refresh list...'
+    });
+
+    if (!selectedVersion) {
+        return;
+    }
+
+    // 如果选择了刷新，重新调用此函数并强制刷新
+    if (selectedVersion.detail === 'refresh') {
+        return downloadSpecificVersionYakBinary(context, true);
+    }
+
+    const version = selectedVersion.detail || selectedVersion.label;
+    const versionWithoutV = version.startsWith('v') ? version.substring(1) : version;
+
+    // 构建下载 URL
+    let downloadURL = "";
+    switch (platform) {
+        case 'Windows':
+            downloadURL = `https://oss-qn.yaklang.com/yak/${versionWithoutV}/yak_windows_amd64.exe`
+            break;
+        case 'Linux':
+            downloadURL = `https://oss-qn.yaklang.com/yak/${versionWithoutV}/yak_linux_amd64`
+            break;
+        case 'Darwin':
+        case 'Mac':
+            downloadURL = `https://oss-qn.yaklang.com/yak/${versionWithoutV}/yak_darwin_amd64`
+            break;
+    }
+
+    if (downloadURL === "") {
+        vscode.window.showErrorMessage(`Unsupported platform for ${platform}`);
+        return;
+    }
+
+    const binaryName = basename(downloadURL);
+    const options = [
+        { label: "Yes" },
+        { label: "No" },
+    ];
+    const selection = await vscode.window.showQuickPick(options, {
+        title: `Download ${binaryName}(${versionWithoutV})?`,
+    });
+    if (!selection) {
+        return
+    }
+
+    switch (selection.label) {
+        case "Yes":
+            const defaultUri = vscode.Uri.file(basename(getCurrentFilePath() || "/"));
+            const newGoUris = await vscode.window.showOpenDialog({
+                canSelectFiles: false,
+                canSelectFolders: true,
+                canSelectMany: false,
+                title: "Select a folder to save yak binary",
+                defaultUri
+            });
+            if (!newGoUris || newGoUris.length !== 1) {
+                return;
+            }
+            const folderPath = fixDriveCasingInWindows(newGoUris[0].fsPath);
+            await downloadLatestYakBinaryFromURL(context, binaryName, versionWithoutV, folderPath, downloadURL);
+            break;
+        case "No":
+            break;
+    }
+}
+
 async function downloadLatestYakBinaryFromURL(context: vscode.ExtensionContext, binary: string, latestVersion: string, folderPath: string, downloadURL: string) {
     binary = binary.includes(".exe") ? "yak.exe" : "yak";
     const binaryName = `${binary}(${latestVersion})`;
@@ -254,7 +370,7 @@ async function useSystemPathYak(context: vscode.ExtensionContext) {
         // Clear custom path
         await config.update('yakBinaryPath', '', vscode.ConfigurationTarget.Global);
         
-        vscode.window.showInformationMessage('✅ 已切换到自动模式：使用系统 PATH 中的 yak');
+        vscode.window.showInformationMessage('已切换到自动模式：使用系统 PATH 中的 yak');
         
         // Update status bar and restart LSP
         const { restartLSP } = require('./lspClient');
@@ -278,6 +394,7 @@ export const expandYakStatusBar = (context: vscode.ExtensionContext) => async ()
         { label: USE_SYSTEM_PATH_YAK_SELECTION },
         { label: CHOOSE_FROM_FILE_BROWSER_SELECTION },
         { label: DOWNLOAD_LATEST_YAK_BINARY_SELECTION },
+        { label: DOWNLOAD_SPECIFIC_VERSION_SELECTION },
         { label: CLEAR_YAK_BINARY_SELECTION },
     ];
     const selection = await vscode.window.showQuickPick(options);
@@ -298,6 +415,9 @@ export const expandYakStatusBar = (context: vscode.ExtensionContext) => async ()
             break;
         case DOWNLOAD_LATEST_YAK_BINARY_SELECTION:
             await downloadLatestYakBinary(context);
+            break;
+        case DOWNLOAD_SPECIFIC_VERSION_SELECTION:
+            await downloadSpecificVersionYakBinary(context);
             break;
         case CLEAR_YAK_BINARY_SELECTION:
             resetYakBinaryPath(context);

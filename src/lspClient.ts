@@ -292,7 +292,7 @@ async function startLSPServer(context: vscode.ExtensionContext, yakBinary: strin
         try {
             const realPath = fs.realpathSync(yakBinary);
             if (realPath !== yakBinary) {
-                console.log('[Yaklang LSP] ⚠️  Binary is a symlink!');
+                console.log('[Yaklang LSP] WARNING: Binary is a symlink!');
                 console.log('[Yaklang LSP] Symlink:', yakBinary);
                 console.log('[Yaklang LSP] Real path:', realPath);
             } else {
@@ -612,7 +612,13 @@ export async function activateLSP(context: vscode.ExtensionContext, forceRestart
                                 );
                             }
                             if (item.insertText) {
-                                completionItem.insertText = item.insertText;
+                                // Check if insertText contains snippet placeholders like ${1:...}
+                                if (/\$\{\d+(?::[^}]*)?\}/.test(item.insertText)) {
+                                    // Use SnippetString for snippet format
+                                    completionItem.insertText = new vscode.SnippetString(item.insertText);
+                                } else {
+                                    completionItem.insertText = item.insertText;
+                                }
                             }
                             return completionItem;
                         });
