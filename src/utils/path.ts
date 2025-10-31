@@ -388,11 +388,20 @@ function getYakDownloadURL(version: string): string {
         throw new Error(`Unsupported architecture: ${arch}`);
     }
     
-    // 构建下载 URL - 需要根据实际情况调整
+    // 移除版本号前缀的 'v'（如果存在）
+    const versionWithoutV = version.startsWith('v') ? version.substring(1) : version;
+    
+    // 构建下载 URL - 使用正确的 CDN 地址
     // 示例格式：https://yaklang.oss-cn-beijing.aliyuncs.com/yak/${version}/yak_${osName}_${archName}
     const baseURL = 'https://yaklang.oss-cn-beijing.aliyuncs.com/yak';
-    const fileName = `yak_${osName}_${archName}`;
-    const url = `${baseURL}/${version}/${fileName}`;
+    let fileName = `yak_${osName}_${archName}`;
+    
+    // Windows 平台需要添加 .exe 后缀
+    if (platform === 'win32') {
+        fileName += '.exe';
+    }
+    
+    const url = `${baseURL}/${versionWithoutV}/${fileName}`;
     
     console.log(`[getYakDownloadURL] Generated download URL: ${url}`);
     return url;
