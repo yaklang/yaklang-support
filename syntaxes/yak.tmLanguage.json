@@ -6,6 +6,110 @@
 			"include": "#comments"
 		},
 		{
+			"comment": "Heredoc string literals (<<<IDENTIFIER ... IDENTIFIER)",
+			"name": "string.unquoted.heredoc.yak",
+			"begin": "(<<<)\\s*('?)([a-zA-Z_][a-zA-Z0-9_]*)('?)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.operator.heredoc.yak"
+				},
+				"2": {
+					"name": "punctuation.definition.string.begin.yak"
+				},
+				"3": {
+					"name": "entity.name.tag.heredoc.yak"
+				},
+				"4": {
+					"name": "punctuation.definition.string.end.yak"
+				}
+			},
+			"end": "^\\s*(\\3)\\b",
+			"endCaptures": {
+				"1": {
+					"name": "entity.name.tag.heredoc.yak"
+				}
+			},
+			"contentName": "string.unquoted.heredoc.content.yak"
+		},
+		{
+			"comment": "F-string double-quoted with interpolation",
+			"begin": "f\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yak"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yak"
+				}
+			},
+			"name": "string.interpolated.double.yak",
+			"patterns": [
+				{
+					"include": "#fstring_interpolation"
+				},
+				{
+					"include": "#string_escaped_char"
+				},
+				{
+					"include": "#string_placeholder"
+				}
+			]
+		},
+		{
+			"comment": "F-string single-quoted with interpolation",
+			"begin": "f'",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yak"
+				}
+			},
+			"end": "'",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yak"
+				}
+			},
+			"name": "string.interpolated.single.yak",
+			"patterns": [
+				{
+					"include": "#fstring_interpolation"
+				},
+				{
+					"include": "#string_escaped_char"
+				},
+				{
+					"include": "#string_placeholder"
+				}
+			]
+		},
+		{
+			"comment": "F-string backtick with interpolation",
+			"begin": "f`",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yak"
+				}
+			},
+			"end": "`",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yak"
+				}
+			},
+			"name": "string.interpolated.raw.yak",
+			"patterns": [
+				{
+					"include": "#fstring_interpolation"
+				},
+				{
+					"include": "#string_placeholder"
+				}
+			]
+		},
+		{
 			"comment": "Interpreted string literals",
 			"begin": "\"",
 			"beginCaptures": {
@@ -29,15 +133,15 @@
 				}
 			]
 		},
-        {
-			"comment": "Interpreted string literals",
-			"begin": "'(?=[^']{2,})",
+		{
+			"comment": "Single-quoted string/character literals",
+			"begin": "'",
 			"beginCaptures": {
 				"0": {
 					"name": "punctuation.definition.string.begin.yak"
 				}
 			},
-			"end": "(?<=[^']{2,})'",
+			"end": "'|(?=$)",
 			"endCaptures": {
 				"0": {
 					"name": "punctuation.definition.string.end.yak"
@@ -316,9 +420,6 @@
 			"include": "#operators"
 		},
 		{
-			"include": "#runes"
-		},
-		{
 			"include": "#storage_types"
 		}
 	],
@@ -390,6 +491,16 @@
 					},
 					"end": "$",
 					"name": "comment.line.double-slash.yak"
+				},
+				{
+					"begin": "#",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.yak"
+						}
+					},
+					"end": "$",
+					"name": "comment.line.number-sign.yak"
 				}
 			]
 		},
@@ -459,7 +570,7 @@
 			"patterns": [
 				{
 					"comment": "Flow control keywords",
-					"match": "\\b(break|case|continue|default|defer|else|fallthrough|for|in|go|goto|if|range|return|select|switch|try|catch|finally)\\b",
+					"match": "\\b(break|case|continue|default|defer|else|elif|fallthrough|for|in|go|goto|if|range|return|select|switch|try|catch|finally|assert)\\b",
 					"name": "keyword.control.yak"
 				},
 				{
@@ -483,6 +594,10 @@
 					"name": "keyword.function.yak"
 				},
 				{
+					"match": "\\bfunction\\b",
+					"name": "keyword.function.yak"
+				},
+				{
 					"match": "\\binterface\\b",
 					"name": "keyword.interface.yak"
 				},
@@ -493,6 +608,18 @@
 				{
 					"match": "\\bstruct\\b",
 					"name": "keyword.struct.yak"
+				},
+				{
+					"match": "\\bnew\\b",
+					"name": "keyword.new.yak"
+				},
+				{
+					"match": "\\bclass\\b",
+					"name": "keyword.class.yak"
+				},
+				{
+					"match": "\\bnot\\b",
+					"name": "keyword.operator.logical.yak"
 				}
 			]
 		},
@@ -541,30 +668,25 @@
 				}
 			]
 		},
-		"runes": {
+		"fstring_interpolation": {
 			"patterns": [
 				{
-					"begin": "'",
+					"begin": "\\$\\{",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.string.begin.yak"
+							"name": "punctuation.section.interpolation.begin.yak"
 						}
 					},
-					"end": "'",
+					"end": "\\}",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.string.end.yak"
+							"name": "punctuation.section.interpolation.end.yak"
 						}
 					},
-					"name": "string.quoted.rune.yak",
+					"name": "meta.interpolation.yak",
 					"patterns": [
 						{
-							"match": "\\G(\\\\([0-7]{3}|[abfnrtv\\\\'\"]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})|.)(?=')",
-							"name": "constant.other.rune.yak"
-						},
-						{
-							"match": "[^']+",
-							"name": "invalid.illegal.unknown-rune.yak"
+							"include": "$self"
 						}
 					]
 				}

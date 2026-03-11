@@ -11,3 +11,8 @@ func main() {
 func testFunction() {
     println("Test function")
 }
+
+
+<<<TEXT
+adf/*
+TEXT
