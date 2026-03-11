@@ -11,6 +11,7 @@ import { t } from './i18n';
 let lspProcess: cp.ChildProcess | undefined;
 let lspActive: boolean = false;
 let lspStatusBar: vscode.StatusBarItem | undefined;
+let extensionContext: vscode.ExtensionContext | undefined;
 let completionProvider: vscode.Disposable | undefined;
 let hoverProvider: vscode.Disposable | undefined;
 let signatureProvider: vscode.Disposable | undefined;
@@ -174,7 +175,6 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
 function updateLSPStatusBar(status: 'starting' | 'active' | 'inactive' | 'error', message?: string) {
     if (!lspStatusBar) {
         lspStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
-        lspStatusBar.command = 'yaklang.lsp.showStatus';
     }
 
     switch (status) {
@@ -182,21 +182,25 @@ function updateLSPStatusBar(status: 'starting' | 'active' | 'inactive' | 'error'
             lspStatusBar.text = `$(sync~spin) ${t('lsp.statusbar.starting')}`;
             lspStatusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
             lspStatusBar.tooltip = t('lsp.statusbar.startingTooltip');
+            lspStatusBar.command = 'yaklang.lsp.showStatus';
             break;
         case 'active':
             lspStatusBar.text = `$(check) ${t('lsp.statusbar.active')}`;
             lspStatusBar.backgroundColor = undefined;
             lspStatusBar.tooltip = t('lsp.statusbar.activeTooltip');
+            lspStatusBar.command = 'yaklang.lsp.showStatus';
             break;
         case 'inactive':
-            lspStatusBar.text = `$(warning) ${t('lsp.statusbar.inactive')}`;
+            lspStatusBar.text = `$(debug-restart) ${t('lsp.statusbar.inactive')}`;
             lspStatusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
             lspStatusBar.tooltip = message || t('lsp.statusbar.inactiveTooltip');
+            lspStatusBar.command = 'yaklang.lsp.restart';
             break;
         case 'error':
-            lspStatusBar.text = `$(error) ${t('lsp.statusbar.error')}`;
+            lspStatusBar.text = `$(debug-restart) ${t('lsp.statusbar.error')}`;
             lspStatusBar.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
             lspStatusBar.tooltip = message || t('lsp.statusbar.errorTooltip');
+            lspStatusBar.command = 'yaklang.lsp.restart';
             break;
     }
 
@@ -489,11 +493,30 @@ Port: ${LSP_PORT}
 
             lspProcess.on('exit', (code, signal) => {
                 console.log(`[Yaklang LSP] Server process exited with code ${code}, signal ${signal}`);
-                if (code !== 0 && code !== null) {
-                    console.error(`[Yaklang LSP] Abnormal exit detected. Check log file: ${logFile}`);
-                    vscode.window.showErrorMessage(t('lsp.abnormalExit', code));
-                }
                 lspProcess = undefined;
+                
+                if (lspActive && code !== 0 && code !== null) {
+                    console.error(`[Yaklang LSP] Abnormal exit detected. Check log file: ${logFile}`);
+                    lspActive = false;
+                    updateLSPStatusBar('inactive', t('lsp.crashed', code));
+                    
+                    vscode.window.showWarningMessage(
+                        t('lsp.crashedPrompt'),
+                        t('lsp.status.restart'),
+                        t('lsp.status.viewLog')
+                    ).then(async (selection) => {
+                        if (selection === t('lsp.status.restart')) {
+                            if (extensionContext) {
+                                await restartLSP(extensionContext);
+                            }
+                        } else if (selection === t('lsp.status.viewLog')) {
+                            if (fs.existsSync(logFile)) {
+                                const doc = await vscode.workspace.openTextDocument(logFile);
+                                await vscode.window.showTextDocument(doc);
+                            }
+                        }
+                    });
+                }
             });
 
             // 等待服务器启动并进行健康检查
@@ -584,6 +607,7 @@ async function stopLSPProcess(): Promise<void> {
 }
 
 export async function activateLSP(context: vscode.ExtensionContext, forceRestart: boolean = false): Promise<void> {
+    extensionContext = context;
     const yakBinary = findYakBinary(context);
     
     if (!yakBinary) {
@@ -646,7 +670,6 @@ export async function activateLSP(context: vscode.ExtensionContext, forceRestart
         }
     } else {
         console.log('[Yaklang LSP] Server already running');
-        vscode.window.showInformationMessage(t('lsp.alreadyRunning'));
     }
 
     try {
@@ -1024,7 +1047,6 @@ export async function activateLSP(context: vscode.ExtensionContext, forceRestart
             }
         });
 
-        vscode.window.showInformationMessage(t('lsp.loadSuccess'));
         console.log('[Yaklang LSP] All systems ready!');
     } catch (error) {
         console.error('[Yaklang LSP] Failed to start LSP client:', error);

@@ -263,16 +263,37 @@ export async function activate(context: vscode.ExtensionContext) {
     let commandDebugFile = vscode.commands.registerCommand('yak.debug.file', commands.debugFile);
     let commandFmtFile = vscode.commands.registerCommand('yak.fmt.file', commands.formatFile);
     let commandYakEnvStatus =  vscode.commands.registerCommand('yak.environment.status', commands.expandYakStatusBar(context));
-    let commandLSPStatus = vscode.commands.registerCommand('yaklang.lsp.showStatus', () => {
-        const lspActive = isLSPActive();
-        const message = lspActive ? t('lsp.status.running') : t('lsp.status.notRunning');
+    let commandLSPStatus = vscode.commands.registerCommand('yaklang.lsp.showStatus', async () => {
+        const lspRunning = isLSPActive();
+        const message = lspRunning ? t('lsp.status.running') : t('lsp.status.notRunning');
         
-        const action = lspActive ? t('common.viewLog') : t('common.openLog');
-        vscode.window.showInformationMessage(message, action, t('common.close')).then(selection => {
-            if (selection === action || selection === t('common.viewLog') || selection === t('common.openLog')) {
+        if (lspRunning) {
+            const selection = await vscode.window.showInformationMessage(
+                message,
+                t('lsp.status.restart'),
+                t('lsp.status.viewLog'),
+                t('common.close')
+            );
+            if (selection === t('lsp.status.restart')) {
+                const { restartLSP } = require('./lspClient');
+                await restartLSP(context);
+            } else if (selection === t('lsp.status.viewLog')) {
                 vscode.commands.executeCommand('workbench.action.toggleDevTools');
             }
-        });
+        } else {
+            const selection = await vscode.window.showWarningMessage(
+                message,
+                t('lsp.status.restart'),
+                t('lsp.status.viewLog'),
+                t('common.close')
+            );
+            if (selection === t('lsp.status.restart')) {
+                const { restartLSP } = require('./lspClient');
+                await restartLSP(context);
+            } else if (selection === t('lsp.status.viewLog')) {
+                vscode.commands.executeCommand('workbench.action.toggleDevTools');
+            }
+        }
     });
     
     // 添加重启 LSP 服务器命令

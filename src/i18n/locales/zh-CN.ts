@@ -31,14 +31,14 @@ export const zhCN = {
     'statusbar.clickToFix': '点击查看如何修复',
     
     // LSP Status Bar
-    'lsp.statusbar.starting': 'YAK LSP: 启动中...',
+    'lsp.statusbar.starting': 'YAK LSP: START',
     'lsp.statusbar.startingTooltip': '正在启动 YAK LSP HTTP 服务器...',
-    'lsp.statusbar.active': 'YAK LSP: 已启用',
-    'lsp.statusbar.activeTooltip': 'YAK LSP HTTP 服务器运行正常\n点击查看详情',
-    'lsp.statusbar.inactive': 'YAK LSP: 未启用',
-    'lsp.statusbar.inactiveTooltip': 'LSP 未启用，使用静态补全\n点击查看详情',
-    'lsp.statusbar.error': 'YAK LSP: 错误',
-    'lsp.statusbar.errorTooltip': 'LSP 启动失败\n点击查看详情',
+    'lsp.statusbar.active': 'YAK LSP: DONE',
+    'lsp.statusbar.activeTooltip': 'YAK LSP 运行正常 (http://127.0.0.1:9339)\n点击查看状态或重启',
+    'lsp.statusbar.inactive': 'YAK LSP: STOP',
+    'lsp.statusbar.inactiveTooltip': 'LSP 已停止，点击重启',
+    'lsp.statusbar.error': 'YAK LSP: FAIL',
+    'lsp.statusbar.errorTooltip': 'LSP 启动失败，点击重启',
     
     // LSP Messages
     'lsp.starting': '正在启动 YAK LSP HTTP 失败：{0}',
@@ -48,12 +48,16 @@ export const zhCN = {
     'lsp.restarting': '正在重启 YAK LSP 服务器...',
     'lsp.startupFailed': 'YAK LSP 启动失败',
     'lsp.alreadyRunning': 'YAK LSP 服务器已在运行',
-    'lsp.loadSuccess': '加载 YAK LSP HTTP 成功',
+    'lsp.loadSuccess': 'YAK LSP 已就绪',
+    'lsp.crashed': 'YAK LSP 意外退出 (code: {0})',
+    'lsp.crashedPrompt': 'YAK LSP 服务器意外退出，是否重启？',
     'lsp.startupWarning': 'YAK LSP 启动失败，使用静态补全作为后备',
     
     // LSP Status Dialog
-    'lsp.status.running': 'YAK LSP HTTP 服务器运行正常\n\n服务地址: http://127.0.0.1:9339\n状态: 已启用\n补全模式: LSP 动态补全',
-    'lsp.status.notRunning': 'YAK LSP 未启用\n\n当前使用: 静态补全（功能受限）\n\n建议:\n1. 检查开发者控制台日志\n2. 确认 yak 命令可用\n3. 检查端口 9339 是否被占用',
+    'lsp.status.running': 'YAK LSP: DONE\n服务地址: http://127.0.0.1:9339',
+    'lsp.status.notRunning': 'YAK LSP: STOP\n\n当前使用静态补全（功能受限）',
+    'lsp.status.restart': '重启 LSP',
+    'lsp.status.viewLog': '查看日志',
     
     // LSP Diagnostics
     'lsp.diagnostic.portInUse': '❌ 端口 {0} 已被占用',

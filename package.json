@@ -3,7 +3,7 @@
     "displayName": "Yaklang",
     "publisher": "v1ll4n",
     "description": "Official Yaklang language support for VS Code - Syntax highlighting, IntelliSense, debugging, and more",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "license": "MIT",
     "engines": {
         "vscode": "^1.56.0"

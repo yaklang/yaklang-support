@@ -31,14 +31,14 @@ export const enUS = {
     'statusbar.clickToFix': 'Click to see how to fix',
     
     // LSP Status Bar
-    'lsp.statusbar.starting': 'YAK LSP: Starting...',
+    'lsp.statusbar.starting': 'YAK LSP: START',
     'lsp.statusbar.startingTooltip': 'Starting YAK LSP HTTP server...',
-    'lsp.statusbar.active': 'YAK LSP: Active',
-    'lsp.statusbar.activeTooltip': 'YAK LSP HTTP server is running\nClick for details',
-    'lsp.statusbar.inactive': 'YAK LSP: Inactive',
-    'lsp.statusbar.inactiveTooltip': 'LSP inactive, using static completion\nClick for details',
-    'lsp.statusbar.error': 'YAK LSP: Error',
-    'lsp.statusbar.errorTooltip': 'LSP startup failed\nClick for details',
+    'lsp.statusbar.active': 'YAK LSP: DONE',
+    'lsp.statusbar.activeTooltip': 'YAK LSP running (http://127.0.0.1:9339)\nClick to view status or restart',
+    'lsp.statusbar.inactive': 'YAK LSP: STOP',
+    'lsp.statusbar.inactiveTooltip': 'LSP stopped, click to restart',
+    'lsp.statusbar.error': 'YAK LSP: FAIL',
+    'lsp.statusbar.errorTooltip': 'LSP startup failed, click to restart',
     
     // LSP Messages
     'lsp.starting': 'Starting YAK LSP HTTP failed: {0}',
@@ -48,12 +48,16 @@ export const enUS = {
     'lsp.restarting': 'Restarting YAK LSP server...',
     'lsp.startupFailed': 'YAK LSP startup failed',
     'lsp.alreadyRunning': 'YAK LSP server is already running',
-    'lsp.loadSuccess': 'YAK LSP HTTP loaded successfully',
+    'lsp.loadSuccess': 'YAK LSP ready',
+    'lsp.crashed': 'YAK LSP exited unexpectedly (code: {0})',
+    'lsp.crashedPrompt': 'YAK LSP server exited unexpectedly, restart?',
     'lsp.startupWarning': 'YAK LSP startup failed, using static completion as fallback',
     
     // LSP Status Dialog
-    'lsp.status.running': 'YAK LSP HTTP server is running\n\nService URL: http://127.0.0.1:9339\nStatus: Active\nCompletion Mode: LSP Dynamic Completion',
-    'lsp.status.notRunning': 'YAK LSP Inactive\n\nCurrent: Static Completion (Limited)\n\nSuggestions:\n1. Check developer console logs\n2. Verify yak command is available\n3. Check if port 9339 is occupied',
+    'lsp.status.running': 'YAK LSP: DONE\nService URL: http://127.0.0.1:9339',
+    'lsp.status.notRunning': 'YAK LSP: STOP\n\nUsing static completion (limited features)',
+    'lsp.status.restart': 'Restart LSP',
+    'lsp.status.viewLog': 'View Log',
     
     // LSP Diagnostics
     'lsp.diagnostic.portInUse': '❌ Port {0} is in use',

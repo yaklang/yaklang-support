@@ -4,6 +4,23 @@
 
 ---
 
+## [1.4.2] - 2026-03-11
+
+### Syntax Highlighting
+- **Heredoc support**: Added `<<<IDENTIFIER ... IDENTIFIER` heredoc syntax highlighting, fixing broken coloring for files using heredoc strings
+- **Single-quote fix**: Replaced broken lookahead/lookbehind single-quote pattern with a robust begin/end pattern
+- **F-string support**: Added `f"..."`, `f'...'`, `` f`...` `` template string highlighting with `${expression}` interpolation
+- **Hash comments**: Added `#` line comment highlighting (matching Yaklang lexer behavior)
+- **Missing keywords**: Added `elif`, `assert`, `not`, `function`, `new`, `class` keyword highlighting
+
+### LSP UX Improvements
+- **Simplified status bar**: Changed LSP status bar to concise states: `START` / `DONE` / `STOP` / `FAIL`
+- **Crash auto-recovery**: LSP process crash now shows a notification with "Restart" button
+- **Click-to-restart**: Status bar in STOP/FAIL state directly triggers LSP restart on click
+- **Cleaner notifications**: Removed redundant LSP startup success popup; status bar is sufficient
+
+---
+
 ## [1.4.1] - 2025-10-30
 
 ### IMPORTANT: Version Requirements
